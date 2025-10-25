@@ -1,0 +1,1 @@
+This Scheme Functional Programming content covers lists, explaining quoting for data and core operations: `null?`, `car`, `cdr`, `cons`. It details recursive list ops like `length`, `append`, `member?`, `map` (function application), `reduce` (cumulative reduction), and introduces association lists for key-value binding/lookup.

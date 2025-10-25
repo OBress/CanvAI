@@ -1,0 +1,1 @@
+This content outlines Chapter 13, Part 2, focusing on JavaFX GUI from "Java How to Program, 11/e." Questions can be directed to paul.deitel@deitel.com. All material is copyrighted by Pearson Education, Inc. from 1992-2018.

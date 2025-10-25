@@ -1,0 +1,1 @@
+QuickSort uses O(N) partitioning for O(N log N) average, O(N^2) worst-case sorting. For selection, Randomized Selection is O(N) average, O(N^2) worst. The Median of Medians algorithm achieves deterministic O(N) worst-case selection by strategically picking pivots.

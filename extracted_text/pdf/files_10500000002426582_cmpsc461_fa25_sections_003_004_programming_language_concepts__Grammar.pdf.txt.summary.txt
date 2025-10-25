@@ -1,0 +1,1 @@
+Syntax analysis interprets tokens to recover program structure. Regular languages are insufficient for this, necessitating Context-Free Grammars (CFGs) using BNF/EBNF. CFGs define languages through derivations; all regular languages are context-free. Designing CFGs involves recursive thinking to generate all correct strings and no incorrect ones.

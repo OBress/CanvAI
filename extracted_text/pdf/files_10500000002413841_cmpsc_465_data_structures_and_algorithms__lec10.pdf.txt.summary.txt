@@ -1,0 +1,1 @@
+CMPSC 465 defines graphs as sets of vertices (nodes) and edges, distinguishing between undirected and directed types. Tracing back to Euler, graphs model various relationships and are stored using adjacency matrices or lists. The lecture introduces connected components and algorithms like DFS/BFS to find them, determining vertex connectivity.

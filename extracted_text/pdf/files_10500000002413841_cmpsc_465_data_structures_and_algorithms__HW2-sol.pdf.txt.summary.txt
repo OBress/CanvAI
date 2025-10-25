@@ -1,0 +1,1 @@
+CMPSC 465 HW2 solutions cover lower bounds (Ω(log n) for median/distinct, Ω(n) for merge), O(n log n) divide-and-conquer for max interval overlap, O(log n) for peak elements, O(n) for improved median-of-medians selection pivot, and O(n^2) recursive matrix transpose. Submission guidelines for Fall 2025 are also detailed.

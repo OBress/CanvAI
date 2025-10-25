@@ -1,0 +1,1 @@
+Chapter 5 details network layer control planes: traditional routing (OSPF link-state, BGP inter-AS distance-vector); Software-Defined Networking (SDN) with OpenFlow, ODL/ONOS for centralized control; ICMP diagnostics; and SNMP network management.

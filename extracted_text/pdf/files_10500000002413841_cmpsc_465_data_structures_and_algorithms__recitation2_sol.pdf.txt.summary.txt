@@ -1,0 +1,1 @@
+Worksheet 2 details algorithms: k-th smallest in O(log(m+n)); matrix max O(n^2) using D&C; selection (groups of 7) is O(n); median via O(1) calls to a specialized (n/10)-th smallest finder; k-way merge in O(nk log k); and finding array rotations in O(log n).

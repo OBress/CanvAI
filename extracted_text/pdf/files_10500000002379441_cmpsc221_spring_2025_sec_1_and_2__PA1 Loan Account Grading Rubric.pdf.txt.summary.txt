@@ -1,0 +1,1 @@
+PA1 Loan Account rubric grades `LoanAccount` class (variables, constructor, calc methods) and `Main` method (object creation, formatted output for 1%/5% rates, 3/5/6-year terms). A 4% daily late penalty (max 40%) applies. Good OOP practices are also graded.

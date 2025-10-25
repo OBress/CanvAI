@@ -1,0 +1,1 @@
+CMPSC 360 Discrete Math Worksheet 5 covers various proof techniques. Tasks include proving/disproving real number properties and primality. Contrapositive proofs address divisibility by 4 and even/odd integers. Other proofs involve real number products and prime divisibility (p|n implies p∤(n+1)).

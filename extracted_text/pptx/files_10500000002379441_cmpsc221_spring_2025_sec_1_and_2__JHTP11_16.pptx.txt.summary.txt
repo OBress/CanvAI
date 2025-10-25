@@ -1,0 +1,1 @@
+This content covers Chapter 16: Generic Collections, from "Java How to Program, 11/e". For questions, contact paul.deitel@deitel.com. The material is copyrighted 1992-2018 by Pearson Education, Inc.

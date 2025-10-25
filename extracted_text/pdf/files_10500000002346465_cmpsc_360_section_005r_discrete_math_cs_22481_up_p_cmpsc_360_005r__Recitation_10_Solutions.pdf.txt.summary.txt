@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 10 Solutions apply Fermat's Little Theorem for modular exponentiation, solve linear congruences (cases with no/multiple solutions), utilize the Chinese Remainder Theorem for solving systems of congruences, and demonstrate RSA key generation, encryption, and decryption.

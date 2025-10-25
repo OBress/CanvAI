@@ -1,0 +1,1 @@
+Depth First Search (DFS) on undirected graphs identifies connected components by recursively exploring vertices, using a `visited` array and stack for backtracking, assigning unique colors to each. It achieves optimal O(V+E) complexity with adjacency lists. DFS also detects cycles via back edges and collects pre/post-visit timestamps to gather more graph information.

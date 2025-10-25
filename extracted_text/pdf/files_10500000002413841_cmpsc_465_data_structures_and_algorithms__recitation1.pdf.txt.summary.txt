@@ -1,0 +1,1 @@
+CMPSC 465 Fall 2025 Worksheet 1, dated Sep 8, 2025, covers four key areas: comparing functions by asymptotic growth, analyzing pseudo-code running times using Θ-notation, proving summation identities, and solving recurrence relations to find tight upper bounds (O-notation).

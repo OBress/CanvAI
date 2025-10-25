@@ -1,0 +1,1 @@
+DFS on directed graphs employs pre/post-visit timestamps to distinguish tree, forward, back, and cross edges. Back edges uniquely identify cycles. Directed Acyclic Graphs (DAGs) permit topological sorting, an ordering where edges go from earlier to later vertices. This sort is efficiently achieved in O(V+E) by collecting nodes in decreasing post-visit time during DFS.

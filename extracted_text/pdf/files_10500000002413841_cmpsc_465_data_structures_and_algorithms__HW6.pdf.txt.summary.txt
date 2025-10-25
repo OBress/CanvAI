@@ -1,0 +1,1 @@
+CMPSC 465 HW 6 (Fall 2025, due Oct 20) covers graph algorithms: Dijkstra with reinsertion (negative weights), Bellman-Ford variants (budgeted paths, ordered updates), and Floyd-Warshall for pinned nodes & bottleneck paths. Individual solutions must be formatted and submitted via Gradescope; no late work.

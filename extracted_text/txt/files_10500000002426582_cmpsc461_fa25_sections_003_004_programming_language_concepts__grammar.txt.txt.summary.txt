@@ -1,0 +1,1 @@
+This BNF defines an imperative language with sequential statements: assignment, if/else, for loops, and print. Expressions support arithmetic (+-*/%), comparisons (==, !=, <, >), and boolean logic (AND, OR, NOT). Identifiers and numbers serve as primary elements, with nested boolean expressions also supported.

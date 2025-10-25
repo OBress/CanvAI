@@ -1,0 +1,1 @@
+CMPSC 465 HW4 details DFS for graph traversal, edge classification, and property proof. Topological sort addresses course prerequisites: feasibility, valid sequencing, and minimum semesters. Pathfinding with capacity constraints is solved via DFS/binary search. Cycle detection for a specific edge utilizes temporary removal and DFS.

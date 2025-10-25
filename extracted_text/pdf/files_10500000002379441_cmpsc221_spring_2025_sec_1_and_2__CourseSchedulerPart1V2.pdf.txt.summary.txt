@@ -1,0 +1,1 @@
+Develop a GUI-based Course Scheduling application (Part 1 of final project) using Derby DB and good OO design. Admins add semesters, courses, classes, students. Students schedule classes (with waitlist) and view schedules/classes. Emphasizes OO, prepared statements, and specific project setup.

@@ -1,0 +1,1 @@
+CMPSC 465 Quiz 5 covers graph algorithms: In DFS, if an edge exists from SCC A to B, max post-number in A > max post-number in B. BFS always finds shortest paths in unweighted graphs. Dijkstra's algorithm fails with negative-weight edges, but when a vertex is visited, its distance is the true shortest path. Unique shortest paths are not guaranteed even with distinct edge weights.

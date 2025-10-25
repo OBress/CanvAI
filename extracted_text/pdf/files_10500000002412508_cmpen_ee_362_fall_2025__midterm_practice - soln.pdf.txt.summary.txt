@@ -1,0 +1,1 @@
+This CMPEN362 practice midterm covers networking fundamentals, including Internet architecture, connection types, core network functions, packet delay sources, and Internet tiers. It examines UDP/TCP characteristics, TCP sequence numbers, packet switching delay calculations, web caching performance, and the design of a stop-and-wait transport protocol, specifically rdt3.0.

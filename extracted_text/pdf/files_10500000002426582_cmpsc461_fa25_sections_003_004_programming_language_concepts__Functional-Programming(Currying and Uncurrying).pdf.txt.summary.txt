@@ -1,0 +1,1 @@
+CMPSC 461's Functional Programming section explores Currying and Uncurrying. Currying converts multi-argument functions into a series of single-argument functions, as seen in lambda calculus, facilitating partial evaluation. Uncurrying performs the inverse transformation, reverting functions to their original multi-argument form.

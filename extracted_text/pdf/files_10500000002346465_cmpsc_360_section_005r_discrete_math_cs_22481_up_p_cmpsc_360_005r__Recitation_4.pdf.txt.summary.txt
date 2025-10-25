@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 4 covers simplifying predicate logic expressions, applying rules of inference for propositional and predicate logic arguments (e.g., endangered plant scenario), and constructing direct proofs for properties of integers like perfect squares, odd/even numbers, and forms like 4k+1.

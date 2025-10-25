@@ -1,0 +1,1 @@
+HW3 solutions detail TCP socket addressing, checksum error detection (1-bit always detected, 2-bit can be missed), and RDT protocol FSMs, including retransmission logic and deadlock. TCP congestion control (slow start, avoidance, fast retransmit), sequence/ACK handling, and performance comparisons of TCP, GBN, and SR are analyzed.

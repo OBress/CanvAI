@@ -1,0 +1,1 @@
+This CMPSC 360 Discrete Mathematics Worksheet 1 explores fundamental set theory, featuring exercises on Venn diagrams, describing sets using Roster and Set Builder methods, determining Power Sets and Cartesian Products, and proving Set Identity Laws.

@@ -1,0 +1,1 @@
+Lexical Analysis, the compiler's front-end, converts a source character stream into a token stream for syntax analysis. It identifies meaningful lexemes, labeling them with tokens defined by patterns (regular expressions), while removing non-significant elements. Key challenges involve lookahead and error recovery.

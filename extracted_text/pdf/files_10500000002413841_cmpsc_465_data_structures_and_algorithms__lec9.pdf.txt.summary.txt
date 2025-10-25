@@ -1,0 +1,1 @@
+CMPSC 465 LECTURE IX by Ke Chen introduces binary max-heaps as complete binary trees satisfying H[i] >= H[parent(i)], having O(log n) height. Heap operations like Insert, Delete, IncreaseKey, and DecreaseKey are all O(log n). HeapSort leverages max-heaps to sort an array in O(n log n) time and can be implemented in-place with O(1) space by first building the heap in O(n) time.

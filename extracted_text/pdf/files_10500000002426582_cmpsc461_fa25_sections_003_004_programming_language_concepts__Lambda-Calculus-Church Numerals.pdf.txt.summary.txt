@@ -1,0 +1,1 @@
+CMPSC 461 covers Church Numerals in λ-Calculus, representing natural number 'n' as a function that applies another function 'f' to 'x', 'n' times. This functional encoding allows for the implementation of arithmetic operations like successor (n+1), addition, and multiplication entirely within the λ-calculus framework.

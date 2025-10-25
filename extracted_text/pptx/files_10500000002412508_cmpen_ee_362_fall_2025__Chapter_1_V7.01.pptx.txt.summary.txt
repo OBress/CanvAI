@@ -1,0 +1,1 @@
+The Internet is a global network of interconnected devices and ISPs, governed by protocols, using packet switching in its core and various access networks at the edge. Performance is measured by delay, loss, and throughput. It employs a layered architecture, faces security challenges, and has evolved from ARPAnet to its current form.

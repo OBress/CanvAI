@@ -1,0 +1,1 @@
+CMPSC 465 introduces algorithm analysis, focusing on correctness and efficiency (time/space). Running time is measured (worst-case, average-case, amortized) based on input size 'n' using an abstract computing model. Scalability is key, quantified by Big-O notation (f=O(g)) to describe growth rates, ignoring constants for large 'n'.

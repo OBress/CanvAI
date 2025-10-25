@@ -1,0 +1,1 @@
+Asymptotic notations describe function growth rates. Big-O (O) defines an upper bound where f(n) grows no faster than g(n). Big-Omega (Ω) sets a lower bound, meaning f(n) grows no slower than g(n). Big-Theta (Θ) signifies a tight bound, indicating f(n) and g(n) grow at the same asymptotic rate. Various facts and limit properties simplify their application.

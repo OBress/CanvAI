@@ -1,0 +1,1 @@
+Chapter 24, "Accessing Databases with JDBC," introduces relational databases, SQL (SELECT, INSERT, UPDATE, DELETE, JOIN), and Java's JDBC API. It covers database connection, query execution, ResultSet processing, RowSets, and PreparedStatements. The chapter also addresses database setup (Java DB/Derby), GUI integration, stored procedures, and transaction processing.

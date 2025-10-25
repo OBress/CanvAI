@@ -1,0 +1,1 @@
+Bijectivity was assessed: one function injective but not surjective, another neither. Four composite functions with domains derived. A rational function bijective with inverse on R-sets, not Z-sets. A Z→Z composite function a bijection. Rostered mappings: one composition defined, one undefined.

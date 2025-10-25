@@ -1,0 +1,1 @@
+HW1 solutions cover time/distance calculations, network capacity (e.g., max 13 users, 3.9 Mbps utilization), and message transmission. Message segmentation greatly reduces transmission delay and improves error handling but increases header overhead. Packet switching supports more users/sensors than circuit switching, proving more beneficial at lower data rates.

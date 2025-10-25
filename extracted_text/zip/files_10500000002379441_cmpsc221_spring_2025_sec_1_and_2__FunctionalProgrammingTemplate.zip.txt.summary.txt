@@ -1,0 +1,1 @@
+A Python script repeatedly failed with `ValueError` from `pathlib.relative_to`. This occurred because files from a temporary directory were not subpaths of the script's configured `downloads` directory (`C:\Users\andy\Videos\hackpsu_fa25\downloads`), preventing successful processing of various items like build files and Java code.

@@ -1,0 +1,1 @@
+CMPSC 465 Lecture III by Ke Chen covers sorting algorithms, defining the problem and detailing two methods. InsertionSort (O(n^2) time, O(1) space) iteratively inserts elements into a partially sorted sequence. MergeSort (O(n log n) time, O(n) space) uses a divide-and-conquer strategy, recursively splitting arrays, sorting halves, and then merging them.

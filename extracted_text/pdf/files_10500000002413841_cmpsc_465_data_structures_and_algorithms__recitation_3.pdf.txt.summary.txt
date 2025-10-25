@@ -1,0 +1,1 @@
+CMPSC 465 Worksheet 3 details min-heap delete-min (replace root, heapify-down) and max-heap Build-heap (Max-Heapify-Down from n/2). Proof shows an n-element heap has at most ⌈n/2^(h+1)⌉ nodes at height h. The k-th largest element is found via a size-k min-heap in O(n log k) time and O(k) space.

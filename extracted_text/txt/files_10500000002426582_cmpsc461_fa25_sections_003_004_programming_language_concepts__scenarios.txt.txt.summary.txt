@@ -1,0 +1,1 @@
+Ten activities explore programming language concepts, covering lexical analysis topics like token definition, regex patterns, error handling, and lookahead. Other areas include Unix shell pattern matching, alphabet/string properties, regular expression construction for languages, email validation, and operator precedence rules.

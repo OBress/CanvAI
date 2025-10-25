@@ -1,0 +1,1 @@
+The Physical Layer handles electrical/optical bit transmission. Signals are defined by amplitude, frequency, phase, and analyzed via Fourier. Data (analog/digital) converts to signals. Modulation: digital-to-analog (baseband, passband like ASK/FSK/PSK/QAM), analog-to-digital (PCM). Media include guided (twisted pair, coax, fiber) or unguided (wireless).

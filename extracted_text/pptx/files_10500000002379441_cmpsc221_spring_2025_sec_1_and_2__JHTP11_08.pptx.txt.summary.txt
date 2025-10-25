@@ -1,0 +1,1 @@
+Chapter 8 delves into advanced Java classes: access control (public/private), constructors (overloading, `this` reference), exceptions, and composition. It details `enum` types, `static` and `final` members, packages, set/get methods with validation, and garbage collection. The chapter also covers `BigDecimal` for precise monetary calculations.

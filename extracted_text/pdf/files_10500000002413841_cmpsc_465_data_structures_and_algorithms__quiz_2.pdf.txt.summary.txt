@@ -1,0 +1,1 @@
+This CMPSC 465 Data Structures & Algorithms Quiz 2 (Fall 2025) covers Master Theorem applicability to recurrences, the time complexity of the median-of-medians algorithm, merge sort's merge operation, QuickSort's pivot role, and the time complexity of standard divide-and-conquer matrix multiplication.

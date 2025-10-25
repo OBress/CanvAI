@@ -1,0 +1,1 @@
+CMPSC 461 Fall 2025, Assignment 1 (Prof. Suman Saha) is due Sep 12, 2025, 11:59 PM. Submit typed work to Gradescope; each problem must be on a separate, marked page with student ID. No handwritten submissions. Emphasize conceptual explanations and corner cases. Refer to syllabus for policies.

@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 3 simplifies logical expressions, verifying one equivalence and disproving another using truth tables. It also focuses on translating English statements into predicates and quantifiers, and vice-versa. Finally, a compound proposition is analyzed and disproven as a contingency, simplifying to a contradiction.

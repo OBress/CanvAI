@@ -1,0 +1,1 @@
+Course Scheduler Part 2 implements Admin/Student display/drop functions. Submit zipped project & working DB (template-based, empty tables, SQL prepared statements); zero grade for issues. Late policy/OOD apply; use test script. Ensure waitlist priority, combo boxes, and auto-display of results.

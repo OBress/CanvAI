@@ -1,0 +1,1 @@
+CMPSC 465 Wk 4 covers graph/tree algorithms: DFS (traversal, numbering, edge types), topological sort for scheduling (O(m+n)), bipartite graph detection (O(|V|+|E|)), graph modeling for state-space problems (pouring water), plus tree problems: constant-time ancestor queries (linear preproc), and linear-time max descendant value calculation.

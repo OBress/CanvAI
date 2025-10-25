@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 11 covers discrete mathematics combinatorics. Problems involve counting ways to select artworks (with gallery constraints), form six-digit numbers using only odd digits, choose cards (same/different suit, face cards), and create nine-character license plates under various repetition and structural rules.
