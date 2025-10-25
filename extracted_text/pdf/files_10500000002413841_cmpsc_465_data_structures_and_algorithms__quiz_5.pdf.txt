@@ -1,0 +1,39 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 5
+Lecture Section: Monday, Oct 06, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) Suppose in a directed graph, AandB
+are strongly connected components, and there is
+an edge from a vertex in Ato a vertex in B. Then:
+amax w∈Apost (w)>max v∈Bpost (v)
+bmax w∈Apre(w)<max v∈Bpre(v)
+cmax w∈Apost (w)<max v∈Bpost (v)
+dNone of the above
+2.(2 pts.) In an unweighted, connected, undirected
+graph, which of the following is true about using
+BFS to find the shortest path from a source node
+S?
+aBFS may fail if the graph has cycles.
+bBFS works only on trees.
+cBFS always finds the shortest path.
+dBFS doesn’t work on undirected graphs.
+3.(2 pts.) Dijkstra’s Algorithm does not work
+correctly on:
+aDirected weighted graphs
+bGraphs with negative-weight edges
+cUndirected unweighted graphs4.(2 pts.) In a weighted graph where the weights
+of all edges are unique, there is always a unique
+shortest path from a source to a destination.
+aTrue
+bFalse
+5.(2 pts.) In Dijkstra’s algorithm, after a vertex u
+is added to the visited set R, which of the following
+is always true?
+adist (u)may still decrease later due to a
+shorter path.
+bdist (u)is equal to the true shortest-path dis-
+tance from the source.
+cdist (u)is the minimum among all vertices in
+the graph.
+duhas no outgoing edges.
+CMPSC 465, Fall 2025, Quiz 5 1

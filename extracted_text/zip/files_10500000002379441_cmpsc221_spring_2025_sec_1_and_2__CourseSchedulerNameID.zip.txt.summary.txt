@@ -1,0 +1,1 @@
+A Python script failed to process numerous 'CourseSchedulerNameID' project files (e.g., .xml, .java, .class). A `ValueError` occurred because their temporary locations were not recognized as subpaths of the specified 'downloads' directory.

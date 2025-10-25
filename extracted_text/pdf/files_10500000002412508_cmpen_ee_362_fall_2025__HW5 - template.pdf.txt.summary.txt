@@ -1,0 +1,1 @@
+Dijkstra's algorithm computes min-cost paths, routing tree, and forwarding table from 'c'. Synchronous Distance Vector algorithm's convergence, re-stabilization, and poisoned reverse's role in count-to-infinity are analyzed. Inter-AS routing (BGP, OSPF, IGRP) covers path selection for prefix 'x'.

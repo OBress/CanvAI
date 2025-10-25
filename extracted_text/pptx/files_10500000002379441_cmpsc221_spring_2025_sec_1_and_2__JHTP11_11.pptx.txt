@@ -1,0 +1,641 @@
+Chapter 11Exception Handling: A Deeper Look
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.1  Introduction
+
+Exception handling
+Exception—an indication of a problem that occurs during a program’s execution. 
+The name “exception” implies that the problem occurs infrequently. 
+With exception handling, a program can continue executing (rather than terminating) after dealing with a problem. 
+Mission-critical or business-critical computing.
+Robust and fault-tolerant programs (i.e., programs that can deal with problems as they arise and continue executing). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.1  Introduction (Cont.)
+
+ArrayIndexOutOfBoundsException occurs when an attempt is made to access an element past either end of an array. 
+ClassCastException occurs when an attempt is made to cast an object that does not have an is-a relationship with the type specified in the cast operator. 
+A NullPointerException occurs when a null reference is used where an object is expected. 
+Only classes that extend Throwable (package java.lang) directly or indirectly can be used with exception handling. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.2  Example: Divide by Zero without Exception Handling
+
+Exceptions are thrown (i.e., the exception occurs) by a method detects a problem and is unable to handle it. 
+Stack trace—information displayed when an exception occurs and is not handled. 
+Information includes:
+The name of the exception in a descriptive message that indicates the problem that occurred 
+The method-call stack (i.e., the call chain) at the time it occurred. Represents the path of execution that led to the exception method by method. 
+This information helps you debug the program. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.2  Example: Divide by Zero without Exception Handling (Cont.)
+
+Java does not allow division by zero in integer arithmetic. 
+Throws an ArithmeticException.
+Can arise from a several problems, so an error message (e.g., “/ by zero”) provides more specific information. 
+Java does allow division by zero with floating-point values. 
+Such a calculation results in the value positive or negative infinity
+Floating-point value that displays as Infinity or -Infinity. 
+If 0.0 is divided by 0.0, the result is NaN (not a number), which is represented as a floating-point value that displays as NaN. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.2  Example: Divide by Zero without Exception Handling (Cont.)
+
+Prior examples that input numeric values assumed that the user would input a proper integer value. 
+Users sometimes make mistakes and input noninteger values. 
+An InputMismatchException occurs when Scanner method nextInt receives a String that does not represent a valid integer. 
+If a stack trace contains “Unknown Source” for a particular method, the debugging symbols for that method’s class were not available to the JVM—this is typically the case for the classes of the Java API. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.2  Example: Divide by Zero without Exception Handling (Cont.)
+
+Last line of the stack trace started the call chain. 
+Each line contains the class name and method followed by the filename and line number. 
+The top row of the call chain indicates the throw point—the initial point at which the exception occurred. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions
+
+The application in Fig. 11.2 uses exception handling to process any ArithmeticExceptions and InputMistmatchExceptions that arise. 
+If the user makes a mistake, the program catches and handles (i.e., deals with) the exception—in this case, allowing the user to try to enter the input. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+try block encloses 
+code that might throw an exception 
+code that should not execute if an exception occurs. 
+Consists of the keyword try followed by a block of code enclosed in curly braces. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+catch block (also called a catch clause or exception handler) catches and handles an exception. 
+Begins with the keyword catch followed by an exception parameter in parentheses and a block of code enclosed in curly braces. 
+At least one catch block or a finally block (Section 11.6) must immediately follow the try block. 
+The exception parameter identifies the exception type the handler can process. 
+The parameter’s name enables the catch block to interact with a caught exception object. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+When an exception occurs in a try block, the catch block that executes is the first one whose type matches the type of the exception that occurred.
+Use the System.err (standard error stream) object to output error messages. 
+By default, displays data to the command prompt. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+Multi-catch 
+If the bodies of several catch blocks are identical, you can use the multi-catch feature (introduced in Java SE 7) to catch those exception types in a single catch handler and perform the same task. 
+The syntax for a multi-catch is:
+catch (Type1 | Type2 | Type3 e)
+Each exception type is separated from the next with a vertical bar (|). 
+The preceding line of code indicates that any of the types (or their subclasses) can be caught in the exception handler. 
+Any number of Throwable types can be specified in a multi-catch. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+Uncaught exception—one for which there are no matching catch blocks. 
+Recall that previous uncaught exceptions caused the application to terminate early.
+This does not always occur as a result of uncaught exceptions. 
+Java uses a multithreaded model of program execution. 
+Each thread is a concurrent activity. 
+One program can have many threads. 
+If a program has only one thread, an uncaught exception will cause the program to terminate. 
+If a program has multiple threads, an uncaught exception will terminate only the thread in which the exception occurred. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+If an exception occurs in a try block, the try block terminates immediately and program control transfers to the first matching catch block. 
+After the exception is handled, control resumes after the last catch block. 
+Known as the termination model of exception handling. 
+Some languages use the resumption model of exception handling, in which, after an exception is handled, control resumes just after the throw point.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+If no exceptions are thrown in a try block, the catch blocks are skipped and control continues with the first statement after the catch blocks 
+We’ll learn about another possibility when we discuss the finally block in Section 11.6.
+The try block and its corresponding catch and/or finally blocks form a try statement. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+When a try block terminates, local variables declared in the block go out of scope.
+The local variables of a try block are not accessible in the corresponding catch blocks. 
+When a catch block terminates, local variables declared within the catch block (including the exception parameter) also go out of scope. 
+Any remaining catch blocks in the try statement are ignored, and execution resumes at the first line of code after the try…catch sequence.
+A finally block, if one is present.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+throws clause—specifies the exceptions a method might throw if problems occur. 
+Must appear after the method’s parameter list and before the body. 
+Contains a comma-separated list of the exception types. 
+May be thrown by statements in the method’s body or by methods called from there. 
+Clients of a method with a throws clause are thus informed that the method might throw exceptions. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.3  Example: Handling ArithmeticExceptions and InputMismatchExceptions (Cont.)
+
+When a method throws an exception, the method terminates and does not return a value, and its local variables go out of scope. 
+If the local variables were references to objects and there were no other references to those objects, the objects would be available for garbage collection. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.4  When to Use Exception Handling
+
+Exception handling is designed to process synchronous errors, which occur when a statement executes. 
+Common examples in this book:
+out-of-range array indices
+arithmetic overflow
+division by zero
+invalid method parameters
+thread interruption
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.4  When to Use Exception Handling (Cont.)
+
+Exception handling is not designed to process problems associated with asynchronous events 
+disk I/O completions
+network message arrivals
+mouse clicks and keystrokes
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy
+
+Exception classes inherit directly or indirectly from class Exception, forming an inheritance hierarchy. 
+Can extend this hierarchy with your own exception classes.
+Figure 11.3 shows a small portion of the inheritance hierarchy for class Throwable (a subclass of Object), which is the superclass of class Exception. 
+Only Throwable objects can be used with the exception-handling mechanism. 
+Class Throwable has two subclasses: Exception and Error. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+Class Exception and its subclasses represent exceptional situations that can occur in a Java program 
+These can be caught and handled by the application. 
+Class Error and its subclasses represent abnormal situations that happen in the JVM. 
+Errors happen infrequently.
+These should not be caught by applications. 
+Applications usually cannot recover from Errors. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+Checked exceptions vs. unchecked exceptions. 
+Compiler enforces a catch-or-declare requirement for checked exceptions. 
+An exception’s type determines whether it is checked or unchecked. 
+Direct or indirect subclasses of class RuntimeException (package java.lang) are unchecked exceptions. 
+Typically caused by defects in your program’s code, e.g.:  
+ArrayIndexOutOfBoundsExceptions
+ArithmeticExceptions
+Subclasses of Exception but not RuntimeException are checked exceptions. 
+Caused by conditions that are not in the control of the program—e.g., in file processing, the program can’t open a file if it does not exist. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+The compiler checks each method call and method declaration to determine whether the method throws a checked exception. 
+If so, the compiler verifies that the checked exception is caught or is declared in a throws clause—this is known as the catch-or-declare requirement. 
+throws clause specifies the exceptions a method throws. 
+Such exceptions are typically not caught in the method’s body. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+To satisfy the catch part of the catch-or-declare requirement, the code that generates the exception must be wrapped in a try block and must provide a catch handler for the checked-exception type (or one of its superclasses). 
+To satisfy the declare part of the catch-or-declare requirement, the method must provide a throws clause containing the checked-exception type after its parameter list and before its method body.
+If the catch-or-declare requirement is not satisfied, the compiler will issue an error message. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+The compiler does not examine the code to determine whether an unchecked exception is caught or declared. 
+These typically can be prevented by proper coding. 
+For example, an ArithmeticException can be avoided if a method ensures that the denominator is not zero before performing. 
+Unchecked exceptions are not required to be listed in a method’s throws clause.
+Even if they are, it’s not required that such exceptions be caught by an application.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+If a catch handler is written to catch superclass exception objects, it can also catch all objects of that class’s subclasses. 
+This enables catch to handle related exceptions polymorphically. 
+You can catch each subclass individually if those exceptions require different processing. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.5  Java Exception Hierarchy (Cont.)
+
+If multiple catch blocks match a particular exception type, only the first matching catch block executes. 
+It’s a compilation error to catch the exact same type in two different catch blocks associated with a particular try block. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block
+
+Programs that obtain certain resources must return them to the system to avoid so-called resource leaks. 
+In programming languages such as C and C++, the most common resource leak is a memory leak. 
+Java automatically garbage collects memory no longer used by programs, thus avoiding most memory leaks. 
+Other types of resource leaks can occur. 
+Files, database connections and network connections that are not closed properly might not be available for use in other programs.
+The finally block (which consists of the finally keyword, followed by code enclosed in curly braces), sometimes referred to as the finally clause, is optional.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block (Cont.)
+
+finally block will execute whether or not an exception is thrown in the corresponding try block. 
+finally block will execute if a try block exits by using a return, break or continue statement or simply by reaching its closing right brace. 
+finally block will not execute if the application exits early from a try block by calling method System.exit. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block (Cont.)
+
+If an exception that occurs in a try block cannot be caught by one of that try block’s catch handlers, control proceeds to the finally block. 
+Then the program passes the exception to the next outer try block—normally in the calling method—where an associated catch block might catch it. 
+This process can occur through many levels of try blocks. 
+The exception could go uncaught.
+If a catch block throws an exception, the finally block still executes. 
+Then the exception is passed to the next outer try block—again, normally in the calling method.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block (Cont.)
+
+Because a finally block always executes, it typically contains resource-release code. 
+Suppose a resource is allocated in a try block. 
+If no exception occurs, control proceeds to the finally block, which frees the resource. Control then proceeds to the first statement after the finally block. 
+If an exception occurs, the try block terminates. The program catches and processes the exception in one of the corresponding catch blocks, then the finally block releases the resource and control proceeds to the first statement after the finally block. 
+If the program doesn’t catch the exception, the finally block still releases the resource and an attempt is made to catch the exception in a calling method. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block (Cont.)
+
+System.out and System.err are streams—a sequence of bytes. 
+System.out (the standard output stream) displays output
+System.err (the standard error stream) displays errors
+Output from these streams can be redirected (e.g., to a file). 
+Using two different streams enables you to easily separate error messages from other output. 
+Data output from System.err could be sent to a log file
+Data output from System.out can be displayed on the screen
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block (Cont.)
+
+throw statement—indicates that an exception has occurred. 
+Used to throw exceptions.
+Indicates to client code that an error has occurred. 
+Specifies an object to be thrown. 
+The operand of a throw can be of any class derived from class Throwable.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.6  finally Block (Cont.)
+
+Rethrow an exception 
+Done when a catch block, cannot process that exception or can only partially process it. 
+Defers the exception handling (or perhaps a portion of it) to another catch block associated with an outer try statement. 
+Rethrow by using the throw keyword, followed by a reference to the exception object that was just caught. 
+When a rethrow occurs, the next enclosing try block detects the exception, and that try block’s catch blocks attempt to handle it. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.7  Stack Unwinding and Obtaining Information from an Exception Object
+
+ Stack unwinding—When an exception is thrown but not caught in a particular scope, the method-call stack is “unwound” 
+An attempt is made to catch the exception in the next outer try block. 
+All local variables in the unwound method go out of scope and control returns to the statement that originally invoked that method. 
+If a try block encloses that statement, an attempt is made to catch the exception. 
+If a try block does not enclose that statement or if the exception is not caught, stack unwinding occurs again. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.7  Stack Unwinding and Obtaining Information from an Exception Object (cont.)
+
+Throwable methods printStackTrace and getStackTrace each process the entire method-call stack
+When debugging, this can be inefficient
+you may be interested only in stack frames corresponding to methods of a specific class
+Java SE 9 introduces the Stack-Walking API (class StackWalker in package java.lang), which uses lambdas and streams (Chapter 17) to access method-call-stack information in a more efficient manner
+Learn more about this API at: http://openjdk.java.net/jeps/259 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.8  Chained Exceptions
+
+Sometimes a method responds to an exception by throwing a different exception type that is specific to the current application. 
+If a catch block throws a new exception, the original exception’s information and stack trace are lost. 
+Earlier Java versions provided no mechanism to wrap the original exception information with the new exception’s information. 
+This made debugging such problems particularly difficult. 
+Chained exceptions enable an exception object to maintain the complete stack-trace information from the original exception. 
+For any chained exception, you can get the Throwable that initially caused that exception by calling Throwable method getCause. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.9  Declaring New Exception Types
+
+Sometimes it’s useful to declare your own exception classes that are specific to the problems that can occur when another programmer uses your reusable classes. 
+A new exception class must extend an existing exception class to ensure that the class can be used with the exception-handling mechanism. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.9  Declaring New Exception Types (cont.)
+
+A typical new exception class contains only four constructors: 
+one that takes no arguments and passes a default error message String to the superclass constructor; 
+one that receives a customized error message as a String and passes it to the superclass constructor; 
+one that receives a customized error message as a String and a Throwable (for chaining exceptions) and passes both to the superclass constructor; 
+and one that receives a Throwable (for chaining exceptions) and passes it to the superclass constructor. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.10  Preconditions and Postconditions
+
+Programmers spend significant amounts of time maintaining and debugging code. 
+To facilitate these tasks and to improve the overall design, they can specify the expected states before and after a method’s execution. 
+These states are called preconditions and postconditions, respectively.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.10  Preconditions and Postconditions (Cont.)
+
+A precondition must be true when a method is invoked. 
+Describes constraints on method parameters and any other expectations the method has about the current state of a program just before it begins executing. 
+If the preconditions are not met, the method’s behavior is undefined. 
+You should never expect consistent behavior if the preconditions are not satisfied.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.10  Preconditions and Postconditions (Cont.)
+
+A postcondition is true after the method successfully returns. 
+Describes constraints on the return value and any other side effects the method may have. 
+When calling a method, you may assume that a method fulfills all of its postconditions. 
+If writing your own method, document all postconditions so that others know what to expect when they call your method, and you should make certain that your method honors all its postconditions if its preconditions are met. 
+When preconditions or postconditions are not met, methods typically throw exceptions. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.10  Preconditions and Postconditions (Cont.)
+
+As an example, examine String method charAt, which has one int parameter—an index in the String. 
+For a precondition, method charAt assumes that index is greater than or equal to zero and less than the length of the String. 
+If the precondition is met, the postcondition states that the method will return the character at the position in the String specified by the parameter index. 
+Otherwise, the method throws an Index-Out-Of-Bounds-Exception. 
+We trust that method charAt satisfies its postcondition, provided that we meet the precondition. 
+We need not be concerned with the details of how the method actually retrieves the character at the index. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.10  Preconditions and Postconditions (Cont.)
+
+Some programmers state preconditions and postconditions informally as part of the general method specification, while others prefer a more formal approach by explicitly defining them. 
+State the preconditions and postconditions in a comment before the method declaration. 
+Stating the preconditions and postconditions before writing a method will also help guide you as you implement the method.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.11  Assertions
+
+When implementing and debugging a class, it’s sometimes useful to state conditions that should be true at a particular point in a method. 
+Assertions help ensure a program’s validity by catching potential bugs and identifying possible logic errors during development. 
+Preconditions and postconditions are two types of assertions. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.11  Assertions (Cont.)
+
+Java includes two versions of the assert statement for validating assertions programatically. 
+assert evaluates a boolean expression and, if false, throws an AssertionError (a subclass of Error). 
+	assert expression;
+throws an AssertionError if expression is false. 
+	assert expression1 : expression2;
+evaluates expression1 and throws an AssertionError with expression2 as the error message if expression1 is false.
+Can be used to programmatically implement preconditions and postconditions or to verify any other intermediate states that help you ensure your code is working correctly. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.11  Assertions (Cont.)
+
+You use assertions primarily for debugging and identifying logic errors in an application. 
+You must explicitly enable assertions when executing a program 
+They reduce performance.
+They are unnecessary for the program’s user.
+To enable assertions, use the java command’s -ea command-line option, as in
+	java -ea AssertTest
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.12  try-with-Resources: Automatic Resource Deallocation
+
+Typically resource-release code should be placed in a finally block to ensure that a resource is released, regardless of whether there were exceptions when the resource was used in the corresponding try block. 
+An alternative notation—the try-with-resources statement (introduced in Java SE 7)—simplifies writing code in which you obtain one or more resources, use them in a try block and release them in a corresponding finally block. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.12  try-with-Resources: Automatic Resource Deallocation (cont.)
+
+For example, a file-processing application could process a file with a try-with-resources statement to ensure that the file is closed properly when it’s no longer needed. 
+Each resource must be an object of a class that implements the AutoCloseable interface—and thus provides a close method. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.12  try-with-Resources: Automatic Resource Deallocation (cont.)
+
+The general form of a try-with-resources statement is
+		try (ClassName theObject = new ClassName())
+		{
+		   // use theObject here
+		}
+		catch ( Exception e )
+		{
+		   // catch exceptions that occur while using the resource  
+		}
+ClassName is a class that implements the AutoCloseable interface. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.13  try-with-Resources: Automatic Resource Deallocation (cont.)
+
+This code creates an object of type ClassName and uses it in the try block, then calls its close method to release any resources used by the object. 
+The try-with-resources statement implicitly calls the Object’s close method at the end of the try block. 
+You can allocate multiple resources in the parentheses following try by separating them with a semicolon (;).
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.13  try-with-Resources: Automatic Resource Deallocation (cont.)
+
+Java 8 introduced effectively final local variables
+If the compiler can infer that the variable could have been declared final, because its enclosing method never modifies the variable after it’s declared and initialized, then the variable is effectively final
+Frequently are used with lambdas (Chapter 17, Lambdas and Streams).
+As of Java SE 9, you can create an AutoCloseable object and assign it to a local variable that’s explicitly declared final or that’s effectively final
+Then, you can use it in a try-with-resources statement that releases the object’s resources at the end of the try block.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+11.13  try-with-Resources: Automatic Resource Deallocation (cont.)
+
+ClassName theObject = new ClassName();try (theObject) {   // use theObject here, then release its resources at    // the end of the try block}catch (Exception e) {   // catch exceptions that occur while using the resource  }
+As before, you can separate with a semicolon (;) multiple AutoCloseable objects in the parentheses following try
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

@@ -1,0 +1,1 @@
+This CMPEN/EE 362 HW 2 rubric (15 pts total) outlines grading for problems on HTTP request/response analysis (URL, version, connection, status, size, modification), network timing (HTML acquisition, object delays, parallel connections), cache hit rate impact, and file distribution time calculations.

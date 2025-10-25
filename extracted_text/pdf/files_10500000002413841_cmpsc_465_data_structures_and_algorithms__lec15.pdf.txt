@@ -1,0 +1,676 @@
+CMPSC 465: LECTURE XV
+Dijkstra's Algorithm
+Ke Chen
+October 03, 2025
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.
+Second scenario Find shortest paths on weighted graphs.
+Idea Suppose all the weights are positive integers , we can
+add dummy nodes to represent edge weights.Example
+AB
+CD
+E2
+12
+31
+42 AB
+CD
+E
+1 / 7
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.
+Second scenario Find shortest paths on weighted graphs.
+Idea Suppose all the weights are positive integers , we can
+add dummy nodes to represent edge weights.
+Example
+AB
+CD
+E2
+12
+31
+42 AB
+CD
+E
+1 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.SA
+B100
+20050 SA
+B
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S00100
+200100A
+150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S
+00100
+200100A
+150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+
+S0
+0100
+200100A
+150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S0
+0
+200100A150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S0
+0100A
+150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Don't watch the pot, just take a nap
+Problem with this approach?
+IWhat about non-integer weights? Negative weights?
+IThe graph size can increase exponentially.
+SA
+B100
+20050 SA
+B
+S0
+0100A
+150
+ISuppose that every second we discover one new layer.
+IFor the rst 99 seconds, we are waiting for the dummy nodes
+we don't care about.
+IWe could set alarm clocks and go take a nap.
+IThese are the estimated upper bounds for arrival time.
+2 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time: (initial)
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time: 0
+0
+S
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time: 0
+0
+S4
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time: 0
+0
+S
+24
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time: 0
+0
+S4
+2
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+22
+2C
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+22
+2C3
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+22
+2C3 6
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+22
+2C3 6
+7
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+22
+2C3 6
+7
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+223 6
+733
+A
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+223 6
+733
+A5
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+223 6
+733
+A5
+6
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+223 6
+733
+A5
+6
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+223 6
+73 5
+655
+B
+3 / 7
+
+Another example
+A
+CB
+DS4
+22
+3
+314
+5101 1
+1 1Time:
+04
+223 6
+73 5
+656
+6D
+3 / 7
+
+Dijkstra's algorithm
+Input: A graph G= (V; E; ` )where `:E!Nmaps edges to
+weights, a starting vertex s
+Output: Shortest paths from sto any other vertex
+Dijkstra( G,s)
+// dist has lengthjVj, for the alarm clocks
+foreach v2Vdo
+dist[v] =1
+dist[s] = 0
+repeatjVjtimes do
+Find the vertex vwith the smallest time among those
+whose alarms have not rung yet
+foreach (v; w)2Edo
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+4 / 7
+
+Dijkstra's algorithm
+Input: A graph G= (V; E; ` )where `:E!Nmaps edges to
+weights, a starting vertex s
+Output: Shortest paths from sto any other vertex
+Dijkstra( G,s)
+// dist has lengthjVj, for the alarm clocks
+foreach v2Vdo
+dist[v] =1
+dist[s] = 0
+repeatjVjtimes do
+Find the vertex vwith the smallest time among those
+whose alarms have not rung yet
+foreach (v; w)2Edo
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)O(jVj2)with naive im-
+plementation, we'll see
+how to improve later.
+4 / 7
+
+Correctness of Dijkstra's algorithm
+Lemma If at time Tthe alarm clock for vertex vrings for the
+rst time, the shortest path from stovhas weight T.Proof. LetRbe the set of vertices whose alarm have already
+gone o. We aim to prove by induction that the claim holds for
+each vertex v2R.
+Base case: At time T= 0,R=fsgand dist[s] = 0 .
+Suppose the alarm of vgoes o rst at time T. This means:
+IT=dist[v] = min w62Rdist[w]
+Ivwill now be added to R
+Idist[v] =dist[u] +`(u; v)for some u2R.
+5 / 7
+
+Correctness of Dijkstra's algorithm
+Lemma If at time Tthe alarm clock for vertex vrings for the
+rst time, the shortest path from stovhas weight T.
+Proof. LetRbe the set of vertices whose alarm have already
+gone o. We aim to prove by induction that the claim holds for
+each vertex v2R.Base case: At time T= 0,R=fsgand dist[s] = 0 .
+Suppose the alarm of vgoes o rst at time T. This means:
+IT=dist[v] = min w62Rdist[w]
+Ivwill now be added to R
+Idist[v] =dist[u] +`(u; v)for some u2R.
+5 / 7
+
+Correctness of Dijkstra's algorithm
+Lemma If at time Tthe alarm clock for vertex vrings for the
+rst time, the shortest path from stovhas weight T.
+Proof. LetRbe the set of vertices whose alarm have already
+gone o. We aim to prove by induction that the claim holds for
+each vertex v2R.
+Base case: At time T= 0,R=fsgand dist[s] = 0 .Suppose the alarm of vgoes o rst at time T. This means:
+IT=dist[v] = min w62Rdist[w]
+Ivwill now be added to R
+Idist[v] =dist[u] +`(u; v)for some u2R.
+5 / 7
+
+Correctness of Dijkstra's algorithm
+Lemma If at time Tthe alarm clock for vertex vrings for the
+rst time, the shortest path from stovhas weight T.
+Proof. LetRbe the set of vertices whose alarm have already
+gone o. We aim to prove by induction that the claim holds for
+each vertex v2R.
+Base case: At time T= 0,R=fsgand dist[s] = 0 .
+Suppose the alarm of vgoes o rst at time T. This means:
+IT=dist[v] = min w62Rdist[w]
+Ivwill now be added to R
+Idist[v] =dist[u] +`(u; v)for some u2R.
+5 / 7
+
+Correctness of Dijkstra's algorithm
+Suppose the alarm of vgoes o rst at time T. This means:
+IT=dist[v] = min w62Rdist[w]
+Ivwill now be added to R
+Idist[v] =dist[u] +`(u; v)for some u2R.
+Assume, for contradiction, that there is a shorter path from stov:
+R
+s
+v
+x
+y
+ulen(red path )dist[x]+`(x; y)dist[y]dist[v] =len(blue path ).
+6 / 7
+
+Correctness of Dijkstra's algorithm
+Suppose the alarm of vgoes o rst at time T. This means:
+IT=dist[v] = min w62Rdist[w]
+Ivwill now be added to R
+Idist[v] =dist[u] +`(u; v)for some u2R.
+Assume, for contradiction, that there is a shorter path from stov:
+R
+s
+v
+x
+y
+u
+len(red path )dist[x]+`(x; y)dist[y]dist[v] =len(blue path ).
+6 / 7
+
+Speed up our implementation of Dijkstra
+We need to nd, in each iteration of the outer loop, the vertex
+with the minimum alarm time.This can be done using a min-heap :
+IStore key-value pairs (alarm time, vertex) in the heap.ICall DecreaseKey if an alarm needs update.
+IEach vertex also needs to know its index in the heap.
+7 / 7
+
+Speed up our implementation of Dijkstra
+We need to nd, in each iteration of the outer loop, the vertex
+with the minimum alarm time.
+This can be done using a min-heap :
+IStore key-value pairs (alarm time, vertex) in the heap.ICall DecreaseKey if an alarm needs update.
+IEach vertex also needs to know its index in the heap.
+7 / 7
+
+Speed up our implementation of Dijkstra
+We need to nd, in each iteration of the outer loop, the vertex
+with the minimum alarm time.
+This can be done using a min-heap :
+IStore key-value pairs (alarm time, vertex) in the heap.
+ICall DecreaseKey if an alarm needs update.IEach vertex also needs to know its index in the heap.
+7 / 7
+
+Speed up our implementation of Dijkstra
+We need to nd, in each iteration of the outer loop, the vertex
+with the minimum alarm time.
+This can be done using a min-heap :
+IStore key-value pairs (alarm time, vertex) in the heap.
+ICall DecreaseKey if an alarm needs update.
+IEach vertex also needs to know its index in the heap.
+7 / 7

@@ -1,0 +1,1 @@
+CMPSC 465 Worksheet 6 covers shortest path algorithms: Dijkstra's (including validity with negative edges by constant shift), Bellman-Ford, and Floyd-Warshall. It also explores network flow, specifically validating flow functions and identifying bottleneck edges in maximum flow networks.

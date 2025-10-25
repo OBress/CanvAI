@@ -1,0 +1,1 @@
+Download JDK-8u111 for your OS and note its installation path (e.g., C:\Program Files\Java\jdk1.6.0_02). Create a desktop folder. In NetBeans Services, right-click Java-DB, go to properties, then set "Java DB installation" (e.g., C:\Program Files\Java\jdk1.8.111\db) and "Database location" to your new folder.

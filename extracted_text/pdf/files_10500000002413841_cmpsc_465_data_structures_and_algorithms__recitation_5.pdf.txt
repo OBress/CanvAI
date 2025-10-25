@@ -1,0 +1,37 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 5
+Monday, Oct 06, 2025
+1. SCC. Run the strongly connected components algorithm on the following directed graph G. When
+doing DFS on GR: whenever there is a choice of vertices to explore, always pick the one that is al-
+phabetically first.
+AB C
+F D E
+G H
+(a) Give the pre and post number of each vertex in the reverse graph GR.
+(b) In what order are the connected components found?
+(c) Which are source connected components and which are sink connected components?
+(d) Draw the “metagraph” (each meta-node is a connected component of G).
+2. Edges for SCC. LetG= (V,E)be a finite directed graph. Determine the minimum number of edges
+that must be added to Gso that the resulting graph becomes strongly connected.
+3. Multi Source Shortest Path LetG= (V,E)be an unweighted graph (directed or undirected) and let
+S⊆Vbe a set of source vertices. For every vertex v∈Vcompute
+d(v) =min
+s∈Sdist G(s,v),
+the minimum number of edges from vto the closest source.
+4. Dijkstra with Edge Budget LetG= (V,E)be a directed graph with nonnegative edge weights, a
+source vertex s∈V, and an integer k≤ |V|−1. The task is to compute the shortest path distance from
+sto every vertex v∈Vsuch that no path uses more than kedges. Design an algorithm. Prove that it
+is correct and analyse the runtime complexity.
+CMPSC 465, Fall 2025, Worksheet 5 1
+
+5. Dijkstra with Maximum Edge Weight LetG= (V,E)be a directed graph with nonnegative edge
+weights. Given a source vertex s∈Vand a threshold Wmax≥0, a path is called feasible if all its edges
+have weights at most Wmax. Modify Dijkstra’s algorithm to compute the shortest distances from sto
+all vertices along feasible paths only. Explain why your modification is correct and analyze its time
+complexity.
+6. Dijkstra with a Pinned Node You are given a strongly connected directed graph G= (V,E)with
+positive edge weights along with a particular node v0∈V. Give an efficient algorithm for finding the
+shortest path between all pairs of nodes , with the one restriction that these paths must all pass through
+v0. Make your algorithm as efficient as you can, perhaps as fast as Dijkstra’s algorithm. Explain why
+your algorithm is correct and justify its running time.
+CMPSC 465, Fall 2025, Worksheet 5 2

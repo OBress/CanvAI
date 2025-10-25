@@ -1,0 +1,1 @@
+CMPSC 461 (Programming Language Concepts) with Prof. Suman Saha explores language principles, paradigms (Imperative, Functional, OOP), syntax, semantics, and implementation. Grading: 20% Assignments, 10% Projects, 40% Midterms, 30% Final Exam. Communications via Campuswire/Canvas. Strict academic integrity, mandatory AI quiz.

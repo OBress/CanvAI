@@ -1,0 +1,1 @@
+A Python script `extract_text_from_downloads.py` repeatedly failed with a `ValueError` when calling `path.relative_to`. This occurred because numerous files from a temporary Java application template directory were not located as subpaths of the designated `downloads` directory.

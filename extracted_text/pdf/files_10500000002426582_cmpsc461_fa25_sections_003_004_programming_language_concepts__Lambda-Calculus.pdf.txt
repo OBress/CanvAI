@@ -1,0 +1,102 @@
+λ-Calculus
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+The λ-Calculus
+CMPSC 461 –Programming Language Conceptsλ
+
+
+The λ-Calculus Syntax
+CMPSC 461 –Programming Language Concepts
+
+The λ-Calculus to 
+Programming Language
+CMPSC 461 –Programming Language Conceptsλ
+
+
+Anonymous Functions
+CMPSC 461 –Programming Language Concepts
+
+
+λ-Term Example
+CMPSC 461 –Programming Language Concepts
+
+
+λ-Term Example (Parsing)
+CMPSC 461 –Programming Language Concepts
+
+λ-Term Example
+CMPSC 461 –Programming Language Concepts
+
+
+λ-Term Example (Parsing)
+CMPSC 461 –Programming Language Concepts
+
+Number of Parameters
+CMPSC 461 –Programming Language Concepts
+
+
+The λ-Calculus
+CMPSC 461 –Programming Language Concepts
+
+
+Syntax vs. Semantics
+CMPSC 461 –Programming Language Concepts
+
+
+Capture-Avoiding Substitution
+CMPSC 461 –Programming Language Concepts
+
+
+Capture-Avoiding Substitution
+(Example)
+CMPSC 461 –Programming Language Concepts(λx.λy.x y) y
+
+Bound vs. Free Variables
+CMPSC 461 –Programming Language Concepts
+
+
+More Formally …
+CMPSC 461 –Programming Language Concepts
+
+
+Free Variables: Examples
+CMPSC 461 –Programming Language Concepts•FV((x y))
+•FV((λ (x) x) y)
+
+Free Variables: Example
+CMPSC 461 –Programming Language Concepts•FV((λ (x) x) x)
+
+Free Variables: Example
+CMPSC 461 –Programming Language Concepts•FV((λ (y) ((λ (x) (z x)) x)))
+
+α-Reduction (Informal)
+CMPSC 461 –Programming Language Concepts
+
+
+α-Reduction (formal)
+CMPSC 461 –Programming Language Concepts
+
+
+-Reduction (Informal)
+CMPSC 461 –Programming Language Concepts
+
+
+-Reduction
+CMPSC 461 –Programming Language Concepts
+
+
+-Reduction Example
+CMPSC 461 –Programming Language Concepts
+
+
+-Reduction Example
+CMPSC 461 –Programming Language Concepts
+
+
+-Reduction Example
+CMPSC 461 –Programming Language Concepts•((λ (f) (f (f (λ (x) x)))) (λ (x) x))
+
+-Reduction Example
+CMPSC 461 –Programming Language Concepts•((λ (x) (x x)) (λ (x) (x x)))

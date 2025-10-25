@@ -1,0 +1,1 @@
+CMPSC 461 with Prof. Suman Saha introduces Functional Programming List concepts, including defining a `subs` function to replace list elements, computing list sum/product without higher-order functions, and detailing `foldl` (left-associative function application) and `foldr` (right-associative function application).

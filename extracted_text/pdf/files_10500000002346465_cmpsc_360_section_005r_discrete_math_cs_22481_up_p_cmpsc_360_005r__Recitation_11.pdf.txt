@@ -1,0 +1,18 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 11
+1. In an art exhibition, there are three galleries, each displaying 5 pieces of artwork. An art
+enthusiast wishes to study a total of 6 artworks, making sure to observe at least one piece from
+each gallery. In how many ways can the art enthusiast do this?
+2. What is the total number of six-digit numbers in which only and all the five odd digits appear?
+3. Answer the following about a standard deck of cards:
+(a) In how many ways can you choose four cards that are of the same suit?
+(b) In how many ways can you choose four cards such that each one is of a different suit?
+(c) In how many ways can you choose three face cards?
+4. How many nine-character vehicle license plates can be made using the 26 letters of the English
+alphabet, where each letter can be either uppercase or lowercase, and the 10 digits,
+(a) with repetition?
+(b) without repetition?
+How many of these license plates can be created if the plate must start and end with a letter and
+must include exactly three digits (with no repeated digits), and the remaining characters must
+be letters? Repetitions are allowed for letters.
+CMPSC 360, Fall 2024, Worksheet 11 1

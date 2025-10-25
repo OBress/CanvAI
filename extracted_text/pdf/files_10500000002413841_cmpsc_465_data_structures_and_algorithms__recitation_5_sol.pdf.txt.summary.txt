@@ -1,0 +1,1 @@
+This CMPSC 465 worksheet covers graph algorithms: Strongly Connected Components (SCC) analysis for connectivity/minimum edges, and shortest path variations. It details multi-source BFS, and Dijkstra's adapted for edge budget, max edge weight, or a required intermediate node.

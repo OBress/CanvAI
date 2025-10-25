@@ -1,0 +1,18 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 10
+1. Fermat’s Little Theorem: Simplify the following using Fermat’s Little Theorem:
+(a) 5300mod 13
+(b) 347mod 7
+2. Linear Congruence:
+(a) Find all solutions, if possible to 6 x≡4(mod 17 )
+(b) Find all solutions, if possible to 2 x≡5(mod 8 )
+(c) Find all solutions, if possible to 3 x≡6(mod 12 )
+3. Chinese Remainder Theorem: Consider the following system of linear congruences:
+x≡2 (mod 4)
+6x≡3 (mod 15)
+Solve for all solutions using CRT. (Hint: There are 3 unique solutions modulo 60)
+4. RSA:
+(a) Given p = 23 and q = 19. Compute the public and the private keys.
+(b) Daniel wants to send the message M = 13 to Alice. Using Alice’s public and private keys,
+calculate the ciphertext C, and the value for R when Alice recovers the message.
+CMPSC 360, Fall 2024, Worksheet 10 1

@@ -1,0 +1,54 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 5 Solutions
+1. Proof or disprove the following statements.
+(a) For a,b∈R, ifa2=b2, then a=b.
+(b)n2+n+41 is prime for n∈Z.
+Answer:
+(a) We can find a counterexample for this statement: a=1,b=−1. In this example, a2=
+b2=1, but a̸=b.2
+(b) We can find a counterexample for this statement.
+Since n2+n+41= (n+1)n+41, we can try to construct a perfect square, where n=40.
+Then, (n+1)n+41= (40+1)×40+41=41×40+41=41×41, which contradicts
+the statement that n2+n+41 is prime. 2
+2. Prove by contrapositive that if a number is divisible by 4, then its last two digits in base 10 is
+divisible by 4.
+Proof:
+The contrapositive statement is: If a number’s last two digits in base 10 is not divisible by 4,
+then the number itself is not divisible by 4.
+Assume that we have n=100a+b,a,b∈Z∧b∈[0,100), where b≡k(mod 4 ),k̸=0.
+Since 100 a=25(4a)≡0(mod 4 ), and by the compatibility of addition in modular arithemetic
+we would have 100 a+b≡0+k(mod 4 )≡k(mod 4 ).
+Since k̸=0, we can conclude that 4 ∤(100a+b), or 4∤n.
+Thus we proved the contrapositive statement, and hence proving the original statement. 2
+3. Suppose q∈Z. Prove by contrapositive that if 6 q+7 is even, then qis odd.
+Proof:
+The contrapositive statement is: If q is even, then 6q+7is odd.
+Assume that qis even. By definition, q=2nwhere n∈Z.
+Consider the expression 6 q+7:
+6q+7=6(2n)+7=12n+7=12n+6+1=2(6n+3)+1
+Since n∈Z, we have 6 n+3∈Z. Hence, by the definition of odd, we have 6 q+7 is odd.
+Since we have proven that if qis even, then 6 q+7 is odd, by contrapositive, it follows that if
+6q+7 is even, then qmust be odd. 2
+CMPSC 360, Fall 2024, Worksheet 5 Solutions 1
+
+4. For a,b,c∈R+, prove that if ab=c, then a⩽√corb⩽√c.
+Answer:
+Suppose a,b, and care positive real numbers such that ab=c, and suppose a>√candb>√c.
+By ordering properties of real numbers:
+• Since a>0, we have b>√c↔ab>a√c.
+• Since√c>0,a>√c↔a√c>√c.√c=c.
+Thus, ab>a√c>√c.√c=c, which implies ab>c.
+However, ab>ccontradicts the assumption that ab=c.
+Therefore, if ab=c, then a⩽√corb⩽√c.2
+5. Suppose n∈Zandp∈P(i.e., pis a prime number). Prove the statement: if p|n, then
+p∤(n+1).
+Proof:
+Let’s assume there exists some integer nand prime psuch that p|nandp|(n+1).
+By definition of divisibility:
+p|n→p·r=n,r∈Z (1)
+p|(n+1)→p·s=n+1,s∈Z (2)
+Combining Eq. 1 and Eq. 2, we have p·s=p·r+1, which can be derived as p·(s−r) =1.
+From the definition of divisibility we can say that p|1.
+Asp|1, we have p≤1. But p∈Prequires p>1 which leads to contradiction.
+Hence, For any integer nand any prime p, ifp|n, then p∤(n+1)2
+CMPSC 360, Fall 2024, Worksheet 5 Solutions 2

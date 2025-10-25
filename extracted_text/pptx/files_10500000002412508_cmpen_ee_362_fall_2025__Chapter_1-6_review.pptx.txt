@@ -1,0 +1,272 @@
+Final Review
+
+Chapters
+Chap 1 Introduction 
+Chap 2 Application layer
+Chap 3 Transport layer
+Chap 4 Network data plane
+Chap 5 Network control plane
+Chap 6 Link layer
+Chap “7” Physical layer
+
+
+
+Topics
+Concepts
+Protocols
+Underlying mechanism & performance analysis
+
+
+1
+
+Chap 1: Introduction
+
+Concepts
+Internet, protocol
+Edge: access networks (DSL, Cable, Ethernet, wireless)
+Core: 2 networking paradigms (packet/circuit switching), 2 key network core functions (routing, forwarding), structure of Internet core
+
+
+Protocols
+Protocol stack
+Analysis
+#supported users using circuit switching vs. packet switching
+Delay calculation (N-hop path, w/ or w/o segmentation)
+Throughput (bottleneck link capacity)
+Loss (causes of loss)
+
+
+2
+
+Chap 2: Application Layer
+
+Concepts
+Application architectures (CS, P2P)
+Client/server process, sockets (TCP/UDP)
+Transport services (lossless? secure? delay? throughput?)
+Protocols
+HTTP: transport layer, persistent vs. non-persistent, cookie
+Email: transport layer, SMTP, POP/IMAP, HTTP
+
+DNS: transport layer, 3+1 types of DNS servers, two ways to query DNS (iterative, recursive)
+Analysis
+Webpage downloading time: type of HTTP
+Single object downloading time: Internet/access/LAN delay, caching
+File distribution time (CS, P2P)
+
+
+3
+
+Chap 3: Transport Layer
+
+Concepts
+TCP vs. UDP
+Identifier of UDP/TCP socket
+Protocols
+UDP: segment format
+TCP: segment format (meaning of seq#, ack#), differences from go-back-N/selective-repeat, flow control,  congestion control (3 phases, cwnd updates)
+
+
+
+
+Analysis
+Checksum
+rdt design: stop-and-wait 
+rdt: pipelined (go-back-N, selective repeat, TCP), min #distinct sequence numbers
+TCP timeout value: EstimatedRTT, DevRTT
+TCP throughput: per-window rate, long-term rate
+
+
+4
+
+Chap 4: Network Data Plane
+
+Concepts
+Two key network-layer functions
+Router: 4 + 3 + 3
+4 components
+3 line card functions
+3 types of switching fabrics
+Addressing: IP address, subnet, CIDR, DHCP
+
+
+Protocols
+IPv4 (IP fragmentation) vs. IPv6 (3 removed features, 1 added feature)
+Analysis
+Forwarding table entries: IP addresses ↔ prefix
+IP fragmentation (ID, flag, offset)
+Subnet prefix
+Configure OpenFlow switches
+
+5
+
+Chap 5: Network Control Plane
+
+Concepts
+two architectures of control plane
+Centralized vs. decentralized routing algorithms
+SDN (3 components, 3 controller functions)
+Protocols
+Intra-AS routing vs. Inter-AS routing
+BGP (eBGP/iBGP): BGP route attributes, BGP route selection
+
+ICMP (underlying protocol, ping, traceroute)
+SNMP (underlying protocol, two modes)
+Analysis
+Dijkstra: algorithm
+Distance vector: algorithm, count-to-infinity, poisoned reverse
+
+6
+
+Chap 6: Link Layer
+
+Concepts
+link layer communication entity
+Error detection: parity check, checksum, CRC
+Protocols
+Multiple access protocols: three families, example protocols per family
+
+LAN: MAC address, ARP, switch
+VLAN: port-based VLAN, trunk
+Analysis
+Calculation of error detection codes
+Efficiency of random access protocols
+
+7
+
+Chap “7”: Physical Layer
+
+Concepts
+parameters of a periodic signal (amplitude, frequency, phase)
+cutoff frequency
+signal vs. data
+digital vs. analog 
+2 classes of modulation schemes (baseband, passband) 
+
+Protocols
+baseband modulation: 4 line codes & use cases
+passband modulation: 4 schemes 
+Analysis
+Fourier analysis: bit rate vs. #harmonics
+Digitization: data rate based on signal bandwidth & #quantization levels
+
+
+8
+
+Summary 
+
+The network is evolving…
+New applications require new protocols
+TCP evolves
+IP evolves
+SDN goes wide area
+“name/content”-based networking
+5G -> 5G++
+
+
+9
+
+Exam format
+
+Scope: Chap1-6+“7” 
+Two portions of grade
+required portion: 35 pt (35% of final grade)
+bonus portion: 5 pt (5% of final grade)
+Two types of questions
+Selection (multi-answer)  concepts [10 pt]
+Calculation/analysis  application of concept [30 pt]
+Duration: 110 min
+Location: Section 1—, Section 2—
+Closed-book
+Calculators allowed, instructor-provided formula sheet allowed
+No other assistance allowed (e.g., textbook, slides, notes, homework solutions)
+Each student must work independently. No leakage of exam problems allowed. 
+
+
+6-10
+
+Network Layer
+
+4-11
+
+Retired slides
+
+Chap 1: Introduction
+
+Concepts
+Internet, protocol
+Edge: access networks (DSL, Cable, Ethernet, wireless)
+Core: 2 + 2 + 3
+2 networking paradigms (packet/circuit switching) 
+2 key network core functions (routing, forwarding)
+3-tiered structure of Internet core
+
+
+Protocols
+Protocol stack
+Analysis
+#supported users using circuit switching vs. packet switching
+Delay calculation (4 types of delays, P packets over N-hop path)
+Throughput (bottleneck link capacity)
+Loss (causes of loss)
+
+
+2
+
+Chap 2: Application Layer
+
+Concepts
+Application architectures (CS, P2P)
+Client/server process, sockets (TCP/UDP)
+Transport services (lossless? secure? delay? throughput?)
+Protocols
+HTTP: transport layer, persistent vs. non-persistent
+Email: transport layer, SMTP, POP/IMAP, HTTP
+
+DNS: transport layer, 3+1 types of DNS servers, two ways to query DNS (iterative, recursive)
+Analysis
+Webpage downloading time: type of HTTP
+Object downloading time: Internet/access/LAN delay, caching
+File distribution time (CS, P2P)
+
+
+13
+
+Chap 3: Transport Layer
+
+Concepts
+TCP vs. UDP
+Identifier of UDP/TCP socket
+Protocols
+UDP: “segment format”
+TCP: “segment format”, differences from go-back-N/selective-repeat, flow control,  congestion control (3 phases, cwnd updates, MSS)
+
+
+
+
+Analysis
+(Internet) checksum
+rdt design: sender-side events, receiver-side events, stop-and-wait vs. pipelined (go-back-N, selective repeat), min #distinct sequence numbers
+TCP timeout value: EstimatedRTT, DevRTT
+TCP throughput: per-window rate, long-term rate
+
+
+4
+
+Exam format
+
+Scope: Chap1-6+“7” 
+3 types of problems 
+required portion: 35 pt (35% of final grade)
+bonus portion: 4 pt (4% of final grade)
+Two types of questions
+Selection/fill blank/true-or-false  concepts [15 pt]
+Calculation/analysis  application of concept [24 pt]
+Duration: 110 min
+Location: Section 1—, Section 2—
+Open-book
+textbook and all instructor-provided materials (slides, notes, formula sheet, homework solutions) allowed, calculators allowed
+Each student must work independently. No external help (including online help) allowed. No leakage of exam problems allowed. 
+
+
+6-15

@@ -1,0 +1,194 @@
+Regular Expressions
+Professor: Suman Saha
+CMPSC 461 – Programming Language Concepts
+
+Regular Expression
+Pattern matching
+•What happens if, at a Unix/Linux shell prompt, you type
+   ls *
+    and press return?
+•Suppose the current directory contains files called regfla.tex , regfla.aux , regfla.log, 
+regfla.dvi , and regfla.aux . What happens if you type
+   ls *.aux
+    and press return?
+CMPSC 461 – Programming Language Concepts
+
+Alphabets
+An alphabet is specified by giving a finite set, Σ, whose elements are called 
+symbols. For us, any set qualifies as a possible alphabet, so long as it is finite .
+Examples:
+•Σ1 = {0,1,2,3,4,5,6,7,8,9} – 10-element set of decimal digits.
+•Σ2 = {a,b,c ,…,x,y,z} – 26-element set of lower -case characters of the English language
+•Σ3 = {S | S ⊆ Σ1 } – 210-element set of all subsets of the alphabet of decimal digits.
+Non-Example:
+•ℕ = {0,1,2,3, …} –set of all non -negative whole numbers is not an alphabet, because it is 
+infinite
+CMPSC 461 – Programming Language Concepts
+
+String over an Alphabet
+A string of length n ( ≥ 0) over an alphabet Σ is just an ordered n -tuple of 
+elements of Σ, written without punctuation.
+•Example: if Σ = {a, b, c} , then a, ab, aac, and bbac  are strings over Σ of lengths one, two, 
+three and four respectively
+•This string is called sentence or word
+N.B. there is a unique string of length zero over Σ, called the null string (or 
+empty string) and denoted ε
+CMPSC 461 – Programming Language Concepts
+
+Regular Language
+•A language is a set of strings over an alphabet . Thus 
+•{a, ab, baa} is a language over Σ = {a, b}
+•{0, 111} is a language over Σ = {0, 1}  
+•The number of symbols in a string is called the length of the string. For a string w its 
+length is represented by |w|.
+•A Regular Language is a subset of all languages that can be defined by regular 
+expressions
+CMPSC 461 – Programming Language Concepts
+
+Regular Expression
+•Each regular expression is a notation for a regular language.
+•If A is a regular expression, then we write L(A)  to the language denoted by A
+•Single character : ‘c’
+•L(‘c’) = {“c”}  (for any c ∈ Σ)
+•Concatenation : AB (where A and B are regular expression)
+•L(AB) = {ab | a ∈ L(A) and b ∈ L(B)}
+•Example: if A = ‘i’ and B = ‘f’ then L(AB) = L(‘i’ ‘f’) = {“if”}
+•Union :
+•L(A|B)  = L(A) ∪ L(B)
+                  = {s | s ∈ L(A) or s ∈ L(B)}
+•Example: L(‘if’ | ‘then’ | ‘else’) = {“if”, “then”, “else”}
+CMPSC 461 – Programming Language Concepts
+
+Regular Expression
+•So far, we do not have a notation for infinite languages
+•Iteration: A*
+•L(A*) = {“” | L(A) | L(AA) | L(AAA) | …}
+•Example: L(0*) = {“”, “0”, “00”, “000”,…}
+•Epsilon: ε
+•L(ε) = {“”}
+•If (A) is a regular expression same as the regular expression A
+CMPSC 461 – Programming Language Concepts
+
+Top Hat
+CMPSC 461 – Programming Language Concepts
+
+Notational Conveniences
+•Regular Definition is a sequence of the definitions of the form
+    d1 → r1
+    d2 → r2
+   where di is a distinct name and ri is a regular expression over symbols in
+    Σ ∪ {d1, d2,… di-1}
+•Example
+   letter   → A|B|…| Z|a|b |…|z
+   digit   → 0|1|…|9
+   id  → letter( letter|digit )*
+CMPSC 461 – Programming Language Concepts
+
+Notational Conveniences
+•One or more instances: r+ = rr*
+•Zero or one instance: r? = r| ε
+•Character classes:
+     [abc]=a|b|c
+     [a-z]=a|b|…|z
+     [0-9]=0|1|…|9
+  
+•Any single character denoted by dot sign : .
+•Negated character class: [^aeiou ]
+•Number of repetition: [a - f]{3}
+     
+CMPSC 461 – Programming Language Concepts
+
+
+Precedence of RE
+•The order is (high to low)
+•Closure (*)
+•Concatenation
+•Alternation
+Example: 
+•ab | cd means (ab) | (cd)
+•a | bc*d means (a|(b(c*)d))
+CMPSC 461 – Programming Language Concepts
+
+Examples
+•Keywords
+•if, while, for, ….
+•Identifiers
+•Integers
+•Whitespace: non -empty sequence of blanks, newlines, tabs
+•(‘\n’ | ‘ \t’ | ‘ ’)+
+CMPSC 461 – Programming Language Concepts
+
+
+Examples
+•Float
+•String constants
+CMPSC 461 – Programming Language Concepts
+
+
+Special Characters in RE
+•If you want to match 1+2=3 , you need to use a backslash ( \) to escape 
+the+as this character has a special meaning (Match one or more of the 
+previous).
+•To match the 1+2=3 as one string you would need to use 1\+2=3
+CMPSC 461 – Programming Language Concepts
+
+
+Apply Regular Expression
+•Suppose our Σ is all ASCII characters.
+•A regular expression for even number is
+(+|-)? [0-9]*[02468]
+42
++1370
+-3248
+-999991 2
+CMPSC 461 – Programming Language Concepts
+
+
+Apply Regular Expression
+•Suppose our Σ = {a, @, . } where a represents “some letter.”
+•A regular expression for email addresses is
+a+ (.a+)* @ a+ (.a+)+
+szk461 @cse.psu.edu
+first.middle.last @mail.site.org
+my.president @whitehouse .gov
+CMPSC 461 – Programming Language Concepts
+
+
+Build a Regular Expression
+•L = {w | w is a binary string which does not contain two consecutive 0s or two 
+consecutive 1s anywhere}
+•E.g., w = 01010101 is in L, while w = 10010 is not in L
+•Goal: Build a regular expression for L
+•Four cases for w:
+•Case A: w starts with 0 and |w| is even
+•Case B: w starts with 1 and |w| is even
+•Case C: w starts with 0 and |w| is odd
+•Case D: w starts with 1 and |w| is odd
+•Since L is the union of all 4 cases
+•Reg Exp for L = (01)* | (10)* | 0(10)* | 1(01)*  
+•If we introduce ε then the regular expression can be simplified to:
+•Reg Exam for L = (ε | 1) (01)* ( ε | 0)
+CMPSC 461 – Programming Language Concepts•Regular expression for four cases:
+•Case A:  (01)*
+•Case B:  (10)*
+•Case C:  0(10)*
+•Case D:  1(01)*
+
+
+Build a Regular Expression
+•Σ = {a, b, c}, a string that has a symbol in the middle that is neither its start not its end 
+symbol, and its and start symbols are different, for e.g. , abbbbbc  or bccccca
+•Given an alphabet Σ = {a, b} , a string with a’s followed by b’s with both the number of a’s 
+and b’s  being equal.
+CMPSC 461 – Programming Language Concepts
+
+
+Top Hat
+CMPSC 461 – Programming Language Concepts
+
+Reading and Exercises
+Reading
+•Chapter: 2.1 (Michael Scott Book)
+Exercises
+•Exercises : 2.1, and 2.3 (Michael Scott Book)
+CMPSC 461 – Programming Language Concepts

@@ -1,0 +1,1869 @@
+CMPSC 465: LECTURE XIII
+Strongly Connected Components
+Ke Chen
+September 29, 2025
+
+Recall from last week ...
+On a directed graph:IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A
+B
+C D1
+2
+3
+45
+678tree
+treetreebackforward
+cross
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA1
+C2
+D
+34E5
+F
+67back8 9 10
+B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA1C2
+D
+34E5
+F
+67back8 9 10
+B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1
+C2D
+34E5
+F
+67back8 9 10
+B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2
+D
+34E5
+F
+67back8 9 10
+B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2
+D
+34E5
+F
+67back8 9 10
+B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2
+D
+34E5
+F
+67back8 9 10
+B
+1112
+DF E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1
+C2D
+34E5
+F
+67back8 9 10
+B
+1112
+DF E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E5F
+67back8 9 10
+B
+1112
+DF E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5
+F
+67back8 9 10
+B
+1112
+DF E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5
+F
+67back8 9 10
+B
+1112
+DF E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5
+F
+67back8 9 10
+B
+1112
+D FE C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5
+F
+67back8 9 10
+B
+1112
+D FE C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5
+F
+67back8 9 10
+B
+1112
+D FE C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E5F
+67back
+89 10
+B
+1112
+D FE C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E5F
+67back
+89 10
+B
+1112
+D F EC A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1
+C2D
+34E
+5F
+67back
+8 910
+B
+1112
+D F EC A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1
+C2D
+34E
+5F
+67back
+8 910
+B
+1112
+D F E CA B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA1C
+2D
+34E
+5F
+67back
+8 9 10B
+1112
+D F E CA B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA1C
+2D
+34E
+5F
+67back
+8 9 10B
+1112
+D F E C AB
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5F
+67back
+8 9 10
+B
+1112
+D F E C AB
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5F
+67back
+8 9 10
+B
+1112
+D F E C AB
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5F
+67back
+8 9 10
+B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5F
+67back
+8 9 10B
+1112
+D F E C A B
+1 / 9
+
+Recall from last week ...
+On a directed graph:
+IThe same DFS works.
+IFour types of edges with respect to a particular DFS run.
+ICan use the pre- and post-numbers to detect cycles or do
+topological sort if the input is a DAG, in O(jVj+jEj)time.
+A C E
+B D FA
+1C
+2D
+34E
+5F
+67back8 9 10B
+1112
+D F E C A B
+1 / 9
+
+Connectivity in directed graphs
+Consider A B CThere is a path from AtoC, but not the other way around.
+Denition In a directed graph G, we say vertices wandvare
+connected if there are paths from wtovand from
+vtow.IThis is an equivalance relation that divides the vertex set into
+disjoint subsets.
+IEach subset is called a strongly connected component (SCC) .
+2 / 9
+
+Connectivity in directed graphs
+Consider A B C
+There is a path from AtoC, but not the other way around.Denition In a directed graph G, we say vertices wandvare
+connected if there are paths from wtovand from
+vtow.IThis is an equivalance relation that divides the vertex set into
+disjoint subsets.
+IEach subset is called a strongly connected component (SCC) .
+2 / 9
+
+Connectivity in directed graphs
+Consider A B C
+There is a path from AtoC, but not the other way around.
+Denition In a directed graph G, we say vertices wandvare
+connected if there are paths from wtovand from
+vtow.IThis is an equivalance relation that divides the vertex set into
+disjoint subsets.
+IEach subset is called a strongly connected component (SCC) .
+2 / 9
+
+Connectivity in directed graphs
+Consider A B C
+There is a path from AtoC, but not the other way around.
+Denition In a directed graph G, we say vertices wandvare
+connected if there are paths from wtovand from
+vtow.
+IThis is an equivalance relation that divides the vertex set into
+disjoint subsets.IEach subset is called a strongly connected component (SCC) .
+2 / 9
+
+Connectivity in directed graphs
+Consider A B C
+There is a path from AtoC, but not the other way around.
+Denition In a directed graph G, we say vertices wandvare
+connected if there are paths from wtovand from
+vtow.
+IThis is an equivalance relation that divides the vertex set into
+disjoint subsets.
+IEach subset is called a strongly connected component (SCC) .
+2 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Strongly connected components (SCC's)
+A B C
+DE F
+G H
+I J K
+LHow to nd all SCC's eciently?
+Let's try DFS!
+A B,E C,F
+DG; H; I
+J; K; L
+3 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Fact The meta graph is a DAG.Proof. If there was a cycle in the meta graph, then the SCC's
+in the cycle would be merged together.source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Fact The meta graph is a DAG.
+Proof. If there was a cycle in the meta graph, then the SCC's
+in the cycle would be merged together.source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Denition In a directed graph, a source is a vertex with no in-
+coming edges; a sink is a vertex with no outgoing
+edges.source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Denition In a directed graph, a source is a vertex with no in-
+coming edges; a sink is a vertex with no outgoing
+edges.source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Idea If we call Explore on a vertex from a sink SCC in the
+metagraph, it will discover exactly that SCC.1. Find a vertex in a sink SCC.But how?
+2. Call Explore on it.
+3. Remove the found SCC and repeat.
+source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Idea If we call Explore on a vertex from a sink SCC in the
+metagraph, it will discover exactly that SCC.
+1. Find a vertex in a sink SCC.But how?
+2. Call Explore on it.
+3. Remove the found SCC and repeat.source
+sink
+4 / 9
+
+Meta graph
+A B,E C,F
+DG; H; I
+J; K; L
+Each directed graph has a corresponding meta graph
+IVertices correspond to SCC's.
+IEdges correspond to paths between SCC's.
+Idea If we call Explore on a vertex from a sink SCC in the
+metagraph, it will discover exactly that SCC.
+1. Find a vertex in a sink SCC. But how?
+2. Call Explore on it.
+3. Remove the found SCC and repeat.source
+sink
+4 / 9
+
+Find a vertex in a sink SCCTurns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ...How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+A B
+x
+yProof. Among all vertices in A[B, if DFS rst visits
+Ia node vinA,will nish all Bbefore going back to v.
+Ia node vinB.will nish all Bwithout visiting anything in A.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+A B
+x
+y
+Proof. Among all vertices in A[B, if DFS rst visits
+Ia node vinA,will nish all Bbefore going back to v.
+Ia node vinB.will nish all Bwithout visiting anything in A.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+A B
+x
+y
+Proof. Among all vertices in A[B, if DFS rst visits
+Ia node vinA,will nish all Bbefore going back to v.
+Ia node vinB.will nish all Bwithout visiting anything in A.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in ?.
+A B
+x
+y
+Proof. Among all vertices in A[B, if DFS rst visits
+Ia node vinA,will nish all Bbefore going back to v.
+Ia node vinB.will nish all Bwithout visiting anything in A.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in A.
+A B
+x
+y
+Proof. Among all vertices in A[B, if DFS rst visits
+Ia node vinA,will nish all Bbefore going back to v.
+Ia node vinB.will nish all Bwithout visiting anything in A.
+5 / 9
+
+Find a vertex in a sink SCC
+Turns out to be not easy ... How about a vertex in a source SCC?
+Fact Suppose AandBare two SCC's and there is an edge from
+a vertex in Ato a vertex in B. Then, the vertex with the
+largest post number must be in A.
+A key consequence of this fact is that the vertex with the
+largest post number must be in a source SCC .
+A B,E C,F
+DG; H; I
+J; K; L
+5 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.Therefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Idea Consider the reverse graph GR.
+G:GR:
+A B
+D ECTherefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Idea Consider the reverse graph GR.
+G:GR:
+A B
+D ECA
+C
+DTherefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Idea Consider the reverse graph GR.G:
+GR:A B
+D ECA
+C
+DTherefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Idea Consider the reverse graph GR.G:
+GR:A B
+D ECA
+C
+DTherefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Facts about GR
+IGandGRhave the same SCC's.IIn the meta graph of GR, every source SCC corresponds to a
+sink SCC in G.
+A B,E C,F
+DG; H; I
+J; K; L
+Therefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Facts about GR
+IGandGRhave the same SCC's.
+IIn the meta graph of GR, every source SCC corresponds to a
+sink SCC in G.
+A B,E C,F
+DG; H; I
+J; K; LTherefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Facts about GR
+IGandGRhave the same SCC's.
+IIn the meta graph of GR, every source SCC corresponds to a
+sink SCC in G.
+A B,E C,F
+DG; H; I
+J; K; LTherefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find a vertex in a sink SCC
+But we need a vertex from a sink SCC, not a source SCC.
+Facts about GR
+IGandGRhave the same SCC's.
+IIn the meta graph of GR, every source SCC corresponds to a
+sink SCC in G.
+A B,E C,F
+DG; H; I
+J; K; L
+Therefore, if we run DFS on GRand choose the node with the
+highest post number, it must be in a sink SCC of G!
+6 / 9
+
+Find SCC's
+Recall our plan:
+1. Find a vertex in a sink SCC.
+2. Call Explore on it.
+3. Remove the found SCC and repeat.
+A B,E C,F
+DG; H; I
+J; K; L
+7 / 9
+
+Find SCC's
+Recall our plan:
+1. Find a vertex in a sink SCC.
+2. Call Explore on it.
+3. Remove the found SCC and repeat.
+A B,E C,F
+DG; H; I
+J; K; L
+7 / 9
+
+Find SCC's
+Input: Graph G= (V; E)in adjacency list.
+1. Build adjacency list for GR.
+2. Run DFS on GR, assign pre/post numbers and output nodes
+sorted in descending order of post number . Let v1; v2; : : : ; v n
+be the ordering of the vertices.
+3. Run DFS on Gusing the this ordering:
+//visited is an array of size nfilled with 0's
+color = 1
+fori= 1tondo
+ifvisited [i] == 0 then
+Explore( G,vi,color )
+color =color + 1
+8 / 9
+
+Find SCC's
+Input: Graph G= (V; E)in adjacency list.
+1. Build adjacency list for GR.
+2. Run DFS on GR, assign pre/post numbers and output nodes
+sorted in descending order of post number . Let v1; v2; : : : ; v n
+be the ordering of the vertices.
+3. Run DFS on Gusing the this ordering:
+//visited is an array of size nfilled with 0's
+color = 1
+fori= 1tondo
+ifvisited [i] == 0 then
+Explore( G,vi,color )
+color =color + 1
+Time complexity?Steps 1, 2, and 3 each takes O(jVj+jEj),
+so overall O(jVj+jEj).
+8 / 9
+
+Find SCC's
+Input: Graph G= (V; E)in adjacency list.
+1. Build adjacency list for GR.
+2. Run DFS on GR, assign pre/post numbers and output nodes
+sorted in descending order of post number . Let v1; v2; : : : ; v n
+be the ordering of the vertices.
+3. Run DFS on Gusing the this ordering:
+//visited is an array of size nfilled with 0's
+color = 1
+fori= 1tondo
+ifvisited [i] == 0 then
+Explore( G,vi,color )
+color =color + 1
+Time complexity? Steps 1, 2, and 3 each takes O(jVj+jEj),
+so overall O(jVj+jEj).
+8 / 9
+
+Find SCC's
+Input: Graph G= (V; E)in adjacency list.
+1. Build adjacency list for GR.
+2. Run DFS on GR, assign pre/post numbers and output nodes
+sorted in descending order of post number . Let v1; v2; : : : ; v n
+be the ordering of the vertices.
+3. Run DFS on Gusing the this ordering:
+//visited is an array of size nfilled with 0's
+color = 1
+fori= 1tondo
+ifvisited [i] == 0 then
+Explore( G,vi,color )
+color =color + 1
+Final remark Note that we don't need to actually \remove" any
+SCC. Any node with a nonzero entry in visited is no longer part of
+the graph for DFS. 8 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L1210 8
+7
+11 9
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L1236 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L1210 8
+7
+11 9
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L1210 8
+7
+11 9
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+458
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L1210 8
+7
+119
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 108
+7
+119
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 108
+7
+119
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 108
+7
+119
+1 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+589
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 108
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+91324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 87
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 7101112
+4
+58
+91324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 87
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+91324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+91324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423
+1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423
+1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423
+1522
+1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91 6
+2 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324
+1819
+1423
+1522
+1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91
+62 3 5
+4
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324
+1819
+1423
+1522
+1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91
+62 3
+54
+A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324
+1819
+1423
+1522
+1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91
+62 3
+5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324
+1819
+1423
+1522
+1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91
+62
+3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324
+1819
+1423
+1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 91
+6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324
+1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9
+
+Find SCC's
+A B C
+DE F
+G H
+I J K
+L12 10 8
+7
+11 9
+1 6
+2 3 5
+4A B C
+DE F
+G H
+I J K
+L12 36 710
+1112
+4
+58
+9
+1324 1819
+1423 1522 1720
+1621
+9 / 9

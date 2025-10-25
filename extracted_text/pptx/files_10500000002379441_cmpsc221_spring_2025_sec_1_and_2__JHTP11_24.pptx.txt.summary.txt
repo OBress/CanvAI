@@ -1,0 +1,1 @@
+Chapter 24 of "Java How to Program, 11/e" details accessing databases via JDBC. For inquiries, email paul.deitel@deitel.com. Content is copyrighted 1992-2018 by Pearson Education, Inc.

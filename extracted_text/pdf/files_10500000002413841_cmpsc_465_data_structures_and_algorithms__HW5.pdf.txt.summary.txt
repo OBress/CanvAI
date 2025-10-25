@@ -1,0 +1,1 @@
+CMPSC 465 HW 5, due Oct 13, 10 pm via Gradescope, covers graph algorithms: Strongly Connected Components, unique shortest paths, Dijkstra's, and BFS. Group collaboration is allowed, but individual write-ups are required, with acknowledgments. No late submissions will be accepted.

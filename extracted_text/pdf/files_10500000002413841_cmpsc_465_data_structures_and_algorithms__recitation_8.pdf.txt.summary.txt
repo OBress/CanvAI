@@ -1,0 +1,1 @@
+CMPSC 465 Worksheet 8 focuses on Minimum Spanning Trees. Tasks include applying Prim's algorithm, analyzing MSTs in subgraphs, and determining impacts of edge weight increments on MSTs and shortest paths. It also requires modifying Kruskal's for specific edges and transforming graphs to handle negative weights for MST computation.

@@ -1,0 +1,1 @@
+This CMPSC 461 material covers Functional Programming concepts in Scheme, detailing boolean values and predicates, conditional expressions (`if`, `cond`), and mutual recursion. It introduces higher-order functions, which accept or return functions, and explains local binding constructs like `let` (simultaneous), `let*` (sequential), and `letrec` (recursive definitions).

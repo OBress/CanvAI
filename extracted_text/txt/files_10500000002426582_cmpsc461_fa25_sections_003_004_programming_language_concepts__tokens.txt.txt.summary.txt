@@ -1,0 +1,1 @@
+This content defines tokens for a grammar used in checker.py, encompassing programming language elements like identifiers, numbers, keywords (IF, FOR, PRINT), logical (AND, OR, NOT), arithmetic (+, -, *, /, %), and comparison (==, !=, <, >) operators, assignment (=), plus punctuation ((), ,, :) and EOF.

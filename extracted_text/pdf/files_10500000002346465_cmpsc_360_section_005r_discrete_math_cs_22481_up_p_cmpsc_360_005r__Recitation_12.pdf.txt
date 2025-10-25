@@ -1,0 +1,17 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 12
+1. Suppose a company has two factories, Factory Aand Factory B, that produce 60% and 40% of
+its products, respectively. Factory Aproduces 2% defective products while Factory Bproduces
+3% defective products. If a detective item is drawn at random, what is the probability that it
+was produced by factory B?
+2. Two dice are rolled. Let:
+•A= ”Sum of two dice equals 3.”
+•B= ”Sum of two dice equals 7.”
+•C= ”At least one of the dice shows a 1.”
+(a) What is P(A|C)?
+(b) What is P(B|C)?
+3. A student is given a multiple choice exam with 10 questions, each question with five possible
+answers. This student guesses randomly for each question.
+(a) What’s the probability this student gets exactly 6 questions correctly?
+(b) What’s the probability this student gets at least 6 questions correctly?
+CMPSC 360, Fall 2024, Worksheet 12 1

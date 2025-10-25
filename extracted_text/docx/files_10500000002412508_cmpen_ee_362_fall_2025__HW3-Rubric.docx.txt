@@ -1,0 +1,121 @@
+CMPEN/EE 362 HW 3 Rubric
+
+Total number of points: 15
+
+Problem 1: (2 points)
+(1 point)
+-0.0 points if all rows of the table are correct.
+-0.25 points if 1st row of the table is incorrect.
+-0.25 points if 2nd row of the table is incorrect.
+-0.25 points if 3rd row of the table is incorrect.
+-0.25 points if 4th row of the table is incorrect.
+-1.0 point if totally wrong or no attempt was made.
+Yes, a and b1 could be the same. (0.25 points)
+-0.0 points if correct.
+-0.25 points if incorrect or no attempt was made.
+No, b2 and b1 cannot be the same. (0.25 points)
+Same as (b).
+Server needs to create 3 TCP sockets, one for each client process. (0.5 points)
+-0.0 points if correct.
+-0.25 points if incorrect number of sockets mentioned.
+-0.25 points if mentioned incorrect socket type.
+
+Problem 2: (2.5 points)
+The checksum is: 1000 1110 0001 0000 (1.75 points)
+-0.0 points if correct and proper steps are shown (including wrapping around the overflow bit).
+-0.5 points if incorrect but proper steps are shown.
+-1.0 points if correct but steps are not properly shown.
+-1.75 points if incorrect and no steps are shown, or no attempt was made.
+No. As long as there is a 1-bit error, it’ll be detected. (0.25 points)
+-0.0 points if correct.
+-0.25 points if incorrect.
+Yes, a 2-bit error could be undetected. (0.5 points)
+-0.0 points if correct and an example is shown.
+-0.25 points if correct but no example is shown.
+-0.5 points if incorrect.
+
+
+
+
+Problem 3: (1 point)
+This situation will result in a deadlock.  
+-0.0 points if correct and a proper explanation is given.
+-0.5 points if correct but no explanation.
+-1.0 points if incorrect or no attempt was made.
+
+Problem 4: (1 point)
+-0.0 points if fully correct.
+-0.25 points if mostly correct (made a small error).
+-0.5 points if partially correct (the event-action lists for some of the edges are incorrect).
+-0.75 points if an incorrect attempt was made.
+-1.0 point if no attempt was made.
+
+Problem 5: (1 point)
+Same as 4.
+
+Problem 6: (2 points)
+(0.5 points)
+In-order and successful:
+Sequence number: 201, 301, 361;
+ACK number: 301, 361, 481.
+-0.0 points if fully correct.
+-0.1 points if mostly correct (made a small error).
+-0.25 points if sequence numbers are incorrect.
+-0.25 points if ACK numbers are incorrect.
+
+(0.5 points)
+The first segment sent by A is lost:
+Sequence number: 201, 301, 361, 201;
+ACK number: 201, 201, 481.
+Same as (a).
+
+(0.5 points)
+The first acknowledgement sent by B is lost:
+Sequence number: 201, 301, 361, 201;
+ACK number: 361, 481, 481.
+Same as (a).
+
+(0.5 points)
+The second segment sent by A arrives after the third segment: 
+Sequence number: 201, 301, 361;
+ACK number: 301, 301, 481.
+Same as (a).
+
+Problem 7: (3 points)
+SampleRTT (ms) = 70, 110, 102, 90, 115 
+EstimatedRTT (ms) = 78.8, 82.5, 84.9, 85.5, 89    (1 point)
+-0.0 points if fully correct.
+-0.25 points if mostly correct (up to 2 miscalculated values).
+-0.5 points if correct approach but wrong values (more than 2).
+-1.0 points if fully incorrect or no attempt was made.
+If EstimatedRTT is updated first (upon receiving each SampleRTT),
+SampleRTT (ms) = 70, 110, 102, 90, 115 
+DevRTT (ms) = 17.4, 19.7, 19.1, 15.8, 18.1    (1 point)
+If DevRTT is updated first,
+SampleRTT (ms) = 70, 110, 102, 90, 115 
+DevRTT (ms) = 17.7, 20.8, 20.5, 17.0, 19.8    (1 point)
+Same as (a).
+If EstimatedRTT is updated first,
+SampleRTT (ms) = 70, 110, 102, 90, 115 
+TimeoutInterval (ms) = 148.5, 161.5, 161.4, 148.6, 161.5   (1 point)
+If DevRTT is updated first,
+SampleRTT (ms) = 70, 110, 102, 90, 115 
+TimeoutInterval (ms) = 149.6, 165.8, 166.9, 153.3, 168.4   (1 point)
+Same as (a).
+
+Problem 8: (2.5 points)
+GBN: 12 segments, 11 ACKs.
+SR: 7 segments, 6 ACKs.
+TCP: 7 segments ,6 ACKs       (1 point)
+-0.0 points if fully correct.
+-0.25 points if mostly correct (wrong answer for one protocol).
+-0.5 points if mostly incorrect (wrong answer for two protocols).
+-1.0 points fully incorrect or no attempt is made.
+GBN: sequence number (1,2,3,4,5,6,1,2,3,4,5,6), ACK number (0,0,0,0,0,1,2,3,4,5,6)
+SR: sequence number (1,2,3,4,5,6,1), ACK number (2,3,4,5,6,1)
+TCP: sequence number (1,2,3,4,5,6,1), ACK number (1,1,1,1,1,7)   (1 point)
+Same as (a).
+TCP. This is because TCP uses fast retransmit without waiting until time out. (0.5 points)
+-0.0 points correct answer and explanation is given (mentions fast retransmission).
+-0.25 points if correct but no explanation (doesn’t mention fast retransmission).
+-0.5 points if incorrect or no attempt was made.

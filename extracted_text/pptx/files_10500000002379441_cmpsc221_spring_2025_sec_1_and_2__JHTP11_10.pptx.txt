@@ -1,0 +1,827 @@
+Chapter 10Object-Oriented Programming: Polymorphism and Interfaces
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.1  Introduction
+
+Polymorphism 
+Enables you to “program in the general” rather than “program in the specific.”
+Polymorphism enables you to write programs that process objects that share the same superclass as if they were all objects of the superclass; this can simplify programming.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.1  Introduction (Cont.)
+
+Example: Suppose we create a program that simulates the movement of several types of animals for a biological study. Classes Fish, Frog and Bird represent the three types of animals under investigation. 
+Each class extends superclass Animal, which contains a method move and maintains an animal’s current location as x-y coordinates. Each subclass implements method move. 
+A program maintains an Animal array containing references to objects of the various Animal subclasses. To simulate the animals’ movements, the program sends each object the same message once per second—namely, move. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.1  Introduction (Cont.)
+
+Each specific type of Animal responds to a move message in a unique way:
+a Fish might swim three feet
+a Frog might jump five feet
+a Bird might fly ten feet. 
+The program issues the same message (i.e., move) to each animal object, but each object knows how to modify its x-y coordinates appropriately for its specific type of movement. 
+Relying on each object to know how to “do the right thing” in response to the same method call is the key concept of polymorphism. 
+The same message sent to a variety of objects has “many forms” of results—hence the term polymorphism.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.1  Introduction (Cont.)
+
+With polymorphism, we can design and implement systems that are easily extensible
+New classes can be added with little or no modification to the general portions of the program, as long as the new classes are part of the inheritance hierarchy that the program processes generically. 
+The new classes simply “plug right in.”
+The only parts of a program that must be altered to accommodate new classes are those that require direct knowledge of the new classes that we add to the hierarchy. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.1  Introduction (Cont.)
+
+Once a class implements an interface, all objects of that class have an is-a relationship with the interface type, and all objects of the class are guaranteed to provide the functionality described by the interface. 
+This is true of all subclasses of that class as well.
+Interfaces are particularly useful for assigning common functionality to possibly unrelated classes. 
+Allows objects of unrelated classes to be processed polymorphically—objects of classes that implement the same interface can respond to all of the interface method calls. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.1  Introduction (Cont.)
+
+The chapter continues with an introduction to Java interfaces, which are particularly useful for assigning common functionality to possibly unrelated classes.  
+This allows objects of these classes to be processed polymorphically—objects of classes that implement the same interface can respond to all of the interface method calls. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.2  Polymorphism Examples 
+
+Example: Quadrilaterals
+If Rectangle is derived from Quadrilateral, then a Rectangle object is a more specific version of a Quadrilateral. 
+Any operation that can be performed on a Quadrilateral can also be performed on a Rectangle. 
+These operations can also be performed on other Quadrilaterals, such as Squares, Parallelograms and Trapezoids. 
+Polymorphism occurs when a program invokes a method through a superclass Quadrilateral variable—at execution time, the correct subclass version of the method is called, based on the type of the reference stored in the superclass variable. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.2  Polymorphism Examples (Cont.)
+
+Example: Space Objects in a Video Game
+A video game manipulates objects of classes Martian, Venusian, Plutonian, SpaceShip and LaserBeam. Each inherits from SpaceObject and overrides its draw method.
+A screen manager maintains a collection of references to objects of the various classes and periodically sends each object the same message—namely, draw. 
+Each object responds in a unique way. 
+A Martian object might draw itself in red with green eyes and the appropriate number of antennae. 
+A SpaceShip object might draw itself as a bright silver flying saucer. 
+A LaserBeam object might draw itself as a bright red beam across the screen. 
+The same message (in this case, draw) sent to a variety of objects has “many forms” of results.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.2  Polymorphism Examples (Cont.)
+
+A screen manager might use polymorphism to facilitate adding new classes to a system with minimal modifications to the system’s code. 
+To add new objects to our video game:
+Build a class that extends SpaceObject and provides its own draw method implementation. 
+When objects of that class appear in the SpaceObject collection, the screen-manager code invokes method draw, exactly as it does for every other object in the collection, regardless of its type. 
+So the new objects simply “plug right in” without any modification of the screen manager code by the programmer. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.3  Demonstrating Polymorphic Behavior
+
+In the next example, we aim a superclass reference at a subclass object. 
+Invoking a method on a subclass object via a superclass reference invokes the subclass functionality
+The type of the referenced object, not the type of the variable, determines which method is called
+This example demonstrates that an object of a subclass can be treated as an object of its superclass, enabling various interesting manipulations. 
+A program can create an array of superclass variables that refer to objects of many subclass types. 
+Allowed because each subclass object is an object of its superclass. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.3  Demonstrating Polymorphic Behavior (Cont.)
+
+A superclass object cannot be treated as a subclass object, because a superclass object is not an object of any of its subclasses. 
+The is-a relationship applies only up the hierarchy from a subclass to its direct (and indirect) superclasses, and not down the hierarchy.
+The Java compiler does allow the assignment of a superclass reference to a subclass variable if you explicitly cast the superclass reference to the subclass type
+A technique known as downcasting that enables a program to invoke subclass methods that are not in the superclass. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.3  Demonstrating Polymorphic Behavior (Cont.)
+
+When a superclass variable contains a reference to a subclass object, and that reference is used to call a method, the subclass version of the method is called. 
+The Java compiler allows this “crossover” because an object of a subclass is an object of its superclass (but not vice versa). 
+When the compiler encounters a method call made through a variable, the compiler determines if the method can be called by checking the variable’s class type. 
+If that class contains the proper method declaration (or inherits one), the call is compiled. 
+At execution time, the type of the object to which the variable refers determines the actual method to use. 
+This process is called dynamic binding.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods
+
+Abstract classes
+Sometimes it’s useful to declare classes for which you never intend to create objects. 
+Used only as superclasses in inheritance hierarchies, so they are sometimes called abstract superclasses. 
+Cannot be used to instantiate objects—abstract classes are incomplete. 
+Subclasses must declare the “missing pieces” to become “concrete” classes, from which you can instantiate objects; otherwise, these subclasses, too, will be abstract. 
+An abstract class provides a superclass from which other classes can inherit and thus share a common design. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods (Cont.)
+
+Classes that can be used to instantiate objects are called concrete classes. 
+Such classes provide implementations of every method they declare (some of the implementations can be inherited).
+Abstract superclasses are too general to create real objects—they specify only what is common among subclasses. 
+Concrete classes provide the specifics that make it reasonable to instantiate objects.
+Not all hierarchies contain abstract classes. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods (Cont.)
+
+Programmers often write client code that uses only abstract superclass types to reduce client code’s dependencies on a range of subclass types.
+You can write a method with a parameter of an abstract superclass type. 
+When called, such a method can receive an object of any concrete class that directly or indirectly extends the superclass specified as the parameter’s type. 
+Abstract classes sometimes constitute several levels of a hierarchy. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods (Cont.)
+
+You make a class abstract by declaring it with keyword abstract. 
+An abstract class normally contains one or more abstract methods. 
+An abstract method is an instance method with keyword abstract in its declaration, as in
+	public abstract void draw(); // abstract method
+Abstract methods do not provide implementations. 
+A class that contains abstract methods must be an abstract class even if that class contains some concrete (nonabstract) methods. 
+Each concrete subclass of an abstract superclass also must provide concrete implementations of each of the superclass’s abstract methods.
+Constructors and static methods cannot be declared abstract. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods (Cont.)
+
+Cannot instantiate objects of abstract superclasses, but you can use abstract superclasses to declare variables
+These can hold references to objects of any concrete class derived from those abstract superclasses. 
+We’ll use such variables to manipulate subclass objects polymorphically. 
+Can use abstract superclass names to invoke static methods declared in those abstract superclasses. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods (Cont.)
+
+Polymorphism is particularly effective for implementing so-called layered software systems. 
+Example: Operating systems and device drivers.
+Commands to read or write data from and to devices may have a certain uniformity. 
+Device drivers control all communication between the operating system and the devices. 
+A write message sent to a device-driver object is interpreted in the context of that driver and how it manipulates devices of a specific type. 
+The write call itself really is no different from the write to any other device in the system—place some number of bytes from memory onto that device. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.4  Abstract Classes and Methods (Cont.)
+
+An object-oriented operating system might use an abstract superclass to provide an “interface” appropriate for all device drivers. 
+Subclasses are formed that all behave similarly. 
+The device-driver methods are declared as abstract methods in the abstract superclass. 
+The implementations of these abstract methods are provided in the subclasses that correspond to the specific types of device drivers. 
+New devices are always being developed. 
+When you buy a new device, it comes with a device driver provided by the device vendor and is immediately operational after you connect it and install the driver. 
+This is another elegant example of how polymorphism makes systems extensible.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5  Case Study: Payroll System Using Polymorphism
+
+Use an abstract method and polymorphism to perform payroll calculations based on the type of inheritance hierarchy headed by an employee. 
+Enhanced employee inheritance hierarchy requirements:
+A company pays its employees on a weekly basis. The employees are of four types: Salaried employees are paid a fixed weekly salary regardless of the number of hours worked, hourly employees are paid by the hour and receive overtime pay (i.e., 1.5 times their hourly salary rate) for all hours worked in excess of 40 hours, commission employees are paid a percentage of their sales and base-salaried commission employees receive a base salary plus a percentage of their sales. For the current pay period, the company has decided to reward base-salaried commission employees by adding 10% to their base salaries. The company wants you to write a Java application that performs its payroll calculations polymorphically.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5  Case Study: Payroll System Using Polymorphism (Cont.)
+
+abstract class Employee represents the general concept of an employee. 
+Subclasses: SalariedEmployee, CommissionEmployee , HourlyEmployee and BasePlusCommissionEmployee  (an indirect subclass)
+Fig. 10.2 shows the inheritance hierarchy for our polymorphic employee-payroll application. 
+Abstract class names are italicized in the UML.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5  Case Study: Payroll System Using Polymorphism (Cont.)
+
+Abstract superclass Employee declares the “interface” to the hierarchy—that is, the set of methods that a program can invoke on all Employee objects. 
+We use the term “interface” here in a general sense to refer to the various ways programs can communicate with objects of any Employee subclass. 
+Each employee has a first name, a last name and a social security number defined in abstract superclass Employee. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.1 Abstract Superclass Employee 
+
+Class Employee (Fig. 10.4) provides methods earnings and toString, in addition to the get and set methods that manipulate Employee’s instance variables. 
+An earnings method applies to all employees, but each earnings calculation depends on the employee’s class. 
+An abstract method—there is not enough information to determine what amount earnings should return. 
+Each subclass overrides earnings with an appropriate implementation. 
+Iterate through the array of Employees and call method earnings for each Employee subclass object. 
+Method calls processed polymorphically. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.1 Abstract Superclass Employee (Cont.)
+
+The diagram in Fig. 10.3 shows each of the five classes in the hierarchy down the left side and methods earnings and toString across the top. 
+For each class, the diagram shows the desired results of each method. 
+Declaring the earnings method abstract indicates that each concrete subclass must provide an appropriate earnings implementation and that a program will be able to use superclass Employee variables to invoke method earnings polymorphically for any type of Employee.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.2 Concrete Subclass SalariedEmployee 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.3 Concrete Subclass HourlyEmployee 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.4 Concrete Subclass CommissionEmployee 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.5 Indirect Concrete Subclass BasePlusCommissionEmployee 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.6 Polymorphic Processing, Operator instanceof and Downcasting
+
+Fig. 10.9 creates an object of each of the four concrete. 
+Manipulates these objects nonpolymorphically, via variables of each object’s own type, then polymorphically, using an array of Employee variables. 
+While processing the objects polymorphically, the program increases the base salary of each BasePlusCommissionEmployee by 10%
+Requires determining the object’s type at execution time. 
+Finally, the program polymorphically determines and outputs the type of each object in the Employee array. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.6 Polymorphic Processing, Operator instanceof and Downcasting (Cont.)
+
+All calls to method toString and earnings are resolved at execution time, based on the type of the object to which currentEmployee refers. 
+Known as dynamic binding or late binding. 
+Java decides which class’s toString method to call at execution time rather than at compile time 
+A superclass reference can be used to invoke only methods of the superclass—the subclass method implementations are invoked polymorphically.
+Attempting to invoke a subclass-only method directly on a superclass reference is a compilation error.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.5.6 Polymorphic Processing, Operator instanceof and Downcasting (Cont.)
+
+Every object knows its own class and can access this information through the getClass method, which all classes inherit from class Object. 
+The getClass method returns an object of type Class (from package java.lang), which contains information about the object’s type, including its class name. 
+The result of the getClass call is used to invoke getName to get the object’s class name. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.6  Summary of the Allowed Assignments Between Superclass and Subclass Variables 
+
+There are three proper ways to assign superclass and subclass references to variables of superclass and subclass types.
+Assigning a superclass reference to a superclass variable is straightforward.
+Assigning a subclass reference to a subclass variable is straightfor-ward.
+Assigning a subclass reference to a superclass variable is safe, because the subclass object is an object of its superclass. 
+The superclass variable can be used to refer only to superclass members. 
+If this code refers to subclass-only mem-bers through the superclass variable, the compiler reports errors.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.7  final Methods and Classes
+
+A final method in a superclass cannot be overridden in a subclass. 
+Methods that are declared private are implicitly final, because it’s not possible to override them in a subclass. 
+Methods that are declared static are implicitly final. 
+A final method’s declaration can never change, so all subclasses use the same method implementation, and calls to final methods are resolved at compile time—this is known as static binding. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.7  final Methods and Classes (Cont.)
+
+A final class cannot be extended to create a subclass. 
+All methods in a final class are implicitly final. 
+Class String is an example of a final class. 
+If you were allowed to create a subclass of String, objects of that subclass could be used wherever Strings are expected. 
+Since class String cannot be extended, programs that use Strings can rely on the functionality of String objects as specified in the Java API. 
+Making the class final also prevents programmers from creating subclasses that might bypass security restrictions. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.8  A Deeper Explanation of Issues with Calling Methods from Constructors
+
+Do not call overridable methods from constructors. 
+When creating a subclass object, this could lead to an overridden method being called before the subclass object is fully initialized. 
+Recall that when you construct a subclass object, its constructor first calls one of the direct superclass’s constructors. 
+If the superclass constructor calls an overridable method, the subclass’s version of that method will be called by the superclass constructor—before the subclass constructor’s body has a chance to execute. 
+This could lead to subtle, difficult-to-detect errors if the subclass method that was called depends on initialization that has not yet been performed in the subclass constructor’s body.
+It’s acceptable to call a static method from a constructor. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.8  A Deeper Explanation of Issues with Calling Methods from Constructors
+
+Let’s assume that a constructor and a set method perform the same validation for a particular instance variable. How should you handle the common code? 
+If it's brief, you can duplicate it in the constructor and the set method
+For lengthier validation, define a static validation method—typically a private static helper method—then call it from the constructor and from the set method. It’s acceptable to call a static method from a constructor, because static methods are not overridable. 
+It’s also acceptable for a constructor to call a final instance method, provided that the method does not directly or indirectly call any overridable instance methods.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces
+
+Our next example reexamines the payroll system of Section 10.5. 
+Suppose that the company involved wishes to perform several accounting operations in a single accounts payable application
+Calculating the earnings that must be paid to each employee 
+Calculate the payment due on each of several invoices (i.e., bills for goods purchased)
+Both operations have to do with obtaining some kind of payment amount. 
+For an employee, the payment refers to the employee’s earnings. 
+For an invoice, the payment refers to the total cost of the goods listed on the invoice. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+Interfaces offer a capability requiring that unrelated classes implement a set of common methods.
+Interfaces define and standardize the ways in which things such as people and systems can interact with one another. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+Example: The controls on a radio serve as an interface between radio users and a radio’s internal components. 
+Can perform only a limited set of operations (e.g., change the station, adjust the volume, choose between AM and FM)
+Different radios may implement the controls in different ways (e.g., using push buttons, dials, voice commands). 
+The interface specifies what operations a radio must permit users to perform but does not specify how the operations are performed. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+Example: Similarly, in our car analogy from Section 1.5, a “basic-driving-capabilities” interface consisting of a steering wheel, an accelerator pedal and a brake pedal would enable a driver to tell the car what to do
+Once you know how to use this interface for turning, accelerating and braking, you can drive many types of cars, even though manufacturers may implement these systems differently
+e.g., there are many types of braking systems—disc brakes, drum brakes, antilock brakes, hydraulic brakes, air brakes and more. When you press the brake pedal, your car’s actual brake system is irrelevant—all that matters is that the car slows down when you press the brake.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+A Java interface describes a set of methods that can be called on an object. 
+An interface declaration begins with the keyword interface and contains only constants and abstract methods. 
+All interface members must be public.
+Interfaces may not specify any implementation details, such as concrete method declarations and instance variables. 
+All methods declared in an interface are implicitly public abstract methods.
+All fields are implicitly public, static and final. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+To use an interface, a concrete class must specify that it implements the interface and must declare each method in the interface with specified signature. 
+Add the implements keyword and the name of the interface to the end of your class declaration’s first line. 
+A class that does not implement all the methods of the interface is an abstract class and must be declared abstract. 
+Implementing an interface is like signing a contract with the compiler that states, “I will declare all the methods specified by the interface or I will declare my class abstract.”
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+An interface is often used when disparate classes (i.e., unrelated classes) need to share common methods and constants. 
+Allows objects of unrelated classes to be processed polymorphically by responding to the same method calls. 
+You can create an interface that describes the desired functionality, then implement this interface in any classes that require that functionality. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9  Creating and Using Interfaces (Cont.)
+
+An interface should be used in place of an abstract class when there is no default implementation to inherit—that is, no fields and no concrete method implementations. 
+Like public abstract classes, interfaces are typically public types. 
+A public interface must be declared in a file with the same name as the interface and the .java filename extension. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.1 Developing a Payable Hierarchy
+
+Next example builds an application that can determine payments for employees and invoices alike.
+Classes Invoice and Employee both represent things for which the company must be able to calculate a payment amount. 
+Both classes implement the Payable interface, so a program can invoke method getPaymentAmount on Invoice objects and Employee objects alike. 
+Enables the polymorphic processing of Invoices and Employees.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.1 Developing a Payable Hierarchy (Cont.)
+
+Fig. 10.10 shows the accounts payable hierarchy. 
+The UML distinguishes an interface from other classes by placing «interface» above the interface name. 
+The UML expresses the relationship between a class and an interface through a realization. 
+A class is said to “realize,” or implement, the methods of an interface. 
+A class diagram models a realization as a dashed arrow with a hollow arrowhead pointing from the implementing class to the interface. 
+A subclass inherits its superclass’s realization relationships.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.2 Interface Payable 
+
+Fig. 10.11 shows the declaration of interface Payable. 
+Interface methods are always public and abstract, so they do not need to be declared as such. 
+Interfaces can have any number of methods. 
+Interfaces may also contain final and static constants 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.3 Class Invoice 
+
+Class Invoice (Fig. 19.12) represents a simple invoice that contains billing information for only one kind of part
+Java does not allow subclasses to inherit from more than one superclass, but it allows a class to inherit from one superclass and implement as many interfaces as it needs. 
+To implement more than one, use a comma-separated list of interface names after keyword implements in the class declaration, as in:
+	public class ClassName extends SuperclassName    implements FirstInterface, SecondInterface, …
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.4 Modifying Class Employee to Implement Interface Payable 
+
+We now modify class Employee to implement interface Payable. This class declaration is identical to that of  with two exceptions:
+Line 4 of  indicates that class Employee now implements Payable. 
+Line 38 implements interface Payable’s getPaymentAmount method. 
+getPaymentAmount simply calls Employee’s abstract method earnings
+At execution time, when getPaymentAmount is called on an object of an Employee subclass, getPaymentAmount calls that subclass’s concrete earnings method, which knows how to calculate earnings for objects of that subclass type. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.5 Using Interface Payable to Process Invoices and Employees Polymorphically
+
+PayableInterfaceTest (Fig. 10.14) illustrates that interface Payable can be used to process a set of Invoices and Employees polymorphically in a single application.
+Lines 18–23 polymorphically process each Payable object in payableObjects, displaying each object’s String representation and payment amount
+Line 21 invokes method toString via a Payable interface reference, even though toString is not declared in interface Payable—all references (including those of interface types) refer to objects that extend Object and therefore have a toString method
+
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.5 Using Interface Payable to Process Invoices and Employees Polymorphically
+
+Line 22 invokes Payable method getPaymentAmount to obtain the payment amount for each object in payableObjects, regardless of the actual type of the object. The output reveals that each of the method calls in lines 21–22 invokes the appropriate class’s toString and getPayment-Amount methods. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.9.7 Some Common Interfaces of the Java API
+
+You’ll use interfaces extensively when developing Java applications. The Java API contains numerous interfaces, and many of the Java API methods take interface arguments and return interface values. 
+Figure 10.16 overviews a few of the more popular interfaces of the Java API that we use in later chapters.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.10  Java SE 8 Interface Enhancements
+
+This section introduces interface features that were added in
+ Java SE
+We discuss these in more detail in later chapters. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.10.1 default Interface Methods
+
+Prior to Java SE 8, interface methods could be only public abstract methods. 
+An interface specified what operations an implementing class must perform but not how the class should perform them. 
+In Java SE 8, interfaces also may contain public default methods with concrete default implementations that specify how operations are performed when an implementing class does not override the methods. 
+If a class implements such an interface, the class also receives the interface’s default implementations (if any). 
+To declare a default method, place the keyword default before the method’s return type and provide a concrete method implementation. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.10.1 default Interface Methods (Cont.)
+
+Adding Methods to Existing Interfaces 
+Any class that implements the original interface will not break when a default method is added.
+The class simply receives the new default method. 
+When a class implements a Java SE 8 interface, the class “signs a contract” with the compiler that says, 
+“I will declare all the abstract methods specified by the interface or I will declare my class abstract”
+The implementing class is not required to override the interface’s default methods, but it can if necessary. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.10.1 default Interface Methods (Cont.)
+
+Interfaces vs. abstract Classes 
+Prior to Java SE 8, an interface was typically used (rather than an abstract class) when there were no implementation details to inherit—no fields and no method implementations. 
+With default methods, you can instead declare common method implementations in interfaces
+This gives you more flexibility in designing your classes, because a class can implement many interfaces, but can extend only one superclass
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.10.2 static Interface Methods (Cont.)
+
+Prior to Java SE 8, it was common to associate with an interface a class containing static helper methods for working with objects that implemented the interface. 
+In Chapter 16, you’ll learn about class Collections which contains many static helper methods for working with objects that implement interfaces Collection, List, Set and more. 
+Collections method sort can sort objects of any class that implements interface List. 
+With static interface methods, such helper methods can now be declared directly in interfaces rather than in separate classes.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.10.3 Functional Interfaces
+
+As of Java SE 8, any interface containing only one abstract method is known as a functional interface—also called SAM (Single Abstract Method) interfaces 
+Functional interfaces that you’ll use in this book include:
+ActionListener (Chapter 12)—You’ll implement this interface to define a method that’s called when the user clicks a button. 
+Comparator (Chapter 16)—You’ll implement this interface to define a method that can compare two objects of a given type to determine whether the first object is less than, equal to or greater than the second. 
+Runnable (Chapter 23)—You’ll implement this interface to define a task that may be run in parallel with other parts of your program.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.11  Java SE 9 private Interface Methods
+
+As you know, a class’s private helper methods may be called only by the class’s other methods
+As of Java SE 9, you can declare helper methods in interfaces via private interface methods
+An interface’s private instance methods can be called directly (i.e., without an object reference) only by the interface’s other instance methods
+An interface’s private static methods can be called by any of the interface’s instance or static methods
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.12  private Constructors
+
+Sometimes it’s useful to declare one or more of a class’s constructors as private. 
+Preventing Object Instantiation
+You can prevent client code from creating objects of a class by making the class’s constructors private
+Consider class Math, which contains only public static constants and public static methods
+There’s no need to create a Math object to use the class’s constants and methods, so its constructor is private
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.12  private Constructors (cont.)
+
+Sharing Initialization Code in Constructors 
+One common use of a private constructor is sharing initialization code among a class’s other constructors
+You can use delegating constructors (introduced in Fig. 8.5) to call the private constructor that contains the shared initialization code 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.12  private Constructors (cont.)
+
+Factory Methods 
+Another common use of private constructors is to force client code to use so-called “factory methods” to create objects
+A factory method is a public static method that creates and initializes an object of a specified type (possibly of the same class), then returns a reference to it
+A key benefit of this architecture is that the method’s return type can be an interface or a superclass (either abstract or concrete)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13  Program to an Interface, Not an Implementation
+
+Recall that Java does not allow a class to inherit from more than one superclass
+With interface inheritance, a class implements an interface describing various abstract methods that the new class must provide
+The new class also may inherit some method implementations (allowed in interfaces as of Java SE 8), but no instance variables
+Recall that Java allows a class to implement multiple interfaces in addition to extending one class
+An interface also may extend one or more other interfaces.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.1  Implementation Inheritance Is Best for Small Numbers of Tightly Coupled Classes
+
+Implementation inheritance is primarily used to declare closely related classes 
+many of the same instance variables and method implementations
+Every subclass object has the is-a relationship with the superclass
+anywhere a superclass object is expected, a subclass object may be provided
+Classes declared with implementation inheritance are tightly coupled
+you define the common instance variables and methods once in a superclass, then inherit them into subclasses
+Changes to a superclass directly affect all corresponding subclasses
+When you use a superclass variable, only a superclass object or one of its subclass objects may be assigned to the variable. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.1  Implementation Inheritance Is Best for Small Numbers of Tightly Coupled Classes (cont.)
+
+A key disadvantage of implementation inheritance is that the tight coupling among the classes can make it difficult to modify the hierarchy
+As we mentioned in Chapter 9, small inheritance hierarchies under the control of one person tend to be more manageable than large ones maintained by many people
+This is true even with the tight coupling associated with implementation inheritance
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.2  Interface Inheritance Is Best for Flexibility
+
+Interface inheritance often requires more work than implementation inheritance, because you must provide implementations of the interface’s abstract methods
+even if those implementations are similar or identical among classes
+Gives you additional flexibility by eliminating the tight coupling between classes
+When you use a variable of an interface type, you can assign it an object of any type that implements the interface directly or indirectly
+Allows you to add new types to your code easily and to replace existing objects with objects of new and improved implementation classes. 
+Device drivers are a good example of how interfaces enable systems to be modified easily
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.3  Rethinking the Employee Hierarchy
+
+Let's reconsider the Employee hierarchy with composition and an interface
+Can say that each type of employee in the hierarchy is an Employee that has a CompensationModel
+Can declare CompensationModel as an interface with an abstract earnings method, then declare implementations of CompensationModel that specify the various ways in which an Employee gets paid
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.3  Rethinking the Employee Hierarchy
+
+A SalariedCompensationModel would contain a weeklySalary instance variable and would implement earnings to return the weeklySalary. 
+An HourlyCompensationModel would contain wage and hours instance variables and would implement earnings based on the number of hours worked, with 1.5 * wage for any hours over 40.
+A CommissionCompensationModel would contain grossSales and commissionRate instance variables and would implement earnings to return grossSales * commissionRate. 
+A BasePlusCommissionCompensationModel would contain instance variables grossSales, commissionRate and baseSalary and would implement earnings to return baseSalary + grossSales * commissionRate
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.3  Rethinking the Employee Hierarchy
+
+Each Employee object you create can then be initialized with an object of the appropriate CompensationModel implementation
+Class Employee’s earnings method would simply use the class’s composed CompensationModel instance variable to call the earnings method of the corresponding CompensationModel object
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.3  Rethinking the Employee Hierarchy
+
+Flexibility if Compensation Models Change
+Declaring the CompensationModels as separate classes that implement the same interface provides flexibility for future changes
+Assume Employees who are paid by commission based on gross sales should get an extra 10% commission, but those who have a base salary should not 
+In the original Employee hierarchy, making this change to class CommissionEmployee’s earnings method directly affects how BasePlusCommissionEmployees are paid, because BasePlusCommissionEmployee’s earnings method calls CommissionEmployee’s earnings method. 
+But changing the CommissionCompensationModel’s earnings implementation does not affect BasePlusCommissionCompensationModel, because these classes are not tightly coupled by inheritance
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.3  Rethinking the Employee Hierarchy
+
+Flexibility if Employees Are Promoted
+Interface-based composition is more flexible than Section 10.5’s class hierarchy if an Employee gets promoted
+Class Employee can provide a setCompensationModel method that receives a CompensationModel and assigns it to the Employee’s composed CompensationModel variable
+When an Employee gets promoted, you’d simply call setCompensationModel to replace the Employee’s existing CompensationModel object with an appropriate new one
+To promote an employee using ’s Employee hierarchy, you’d need to change the employee’s type by creating a new object of the appropriate class and moving data from the old object into the new one.  
+Exercise 10.18 asks you to reimplement Exercise 9.16 using interface CompensationModel as described in this section.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+10.13.3  Rethinking the Employee Hierarchy
+
+Flexibility if Employees Acquire New Capabilities
+Using composition and interfaces also is more flexible than Section 10.5’s class hierarchy for enhancing class Employee
+Let’s assume we decide to support retirement plans (such as 401Ks and IRAs). We could say that every Employee has a RetirementPlan and define interface RetirementPlan with a makeRetirementDeposit method
+Then, we can provide appropriate implementations for various retirement-plan types
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

@@ -1,0 +1,1 @@
+CMPEN/EE 362 HW 1 rubric (15 points) grades 5 problems. It assesses network delay, user/sensor capacity, probability, and link utilization calculations, plus message segmentation and packet switching concepts. Points based on accuracy, work shown, and inclusion of specific elements.

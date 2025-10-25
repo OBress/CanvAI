@@ -1,0 +1,1 @@
+This CMPEN362 midterm assesses networking fundamentals: Internet architecture, packet delays/loss, DNS, TCP/UDP. It includes quantitative problems on packet transmission, segmentation, and web caching performance. A protocol design question involves completing a sender Finite State Machine and identifying receiver FSMs for reliable, stop-and-wait data transfer.

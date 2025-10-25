@@ -1,0 +1,1 @@
+Chapter 22, "JavaFX Graphics and Multimedia," from "Java How to Program, 11/e" is presented. It includes contact info for paul.deitel@deitel.com and is copyrighted by Pearson Education, Inc. (1992-2018).

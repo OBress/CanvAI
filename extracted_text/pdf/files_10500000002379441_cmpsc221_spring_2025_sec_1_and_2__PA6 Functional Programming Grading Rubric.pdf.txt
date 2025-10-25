@@ -1,0 +1,29 @@
+PA6 Functional Programming  Grading Rubric  
+Remember, the rubric should be used as a guide, but you should still practice good object -oriented 
+programming.  The rubric may not cover all scenarios in which we take off points for bad object -oriented 
+practice.   
+Late policy: 4% per day for a maximum of  40% off  
+• Part a) use streams to sort the invoice objects by partDescription, then display the 
+results.  (-30) 
+o Did not convert the Invoice List to a stream. ( -10) 
+o Did not sort the stream by partDescription. ( -10) 
+o Did not display the output as per the exampl e in the assignment. (-10) 
+1. Not columnar. ( -5) 
+2. Dollar amounts not displayed to two decimal places. ( -5) 
+• Part b) use streams to sort the invoice objects by pricePerItem, then display the results.  
+(-30) 
+o Did not convert the Invoice List to a stream. ( -10) 
+o Did not sort the stream by pricePerItem . (-10) 
+o Did not display the output as per the example in the assignment. ( -10) 
+1. Not columnar. ( -5) 
+2. Dollar amounts not displayed to two decimal places. ( -5) 
+• Part c) use streams to map each invoice object to its partDescription and quantity, sort 
+the results by quantity, then display the results.  (-30) 
+o Did not convert the Invoice List to a stream. ( -10) 
+o Did not sort the results by quantity . (-10) 
+o Did not display the output as per the example in the assignment. ( -10) 
+1. Not columnar. ( -5) 
+2. Dollar amounts not displayed to two decimal places. ( -5) 
+• Did not use the template code provided to start the assignme nt. ( -10) 
+ 
+ 

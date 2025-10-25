@@ -1,0 +1,197 @@
+HW3 Solutions
+
+Problem 1
+
+
+
+
+Yes, a and b1 could be the same.
+
+No, b2 and b1 cannot be the same.
+ 
+HTTP runs over TCP, and hence the sockets are TCP sockets. As TCP socket is uniquely addressed by the 4-typle (source IP, destination IP, source port number, destination port number), the server needs to create three sockets, one for each client process.
+
+
+Problem 2
+
+The 8-bit ASCII codes for “Hello world!” is: 
+We can compute checksum as:
+  0100 1000 0110 0101  “He”
++0110 1100 0110 1100  “ll”
+  1011 0100 1101 0001
++0110 1111 0010 0000  “o ”
+10010 0011 1111 0001
+  0010 0011 1111 0010
++0111 0111 0110 1111  “wo”
+  1001 1011 0110 0001
++0111 0010 0110 1100  “rl”
+10000 1101 1100 1101
+  0000 1101 1100 1110
++0110 0100 0010 0001  “d!”
+  0111 0001 1110 1111
+So the checksum is: 1000 1110 0001 0000
+
+No. As long as there is a 1-bit error, it’ll be detected. 
+
+Yes, a 2-bit error could be undetected. For example, if there are two bit errors 16 bits apart, then the errors will cancel out when summing up the 16-bit binary numbers, and the errors will not be detected.
+
+Problem 3
+
+Since we are currently assuming a channel that does not lose packets, we know that the reason that receiver receives the wrong sequence number is because the sender retransmitted the packet due to a corrupted acknowledgement. Therefore, if the receiver still responds NAK, the sender will continue to retransmit the same packet, which will result in a deadlock. 
+
+Problem 4
+
+(7) rdt_rcv(rcvpkt)&&from_B(rcvpkt)
+      sndpkt=make_pkt(ACK, 0, checksum)
+      udt_send(B,sndpkt)
+Note: It is also correct to have empty action (i.e., Λ).
+
+(8) rdt_rcv(rcvpkt) && (corrupt(rcvpkt) || has_seq0(rcvpkt)) && from_A(rcvpkt)
+      sndpkt=make_pkt(ACK, 0, checksum)
+      udt_send(A,sndpkt)
+
+(9) rdt_rcv(rcvpkt)&&not_corrupt(rcvpkt)&&has_seq1(rcvpkt)&&from_A(rcvpkt)
+      extract(rcvpkt,data)
+      deliver_data(data)
+      sndpkt=make_pkt(ACK, 1, checksum)
+      udt_send(A,sndpkt)
+
+(10) rdt_rcv(rcvpkt)&&from_A(rcvpkt)
+      sndpkt=make_pkt(ACK, 1, checksum)
+      udt_send(A,sndpkt)
+Note: It is also correct to have empty action (i.e., Λ).
+
+(11) rdt_rcv(rcvpkt) && (corrupt(rcvpkt) ||has_seq0(rcvpkt)) && from_B(rcvpkt)
+        sndpkt=make_pkt(ACK, 0, checksum)
+        udt_send(B,sndpkt)
+
+(12) rdt_rcv(rcvpkt)&&not_corrupt(rcvpkt)&&has_seq1(rcvpkt)&&from_B(rcvpkt)
+        extract(rcvpkt,data)
+        deliver_data(data)
+        sndpkt=make_pkt(ACK,1,checksum)
+        udt_send(B,sndpkt)
+
+
+
+Problem 5
+
+Consider the one-to-two rdt. Host A wants to simultaneously send packets to host B and C. 
+The sender and receiver FSM are shown as follows. In this problem, the sender state indicates whether the sender has received an ACK from B (only), from C (only) or from neither C nor B. 
+The receiver state indicates which sequence number the receiver is waiting for.
+(9) rdt_rcv(rcvpkt) 
+   Λ
+(10) rdt_send(data)
+        sndpkt=make_pkt(1,data,checksum)
+        udt_send(sndpkt)
+        start_timer
+(11) timeout
+        udt_send(sndpkt)
+        start_timer
+(12) rdt_rcv(rcvpkt) && (corrupt(rcvpkt) || isACK(rcvpkt,0,B) || isACK(rcvpkt,0,C))
+Λ
+(13) rdt_rcv(rcvpkt) && notcorrupt(rcvpkt) && isACK(rcvpkt,1,B))
+	Λ
+(14) rdt_rcv(rcvpkt) && notcorrupt(rcvpkt) && isACK(rcvpkt,1,C))
+	Λ
+(15) timeout
+        udt_send(sndpkt)
+        start_timer
+(16) rdt_rcv(rcvpkt) && (corrupt(rcvpkt) || !isACK(rcvpkt,1,C))
+	Λ
+(17) rdt_rcv(rcvpkt) && notcorrupt(rcvpkt) && isACK(rcvpkt,1,C))
+Λ
+(18) timeout
+        udt_send(sndpkt)
+        start_timer
+(19) rdt_rcv(rcvpkt) &&  (corrupt(rcvpkt) || !isACK(rcvpkt,1,B))	
+	Λ
+(20) rdt_rcv(rcvpkt) && notcorrupt(rcvpkt) && isACK(rcvpkt,1,B))
+	Λ
+
+
+Problem 6
+
+In-order and successful:
+Sequence number: 201, 301, 361;
+ACK number: 301, 361, 481. 
+
+
+The first segment sent by A is lost:
+Sequence number: 201, 301, 361, 201;
+ACK number: 201, 201, 481. 
+
+The first acknowledgement sent by B is lost:
+Sequence number: 201, 301, 361, 201;
+ACK number: 361, 481, 481. 
+
+The second segment sent by A arrives after the third segment: 
+Sequence number: 201, 301, 361;
+ACK number: 301, 301, 481.
+
+Problem 7
+
+
+
+If EstimatedRTT is updated first (upon receiving each SampleRTT),
+
+If DevRTT is updated first,
+
+If EstimatedRTT is updated first,
+
+If DevRTT is updated first,
+
+Note: As the textbook did not specify which variable should be updated first, both versions of solutions will be considered correct. 
+Problem 8
+
+GBN:
+Host A will send 12 segments in total. Host B will send 11 ACKs in total.
+SR:
+Host A will send 7 segments in total. Host B will send 6 ACKs in total.
+TCP:
+Host A will send 7 segments in total. Host B will send 6 ACKs in total. 
+
+GBN:
+Sequence number of A:1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6. ACK number of B: 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6..
+SR:
+Sequence number of A:1, 2, 3, 4, 5, 6, 1. ACK number of B: 2, 3, 4, 5, 6, 1.
+TCP:
+Sequence number of A:.1, 2, 3, 4, 5, 6, 1. ACK number of B: 1, 1, 1, 1, 1, 7.
+
+TCP. This is because TCP uses fast retransmit without waiting until time out.
+
+
+Problem 9 (optional)
+
+TCP slowstart is operating in the intervals [1,6) and [23,26].
+TCP congestion avoidance is operating in the intervals [6,16] and [17,22]. Note: During the 16th round, there must be a triple duplicate ACK which moves TCP temporarily into fast recovery state. But the new ACK must have arrived before timeout, which moves TCP back into congestion avoidance state. 
+After the 16th transmission round, packet loss is recognized by a triple duplicate ACK.  If there was a timeout, the congestion window size would have dropped to 1.
+After the 22nd transmission round, segment loss is detected due to timeout, and hence the congestion window size is set to 1.
+The threshold is initially 32 MSS, since it is at this window size that slow start stops and congestion avoidance begins.
+The ssthresh is set to half of the value of the congestion window when packet loss is detected. When loss is detected during transmission round 16, the congestion windows size is 42 MSS. Hence the threshold is 21 MSS during the 18th transmission round.
+The threshold is set to half the value of the congestion window when packet loss is detected. When loss is detected during transmission round 22, the congestion windows size is 26 MSS. Hence the threshold is 13 MSS during the 24th transmission round.
+During the 1st transmission round, packet 1 is sent; packet 2-3 are sent in the 2nd transmission round; packets 4-7 are sent in the 3rd transmission round; packets 8-15 are sent in the 4th transmission round; packets 16-31 are sent in the 5th transmission round; packets 32-63 are sent in the 6th transmission round; packets 64 – 96 are sent in the 7th transmission round.  Thus packet 70 is sent in the 7th transmission round.
+Upon receiving three duplicate ACKs, ssthresh will be set to half of the current value of the congestion window, which is 8 MSS, and congestion window will be set to the new threshold value + 3 MSS. Thus the new values of the threshold and window size will be 4 MSS and 7 MSS respectively. 
+Threshold is 21 MSS, and congestion window size is 4 MSS. 
+Round 17, 1 packet; round 18, 2 packets; round 19, 4 packets; round 20, 8 packets; round 21, 16 packets; round 22, 21 packets. So, the total number is 52. Note: In round 21, the sender will receive 16 ACKs, out of which the first 5 ACKs will increase cwnd to 21 MSS (that equals ssthresh) and move TCP to congestion avoidance state, and the remaining 11 ACKs will only increase cwnd by less than 1 MSS. Thus, round 22 only sends 21 packets. 
+
+Problem 10 (optional)
+
+It takes W/(2MSS) rounds to grow from W/2 to W. Note: It is also correct to say W/(2MSS)+1 rounds if including the first round with window size W/2.
+
+The number of packets sent in a period is: 
+                                                        
+                                                        
+                                                        
+                                                        
+So the total number of bytes transmitted in a period is: 
+One segment is lost per period, so the loss rate is: 
+
+
+For  large, 
+. 
+Thus  or . 
+From the text, we therefore have 
+
+average throughput 
+
+        

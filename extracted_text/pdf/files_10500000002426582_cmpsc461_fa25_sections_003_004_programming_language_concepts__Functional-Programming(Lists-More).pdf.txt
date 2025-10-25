@@ -1,0 +1,31 @@
+Functional Programming 
+(Lists -More)
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Continue: List Example
+•Define subs , which takes a b l , and replace a with bin l
+CMPSC 461 –Programming Language Concepts
+
+
+Examples w/o Higher -Order Functions
+•Compute the sum of a list
+•Computer the product of a list
+CMPSC 461 –Programming Language Concepts
+
+
+Foldl
+•foldl f a (e1e2en) : returns
+•f en( … (f e2 (f e1a)) ..)
+CMPSC 461 –Programming Language Concepts
+
+
+Foldr
+•foldr f a (e1e2en) : returns
+•f e1( … (f en-1 (f ena)) ..)
+CMPSC 461 –Programming Language Concepts
+
+
+Foldl and Foldr
+CMPSC 461 –Programming Language Concepts

@@ -1,0 +1,1 @@
+This content summarizes probability for i.i.d. Bernoulli trials, covering binomial probabilities for k or at least k successes, and for independent Bernoulli processes (e.g., first time of single success). It defines mean, empirical mean, variance, and standard deviation for discrete random variables, and provides arithmetic and geometric series formulas.

@@ -1,0 +1,1 @@
+CMPSC 465 presents Dijkstra's Algorithm for shortest paths on weighted graphs (non-negative edges). It improves upon inefficient dummy node methods, iteratively selecting the unvisited vertex with the minimum path estimate ("alarm time"), updating neighbors, and confirming its path. A min-heap optimizes the O(|V|^2) naive implementation for faster vertex selection.

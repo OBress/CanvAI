@@ -1,0 +1,234 @@
+DEV
+​
+PSU
+ 
+ 
+Syllabus (Spring 2020)
+ 
+ 
+What is DevPSU Learning?
+ 
+DevPSU Learning is an 8 week learning program intended to teach core competencies of collaborative
+ 
+software development in a peer-driven environment.
+ 
+ 
+This program gives students the opportunity to gain valuable experience and interactions outside of the
+ 
+classroom, in preparation for a career in industry or research.
+ 
+After completion of DevPSU Learning, students continue on to DevPSU Startup where they create and
+ 
+implement software programs and systems in small, collaborative teams.
+ 
+ 
+Extra Credit Requirements
+ 
+To receive extra credit, students must:
+ 
+●
+Attend 
+​
+6 out of the 8 
+​
+weekly meetings (no exceptions)
+ 
+●
+Complete 
+​
+3 out of the 4
+​
+ assigned projects.
+ 
+ 
+ 
+The amount and value of extra credit awarded is at the sole discretion of the Professor.
+ 
+ 
+Registration
+ 
+In order to be registered for DevPSU Learning you MUST attend one of the first meetings on the
+ 
+schedule. Once at this meeting you will give your name and email to the Instructors so they can add you
+ 
+to the canvas page. After that you are all signed up and can continue going to meetings!
+ 
+ 
+Where/When
+ 
+The first meeting will be 1/28/2020 in 
+​
+Willard 362
+​
+ from 7:00 - 8:00 pm.
+ 
+The rest of the meetings will be every Tuesday in 
+​
+Willard 362
+​
+ from 7:00 - 8:00 pm.
+ 
+ 
+Schedule
+ 
+DevPSU Learning starts on January 28, 2020 and ends on March 31, 2020.
+ 
+One hour meetings will occur every week of this 8 week period, totaling 
+​
+8
+​
+ meetings overall.
+ 
+ 
+A practical project is assigned every other week. (
+​
+4
+​
+)
+ 
+ 
+Learning Timeline
+ 
+Week 1 (1/28/2020) - 
+​
+Lesson 1: Intro to AI
+ 
+●
+Lay out the timeline, what we’re going to do, how we’re going to teach it, and what people can
+ 
+look forward to.
+ 
+ 
+●
+Speaker from Nittany AI
+ 
+●
+Introduction to AI, ML, and open the 
+​
+first
+​
+ project.
+ 
+ 
+Week 2 (2/4) - 
+​
+Project 1: Neural Network in Python
+ 
+●
+Short lesson on Neural Networks
+ 
+
+●
+Explain the 
+​
+first
+​
+ project
+ 
+ 
+Week 3 (2/11) - 
+​
+Lesson 2: Intro to GIT
+ 
+●
+First
+​
+ project is due.
+ 
+●
+Give a broad overview of Git, and open the 
+​
+second
+​
+ project.
+ 
+ 
+ 
+Week 4 (2/18) - 
+​
+Project 2: GIT project
+ 
+●
+Explain the 
+​
+second
+​
+ project and help students with it.
+ 
+ 
+Week 5 (2/25) - 
+​
+Lesson 3: AI Chatbot
+ 
+●
+Second
+​
+ project is due.
+ 
+●
+Give a broad overview of chatbots and machine learning, and open the 
+​
+third
+​
+ project.
+ 
+ 
+ 
+BREAK
+​
+ (3/3)
+ 
+SPRING BREAK
+​
+ (3/10)
+ 
+ 
+Week 6 (3/17) - 
+​
+Project 3: AI Chatbot Project
+ 
+●
+Explain the 
+​
+third
+​
+ project and help students with it.
+ 
+ 
+Week 7 (3/24) - 
+​
+Lesson 4: Image Recognition
+ 
+●
+Third
+​
+ project is due.
+ 
+●
+Give a broad overview of image recognition, and open the 
+​
+fourth
+​
+ project.
+ 
+ 
+ 
+Week 8 (3/31) - 
+​
+Project 4: Image Recognition Project
+ 
+●
+Explain the 
+​
+fourth
+​
+ project and help students with it.
+ 
+●
+Wrap up
+ 
+ 
+Projects due 
+​
+4/7
+ 

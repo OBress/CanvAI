@@ -1,0 +1,30 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 7
+1. Determine which functional properties the following functions satisfy and whether they are
+bijective:
+(a)f:Z→Qandf(x) =2x−3
+5
+(b)f:R→Randf(x) =3x2+11x
+2. Suppose f(x) =√
+2x−5,g(x) =5x2−3. What is the domain of f? What is the domain of g?
+Find the composite functions below. For each composite function, state the domain.
+(a)f◦g(x)
+(b)g◦f(x)
+(c)f◦f(x)
+(d)g◦g(x)
+3. Consider the function f:R\{− 4} →R\{2}defined as f(x) =2x−1
+x+4.
+(a) Determine whether the function fhas an inverse, and if so, find the expression for f−1(x).
+(b) Would fhave an inverse if we change the function’s domain and codomain to f:Z\
+{−4} →Z\{2}? Explain your reasoning.
+4. Let f:Z→Zbe defined by f(x) =x+1 and let g:Z→Zbe defined by g(x) =−x.
+Find the composition g◦fand determine if it is a bijection over the set of integers, Z.
+5. Given the functions h:M→Nandk:N→Pwhere
+M={a,b,c,d,e}
+N={j,k,l,m,n}
+P={s,t,u,v,w}
+and the functions are represented by the rosters:
+h={(a,j),(b,k),(c,l),(d,m),(e,n)}
+k={(j,t),(k,s),(l,u),(m,v),(n,w)}
+Determine k◦handh◦k.
+CMPSC 360, Fall 2024, Worksheet 7 1

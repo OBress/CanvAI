@@ -1,0 +1,1 @@
+CMPSC 465 (Fall 2025) HW 1, due Sept 15, 10 pm via Gradescope. Covers course policies, function growth rates (O, Ω, Θ), proofs (e.g., Θ transitivity), useful identities (log(n!), harmonic series), and solving recurrence relations. Individual solutions required; no late submissions accepted.

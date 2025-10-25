@@ -1,0 +1,244 @@
+Functional Programming--Scheme 
+(Variable, Expression, and Function)
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Why StudyFunctional Programming ?
+•Expose you to a new programming model
+•Functional Programming (FP) is drastically different
+•Scheme: no loops; recursion everywhere
+•FP has had a long tradition
+•Lisp, Scheme, ML, Haskell, …
+•The debate between FP and imperative programming
+•FP continues to influence modern languages
+•Most modern languages are multi-paradigm languages
+•Delegates in C#: higher-order functions
+•Python: FP; OOP; imperative programming
+•Scala: mixes FP and OOP
+•C++11: added lambda functions
+•Java 8: added lambda functions in 2014
+•Erlang: behind WhatsApp
+CMPSC 461 –Programming Language Concepts
+
+Who’s using them?
+CMPSC 461 –Programming Language Concepts
+
+
+A Functional Programming Language
+Scheme
+CMPSC 461 –Programming Language Concepts
+
+
+DrRacket
+•An interactive, integrated, graphical programming environment for Scheme
+•Installation
+•You could install it on your own machines
+•http://racket-lang.org/
+•Be sure that the language “Standard (R5RS)” is selected
+•Click Run
+CMPSC 461 –Programming Language Concepts
+
+Scheme is Simple
+•Design for teaching” “A language for describing processes”
+•Almost minimally simple syntax
+•Only one thing you can do
+•Only one data structure
+CMPSC 461 –Programming Language Concepts
+
+Scheme is Simple:
+The one thing you can do
+(operator operand1 operand2 …)
+CMPSC 461 –Programming Language Concepts
+
+Simple -SchemeExpressions
+•Prefix notation (Polish notation): 
+•3+4is written in Scheme as (+ 3 4)
+•Parentheses are necessary 
+•Compare to the infix notation: (3 + 4)
+•4+(5 * 7) is written as
+•(+ 4 (* 5 7))
+•Parentheses are necessary 
+CMPSC 461 –Programming Language Concepts
+
+Simple –Arithmetic
+(+ 3 4)
+7
+(* 3 4)
+12
+(+ 5 (* 2 2))
+?
+CMPSC 461 –Programming Language Concepts
+
+Your Turn
+•In Scheme, “(3+8)+2” is written as
+A. (+ (3 + 8) 2)
+B. (+ 2 (+ 3 8))
+C. (+ (+ 3 8) 2)
+D. + (+ 3 8) 2
+E. (+ + 3 8 2)
+CMPSC 461 –Programming Language Concepts
+
+Your Turn
+•In Scheme, “3+8/2” is written as
+A. (+ (8 / 2) 3)
+B. (+ 3 (/ 8 2))
+C. (+ (/ 8 2) 3)
+D. (+ 3 (/ 2 8))
+E. 3 + (/ 8 2)
+CMPSC 461 –Programming Language Concepts
+
+SchemeVariables
+•Variables
+•(define pi 3.14)
+•No need to declare types
+•Variables are case insensitive
+•pi is the same as Pi
+CMPSC 461 –Programming Language Concepts
+
+Simple –Defining values
+(define foo 3)
+foo
+3
+(* foo 4)
+?
+CMPSC 461 –Programming Language Concepts
+
+SchemeExpressions
+•General syntax: (E1E2…  Ek)
+•Applying the function E1to arguments E2, …, Ek
+•Examples: (+ 3 4), (+ 4 (* 5 7))
+•Uniform syntax, easy to parse
+CMPSC 461 –Programming Language ConceptsFunction 
+argumentsFunction 
+to invoke
+
+User-DefinedFunctions
+•Mathematical functions
+•Take some arguments; return some value
+•E.g.,f(x) = x2
+•f(3) = 9; f(10) = 100
+•Scheme syntax
+•(define (square x) (* x x))
+•A two-argument function: f(x,y) = x + y2
+•(define (f x y) (+ x (* y y)))
+•calling the function: (f 3 4)
+CMPSC 461 –Programming Language Concepts
+
+Simple –Defining function
+(define (square x) (* x x))
+(square 4)
+16
+(+ (square 2) (square 3))
+?
+CMPSC 461 –Programming Language Concepts
+
+Built-in Functions
+•+, *
+•take 0 or more parameters
+•applies operation to all parameters together
+•(+ 2 4 5) 
+•(* 3 2 4)
+•zero or one parameter?
+•(+)
+•(*)
+•(+ 5)
+•(* 8)
+CMPSC 461 –Programming Language Concepts
+
+Simple –Flow control
+(define (abs x) 
+(if (< x 0)
+( - x)
+x))
+(abs -3)
+3
+(abs 3)
+3
+CMPSC 461 –Programming Language Concepts
+
+Scheme is Simple:
+The one data structure
+(value1 value2 value3 …)
+; To make one, we write:
+(list value1 value2 value3 …)
+CMPSC 461 –Programming Language Concepts
+
+Simple –Using data
+(sort (list 4 6 5))
+(4 5 6)
+(length (list 1 2))
+2
+CMPSC 461 –Programming Language Concepts
+
+Scheme is Weird
+•Functional
+•Dynamic typing
+•Functions are values
+CMPSC 461 –Programming Language Concepts
+
+Weird – Functional – list manipulation
+(define my-list (list 1 2 3 4 5 ))
+my-list
+(1 2 3 4 5)
+(car my-list)
+1
+(cdr my-list)
+(2 3 4 5)
+CMPSC 461 –Programming Language Concepts
+
+Weird – Dynamic typing
+(define (improved-code q) (* q 2))
+(define code-quality 4)
+(improved-code code-quality)
+8
+(define code-quality “poor”)
+(improved-code code-quality)
+*: expects type as 1st argument, give…..
+CMPSC 461 –Programming Language Concepts
+
+Weird – Functions are values
+(define (double value) (* 2 value))
+(define (apply-twice fn value) (fn (fn value)))
+(apply-twice double 2)
+8
+CMPSC 461 –Programming Language Concepts
+
+Scheme is Cool
+•Generic without all that syntax
+(sort (list 5 4 3 2 1) <)
+(1 2 3 4 5)
+(sort (list “abc” “a” “ab”) string<?)
+(“a” “ab” “abc”)
+CMPSC 461 –Programming Language Concepts
+
+Anonymous Functions
+•Syntax based on Lambda Calculus: x. x2
+•Anonymous functions
+•(lambda (x) (* x x))
+•are small function can take any number of arguments, but can only have one 
+expression
+•are often arguments being passed to higher-order function
+•are not bound to an identifier
+•can be used only once: ((lambda (x) (* x x)) 3)
+•Introduce names
+•(define square (lambda (x) (* x x)))
+•Same as (define (square x) (* x x))
+CMPSC 461 –Programming Language Concepts
+
+Top Hat
+CMPSC 461 –Programming Language Concepts
+
+Scheme Parenthesis
+•Scheme is very strict on parentheses
+•which is reserved for function call (function invocation)
+•(+ 3 4) vs. (+ (3) 4)
+•(lambda (x) x) vs. (lambda (x) (x))
+•the second treats (x) as a function call
+•(lambda (x) (* x x)) vs. (lambda (x) (* (x) x))
+CMPSC 461 –Programming Language Concepts
+
+Defining Recursive Functions
+•(define diverge (lambda (x) (diverge (+ x 1))))
+•Call this a diverge function
+CMPSC 461 –Programming Language Concepts

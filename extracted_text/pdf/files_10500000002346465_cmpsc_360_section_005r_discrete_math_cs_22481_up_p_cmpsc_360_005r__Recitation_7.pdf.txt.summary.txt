@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 7 covers function properties (bijectivity, injectivity, surjectivity) across various domains/codomains. It addresses function domains, composite functions & their domains, inverse functions & domain impact, and compositions of integer/roster-defined functions for bijectivity.

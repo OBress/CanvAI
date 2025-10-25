@@ -1,0 +1,225 @@
+C++ to Java ComparisonChapters 2-6
+
+Java™ How to Program, 9/e
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Our First Program in Java: Printing a Line of Text (Cont.)
+
+Compiling and Executing Your First Java Application
+Open a command window and change to the directory where the program is stored. 
+Many operating systems use the command cd to change directories. 
+To compile the program, type
+	javac Welcome1.java
+If the program contains no syntax errors, preceding command creates a.class file (known as the class file) containing the platform-independent Java bytecodes that represent the application. 
+When we use the java command to execute the application on a given platform, these bytecodes will be translated by the JVM into instructions that are understood by the underlying operating system.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Our First Program in Java: Printing a Line of Text (Cont.)
+
+To execute the program, type java Welcome1. 
+Launches the JVM, which loads the .class file for class Welcome1. 
+Note that the .class file-name extension is omitted from the preceding command; otherwise, the JVM will not execute the program. 
+The JVM calls method main to execute the program.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+2.4  Reading data from keyboard with Scanner
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+To read from the input, we'd make a call to one of the following methods for numeric data:
+nextInt()
+nextDouble()
+For example, we could have the following, using two int variables hourPart and minPart: 
+Scanner input = new Scanner(System.in);System.out.print("Enter the hour: ");hourPart = input.nextInt();System.out.print("Enter the minute: ");minPart = input.nextInt();
+To read in text, we have the following two methods:
+next(), which reads text up to whitespace 
+nextLine(), which reads text up to a line break (like getline in C++) 
+
+
+2.4  Displaying Text with printf 
+
+System.out.printf method 
+f means “formatted”
+displays formatted data
+Multiple method arguments are placed in a comma-separated list. 
+Java allows large statements to be split over many lines. 
+Cannot split a statement in the middle of an identifier or string.
+Method printf’s first argument is a format string
+May consist of fixed text and format specifiers.
+Fixed text is output as it would be by print or println. 
+Each format specifier is a placeholder for a value and specifies the type of data to output.
+Format specifiers begin with a percent sign (%) and are followed by a character that represents the data type. 
+Format specifier %s is a placeholder for a string. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+3.7  Floating-Point Numbers and Type double (Cont.)
+
+System.out.printf 
+%d for an int value. 
+%f for an double or float value.
+%3d for an int value printed to the right of a field of width 3. (Of course, the 3 can change. This is analogous to cout << setw(3) << ....) 
+%.2f for an double or float value with 2 decimal places. (Of course, the 2 can change.) 
+%s for a string 
+Scanner method nextDouble returns a double value entered by the user. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (Cont.)
+
+import declaration 
+Helps the compiler locate a class that is used in this program. 
+Rich set of predefined classes that you can reuse rather than “reinventing the wheel.” 
+Classes are grouped into packages—named groups of related classes—and are collectively referred to as the Java class library, or the Java Application Programming Interface (Java API). 
+You use import declarations to identify the predefined classes used in a Java program. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+3.5  Primitive Types vs. Reference Types
+
+Types are divided into primitive types and reference types. 
+The primitive types are boolean, byte, char, short, int, long, float and double. 
+All nonprimitive types are reference types. 
+A primitive-type variable can store exactly one value of its declared type at a time. 
+Primitive-type instance variables are initialized by default—variables of types byte, char, short, int, long, float and double are initialized to 0, and variables of type boolean are initialized to false.
+You can specify your own initial value for a primitive-type variable by assigning the variable a value in its declaration.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+3.6  Initializing Objects with Constructors
+
+When an object of a class is created, its instance variables are initialized by default. 
+Each class can provide a constructor that initializes an object of a class when the object is created. 
+Java requires a constructor call for every object that is created.
+Keyword new requests memory from the system to store an object, then calls the corresponding class’s constructor to initialize the object. 
+A constructor must have the same name as the class. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+3.6  Initializing Objects with Constructors (Cont.)
+
+By default, the compiler provides a default constructor with no parameters in any class that does not explicitly include a constructor. 
+Instance variables are initialized to their default values. 
+Can provide your own constructor to specify custom initialization for objects of your class. 
+A constructor’s parameter list specifies the data it requires to perform its task. 
+Constructors cannot return values, so they cannot specify a return type. 
+Normally, constructors are declared public. 
+If you declare any constructors for a class, the Java compiler will not create a default constructor for that class. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+When using the switch statement, remember that each case must contain a constant integral expression. 
+An integer constant is simply an integer value. 
+In addition, you can use character constants—specific characters in single quotes, such as 'A', '7' or '$'—which represent the integer values of characters. 
+The expression in each case can also be a constant variable—a variable that contains a value which does not change for the entire program. Such a variable is declared with keyword final. 
+Java has a feature called enumerations. Enumeration constants can also be used in case labels. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+As of Java SE 7, you can use Strings in a switch statement’s controlling expression and in case labels as in: 
+switch( city ){   case "Maynard":      zipCode = "01754";      break;   case "Marlborough":      zipCode = "01752";      break;   case "Framingham":      zipCode = "01701";      break;} // end switch
+ 
+
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math 
+
+Sometimes a method performs a task that does not depend on the contents of any object. 
+Applies to the class in which it’s declared as a whole 
+Known as a static method or a class method
+It’s common for classes to contain convenient static methods to perform common tasks. 
+To declare a method as static, place the keyword static before the return type in the method’s declaration. 
+Calling a static method 
+ClassName.methodName( arguments )
+Class Math provides a collection of static methods that enable you to perform common mathematical calculations. 
+Method arguments may be constants, variables or expressions. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+Math fields for common mathematical constants
+Math.PI (3.141592653589793)
+Math.E (2.718281828459045)
+Declared in class Math with the modifiers public, final and static
+public allows you to use these fields in your own classes. 
+A field declared with keyword final is constant—its value cannot change after the field is initialized. 
+PI and E are declared final because their values never change. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+A field that represents an attribute is also known as an instance variable—each object (instance) of the class has a separate instance of the variable in memory. 
+Fields for which each object of a class does not have a separate instance of the field are declared static and are also known as class variables. 
+All objects of a class containing static fields share one copy of those fields. 
+Together the class variables (i.e., static variables) and instance variables represent the fields of a class. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.5  Notes on Declaring and Using Methods (Cont.)
+
+A non-static method can call any method of the same class directly and can manipulate any of the class’s fields directly. 
+A static method can call only other static methods of the same class directly and can manipulate only static fields in the same class directly. 
+To access the class’s non-static members, a static method must use a reference to an object of the class. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+Why is method main declared static?
+The JVM attempts to invoke the main method of the class you specify—when no objects of the class have been created. 
+Declaring main as static allows the JVM to invoke main without creating an instance of the class. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.4  Declaring Methods with Multiple Parameters (Cont.)
+
+String concatenation 
+Assemble String objects into larger strings with operators + or +=. 
+When both operands of operator + are Strings, operator + creates a new String object 
+characters of the right operand are placed at the end of those in the left operand
+Every primitive value and object in Java has a String representation. 
+When one of the + operator’s operands is a String, the other is converted to a String, then the two are concatenated. 
+If a boolean is concatenated with a String, the boolean is converted to the String "true" or "false". 
+All objects have a toString method that returns a String representation of the object. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.8  Java API Packages
+
+Java contains many predefined classes that are grouped into categories of related classes called packages. 
+A great strength of Java is the Java API’s thousands of classes. 
+Some key Java API packages are described in Fig. 6.5. 
+Overview of the packages in Java SE 6: 
+download.oracle.com/javase/6/docs/api/overview-summary.html
+Java API documentation 
+download.oracle.com/javase/6/docs/api/
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.

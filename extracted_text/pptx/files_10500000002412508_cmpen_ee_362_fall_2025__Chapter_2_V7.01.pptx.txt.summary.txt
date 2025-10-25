@@ -1,0 +1,1 @@
+The Application Layer examines network application architectures (client-server, P2P), transport services (TCP/UDP), and protocols like HTTP, DNS, and SMTP/POP3/IMAP. Topics include web caching, email, P2P file distribution (BitTorrent), video streaming with CDNs, and socket programming for app development, emphasizing distributed system design and scalability.

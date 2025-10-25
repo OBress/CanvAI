@@ -1,0 +1,1 @@
+A Python script (`extract_text_from_downloads.py`) repeatedly failed for multiple JPG files (e.g., MFDC9089.jpg) due to a `ValueError`. The `path.relative_to(DOWNLOADS)` call failed because the images were in a temporary `AppData\Local\Temp` directory, not the expected `downloads` subpath, preventing relative path resolution.

@@ -1,0 +1,1 @@
+This CMPSC 360 Discrete Math worksheet covers determining constants for functions based on given equality conditions, evaluating and rewriting expressions using summation and product notation, and proving mathematical statements (including factorial inequality, sum of cubes, and divisibility rules) using induction.

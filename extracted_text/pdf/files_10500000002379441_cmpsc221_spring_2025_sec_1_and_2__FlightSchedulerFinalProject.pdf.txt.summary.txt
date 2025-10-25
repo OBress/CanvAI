@@ -1,0 +1,1 @@
+Develop a GUI flight scheduler for Fly-By-Night Airline with Derby DB and OOD. It manages bookings, waitlists, and flight/day status. Two phases: initial covers customer add/book/status; final adds flight/day management, booking cancellation, customer status, and flight drops with rebooking. Uses SQL PreparedStatements.

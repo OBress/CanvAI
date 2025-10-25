@@ -1,0 +1,1 @@
+Chapter 14, "Strings, Characters and Regular Expressions," from "Java How to Program, 11/e," is copyrighted 1992-2018 by Pearson Education, Inc. For inquiries, email paul.deitel@deitel.com.

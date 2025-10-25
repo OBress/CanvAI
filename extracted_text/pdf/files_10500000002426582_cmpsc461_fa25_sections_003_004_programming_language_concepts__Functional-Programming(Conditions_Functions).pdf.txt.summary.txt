@@ -1,0 +1,1 @@
+Scheme FP covers booleans (#t/#f), predicates, operators, and `if`/`cond` conditionals. It introduces mutual recursion and Higher-Order Functions (first-class). Variable binding uses `let` (simultaneous), `let*` (sequential), and `letrec` (recursive) constructs.

@@ -1,0 +1,472 @@
+Chapter 2Introduction to Java Applications; Input/Output and Operators
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.1  Introduction
+
+Java application programming
+Use tools from the JDK to compile and run programs.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text
+
+Java application 
+A computer program that executes when you use the java command to launch the Java Virtual Machine (JVM). 
+Sample program in Fig. 2.1 displays a line of text.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Commenting Your Programs
+Comments
+	// Fig. 2.1: Welcome1.java
+// indicates that the line is a comment. 
+Used to document programs and improve their readability.
+Compiler ignores comments.
+A comment that begins with // is an end-of-line comment—it terminates at the end of the line on which it appears. 
+Traditional comment, can be spread over several lines as in
+	/* This is a traditional comment. It   can be split over multiple lines */
+This type of comment begins with /* and ends with */. 
+All text between the delimiters is ignored by the compiler. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Our First Program in Java: Printing a Line of Text (Cont.)
+
+Javadoc comments 
+Delimited by /** and */. 
+All text between the Javadoc comment delimiters is ignored by the compiler. 
+Enable you to embed program documentation directly in your programs. 
+The javadoc utility program (online Appendix G) reads Javadoc comments and uses them to prepare program documentation in HTML5 format. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Using Blank Lines
+Blank lines, space characters and tabs 
+Make programs easier to read. 
+Together, they’re known as white space (or whitespace). 
+White space is ignored by the compiler. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Declaring a class
+Class declaration
+	public class Welcome1 
+Every Java program consists of at least one class that you define. 
+class keyword introduces a class declaration and is immediately followed by the class name.
+Keywords (Appendix C) are reserved for use by Java and are always spelled with all lowercase letters. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Filename for a public Class
+A public class must be placed in a file that has a filename of the form ClassName.java, so class Welcome1 is stored in the file Welcome1.java. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Class Names and Identifiers
+By convention, begin with a capital letter and capitalize the first letter of each word they include (e.g., SampleClassName). 
+A class name is an identifier—a series of characters consisting of letters, digits, underscores (_) and dollar signs ($) that does not begin with a digit and does not contain spaces. 
+Java is case sensitive—uppercase and lowercase letters are distinct—so a1 and A1 are different (but both valid) identifiers.
+Underscore (_) in Java 9
+As of Java 9, you can no longer use an underscore (_) by itself as an identifier. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Class Body
+A left brace, {, begins the body of every class declaration. 
+A corresponding right brace, }, must end each class declaration. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Declaring a Method
+	public static void main(String[] args) {
+Starting point of every Java application. 
+Parentheses after the identifier main indicate that it’s a program building block called a method. 
+Java class declarations normally contain one or more methods. 
+main must be defined as shown; otherwise, the JVM will not execute the application. 
+Methods perform tasks and can return information when they complete their tasks. 
+Keyword void indicates that this method will not return any information. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Body of the method declaration 
+Enclosed in left and right braces.
+Statement
+	System.out.println("Welcome to Java Programming!");
+Instructs the computer to perform an action
+Display the characters contained between the double quotation marks. 
+Together, the quotation marks and the characters between them are a string—also known as a character string or a string literal. 
+White-space characters in strings are not ignored by the compiler. 
+Strings cannot span multiple lines of code.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+System.out object
+Standard output object. 
+Allows a Java application to display information in the command window from which it executes. 
+System.out.println method 
+Displays (or prints) a line of text in the command window. 
+The string in the parentheses the argument to the method. 
+Positions the output cursor at the beginning of the next line in the command window.
+Most statements end with a semicolon. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Compiling Your First Java Application
+Open a command window and change to the directory where the program is stored. 
+Many operating systems use the command cd to change directories. 
+To compile the program, type
+	javac Welcome1.java
+If the program contains no compilation errors, preceding command creates a.class file (known as the class file) containing the platform-independent Java bytecodes that represent the application. 
+When we use the java command to execute the application on a given platform, these bytecodes will be translated by the JVM into instructions that are understood by the underlying operating system.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.2  Your First Program in Java: Printing a Line of Text (Cont.)
+
+Executing the Welcome1 Application
+To execute this program in a command window, change to the directory containing Welcome1.java
+C:\examples\ch02\fig02_01 on Microsoft Windows or 
+~/Documents/examples/ch02/fig02_01 on Linux/macOS. 
+Next, type java Welcome1.
+This launches the JVM, which loads the Welcome1.class file. 
+The command omits the .class file-name extension; otherwise, the JVM will not execute the program. 
+The JVM calls class Welcome1’s main method.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.3  Modifying Your First Java Program
+
+Class Welcome2, shown in Fig. 2.3, uses two statements to produce the same output as that shown in Fig. 2.1. 
+New and key features in each code listing are highlighted. 
+System.out’s method print displays a string. 
+Unlike println, print does not position the output cursor at the beginning of the next line in the command window.
+The next character the program displays will appear immediately after the last character that print displays.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.3  Modifying Your First Java Program (Cont.)
+
+Newline characters indicate to System.out’s print and println methods when to position the output cursor at the beginning of the next line in the command window. 
+Newline characters are whitespace characters. 
+The backslash (\) is called an escape character. 
+Indicates a “special character” 
+Backslash is combined with the next character to form an escape sequence—\n represents the newline character. 
+Complete list of escape sequences
+http://docs.oracle.com/javase/specs/jls/se7/html/
+   jls-3.html#jls-3.10.6. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.4  Displaying Text with printf 
+
+System.out.printf method 
+f means “formatted”
+displays formatted data
+Multiple method arguments are placed in a comma-separated list. 
+Calling a method is also referred to as invoking a method.
+Java allows large statements to be split over many lines. 
+Cannot split a statement in the middle of an identifier or string.
+Method printf’s first argument is a format string
+May consist of fixed text and format specifiers.
+Fixed text is output as it would be by print or println. 
+Each format specifier is a placeholder for a value and specifies the type of data to output.
+Format specifiers begin with a percent sign (%) and are followed by a character that represents the data type. 
+Format specifier %s is a placeholder for a string. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers
+
+Integers 
+Whole numbers, like –22, 7, 0 and 1024)
+Programs remember numbers and other data in the computer’s memory and access that data through program elements called variables. 
+The program of Fig. 2.7 demonstrates these concepts. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (cont.)
+
+import helps the compiler locate a class that is used in this program. 
+Rich set of predefined classes that you can reuse rather than “reinventing the wheel.” 
+Classes are grouped into packages—named groups of related classes—and are collectively referred to as the Java class library, or the Java Application Programming Interface (Java API). 
+You use import declarations to identify the predefined classes used in a Java program. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (cont.)
+
+Variable declaration statement
+	Scanner input = new Scanner(System.in);
+Specifies the name (input) and type (Scanner) of a variable that is used in this program. 
+Variable 
+A location in the computer’s memory where a value can be stored for use later in a program. 
+Must be declared with a name and a type before they can be used. 
+A variable’s name enables the program to access the value of the variable in memory. 
+The name can be any valid identifier. 
+A variable’s type specifies what kind of information is stored at that location in memory. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (cont.)
+
+Scanner 
+Enables a program to read data for use in a program. 
+Data can come from many sources, such as the user at the keyboard or a file on disk. 
+Before using a Scanner, you must create it and specify the source of the data. 
+The equals sign (=) in a declaration indicates that the variable should be initialized (i.e., prepared for use in the program) with the result of the expression to the right of the equals sign. 
+The new keyword creates an object.
+Standard input object, System.in, enables applications to read bytes of data typed by the user. 
+Scanner object translates these bytes into types that can be used in a program. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5.5  Prompting the User for Input
+
+Prompt 
+Output statement that directs the user to take a specific action. 
+Class System 
+Part of package java.lang. 
+Class System is not imported with an import declaration at the beginning of the program. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (cont.)
+
+Variable declaration statement 
+	int number1 = input.nextInt(); // read first number from user
+	declares that variables number1 holds data of type int
+Range of values for an int is –2,147,483,648 to +2,147,483,647. 
+The int values you use in a program may not contain commas. 
+For readability, you can place underscores in numbers
+60_000_000 represents the int value 60,000,000
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (cont.)
+
+Scanner method nextInt 
+Obtains an integer from the user at the keyboard. 
+Program waits for the user to type the number and press the Enter key to submit the number to the program. 
+The result of the call to method nextInt is placed in variable number1 
+The = indicates that int variable number1 should be initialized in its declaration with the result of input.nextInt()
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (Cont.)
+
+Arithmetic
+      int sum = number1 + number2; // add numbers then store total in sum
+Calculates the sum of the variables number1 and number2 then assigns the result to variable sum. 
+Addition operator is a binary operator, because it has two operands—number1 and number2
+Portions of statements that contain calculations are called expressions. 
+An expression is any portion of a statement that has a value associated with it.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.5  Another Application: Adding Integers (Cont.)
+
+Integer formatted output
+System.out.printf("Sum is %d%n", sum); 
+Format specifier %d is a placeholder for an int value
+The letter d stands for “decimal integer.” 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.6  Memory Concepts
+
+Variables
+Every variable has a name, a type, a size (in bytes) and a value.
+When a new value is placed into a variable, the new value replaces the previous value (if any) 
+The previous value is lost, so this process is said to be destructive.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.7  Arithmetic
+
+Arithmetic operators are summarized in Fig. 2.11. 
+The asterisk (*) indicates multiplication
+The percent sign (%) is the remainder operator
+The arithmetic operators are binary operators because they each operate on two operands. 
+Integer division yields an integer quotient.
+Any fractional part in integer division is simply truncated (i.e., discarded)—no rounding occurs.
+The remainder operator, %, yields the remainder after division. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.7  Arithmetic (Cont.)
+
+Arithmetic expressions in Java must be written in straight-line form to facilitate entering programs into the computer.
+Expressions such as “a divided by b” must be written as a / b, so that all constants, variables and operators appear in a straight line. 
+Parentheses are used to group terms in expressions in the same manner as in algebraic expressions. 
+If an expression contains nested parentheses, the expression in the innermost set of parentheses is evaluated first. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.7  Arithmetic (Cont.)
+
+Rules of operator precedence
+Multiplication, division and remainder operations are applied first. 
+If an expression contains several such operations, they are applied from left to right. 
+Multiplication, division and remainder operators have the same level of precedence.
+Addition and subtraction operations are applied next. 
+If an expression contains several such operations, the operators are applied from left to right. 
+Addition and subtraction operators have the same level of precedence.
+When we say that operators are applied from left to right, we are referring to their associativity. 
+Some operators associate from right to left.  
+Complete precedence chart is included in Appendix A.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.7  Arithmetic (Cont.)
+
+As in algebra, it’s acceptable to place redundant parentheses (unnecessary parentheses) in an ex-pression to make the expression clearer. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.8  Decision Making: Equality and Relational Operators
+
+Condition 
+An expression that can be true or false. 
+if selection statement 
+Allows a program to make a decision based on a condition’s value. 
+Equality operators (== and !=)
+Relational operators (>, <, >= and <=) 
+Both equality operators have the same level of precedence, which is lower than that of the relational operators. 
+The equality operators associate from left to right. 
+The relational operators all have the same level of precedence and also associate from left to right. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+2.8  Decision Making: Equality and Relational Operators (Cont.)
+
+An if statement always begins with keyword if, followed by a condition in parentheses. 
+We’ve enclosed each body statement in a pair of braces, { }, creating what’s called a compound statement or a block
+The indentation of the body statement is not required, but it improves the program’s readability by emphasizing that statements are part of the body
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

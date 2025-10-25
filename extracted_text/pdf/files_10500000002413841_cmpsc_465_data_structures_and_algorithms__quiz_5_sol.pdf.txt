@@ -1,0 +1,65 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 5
+Lecture Section: Monday, Oct 06, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) Suppose AandBare two strongly con-
+nected components in a directed graph, and there
+is an edge from a vertex in Ato a vertex in B. Con-
+sider an arbitrary run of DFS on the graph that as-
+signs pre and post numbers to each node. Which
+of the following must be true?
+amax w∈Apost (w)>max v∈Bpost (v)
+bmax w∈Apre(w)<max v∈Bpre(v)
+cmax w∈Apost (w)<max v∈Bpost (v)
+dNone of the above
+Answer (a)max w∈Apost (w)>max v∈Bpost (v)
+When running DFS, if Ais visited first, the vertex
+with an edge to Bwill have a higher post number
+than every vertex in B. IfBis visited first, Acannot
+be reachable, or they would not be separate SCCs.
+DFS will assign post numbers to Bwithout visiting
+A, and will have to visit Alater.
+2.(2 pts.) In an unweighted, connected, undirected
+graph, which of the following is true about using
+BFS to find shortest paths from a given node S?
+aBFS may fail if the graph has cycles.
+bBFS works only on trees.
+cBFS always finds the shortest path.
+dBFS doesn’t work on undirected graphs.
+Answer: (c) BFS always finds the shortest path.
+As long as the graph is unweighted, BFS always
+finds the shortest path.
+3.(2 pts.) Dijkstra’s Algorithm does not work
+correctly on:aDirected weighted graphs
+bGraphs with negative-weight edges
+cUndirected unweighted graphs
+Answer: (b) Graphs with negative-weight edges
+Dijkstra’s algorithm assumes that once a node is fi-
+nalized, its shortest path is known — which fails if
+a shorter path appears later via a negative edge.
+4.(2 pts.) In a weighted graph where the weights
+of all edges are distinct, there is always a unique
+shortest path between two connected vertices.
+aTrue
+bFalse
+Answer: (b) False
+A counterexample is a graph where one edge of
+weight 3 connects the source and destination, and
+another path through a third node has weights 1
+and 2.
+5.(2 pts.) In Dijkstra’s algorithm, after a vertex u
+is added to the visited set R, which of the following
+is always true?
+adist (u)may still decrease later due to a
+shorter path.
+bdist (u)is equal to the true shortest-path dis-
+tance from the source.
+cdist (u)is the minimum among all vertices in
+the graph.
+duhas no outgoing edges.
+Answer: (b)dist (u)is equal to the true shortest-
+path distance from the source. Because Dijkstra’s
+algorithm always selects the vertex with the small-
+est tentative distance, ensuring the shortest path to
+it is already found when it’s added to R.
+CMPSC 465, Fall 2025, Quiz 5 1

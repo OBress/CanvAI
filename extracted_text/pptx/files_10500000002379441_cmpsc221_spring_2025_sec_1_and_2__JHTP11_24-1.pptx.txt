@@ -1,0 +1,896 @@
+Chapter 24Accessing Databases with JDBC
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.1  Introduction
+
+A database is an organized collection of data. 
+A database management system (DBMS) provides mechanisms for storing, organizing, retrieving and modifying data for many users. 
+SQL is the international standard language used with relational databases to perform queries and to manipulate data. 
+Popular relational database management systems (RDBMSs)
+Microsoft SQL Server, Oracle, Sybase and IBM DB2, PostgreSQL, MariaDB and MySQL
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.1  Introduction (cont.)
+
+Java programs interact with databases using the Java Database Connectivity (JDBC™) API.
+A JDBC driver enables Java applications to connect to a database in a particular DBMS and allows you to manipulate that database using the JDBC API.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.1  Introduction (cont.)
+
+Java Persistence API (JPA)
+In online Chapter 29, we introduce Java Persistence API (JPA). 
+In that chapter, you’ll learn how to autogenerate Java classes that represent the tables in a database and the relationships between them—known as object-relational mapping—then use objects of those classes to interact with a database. 
+As you’ll see, storing data in and retrieving data from a database will be handled for you—the techniques you learn in this chapter will typically be hidden from you by JPA.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.1  Introduction (cont.)
+
+JDK 9 Note
+As of JDK 9, Oracle no longer bundles Java DB with the JDK
+If you’re using JDK 9 with this chapter, follow the download and installation instructions for Apache Derby at
+http://db.apache.org/derby/papers/DerbyTut/install_software.html#derby 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.2  Relational Databases
+
+A relational database is a logical representation of data that allows the data to be accessed without consideration of its physical structure.
+A relational database stores data in tables.
+Tables are composed of rows, each describing a single entity—in Fig. 24.1, an employee. 
+Rows are composed of columns in which values are stored.
+Primary key—a column (or group of columns) with a value that is unique for each row.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.3  A books Database
+
+We introduce relational databases in the context of this chapter’s books database, which you’ll use in several examples.
+The database consists of three tables: Authors, AuthorISBN and Titles.
+AuthorISBN table consists of two columns that maintain ISBNs for each book and their corresponding authors’ ID numbers. 
+The AuthorID column is a foreign key—a column in this table that matches the primary-key column in another table.
+Every foreign-key value must appear as another table’s primary-key value so the DBMS can ensure that the foreign key value is valid—this is known as the Rule of Referential Integrity.
+There is a one-to-many relationship between a primary key and a corresponding foreign key.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.3   A books Database (cont.)
+
+Entity-relationship (ER) diagram for the books database.
+Shows the database tables and the relationships among them.
+The names in italic are primary keys.
+A table’s primary key uniquely identifies each row in the table.
+Every row must have a primary-key value, and that value must be unique in the table.
+This is known as the Rule of Entity Integrity.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4  SQL
+
+The next several subsections discuss the SQL queries and statements using the SQL keywords.
+Other SQL keywords are beyond this text’s scope.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.1 Basic SELECT Query
+
+A SQL query “selects” rows and columns from one or more tables in a database.
+The basic form of a SELECT query is
+SELECT * FROM tableName    
+in which the asterisk (*) wildcard character indicates that all columns from the tableName table should be retrieved.
+To retrieve all the data in the Authors table, use 
+SELECT * FROM Authors
+To retrieve only specific columns, replace the asterisk (*) with a comma-separated list of the column names, e.g., 
+SELECT AuthorID, LastName FROM Authors
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.2 WHERE Clause
+
+In most cases, only rows that satisfy selection criteria are selected.
+SQL uses the optional WHERE clause in a query to specify the selection criteria for the query.
+The basic form of a query with selection criteria is
+SELECT columnName1, columnName2, … FROM tableName WHERE criteria
+To select the Title, EditionNumber and Copyright columns from table Titles for which the Copyright date is greater than 2013, use the query
+SELECT Title, EditionNumber, Copyright    FROM Titles    WHERE Copyright > '2013'
+Strings in SQL are delimited by single (') rather than double (") quotes.
+The WHERE clause criteria can contain the operators <, >, <=, >=, =, <> and LIKE.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.2 WHERE Clause (cont.)
+
+Operator LIKE is used for pattern matching with wildcard characters percent (%) and underscore (_).
+A pattern that contains a percent character (%) searches for strings that have zero or more characters at the percent character’s position in the pattern.
+For example, the next query locates the rows of all the authors whose last name starts with the letter D:
+SELECT AuthorID, FirstName, LastName   FROM Authors   WHERE LastName LIKE 'D%'
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.2 WHERE Clause (cont.)
+
+An underscore ( _ ) in the LIKE pattern string indicates a single wildcard character at that position in the pattern.
+The following query locates the rows of all the authors whose last names start with any character (specified by _), followed by the letter o, followed by any number of additional characters (specified by %):
+SELECT AuthorID, FirstName, LastName   FROM Authors   WHERE LastName LIKE '_o%'
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.3 ORDER BY Clause
+
+The rows in the result of a query can be sorted into ascending or descending order by using the optional ORDER BY clause.
+The basic form of a query with an ORDER BY clause is
+SELECT columnName1, columnName2, … FROM tableName ORDER BY column ASCSELECT columnName1, columnName2, … FROM tableName ORDER BY column DESC       
+ASC specifies ascending order (lowest to highest)
+DESC specifies descending order (highest to lowest)
+column specifies the column on which the sort is based.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.3 ORDER BY Clause (cont.)
+
+To obtain the list of authors in ascending order by last name (), use the query
+SELECT AuthorID, FirstName, LastName   FROM Authors   ORDER BY LastName ASC
+To obtain the same list of authors in descending order by last name (), use the query
+SELECT AuthorID, FirstName, LastName   FROM Authors   ORDER BY LastName DESC
+Multiple columns can be used for sorting with an ORDER BY clause of the form
+ORDER BY column1 sortingOrder, column2 sortingOrder, …
+sortingOrder is either ASC or DESC. 
+Sort all the rows in ascending order by last name, then by first name. 
+SELECT AuthorID, FirstName, LastName   FROM Authors   ORDER BY LastName, FirstName 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.3 ORDER BY Clause (cont.)
+
+The WHERE and ORDER BY clauses can be combined in one query, as in
+SELECT ISBN, Title, EditionNumber, Copyright    FROM Titles    WHERE Title LIKE '%How to Program'    ORDER BY Title ASC
+which returns the ISBN, Title, EditionNumber and Copyright of each book in the Titles table that has a Title ending with "How to Program" and sorts them in ascending order by Title.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.4 Merging Data from Multiple Tables: INNER JOIN
+
+Database designers often split related data into separate tables to ensure that a database does not store data redundantly.
+Often, it is necessary to merge data from multiple tables into a single result.
+Referred to as joining the tables
+An INNER JOIN merges rows from two tables by matching values in columns that are common to the tables.
+SELECT columnName1, columnName2, … FROM table1INNER JOIN table2    ON table1.columnName = table2.columnName
+The ON clause specifies the columns from each table that are compared to determine which rows are merged—these fields almost always correspond to the foreign-key fields in the tables being joined.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.4 Merging Data from Multiple Tables: INNER JOIN (cont.)
+
+The following query produces a list of authors accompanied by the ISBNs for books written by each author:
+SELECT FirstName, LastName, ISBN FROM Authors INNER JOIN AuthorISBN    ON Authors.AuthorID = AuthorISBN.AuthorID ORDER BY LastName, FirstName
+The syntax tableName.columnName in the ON clause, called a qualified name, specifies the columns from each table that should be compared to join the tables.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.5 INSERT Statement
+
+The INSERT statement inserts a row into a table.
+INSERT INTO tableName (columnName1, columnName2, …, columnNameN)   VALUES (value1, value2, …, valueN)
+	where tableName is the table in which to insert the row.
+tableName is followed by a comma-separated list of column names in parentheses 
+not required if the INSERT operation specifies a value for every column of the table in the correct order
+The list of column names is followed by the SQL keyword VALUES and a comma-separated list of values in parentheses.
+The values specified here must match the columns specified after the table name in both order and type.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.5 INSERT Statement (cont.)
+
+The INSERT statement
+INSERT INTO Authors (FirstName, LastName)   VALUES ('Sue', ‘Red')
+indicates that values are provided for the FirstName and LastName columns. The corresponding values are 'Sue' and ‘Red'.
+We do not specify an AuthorID in this example because AuthorID is an autoincremented column in the Authors table.
+Not every database management system supports autoincremented columns.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.6 UPDATE Statement
+
+An UPDATE statement modifies data in a table.
+UPDATE tableName    SET columnName1 = value1, columnName2 = value2, …, columnNameN = valueN   WHERE criteria
+where tableName is the table to update.
+tableName is followed by keyword SET and a comma-separated list of columnName = value pairs.
+Optional WHERE clause provides criteria that determine which rows to update.
+The UPDATE statement-
+UPDATE Authors    SET LastName = ‘Black'   WHERE LastName = ‘Red' AND FirstName = 'Sue'
+indicates that LastName will be assigned the value Jones for the row where LastName is Red and FirstName is Sue.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.4.7 DELETE Statement
+
+A SQL DELETE statement removes rows from a table.
+DELETE FROM tableName WHERE criteria
+where tableName is the table from which to delete.
+Optional WHERE clause specifies the criteria used to determine which rows to delete.
+If this clause is omitted, all the table’s rows are deleted.
+The DELETE statement 
+DELETE FROM Authors    WHERE LastName = ‘Black' AND FirstName = 'Sue'
+deletes the row for Sue Jones in the Authors table.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5  Setting up a Java DB Database
+
+This chapter’s examples use Oracle’s pure Java database Java DB, which is installed with Oracle’s JDK on Windows, macOS and Linux.
+For this chapter, you’ll be using the embedded version of Java DB. 
+The database you manipulate in each example must be located in that example’s folder. 
+This chapter’s examples are located in two subfolders of the ch24 examples folder—books_examples and addressbook_example. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5  Setting up a Java DB Database (Cont.)
+
+JDK Installation Folders
+The Java DB software is located in the db subdirectory of your JDK’s installation directory. The directories listed below are for Oracle’s JDK 8  update 131:
+32-bit JDK on Windows: C:\Program Files (x86)\Java\jdk1.8.0_131
+64-bit JDK on Windows: C:\Program Files\Java\jdk1.8.0_131
+macOS: /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home 
+Ubuntu Linux:  /usr/lib/jvm/java-8-oracle 
+If you’re using JDK 9 with this chapter, see the note in  about downloading and installing Apache Derby. You’ll also need to update the instructions in , based on Apache Derby’s installation folder on your computer. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5  Setting up a Java DB Database (Cont.)
+
+For Linux, the install location depends on the installer you use and possibly the version of Linux that you use. We used Ubuntu Linux for testing purposes.
+Depending on your platform, the JDK installation folder’s name might differ. 
+Java DB comes with several files that enable you to configure and run it. 
+Before executing these files from a command window, you must set the environment variable JAVA_HOME to refer to the JDK’s exact installation directory listed above (or the location where you installed the JDK if it differs from those listed above). 
+See the Before You Begin section of this book for information on setting environment variables. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.1  Creating the Chapter’s Databases on Windows
+
+After setting the JAVA_HOME environment variable, perform the following steps:
+Run Notepad as an administrator. To do this on Windows 7, select Start > All Programs > Accessories, right click Notepad and select Run as administrator. On Windows 8, search for Notepad, right click it in the search results and select Advanced in the app bar, then select Run as administrator.
+From Notepad, open the batch file setEmbeddedCP.bat that is located in the JDK installation folder’s db\bin folder. 
+Locate the line 
+@rem set DERBY_INSTALL=
+and change it to 
+@set DERBY_INSTALL=%JAVA_HOME%\db
+Save your changes and close this file. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.1  Creating the Chapter’s Databases on Windows (Cont.)
+
+Open a Command Prompt window and change to the JDK installation folder’s db\bin folder. Then, type setEmbeddedCP.bat and press Enter to set the environment variables required by Java DB.
+Use the cd command to change to this chapter’s books_examples directory. This directory contains a SQL script books.sql that builds the books database. 
+Execute the following command (with the quotation marks) to start the command-line tool for interacting with Java DB. The double quotes are necessary because the path that the environment variable %JAVA_HOME% represents contains a space. This will display the ij> prompt.
+"%JAVA_HOME%\db\bin\ij"
+ 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.1  Creating the Chapter’s Databases on Windows (Cont.)
+
+At the ij> prompt type
+connect 'jdbc:derby:books;create=true;user=deitel;password=deitel';
+and press Enter to create the books database in the current directory and to create the user deitel with the password deitel for accessing the database.
+To create the database table and insert sample data in it, we’ve provided the file address.sql in this example’s directory. To execute this SQL script, type 
+run 'books.sql';
+Each command you enter at the ij> prompt must be terminated with a semicolon (;). 
+Once you create the database, you can execute the SQL statements presented in Section 24.4 to confirm their execution. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.1  Creating the Chapter’s Databases on Windows (Cont.)
+
+Change directories to the addressbook_example subfolder of the ch24 examples folder, which contains the SQL script addressbook.sql that builds the addressbook database. Repeat Steps 6–8. In each step, replace books with addressbook.
+To terminate the Java DB command-line tool, type 
+exit;
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.2  Creating the Chapter’s Databases on macOS
+
+After setting the JAVA_HOME environment variable, perform the following steps:
+Open a Terminal, then type:
+DERBY_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/db
+and press Enter. Then type  
+export DERBY_HOME
+and press Enter. This specifies where Java DB is located on your Mac. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.2  Creating the Chapter’s Databases on macOS (Cont.)
+
+In the Terminal window, change directories to the JDK installation folder’s db/bin folder. Then, type ./setEmbeddedCP and press Enter to set the environment variables required by Java DB.
+In the Terminal window, use the cd command to change to the books_examples directory. This directory contains a SQL script books.sql that builds the books database. 
+Execute the following command (with the quotation marks):
+$JAVA_HOME/db/bin/ij
+to start the command-line tool for interacting with Java DB. This will display the ij> prompt.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.2  Creating the Chapter’s Databases on macOS (Cont.)
+
+Perform Steps 6–8 of Section 24.5.1 to create the books database. 
+Use the cd command to change to the addressbook_example directory. This directory contains a SQL script addressbook.sql that builds the addressbook database. 
+Perform Steps 6–8 of Section 24.5.1 to create the addressbook database. In each step, replace books with addressbook.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.5.3  Creating the Chapter’s Databases on Linux
+
+After setting the JAVA_HOME environment variable, perform the following steps:
+Open a shell window.
+Perform the steps in Section 24.5.2, but in Step 1, set DERBY_HOME to
+DERBY_HOME=YourLinuxJDKInstallationFolder/db
+On our Ubuntu Linux system, this was:  
+DERBY_HOME=/usr/lib/jvm/java-8-oracle/db
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6  Connecting to and Querying a Database
+
+The example of Fig. 24.23 illustrates connecting to the books database, querying the database and processing the result.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.1  Automatic Driver Discovery
+
+The database URL identifies the name of the database to connect to, as well as information about the protocol used by the JDBC driver.
+JDBC supports automatic driver discovery
+It loads the database driver into memory for you. 
+To ensure that the program can locate the database driver class, you must include the class’s location in the program’s classpath when you execute the program.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.2  Connecting to the Database
+
+Connecting to the Database
+The JDBC interfaces we use in this example each extend the AutoCloseable interface, so you can use objects that implement these interfaces with the try-with-resources statement (introduced in Section 11.12). 
+Each object created in the parentheses following keyword try must be separated from the next by a semicolon (;).
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.2  Connecting to the Database (cont.)
+
+Connection (package java.sql) 
+An object that implements interface Connection manages the connection between the Java program and the database. 
+Connection objects enable programs to create SQL statements that manipulate databases. 
+The program initializes connection with the result of a call to static method getConnection of class DriverManager (package java.sql), which attempts to connect to the database specified by its URL. 
+Method getConnection takes three arguments
+a String that specifies the database URL, 
+a String that specifies the username and 
+a String that specifies the password. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.2  Connecting to the Database (cont.)
+
+The URL jdbc:derby:books specifies 
+the protocol for communication (jdbc)
+the subprotocol for communication (derby) 
+the location of the database (books). 
+The subprotocol derby indicates that the program uses a Java DB/Apache Derby-specific subprotocol to connect to the database. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.3  Creating a Statement for Executing Queries
+
+Connection method createStatement obtains an object that implements interface Statement (package java.sql). 
+Used to submit SQL statements to the database. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.4  Executing a Query
+
+The Statement object’s executeQuery method submits a query to the database. 
+Returns an object that implements interface ResultSet and contains the query results. 
+The ResultSet methods enable the program to manipulate the query result. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.5  Processing a Query’s ResultSet
+
+A ResultSet’s ResultSetMetaData describes the ResultSet’s contents. 
+Can be used programatically to obtain information about the ResultSet’s column names and types. 
+ResultSetMetaData method getColumnCount retrieves the number of columns in the ResultSet. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.6.5  Processing a Query’s ResultSet (cont.)
+
+The first call to ResultSet method next positions the ResultSet cursor to the first row
+Returns boolean value true if it is able to position to the next row; otherwise, the method returns false.
+ResultSetMetaData method getColumnType returns a constant integer from class Types (package java.sql) indicating the type of a specified column.
+ResultSet method getInt can be used to get the column value as an int.
+ResultSet get methods typically receive as an argument either a column number (as an int) or a column name (as a String) indicating which column’s value to obtain.
+ResultSet method getObject prints the Object’s String representation.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7  Querying the books Database
+
+The next example allows the user to enter any query into the program.
+Displays the result of a query in a JTable, using a TableModel object to provide the ResultSet data to the JTable.
+JTable is a swing GUI component that can be bound to a database to display the results of a query.
+Class ResultSetTableModel performs the connection to the database via a TableModel and maintains the ResultSet.
+Class DisplayQueryResults creates the GUI and specifies an instance of class ResultSetTableModel to provide data for the JTable.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.1 ResultSetTableModel Class
+
+Class ResultSetTableModel (Fig. 24.25) is a TableModel that performs the connection to the database and maintains the ResultSet
+Extends class AbstractTableModel (package javax.swing.table), which implements interface TableModel
+Overrides TableModel methods getColumnClass, getColumnCount, getColumnName, getRowCount and getValueAt, based on the current ResultSet
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.1 ResultSetTableModel Class (cont.)
+
+Default implementations of TableModel methods isCellEditable and setValueAt (provided by AbstractTableModel) are not overridden, because this example does not support editing the JTable cells
+Default implementations of TableModel methods addTableModelListener and removeTableModelListener (provided by AbstractTableModel) are not overridden, because the AbstractTableModel implementations of these methods properly add and remove listeners for the events that occur when a TableModel changes
+
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.1 ResultSetTableModel Class (cont.)
+
+ResultSetTableModel Constructor
+Accepts four String arguments—the URL of the database, the username, the password and the default query to perform. 
+Throws any exceptions to the application that created the ResultSetTableModel
+Establishes a connection to the database
+Uses createStatement overload with two arguments—the result set type and the result set concurrency
+The result set type (Fig. 24.26) specifies whether the ResultSet’s cursor is able to scroll in both directions or forward only and whether the ResultSet is sensitive to changes made to the underlying data. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.1 ResultSetTableModel Class (cont.)
+
+ResultSets that are sensitive to changes reflect those changes immediately after they’re made with methods of interface ResultSet
+If a ResultSet is insensitive to changes, the query that produced the ResultSet must be executed again to reflect any changes made
+The result set concurrency (Fig. 24.27) specifies whether the ResultSet can be updated with ResultSet’s update methods. 
+This example uses a ResultSet that is scrollable, insensitive to changes and read-only. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.1 ResultSetTableModel Class (cont.)
+
+ResultSetMetaData method getColumnClassName obtains the fully qualified class name for the specified column.
+ResultSetMetaData method getColumnCount obtains the number of columns in the ResultSet.
+ResultSetMetaData method getColumnName obtains the column name from the ResultSet.
+ResultSet method absolute positions the ResultSet cursor at a specific row.
+ResultSet method last positions the ResultSet cursor at the last row in the ResultSet.
+ResultSet method getRow obtains the row number for the current row in the ResultSet.
+Method fireTableStructureChanged (inherited from class AbstractTableModel) notifies any JTable using this ResultSetTableModel object as its model that the structure of the model has changed.
+Causes the JTable to repopulate its rows and columns with the new ResultSet data.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.2 DisplayQueryResults App’s GUI
+
+Figure 24.28 shows the app’s GUI (defined in DisplayQueryResults.fxml) labeled with its fx:ids. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.3 DisplayQueryResultsController Class
+
+Class DisplayQueryResultsController (Fig. 24.29) completes the GUI, interacts with the ResultSetTableModel via a JTable object and responds to the GUI’s events
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.3 DisplayQueryResultsController Class (cont.)
+
+Method initialize
+Creates a ResultSetTableModel object, assigns it to instance variable tableModel and completes the GUI. 
+Creates the JTable object that will display the ResultSetTableModel’s ResultSet
+This constructor registers the JTable as a listener for TableModelEvents generated by the ResultSetTableModel. 
+When such events occur, the JTable automatically updates itself, based on the ResultSetTableModel’s current ResultSet.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.3 DisplayQueryResultsController Class (cont.)
+
+Class TableRowSorter (from package javax.swing.table) can be used to sort rows in a JTable.
+When the user clicks the title of a particular JTable column, the TableRowSorter interacts with the underlying TableModel to reorder the rows based on the data in that column.
+JTable method setRowSorter specifies the TableRowSorter for the JTable.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.3 DisplayQueryResultsController Class (cont.)
+
+We create and configure a SwingNode, which enables you to embed Swing GUI controls in JavaFX GUIs
+The argument to SwingNode method setContent is a JComponent—the superclass of all Swing GUI controls
+We pass a new JScrollPane object—a subclass of JComponent—that we initialize with the Jtable
+Provides scrollbars for Swing GUI components that have more content to display than can fit in their area on the screen. For a JTable, depending on its number of rows and columns, the JScrollPane automatically provides vertical and horizontal scrollbars as necessary. 
+We attach the SwingNode to the BoderPane’s center area.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.7.3 DisplayQueryResultsController Class (cont.)
+
+JTables can now show subsets of the data from the underlying TableModel.
+This is known as filtering the data.
+JTable method setRowFilter specifies a RowFilter (from package javax.swing) for a JTable.
+RowFilter static method regexFilter receives a String containing a regular expression pattern as its argument and an optional set of indices that specify which columns to filter.
+If no indices are specified, then all the columns are searched.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.8  RowSet Interface
+
+The interface RowSet provides several set methods that allow you to specify the properties needed to establish a connectionand create a Statement.
+RowSet also provides several get methods that return these properties.
+Two types of RowSet objects—connected and disconnected.
+A connected RowSet object connects to the database once and remains connected while the object is in use.
+A disconnected RowSet object connects to the database, executes a query to retrieve the data from the database and then closes the connection.
+A program may change the data in a disconnected RowSet while it is disconnected.
+Modified data can be updated in the database after a disconnected RowSet reestablishes the connection with the database. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.8  RowSet Interface (cont.)
+
+Package javax.sql.rowset contains two subinterfaces of RowSet—JdbcRowSet and CachedRowSet.
+JdbcRowSet, a connected RowSet, acts as a wrapper around a ResultSet object and allows you to scroll through and update the rows in the ResultSet.
+A JdbcRowSet object is scrollable and updatable by default.
+CachedRowSet, a disconnected RowSet, caches the data of a ResultSet in memory and disconnects from the database.
+A CachedRowSet object is scrollable and updatable by default.
+Also serializable, so it can be passed between Java applications through a network, such as the Internet.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.8  RowSet Interface (cont.)
+
+Class RowSetProvider (package javax.sql.rowset) provides static method newFactory which returns a an object that implements interface RowSetFactory (package javax.sql.rowset) that can be used to create various types of RowSets.
+The try-with-resources statement use RowSetFactory method createJdbcRowSet to obtain a JdbcRowSet object.
+JdbcRowSet method setUrl specifies the database URL.
+JdbcRowSet method setUsername specifies the username.
+JdbcRowSet method setPassword specifies the password.
+Jdbc-RowSet method setCommand specifies the SQL query that will be used to populate the RowSet.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.8  RowSet Interface (cont.)
+
+JdbcRowSet method execute executes the SQL query.
+Method execute performs four actions
+Establishes a Connection to the database
+Prepares the query Statement
+Executes the query 
+Stores the ResultSet returned by query.
+The Connection, Statement and ResultSet are encapsulated in the JdbcRowSet object. 
+JdbcRowSet method close closes the RowSet’s encapsulated ResultSet, Statement and Connection.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements 
+
+Interface PreparedStatement enables you to create compiled SQL statements that execute more efficiently than Statement objects.
+Can also specify parameters, making them more flexible than Statements.
+Programs can execute the same query repeatedly with different parameter values.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements (cont.)
+
+To locate all book titles for an author with a specific last name and first name:
+PreparedStatement authorBooks = connection.prepareStatement(   "SELECT LastName, FirstName, Title " +    "FROM Authors INNER JOIN AuthorISBN " +        "ON Authors.AuthorID=AuthorISBN.AuthorID " +   "INNER JOIN Titles " +       "ON AuthorISBN.ISBN=Titles.ISBN " +    "WHERE LastName = ? AND FirstName = ?" );
+The two question marks (?) are placeholders for values that will be passed as part of the query to the database.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements (cont.)
+
+Before executing a PreparedStatement, the program must specify the parameter values by using the PreparedStatement interface’s set methods. 
+For the preceding query, both parameters are strings that can be set with PreparedStatement method setString as follows:
+authorBooks.setString( 1, "Deitel" );authorBooks.setString( 2, "Paul" );
+Parameter numbers are counted from 1, starting with the first question mark (?).
+Interface PreparedStatement provides set methods for each supported SQL type.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements (cont.)
+
+Our addressbook Java DB database contains an Addresses table with the columns AddressID, FirstName, LastName, Email and PhoneNumber.
+The column AddressID is an identity column in the Addresses table.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements (cont.)
+
+Invoke Connection method prepareStatement to create a PreparedStatement.
+Calling PreparedStatement method executeQuery returns a ResultSet containing the rows that match the query.
+PreparedStatement method executeUpdate  executes a SQL statement that modifies the database.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements (cont.)
+
+Fig. 24.33 shows the app’s GUI (defined in AddressBook.fxml) labeled with its fx:ids.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.9  PreparedStatements (cont.)
+
+The AddressBookController (Fig. 24.34) class uses a PersonQueries object to interact with the database
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.10  Stored Procedures
+
+Many database management systems can store individual SQL statements or sets of SQL statements in a database, so that programs accessing that database can invoke them.
+Such named collections of SQL statements are called stored procedures.
+JDBC enables programs to invoke stored procedures using objects that implement the interface CallableStatement.
+In addition, CallableStatements can specify output parameters in which a stored procedure can place return values.
+The interface also includes methods to obtain the values of output parameters returned from a stored procedure.
+To learn more about CallableStatements, visit 
+java.sun.com/javase/6/docs/technotes/guides/jdbc/getstart/callablestatement.html#999652
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.10  Transaction Processing
+
+Many database applications require guarantees that a series of database insertions, updates and deletions executes properly before the applications continue processing the next database operation.
+Transaction processing enables a program that interacts with a database to treat a database operation (or set of operations) as a single operation.
+Such an operation also is known as an atomic operation or a transaction.
+At the end of a transaction, a decision can be made either to commit the transaction or roll back the transaction.
+Committing the transaction finalizes the database operation(s).
+Rolling back the transaction leaves the database in its state prior to the database operation.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+24.10  Transaction Processing (cont.)
+
+Connection method setAutoCommit specifies whether each SQL statement commits after it completes (a true argument) or whether several SQL statements should be grouped as a transaction (a false argument).
+If the argument to setAutoCommit is false, the program must follow the last SQL statement in the transaction with a call to Connection method commit or Connection method rollback.
+Interface Connection also provides method getAutoCommit to determine the autocommit state for the Connection. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

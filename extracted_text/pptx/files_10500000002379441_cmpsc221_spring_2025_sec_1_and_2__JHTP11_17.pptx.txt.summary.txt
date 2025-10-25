@@ -1,0 +1,1 @@
+Java SE 8 introduced lambdas (anonymous methods) and streams, enhancing functional programming. Streams allow declarative, internal iteration for operations like mapping, filtering, and reduction, leading to concise, less error-prone, and easily parallelizable code, utilizing lazy evaluation.

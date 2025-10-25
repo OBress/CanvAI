@@ -1,0 +1,1 @@
+This homework explores network performance by calculating end-to-end delay for packets over multi-link paths and using a caravan analogy. It compares circuit vs. packet switching for user capacity, link utilization, and probability of exceeding capacity in shared links, also analyzing message segmentation's effect on delay and its pros/cons.

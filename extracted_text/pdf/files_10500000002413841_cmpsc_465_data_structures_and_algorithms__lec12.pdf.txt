@@ -1,0 +1,1702 @@
+CMPSC 465: LECTURE XII
+DFS on Directed Graphs
+Ke Chen
+September 26, 2025
+
+Recall from the previous lecture ...
+On an undirected graph:IExplore a node:Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IA B
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IAB
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected componentIproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IA B
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edgesIDFS repeatedly calls Explore:Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IAB
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IA BE FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:
+Inds all connected components \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IA B
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:
+Inds all connected components  \Can I go from A to B?"Iyields a DFS forest  cycle detection
+A B C D
+E F G H IA B
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:
+Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest cycle detection
+A B C D
+E F G H IA B
+E FC D
+G H I
+1 / 8
+
+Recall from the previous lecture ...
+On an undirected graph:
+IExplore a node:
+Ireveals one connected component
+Iproduces a DFS tree  tree edges ,back edges
+IDFS repeatedly calls Explore:
+Inds all connected components  \Can I go from A to B?"
+Iyields a DFS forest  cycle detection
+A B C D
+E F G H IA B
+E FC D
+G H I
+1 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+//preand post are integer arrays of size jVj
+//clock is a global integer counter starting at 1
+Explore( G,s,color )
+visited [s] =color
+pre[s] =clock
+clock =clock + 1
+foreach edgefs; vg2Edo
+ifvisited [v] == 0 then
+Explore( G,v,color )
+post[s] =clock
+clock =clock + 1
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF A12
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+B1
+234
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+B1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF A1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+E1
+2
+345
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+I1
+2
+34
+56
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+J1
+2
+34
+5
+67891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+J1
+2
+34
+5
+67891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+J1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+I1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+E1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF A1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF C1
+2
+34
+5
+6
+789101112
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+D1
+2
+34
+5
+6
+7891011
+1213
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+H1
+2
+34
+5
+6
+7891011
+12
+1314
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+H1
+2
+34
+5
+6
+7891011
+12
+1314
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+G1
+2
+34
+5
+6
+7891011
+12
+13
+1415
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+G1
+2
+34
+5
+6
+7891011
+12
+13
+1415
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+K1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+K1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+K1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+G1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+H1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+L1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+1617181920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+L1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+H1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF
+D1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF C1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLFF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+192021222324
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLFF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+241 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24
+AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24
+ABE
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24
+AB ECG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24
+AB E
+CG ?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24
+AB E
+CG?
+2 / 8
+
+Pre- and post-visit timestamps (undirected)
+We can collect more information during Explore by keeping a
+global clock that ticks every time we:
+Ivisit a node for the rst time, and
+Ileave a node for good.
+ExampleA
+B E
+I
+JC
+D
+H
+G
+KLF1
+2
+34
+5
+6
+7891011
+12
+13
+14
+15
+161718
+1920212223
+24
+1 24
+AB E
+CG
+?
+2 / 8
+
+DFS in directed graphsExactly the same algorithm works!
+But we have more edge types:Iforward edges lead to a non-child descendant.
+Iback edges lead to an ancestor.
+Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+DFS in directed graphs
+Exactly the same algorithm works!But we have more edge types:Iforward edges lead to a non-child descendant.
+Iback edges lead to an ancestor.
+Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+DFS in directed graphs
+Exactly the same algorithm works!But we have more edge types:Iforward edges lead to a non-child descendant.
+Iback edges lead to an ancestor.
+Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+DFS in directed graphs
+Exactly the same algorithm works!
+But we have more edge types:Iforward edges lead to a non-child descendant.
+Iback edges lead to an ancestor.
+Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+DFS in directed graphs
+Exactly the same algorithm works!
+But we have more edge types:
+Iforward edges lead to a non-child descendant.Iback edges lead to an ancestor.
+Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+DFS in directed graphs
+Exactly the same algorithm works!
+But we have more edge types:
+Iforward edges lead to a non-child descendant.
+Iback edges lead to an ancestor.Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+DFS in directed graphs
+Exactly the same algorithm works!
+But we have more edge types:
+Iforward edges lead to a non-child descendant.
+Iback edges lead to an ancestor.
+Icross edges lead to neither an ancestor nor a descendant.
+B A C
+E F D
+G HA
+B C
+E D
+F H
+G1
+2
+3
+4
+5
+678
+9101112
+13
+141516
+3 / 8
+
+Pre-, post-visit numbers and edge types
+Fact If vertex wis an ancestor of vertex vin the DFS tree, then
+pre[w]<pre[v]<post[v]<post[w]For an edge (w; v)in the graph:
+Iifpre[w]<pre[v]<post[v]<post[w],
+then (w; v)is a tree or forward edge .Iifpre[v]<pre[w]<post[w]<post[v],
+then (w; v)is a back edge .
+Iifpre[v]<post[v]<pre[w]<post[w],
+then (w; v)is a cross edge .
+A
+B
+C D1
+2
+3
+45
+678
+4 / 8
+
+Pre-, post-visit numbers and edge types
+Fact If vertex wis an ancestor of vertex vin the DFS tree, then
+pre[w]<pre[v]<post[v]<post[w]
+For an edge (w; v)in the graph:
+Iifpre[w]<pre[v]<post[v]<post[w],
+then (w; v)is a tree or forward edge .Iifpre[v]<pre[w]<post[w]<post[v],
+then (w; v)is a back edge .
+Iifpre[v]<post[v]<pre[w]<post[w],
+then (w; v)is a cross edge .
+A
+B
+C D1
+2
+3
+45
+678
+4 / 8
+
+Pre-, post-visit numbers and edge types
+Fact If vertex wis an ancestor of vertex vin the DFS tree, then
+pre[w]<pre[v]<post[v]<post[w]
+For an edge (w; v)in the graph:
+Iifpre[w]<pre[v]<post[v]<post[w],
+then (w; v)is a tree or forward edge .
+Iifpre[v]<pre[w]<post[w]<post[v],
+then (w; v)is a back edge .Iifpre[v]<post[v]<pre[w]<post[w],
+then (w; v)is a cross edge .
+A
+B
+C D1
+2
+3
+45
+678
+4 / 8
+
+Pre-, post-visit numbers and edge types
+Fact If vertex wis an ancestor of vertex vin the DFS tree, then
+pre[w]<pre[v]<post[v]<post[w]
+For an edge (w; v)in the graph:
+Iifpre[w]<pre[v]<post[v]<post[w],
+then (w; v)is a tree or forward edge .
+Iifpre[v]<pre[w]<post[w]<post[v],
+then (w; v)is a back edge .
+Iifpre[v]<post[v]<pre[w]<post[w],
+then (w; v)is a cross edge .A
+B
+C D1
+2
+3
+45
+678
+4 / 8
+
+Cycle detection (directed)
+Fact A directed graph has a cycle if and only if its DFS forest has
+a back edge.Algorithm for cycle detection
+1. Run DFS and assign preand post numbers.
+2. Iterate through all edges (w; v)and check if
+pre[v]<pre[w]<post[w]<post[v].
+3. If found, output \found cycle"; otherwise return \no cycle".
+Time complexity?
+5 / 8
+
+Cycle detection (directed)
+Fact A directed graph has a cycle if and only if its DFS forest has
+a back edge.
+Algorithm for cycle detection
+1. Run DFS and assign preand post numbers.
+2. Iterate through all edges (w; v)and check if
+pre[v]<pre[w]<post[w]<post[v].
+3. If found, output \found cycle"; otherwise return \no cycle".Time complexity?
+5 / 8
+
+Cycle detection (directed)
+Fact A directed graph has a cycle if and only if its DFS forest has
+a back edge.
+Algorithm for cycle detection
+1. Run DFS and assign preand post numbers.
+2. Iterate through all edges (w; v)and check if
+pre[v]<pre[w]<post[w]<post[v].
+3. If found, output \found cycle"; otherwise return \no cycle".
+Time complexity?
+5 / 8
+
+Topological sort
+A directed graph without cycles is called a DAG (directed acyclic
+graph).DAGs are very useful and are much easier to work with, because
+we can order the vertices such that all edges point from an earlier
+vertex to a later vertex.
+ExampleA C E
+B D F
+B A D C E F
+Such an ordering is called a topological order or a linearization
+of the DAG.
+6 / 8
+
+Topological sort
+A directed graph without cycles is called a DAG (directed acyclic
+graph).
+DAGs are very useful and are much easier to work with, because
+we can order the vertices such that all edges point from an earlier
+vertex to a later vertex.ExampleA C E
+B D F
+B A D C E F
+Such an ordering is called a topological order or a linearization
+of the DAG.
+6 / 8
+
+Topological sort
+A directed graph without cycles is called a DAG (directed acyclic
+graph).
+DAGs are very useful and are much easier to work with, because
+we can order the vertices such that all edges point from an earlier
+vertex to a later vertex.
+ExampleA C E
+B D FB A D C E F
+Such an ordering is called a topological order or a linearization
+of the DAG.
+6 / 8
+
+Topological sort
+A directed graph without cycles is called a DAG (directed acyclic
+graph).
+DAGs are very useful and are much easier to work with, because
+we can order the vertices such that all edges point from an earlier
+vertex to a later vertex.
+ExampleA C E
+B D F
+B A D C E FSuch an ordering is called a topological order or a linearization
+of the DAG.
+6 / 8
+
+Topological sort
+A directed graph without cycles is called a DAG (directed acyclic
+graph).
+DAGs are very useful and are much easier to work with, because
+we can order the vertices such that all edges point from an earlier
+vertex to a later vertex.
+ExampleA C E
+B D F
+B A D C E F
+Such an ordering is called a topological order or a linearization
+of the DAG.
+6 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.Fact In a DAG, every edge leads to a vertex with a smaller post number.
+Proof: DAGs do not have back edges, all other edge types satises this.
+Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.
+Time complexity? O(jVjlogjVj+jEj).
+Can we do better?
+7 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.
+Fact In a DAG, every edge leads to a vertex with a smaller post number.Proof: DAGs do not have back edges, all other edge types satises this.
+Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.
+Time complexity? O(jVjlogjVj+jEj).
+Can we do better?
+7 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.
+Fact In a DAG, every edge leads to a vertex with a smaller post number.
+Proof: DAGs do not have back edges, all other edge types satises this.Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.
+Time complexity? O(jVjlogjVj+jEj).
+Can we do better?
+7 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.
+Fact In a DAG, every edge leads to a vertex with a smaller post number.
+Proof: DAGs do not have back edges, all other edge types satises this.
+Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.Time complexity? O(jVjlogjVj+jEj).
+Can we do better?
+7 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.
+Fact In a DAG, every edge leads to a vertex with a smaller post number.
+Proof: DAGs do not have back edges, all other edge types satises this.
+Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.
+Time complexity?O(jVjlogjVj+jEj).
+Can we do better?
+7 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.
+Fact In a DAG, every edge leads to a vertex with a smaller post number.
+Proof: DAGs do not have back edges, all other edge types satises this.
+Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.
+Time complexity? O(jVjlogjVj+jEj).Can we do better?
+7 / 8
+
+Topological sort
+Fact All DAGs have at least one topological order.
+Fact In a DAG, every edge leads to a vertex with a smaller post number.
+Proof: DAGs do not have back edges, all other edge types satises this.
+Algorithm for topological sort
+1. Run DFS and assign preand post numbers.
+2. Sort vertices in decreasing order of post numbers.
+Time complexity? O(jVjlogjVj+jEj).
+Can we do better?
+7 / 8
+
+Topological sort (faster)
+Idea Sort at the same time as we assign post numbers.//top order will contain the ordered vertices
+//idx=jVj
+Explore( G,s,color )
+visited [s] =color
+pre[s] =clock;clock =clock + 1
+foreach edgefs; vg2Edo
+ifvisited [v] == 0 then
+Explore( G,v,color )
+post[s] =clock;clock =clock + 1
+top order [idx] =s; idx =idx 1
+Time complexity? O(jVj+jEj).
+8 / 8
+
+Topological sort (faster)
+Idea Sort at the same time as we assign post numbers.
+//top order will contain the ordered vertices
+//idx=jVj
+Explore( G,s,color )
+visited [s] =color
+pre[s] =clock;clock =clock + 1
+foreach edgefs; vg2Edo
+ifvisited [v] == 0 then
+Explore( G,v,color )
+post[s] =clock;clock =clock + 1
+top order [idx] =s; idx =idx 1Time complexity? O(jVj+jEj).
+8 / 8
+
+Topological sort (faster)
+Idea Sort at the same time as we assign post numbers.
+//top order will contain the ordered vertices
+//idx=jVj
+Explore( G,s,color )
+visited [s] =color
+pre[s] =clock;clock =clock + 1
+foreach edgefs; vg2Edo
+ifvisited [v] == 0 then
+Explore( G,v,color )
+post[s] =clock;clock =clock + 1
+top order [idx] =s; idx =idx 1
+Time complexity?O(jVj+jEj).
+8 / 8
+
+Topological sort (faster)
+Idea Sort at the same time as we assign post numbers.
+//top order will contain the ordered vertices
+//idx=jVj
+Explore( G,s,color )
+visited [s] =color
+pre[s] =clock;clock =clock + 1
+foreach edgefs; vg2Edo
+ifvisited [v] == 0 then
+Explore( G,v,color )
+post[s] =clock;clock =clock + 1
+top order [idx] =s; idx =idx 1
+Time complexity? O(jVj+jEj).
+8 / 8

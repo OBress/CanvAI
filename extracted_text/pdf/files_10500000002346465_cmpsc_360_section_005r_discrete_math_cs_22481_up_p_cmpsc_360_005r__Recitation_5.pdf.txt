@@ -1,0 +1,12 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 5
+1. Proof or disprove the following statements.
+(a) For a,b∈R, ifa2=b2, then a=b.
+(b)n2+n+41 is prime for n∈Z.
+2. Prove by contrapositive that if a number is divisible by 4, then its last two digits in base 10 is
+divisible by 4.
+3. Suppose q∈Z. Prove by contrapositive that if 6 q+7 is even, then qis odd.
+4. For a,b,c∈R+, prove that if ab=c, then a⩽√corb⩽√c.
+5. Suppose n∈Zand p∈P(i.e., pis a prime number). Prove the statement: if p|n, then
+p∤(n+1).
+CMPSC 360, Fall 2024, Worksheet 5 1

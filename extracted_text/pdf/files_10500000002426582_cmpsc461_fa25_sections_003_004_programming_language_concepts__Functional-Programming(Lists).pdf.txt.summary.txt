@@ -1,0 +1,1 @@
+Scheme's functional programming uses lists as nested data structures. Quoting (`'`) treats expressions as data. Core operations (`car`, `cdr`, `cons`, `null?`) manipulate lists. Advanced functions like `map` and `reduce` enable complex list processing. Association lists provide key-value mapping via `bind` and `lookup`.

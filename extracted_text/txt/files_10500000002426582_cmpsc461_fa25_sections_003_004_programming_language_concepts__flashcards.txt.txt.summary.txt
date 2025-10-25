@@ -1,0 +1,1 @@
+Lexical analysis divides character streams into tokens (lexemes, e.g., identifiers, operators) by matching patterns typically defined by regular expressions. Key regex concepts include finite alphabets, the null string (ε), backslash for escaping, and precedence (closure > concatenation > alternation). Unrecognized tokens trigger lexical error recovery.

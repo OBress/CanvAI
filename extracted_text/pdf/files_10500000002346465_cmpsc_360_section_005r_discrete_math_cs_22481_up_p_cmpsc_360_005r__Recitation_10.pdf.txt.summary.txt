@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 10 focuses on Discrete Mathematics concepts, specifically simplifying modular exponentiation with Fermat's Little Theorem, solving linear congruences, applying the Chinese Remainder Theorem for systems of congruences, and performing RSA key generation, encryption, and decryption.

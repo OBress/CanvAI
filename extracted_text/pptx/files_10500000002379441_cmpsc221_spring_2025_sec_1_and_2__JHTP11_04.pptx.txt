@@ -1,0 +1,806 @@
+Chapter 4Control Statements: Part I; Assignment, ++ and -- Operators
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.1  Introduction
+
+Before writing a program to solve a problem, have a thorough understanding of the problem and a carefully planned approach to solving it. 
+Understand the types of building blocks that are available and employ proven program-construction techniques. 
+In this chapter we discuss 
+Java’s if, if…else and while statements
+Compound assignment, increment and decrement operators
+Portability of Java’s primitive types
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.2  Algorithms
+
+Any computing problem can be solved by executing a series of actions in a specific order. 
+An algorithm is a procedure for solving a problem in terms of
+the actions to execute and
+the order in which these actions execute
+The “rise-and-shine algorithm” followed by one executive for getting out of bed and going to work: 
+(1) Get out of bed; (2) take off pajamas; (3) take a shower; (4) get dressed; (5) eat breakfast; (6) carpool to work. 
+Suppose that the same steps are performed in a slightly different order: 
+(1) Get out of bed; (2) take off pajamas; (3) get dressed; (4) take a shower; (5) eat breakfast; (6) carpool to work. 
+Specifying the order in which statements (actions) execute in a program is called program control. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.3  Pseudocode
+
+Pseudocode is an informal language that helps you develop algorithms without having to worry about the strict details of Java language syntax. 
+Particularly useful for developing algorithms that will be converted to structured portions of Java programs. 
+Similar to everyday English.
+Helps you “think out” a program before attempting to write it in a programming language, such as Java. 
+You can type pseudocode conveniently, using any text-editor program. 
+Carefully prepared pseudocode can easily be converted to a corresponding Java program. 
+Pseudocode normally describes only statements representing the actions that occur after you convert a program from pseudocode to Java and the program is run on a computer. 
+e.g., input, output or calculations. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures
+
+Sequential execution: Statements in a program execute one after the other in the order in which they are written. 
+Transfer of control: Various Java statements, enable you to specify that the next statement to execute is not necessarily the next one in sequence. 
+Bohm and Jacopini 
+Demonstrated that programs could be written without any goto statements. 
+All programs can be written in terms of only three control structures—the sequence structure, the selection structure and the iteration structure. 
+When we introduce Java’s control-structure implementations, we’ll refer to them in the terminology of the Java Language Specification as “control statements.”
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+Sequence Structure in Java
+Built into Java. 
+Unless directed otherwise, the computer executes Java statements one after the other in the order in which they’re written. 
+The activity diagram in Fig. 4.1 illustrates a typical sequence structure in which two calculations are performed in order. 
+Java lets you have as many actions as you want in a sequence structure. 
+Anywhere a single action may be placed, we may place several actions in sequence. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+UML activity diagram 
+Models the workflow (also called the activity) of a portion of a software system. 
+May include a portion of an algorithm, like the sequence structure in Fig. 4.1. 
+Composed of symbols
+action-state symbols (rectangles with their left and right sides replaced with outward arcs)
+diamonds 
+small circles
+Symbols connected by transition arrows, which represent the flow of the activity—the order in which the actions should occur.
+Help you develop and represent algorithms.
+Clearly show how control structures operate. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+Sequence-structure activity diagram in Fig. 4.1. 
+Two action states that represent actions to perform. 
+Each contains an action expression that specifies a particular action to perform. 
+Arrows represent transitions (order in which the actions represented by the action states occur). 
+Solid circle at the top represents the initial state—the beginning of the workflow before the program performs the modeled actions. 
+Solid circle surrounded by a hollow circle at the bottom represents the final state—the end of the workflow after the program performs its actions.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+UML notes 
+Like comments in Java.
+Rectangles with the upper-right corners folded over. 
+Dotted line connects each note with the element it describes. 
+Activity diagrams normally do not show the corresponding Java code. We do this here to illustrate how the diagram relates to Java code. 
+More information on the UML
+see our optional case study (Chapters 33–34) 
+visit www.uml.org
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+Selection Statements in Java
+Three types of selection statements.
+if statement: 
+Performs an action, if a condition is true; skips it, if false. 
+Single-selection statement—selects or ignores a single action (or group of actions). 
+if…else statement: 
+Performs an action if a condition is true and performs a different action if the condition is false. 
+Double-selection statement—selects between two different actions (or groups of actions). 
+switch statement
+Performs one of several actions, based on the value of an expression.
+Multiple-selection statement—selects among many different actions (or groups of actions).
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+Iteration Statements in Java
+Four iteration statements (also called iteration statements or looping statements) 
+Perform statements repeatedly while a loop-continuation condition remains true. 
+while and for statements perform the action(s) in their bodies zero or more times
+if the loop-continuation condition is initially false, the body will not execute. 
+The do…while statement performs the action(s) in its body one or more times. 
+Chapter 7 presents the enhanced for statement.
+if, else, switch, while, do and for are keywords. 
+Appendix C: Complete list of Java keywords.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.4  Control Structures (Cont.)
+
+Summary of Control Statements in Java
+Every program is formed by combining the sequence statement, selection statements (four types) and iteration statements (three types) as appropriate for the algorithm the program implements. 
+Can model each control statement as an activity diagram. 
+Initial state and a final state represent a control statement’s entry point and exit point, respectively. 
+Single-entry/single-exit control statements
+Control-statement stacking—connect the exit point of one to the entry point of the next. 
+Control-statement nesting—a control statement inside another.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.5  if Single-Selection Statement
+
+Pseudocode 
+	If student’s grade is greater than or equal to 60  Print “Passed”
+If the condition is false, the Print statement is ignored, and the next pseudocode statement in order is performed. 
+Indentation
+Optional, but recommended
+Emphasizes the inherent structure of structured programs
+The preceding pseudocode If in Java:
+	if (studentGrade >= 60) {   System.out.println("Passed");}
+Corresponds closely to the pseudocode. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.5  if Single-Selection Statement (Cont.)
+
+UML Activity Diagram for an if Statement
+Figure 4.2 if statement UML activity diagram. 
+Diamond, or decision symbol, indicates that a decision is to be made. 
+Workflow continues along a path determined by the symbol’s guard conditions, which can be true or false. 
+Each transition arrow emerging from a decision symbol has a guard condition (in square brackets next to the arrow). 
+If a guard condition is true, the workflow enters the action state to which the transition arrow points. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement
+
+if…else double-selection statement—specify an action to perform when the condition is true and a different action when the condition is false. 
+Pseudocode
+	If student’s grade is greater than or equal to 60  Print “Passed”Else  Print “Failed”
+The preceding If…Else pseudocode statement in Java:
+	if (grade >= 60) {   System.out.println("Passed");}else {   System.out.println("Failed");}
+Note that the body of the else is also indented. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement
+
+if…else double-selection statement—specify an action to perform when the condition is true and a different action when the condition is false. 
+Pseudocode
+	If student’s grade is greater than or equal to 60  Print “Passed”Else  Print “Failed”
+The preceding If…Else pseudocode statement in Java:
+	if (grade >= 60) {   System.out.println("Passed");}else {   System.out.println("Failed");}
+Note that the body of the else is also indented. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+UML Activity Diagram for an if…else Statement
+Figure 4.3 illustrates the flow of control in the if…else statement. 
+The symbols in the UML activity diagram (besides the initial state, transition arrows and final state) represent action states and decisions.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Nested if…else Statements
+A program can test multiple cases by placing if…else statements inside other if…else statements to create nested if…else statements. 
+Pseudocode:
+	If student’s grade is greater than or equal to 90  Print “A”else   If student’s grade is greater than or equal to 80    Print “B”  else     If student’s grade is greater than or equal to 70       Print “C”    else       If student’s grade is greater than or equal to 60         Print “D”      else        Print “F”
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+This pseudocode may be written in Java as
+	if (studentGrade >= 90) {   System.out.println("A");}else {   if (studentGrade >= 80) {      System.out.println("B");   }   else {      if (studentGrade >= 70) {         System.out.println("C");      }      else {         if (studentGrade >= 60) {            System.out.println("D");
+           }         else {            System.out.println("F");         }      }   }}
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+If studentGrade >= 90, the first four conditions will be true, but only the statement in the if part of the first if…else statement will execute. After that, the else part of the “outermost” if…else statement is skipped. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Most Java programmers prefer to write the preceding nested if…else statement as 
+	if (studentGrade >= 90) {   System.out.println("A");}else if (studentGrade >= 80) {   System.out.println("B");}else if (studentGrade >= 70) {   System.out.println("C");}else if (studentGrade >= 60) {   System.out.println("D");}else {   System.out.println("F");}
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Dangling-else Problem
+Throughout the text, we always enclose control statement bodies in braces ({ and }). This avoids a logic error called the “dangling-else” problem. We investigate this problem in –.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Blocks
+The if statement normally expects only one statement in its body. 
+To include several statements in the body of an if (or the body of an else for an if…else statement), enclose the statements in braces. 
+Statements contained in a pair of braces (such as the body of a method) form a block. 
+A block can be placed anywhere in a method that a single statement can be placed. 
+Example: A block in the else part of an if…else statement:
+	if (grade >= 60) {   System.out.println("Passed");}else {   System.out.println("Failed");   System.out.println("You must take this course again.");}
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Syntax errors (e.g., a missing brace) are caught by the compiler. 
+A logic error (e.g., when both braces in a block are left out of the program) has its effect at execution time. 
+A fatal logic error causes a program to fail and terminate prematurely. 
+A nonfatal logic error allows a program to continue executing but causes it to produce incorrect results.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Just as a block can be placed anywhere a single statement can be placed, it’s also possible to have an empty statement. 
+The empty statement is represented by placing a semicolon (;) where a statement would normally be.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Conditional operator (?:)
+Conditional operator (?:)—shorthand if…else. 
+Ternary operator (takes three operands)
+Operands and ?: form a conditional expression
+Operand to the left of the ? is a boolean expression—evaluates to a boolean value (true or false)
+Second operand (between the ? and :) is the value if the boolean expression is true
+Third operand (to the right of the :) is the value if the boolean expression evaluates to false. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.6  if…else Double-Selection Statement (Cont.)
+
+Example:
+System.out.println(  studentGrade >= 60 ? "Passed" : "Failed");
+Evaluates to the string "Passed" if the boolean expression studentGrade >= 60 is true and to the string "Failed" if it is false. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.7   Student Class: Nested if…else Statement
+
+Class Student
+Class Student (Fig. 4.4) stores a student’s name and average and provides methods for manipulating these values. 
+The class contains: 
+instance variable name of type String to store a Student’s name
+instance variable average of type double to store a Student’s average in a course
+a constructor that initializes the name and average
+methods setName and getName to set and get the Student’s name
+methods setAverage and getAverage to set and get the Student’s average
+method getLetterGrade, which uses nested if…else statements to determine the Student’s letter grade based on the Student’s average 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.7   Student Class: Nested if…else Statement (Cont.)
+
+The constructor and method setAverage each use nested if statements to validate the value used to set the average—these statements ensure that the value is greater than 0.0 and less than or equal to 100.0; otherwise, average’s value is left unchanged. 
+Each if statement contains a simple condition. If the condition in line 13 is true, only then will the condition in line 14 be tested, and only if the conditions in both line 13 and line 14 are true will the statement in line 15 execute.  
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.7   Student Class: Nested if…else Statement (Cont.)
+
+Class StudentTest
+To demonstrate the nested if…else statements in class Student’s getLetterGrade method, class StudentTest’s main method creates two Student objects then displays each Student’s name and letter grade by calling the objects’ getName and getLetterGrade methods, respectively.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.8  while Iteration Statement
+
+Iteration statement—repeats an action while a condition remains true. 
+Pseudocode
+	While there are more items on my shopping list  Purchase next item and cross it off my list
+The iteration statement’s body may be a single statement or a block. 
+Eventually, the condition will become false. At this point, the iteration terminates, and the first statement after the iteration statement executes.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.8  while Iteration Statement (Cont.)
+
+Example of Java’s while iteration statement: find the first power of 3 larger than 100. Assume int variable product is initialized to 3. 
+	while (product <= 100)   product = 3 * product;
+Each iteration multiplies product by 3, so product takes on the values 9, 27, 81 and 243 successively. 
+When product becomes 243, product <= 100 becomes false. 
+Iteration terminates. The final value of product is 243. 
+Program execution continues with the next statement after the while statement.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.8  while Iteration Statement (Cont.)
+
+UML Activity Diagram for a while Statement
+The UML activity diagram in Fig. 4.6 illustrates the flow of control in the preceding while statement. 
+The UML represents both the merge symbol and the decision symbol as diamonds. 
+The merge symbol joins two flows of activity into one. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.8  while Iteration Statement (Cont.)
+
+The decision and merge symbols can be distinguished by the number of “incoming” and “outgoing” transition arrows. 
+A decision symbol has one transition arrow pointing to the diamond and two or more pointing out from it to indicate possible transitions from that point. Each transition arrow pointing out of a decision symbol has a guard condition next to it. 
+A merge symbol has two or more transition arrows pointing to the diamond and only one pointing from the diamond, to indicate multiple activity flows merging to continue the activity. None of the transition arrows associated with a merge symbol has a guard condition.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration
+
+A class of ten students took a quiz. The grades (integers in the range 0-100) for this quiz are available to you. Determine the class average on the quiz.
+The class average is equal to the sum of the grades divided by the number of students. 
+The algorithm for solving this problem on a computer must input each grade, keep track of the total of all grades input, perform the averaging calculation and print the result. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration
+
+Pseudocode Algorithm with Counter-Controlled Iteration
+Use counter-controlled iteration to input the grades one at a time. 
+A variable called a counter (or control variable) controls the number of times a set of statements will execute. 
+Counter-controlled iteration is often called definite iteration, because the number of iterations is known before the loop begins executing. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+A total is a variable used to accumulate the sum of several values. 
+A counter is a variable used to count. 
+Variables used to store totals are normally initialized to zero before being used in a program.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+Local Variables in Method main
+Variables declared in a method body are local variables and can be used only from the line of their declaration to the closing right brace of the method declaration.
+A local variable’s declaration must appear before the variable is used in that method. 
+A local variable cannot be accessed outside the method in which it’s declared. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+Notes on Integer Division and Truncation
+The program’s output indicates that the sum of the grade values in the sample execution is 846, which, when divided by 10, should yield the floating-point number 84.6. 
+The result of the calculation total / 10 (Fig. 4.8) is the integer 84, because total and 10 are both integers. 
+Dividing two integers results in integer division—any fractional part of the calculation is truncated (i.e., lost). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+A Note About Arithmetic Overflow 
+In Fig. 4.8, the following statement added each grade entered by the user to the total
+total = total + grade; // add grade to total
+Even this simple statement has a potential problem—adding the integers could result in a value that’s too large to store in an int variable. 
+This is known as arithmetic overflow and causes undefined behavior, which can lead to unintended results. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+Figure 2.7’s Addition program had the same issue when calculating the sum of two int values entered by the user:  
+int sum = number1 + number2; 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+The maximum and minimum values that can be stored in an int variable are represented by the constants MIN_VALUE and MAX_VALUE, respectively, which are defined in class Integer. 
+There are similar constants for the other integral types and for floating-point types. 
+Each primitive type has a corresponding class type in package java.lang. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+It’s considered a good practice to ensure, before you perform arithmetic calculations, that they will not overflow. 
+The code for doing this is shown on the CERT website www.securecoding.cert.org—just search for guideline “NUM00-J.” 
+The code for doing this is shown on the CERT website: 
+http://www.securecoding.cert.org
+In industrial-strength code, you should perform checks like these for all calculations.  
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+A Deeper Look at Receiving User Input 
+Any time a program receives input from the user, various problems might occur. For example, in the following statement we assume that the user will enter an integer grade in the range 0 to 100
+int grade = input.nextInt(); // input next grade
+However, the person entering a grade could enter an integer less than 0, an integer greater than 100, an integer outside the range of values that can be stored in an int variable, a number containing a decimal point or a value containing letters or special symbols that’s not even an integer.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.9  Formulating Algorithms: Counter-Controlled Iteration (Cont.)
+
+To ensure that inputs are valid, industrial-strength programs must test for all possible erroneous cases. 
+A  program that inputs grades should validate the grades by using range checking to ensure that hey are values from 0 to 100. 
+You can then ask the user to reenter any value that’s out of range. 
+If a program requires inputs from a specific set of values (e.g., nonsequential product codes), you can ensure that each input matches a value in the set. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration
+
+Develop a class-averaging program that processes grades for an arbitrary number of students each time it is run.
+Sentinel-controlled iteration is often called indefinite iteration because the number of iterations is not known before the loop begins executing.
+A special value called a sentinel value (also called a signal value, a dummy value or a flag value) can be used to indicate “end of data entry.” 
+A sentinel value must be chosen that cannot be confused with an acceptable input value. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Developing the Pseudocode Algorithm with Top-Down, Stepwise Refinement: The Top and First Refinement
+Top-down, stepwise refinement
+Begin with a pseudocode representation of the top—a single statement that conveys the overall function of the program: 
+Determine the class average for the quiz
+The top is a complete representation of a program. Rarely conveys sufficient detail from which to write a Java program. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Divide the top into a series of smaller tasks and list these in the order in which they’ll be performed. 
+First refinement:
+Initialize variablesInput, sum and count the quiz gradesCalculate and print the class average
+This refinement uses only the sequence structure—the steps listed should execute in order, one after the other. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Proceeding to the Second Refinement
+Second refinement: commit to specific variables. 
+The pseudocode statement 
+Initialize variables
+can be refined as follows:
+Initialize total to zero
+Initialize counter to zero
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+The pseudocode statement
+	Input, sum and count the quiz grades
+requires iteration to successively input each grade. 
+We do not know in advance how many grades will be entered, so we’ll use sentinel-controlled iteration. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+The second refinement of the preceding pseudocode statement is then
+	Prompt the user to enter the first gradeInput the first grade (possibly the sentinel)
+	While the user has not yet entered the sentinel  Add this grade into the running total  Add one to the grade counter  Prompt the user to enter the next grade  Input the next grade (possibly the sentinel)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+The pseudocode statement
+	Calculate and print the class average
+can be refined as follows:
+	If the counter is not equal to zero  Set the average to the total divided by the counter  Print the averageelse  Print “No grades were entered”
+Test for the possibility of division by zero—a logic error that, if undetected, would cause the program to fail or produce invalid output. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Program Logic for Sentinel-Controlled Iteration vs. Counter-Controlled Iteration
+Program logic for sentinel-controlled iteration
+Reads the first value before reaching the while. 
+This value determines whether the program’s flow of control should enter the body of the while. If the condition of the while is false, the user entered the sentinel value, so the body of the while does not execute (i.e., no grades were entered). 
+If the condition is true, the body begins execution and processes the input.
+Then the loop body inputs the next value from the user before the end of the loop. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Explicitly and Implicitly Converting Between Primitive Types
+Integer division yields an integer result. 
+To perform a floating-point calculation with integers, temporarily treat these values as floating-point numbers for use in the calculation. 
+The unary cast operator (double) creates a temporary floating-point copy of its operand. 
+Cast operator performs explicit conversion (or type cast). 
+The value stored in the operand is unchanged. 
+Java evaluates only arithmetic expressions in which the operands’ types are identical. 
+Promotion (or implicit conversion) performed on operands. 
+In an expression containing values of the types int and double, the int values are promoted to double values for use in the expression. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Cast operators are available for any type. 
+Cast operator formed by placing parentheses around the name of a type. 
+The operator is a unary operator (i.e., an operator that takes only one operand). 
+Java also supports unary versions of the plus (+) and minus (–) operators. 
+Cast operators associate from right to left; same precedence as other unary operators, such as unary + and unary -. 
+This precedence is one level higher than that of the multiplicative operators *, / and %. 
+Appendix A: Operator precedence chart
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Floating-Point Number Precision 
+Floating-point numbers are not always 100% precise, but they have numerous applications. 
+For example, when we speak of a “normal” body temperature of 98.6, we do not need to be precise to a large number of digits. 
+Floating-point numbers often arise as a result of division, such as in this example’s class-average calculation. 
+In conventional arithmetic, when we divide 10 by 3, the result is 3.3333333…, with the sequence of 3s repeating infinitely. 
+The computer allocates only a fixed amount of space to hold such a value, so clearly the stored floating-point value can be only an approximation.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Sentinel-Controlled Iteration (Cont.)
+
+Owing to the imprecise nature of floating-point numbers, type double is preferred over type float, because double variables can represent floating-point numbers more accurately. 
+In some applications, the precision of float and double variables will be inadequate. 
+For precise floating-point numbers (such as those required by monetary calculations), Java provides class BigDecimal (package java.math), which we’ll discuss in Chapter 8.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.11  Formulating Algorithms: Nested Control Statements
+
+This case study examines nesting one control statement within another.
+A college offers a course that prepares students for the state licensing exam for real-estate brokers. Last year, ten of the students who completed this course took the exam. The college wants to know how well its students did on the exam. You’ve been asked to write a program to summarize the results. You’ve been given a list of these 10 students. Next to each name is written a 1 if the student passed the exam or a 2 if the student failed.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.10  Formulating Algorithms: Nested Control Statements (Cont.)
+
+This case study examines nesting one control statement within another.
+Your program should analyze the results of the exam as follows:
+Input each test result (i.e., a 1 or a 2). Display the message “Enter result” on the screen each time the program requests another test result.
+Count the number of test results of each type.
+Display a summary of the test results, indicating the number of students who passed and the number who failed.
+If more than eight students passed the exam, print “Bonus to instructor!”
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.12  Compound Assignment Operators
+
+Compound assignment operators abbreviate assignment expressions. 
+Example:
+	c = c + 3;
+	can be written with the addition compound assignment operator, +=, as
+	c += 3;
+The += operator adds the value of the expression on its right to the value of the variable on its left and stores the result in the variable on the left of the operator. 
+Statements like	variable = variable  operator  expression;where operator is one of the binary operators +, -, *, / or % can be written in the form 
+	variable  operator=  expression;
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.13  Increment and Decrement Operators
+
+Unary increment operator, ++, adds one to its operand
+Unary decrement operator, --, subtracts one from its operand
+An increment or decrement operator that is prefixed to (placed before) a variable is referred to as the prefix increment or prefix decrement operator, respectively. 
+An increment or decrement operator that is postfixed to (placed after) a variable is referred to as the postfix increment or postfix decrement operator, respectively.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.12  Increment and Decrement Operators (Cont.)
+
+Using the prefix increment (or decrement) operator to add (or subtract) 1 from a variable is known as preincrementing (or predecrementing) the variable. 
+Preincrementing (or predecrementing) a variable causes the variable to be incremented (decremented) by 1; then the new value is used in the expression in which it appears. 
+Using the postfix increment (or decrement) operator to add (or subtract) 1 from a variable is known as postincrementing (or postdecrementing) the variable. 
+This causes the current value of the variable to be used in the expression in which it appears; then the variable’s value is incremented (decremented) by 1.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.14  Primitive Types
+
+Appendix D lists the eight primitive types in Java. 
+Java requires all variables to have a type. 
+Java is a strongly typed language. 
+Primitive types in Java are portable across all platforms.
+Instance variables of types char, byte, short, int, long, float and double are all given the value 0 by default. Instance variables of type boolean are given the value false by default. 
+Reference-type instance variables are initialized by default to the value null.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+4.15  (Optional) GUI and Graphics Case Study: Creating Simple Drawings
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

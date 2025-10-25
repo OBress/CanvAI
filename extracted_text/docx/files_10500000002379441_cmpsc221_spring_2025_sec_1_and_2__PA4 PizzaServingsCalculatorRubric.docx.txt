@@ -1,0 +1,30 @@
+Assignment 4 Pizza Servings Calculator Rubric
+
+Remember, the rubric should be used as a guide, but you should still practice good object-oriented programming.  The rubric may not cover all scenarios in which we take off points for bad object-oriented practice.  
+Late policy: 4% per day for a maximum of 40% off 
+Frame
+Title set to ‘Pizza Servings Calculator’ (5)
+Size set to (350, 300). (5)
+Title Label
+Text set to ‘Pizza Servings Calculator’ (2)
+Text color set to red. (5)
+Positioned in grid slot 1 (5)
+Title is centered. (5)
+Enter Pizza size Prompt Label
+Text set to ‘Enter the size of the pizza in inches: ‘. (3)
+Positioned in grid slot 2. (5)
+Pizza size TextField
+4 columns wide. (5)
+Positioned in grid slot 2. (5)
+Convert Button
+Text set to ‘Calculate Servings’. (5)
+Has a handler that implements ActionListener (5)
+Calculates the proper number of servings (10)
+Handler gets added to JFrame as ActionListener. (5)
+Positioned in grid slot 3. (5)
+Number of servings Label
+Text initially set to blank. (5)
+On conversion, displays the number of servings to 2 decimal places. (10)
+Positioned in grid slot 4. (5)
+Grid line 2
+Use a JPanel to create line 2. (5)

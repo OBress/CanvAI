@@ -1,0 +1,49 @@
+HW1 Solutions
+
+Problem 1
+
+a)  seconds.
+b)  seconds. 
+c)  seconds.
+d)  seconds.
+
+Problem 2
+
+a) minutes
+b) =22 minutes
+c) Travel altogether: minutes;
+Travel separately: minutes. 
+d) Still suppose dAB = dBC = 100 km. When the second car passes B, the first car is at the 1/6 point from B to C.
+e) After the first car passes B, the second car needs 10 minutes to pass B. And the first car needs 1 minute to pass C. So the first car can have 9 minutes at most to travel from B to C. So the maximum value of dBC is km.
+
+Problem 3
+
+a) 6 users can be supported.
+b) .
+c) Suppose the number of users is N, then we can compute the probability of exceeding the link capacity is: . 
+Set N = 13, we know the probability is 0.007.
+Set N = 14, we know the probability is 0.0116.
+So the maximum number of users is 13. 
+d) Expected transmission rate on the link = 13*0.2*1.5 Mbps = 3.9 Mbps. Thus, the average link utilization is 
+
+Problem 4
+
+a) Time to send message from source host to first packet switch = With store-and-forward switching, the total time to move message from source host to destination host = .
+b) Time at which 1st packet is received at the destination host: . After this, every 0.2sec one packet will be received; thus time at which last (500th) packet is received=.
+c) Without segmentation: 
+With segmentation: 
+d) Time at which 1st packet is received at the destination host: 
+. After this, every 0.2001sec one packet will be received; thus time at which last (500th) packet is received=.
+e) 
+    i) Obviously, message segmentation can reduce delay significantly. 
+ii) Without message segmentation, if bit errors are not tolerated, if there is a single bit error, the whole message has to be retransmitted (rather than a single packet).
+iii) Without message segmentation, huge packets (containing HD videos, for example) are sent into the network. Routers have to accommodate these huge packets. Smaller packets have to queue behind enormous packets and suffer unfair delays.
+f) 
+i) Packets have to be put in sequence at the destination.
+ii) Message segmentation results in many smaller packets. Since header size is usually the same for all packets regardless of their size, with message segmentation the total amount of header bytes is more.
+
+Problem 5
+Circuit switching, only numerical measurements: #supported sensors = . Circuit switching, numerical and video: #supported sensors = 
+Suppose the number of sensors is N, then the probability of exceeding the link capacity is: . For N = 46, this is 0.0048, for N = 47, this is 0.0058. Thus, the maximum number of supported sensors is 46.
+Similar to b), the probability of exceeding the link capacity is now: . For N = 2, this is 0.01, already exceeding 0.005. Thus, the maximum number of supported sensors is 1. 
+At 0.1 Mbps, #supported sensors increases from 10 to 46. At 1 Mbps, #supported sensors remains the same. Thus, at 0.1 Mbps, the system benefits more from packet switching (compared to using circuit switching). 

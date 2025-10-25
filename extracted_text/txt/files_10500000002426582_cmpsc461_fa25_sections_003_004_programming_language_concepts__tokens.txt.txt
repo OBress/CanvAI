@@ -1,0 +1,28 @@
+These are token names for each of the tokens mentioned in the
+grammar, checker.py contains most of it.
+
+'IDENTIFIER'    - A variable or function name, e.g., x, my_var
+'NUMBER'        - An integer, e.g., 10, 250
+'IF'            - The 'if' keyword for conditional statements
+'ELSE'          - The 'else' keyword for conditional statements
+'FOR'           - The 'for' keyword for loops
+'TO'            - The 'to' keyword used in for loops
+'PRINT'         - The 'print' keyword for output
+'AND'           - The logical 'and' operator
+'OR'            - The logical 'or' operator
+'NOT'           - The logical 'not' operator
+'PLUS'          - The addition operator: +
+'MINUS'         - The subtraction or unary minus operator: -
+'MULTIPLY'      - The multiplication operator: *
+'DIVIDE'        - The division operator: /
+'MODULO'        - The modulo operator: %
+'EQ'            - The equality operator: ==
+'NEQ'           - The inequality operator: !=
+'LESS'          - The less than operator: <
+'GREATER'       - The greater than operator: >
+'EQUALS'        - The assignment operator: =
+'LPAREN'        - Left parenthesis: (
+'RPAREN'        - Right parenthesis: )
+'COMMA'         - The comma separator for arguments: ,
+'COLON'         - The colon used to start a block: :
+'EOF'           - End of File marker

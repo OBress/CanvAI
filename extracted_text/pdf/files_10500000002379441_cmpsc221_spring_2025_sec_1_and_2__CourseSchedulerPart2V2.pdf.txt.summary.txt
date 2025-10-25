@@ -1,0 +1,1 @@
+Course Scheduler Final Project Part 2 introduces Admin functions: display class rosters, drop students (rescheduling waitlisted), and drop classes. Students can also drop classes, rescheduling the first waitlisted. All changes must be displayed. Requirements: specific GUI, empty DB on submission, and strong OO design via PreparedStatements for SQL.

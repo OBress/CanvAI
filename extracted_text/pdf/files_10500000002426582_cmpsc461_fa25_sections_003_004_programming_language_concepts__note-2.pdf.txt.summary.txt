@@ -1,0 +1,1 @@
+CMPSC 461's Lecture Note 2 details encoding booleans and integers within lambda calculus. Booleans `TRUE` (`xy:x`) and `FALSE` (`xy:y`) are defined, along with `IF` and `AND` functions. Integers are represented by Church numerals (`n = f z:f^n z`), and functions like `SUCC`, `PLUS`, and `MULT` are constructed from the core calculus to enable arithmetic.

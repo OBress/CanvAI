@@ -1,0 +1,454 @@
+CMPSC 465: LECTURE I
+Introduction to Algorithm Analysis
+Ke Chen
+
+Algorithm analysis
+Three questions will drive us:
+1. Is the algorithm/data structure correct?
+2. Is it ecient? (time and space)
+3. Can we do better?
+Other important considerations: robustness, energy eciency,
+cache locality, modularity, maintenance time, etc. are beyond the
+scope of this course.
+1 / 11
+
+How to measure running time?
+Issue 1: Running time may depend on input size.
+Idea: Parametrize running time by the size of the input.
+Worst-case analysis: (usually)
+IT(n) =maximum time of algorithm on ANY input of size n.
+Average-case: (sometimes)
+IT(n) =expected time of algorithm over all inputs of size n.
+IRequires assumption on input distribution.
+Amortized: (sometimes)
+IT(m) =total time over mcalls /m.
+Best-case: (never)
+ICheat with a slow algorithm that works well on some inputs.
+2 / 11
+
+An example: linear search
+linear-search(A, k)
+Input: an array A of size n, a key k to search for
+Output: index of k in A, -1 if not found
+i = n - 1
+while i >= 0:
+if A[i] == k:
+return i
+i = i - 1
+return -1Worst-case running time:
+T(n) =c1+c2n+c3n+c4+c5n= (c2+c3+c5)n+c1+c4.
+a bLinear
+3 / 11
+
+An example: linear search
+linear-search(A, k)
+Input: an array A of size n, a key k to search for
+Output: index of k in A, -1 if not found
+i = n - 1
+while i >= 0:
+if A[i] == k:
+return i
+i = i - 1
+return -1Cost Rounds
+c1 1Worst-case running time:
+T(n) =c1+c2n+c3n+c4+c5n= (c2+c3+c5)n+c1+c4.
+a bLinear
+3 / 11
+
+An example: linear search
+linear-search(A, k)
+Input: an array A of size n, a key k to search for
+Output: index of k in A, -1 if not found
+i = n - 1
+while i >= 0:
+if A[i] == k:
+return i
+i = i - 1
+return -1Cost Rounds
+c1 1
+c2 n(worst-case)Worst-case running time:
+T(n) =c1+c2n+c3n+c4+c5n= (c2+c3+c5)n+c1+c4.
+a bLinear
+3 / 11
+
+An example: linear search
+linear-search(A, k)
+Input: an array A of size n, a key k to search for
+Output: index of k in A, -1 if not found
+i = n - 1
+while i >= 0:
+if A[i] == k:
+return i
+i = i - 1
+return -1Cost Rounds
+c1 1
+c2 n(worst-case)
+c3 n(worst-case)
+c4 1
+c5n(worst-case)
+c4 1Worst-case running time:
+T(n) =c1+c2n+c3n+c4+c5n= (c2+c3+c5)n+c1+c4.
+a bLinear
+3 / 11
+
+An example: linear search
+linear-search(A, k)
+Input: an array A of size n, a key k to search for
+Output: index of k in A, -1 if not found
+i = n - 1
+while i >= 0:
+if A[i] == k:
+return i
+i = i - 1
+return -1Cost Rounds
+c1 1
+c2 n(worst-case)
+c3 n(worst-case)
+c4 1
+c5n(worst-case)
+c4 1
+Worst-case running time:
+T(n) =c1+c2n+c3n+c4+c5n= (c2+c3+c5)n+c1+c4.a bLinear
+3 / 11
+
+An example: linear search
+linear-search(A, k)
+Input: an array A of size n, a key k to search for
+Output: index of k in A, -1 if not found
+i = n - 1
+while i >= 0:
+if A[i] == k:
+return i
+i = i - 1
+return -1Cost Rounds
+c1 1
+c2 n(worst-case)
+c3 n(worst-case)
+c4 1
+c5n(worst-case)
+c4 1
+Worst-case running time:
+T(n) =c1+c2n+c3n+c4+c5n= (c2+c3+c5)n+c1+c4.
+a bLinear
+3 / 11
+
+How to measure running time?
+Issue 2: Running time may depend on implementation/hardware.
+Idea: Give up on gauging the actual time and focus on scalability
+by considering a simplied abstract computing model:
+Isingle processor, sequential execution
+Ielementary operations take constant time
+Iaddition, subtraction
+Imultiplication, division
+Iassignment, branching
+Isubroutine call
+Ietc.Warning: we assume
+operands are of constant
+size irrelevant to the
+input sizen(see book
+chapter 1).
+4 / 11
+
+How to measure running time?
+Issue 2: Running time may depend on implementation/hardware.
+Idea: Give up on gauging the actual time and focus on scalability
+by considering a simplied abstract computing model:
+Isingle processor, sequential execution
+Ielementary operations take constant time
+Iaddition, subtraction
+Imultiplication, division
+Iassignment, branching
+Isubroutine call
+Ietc.Warning: we assume
+operands are of constant
+size irrelevant to the
+input sizen(see book
+chapter 1).
+4 / 11
+
+How to measure running time?
+Scalability: If the input size increases from nto10n, will the
+algorithm take
+Ithe same time? E.g., T(n) = 42!T(10n) = 42 (constant)
+I10x time? E.g., T(n) = 15n!T(10n) = 150n(linear)
+I100x time? E.g., T(n) = 0:3n2!T(10n) = 30n2(quadratic)
+I1000x time? E.g., T(n) = 82n3!T(10n) = 82000n3(cubic)
+Imuch much longer? E.g., T(n) = 2n!T(10n) = 210n= 1024n
+(exponential)
+How about the running time for linear search T(n) =an+b?
+5 / 11
+
+How to measure running time?
+Scalability: If the input size increases from nto10n, will the
+algorithm take
+Ithe same time? E.g., T(n) = 42!T(10n) = 42 (constant)
+I10x time? E.g., T(n) = 15n!T(10n) = 150n(linear)
+I100x time? E.g., T(n) = 0:3n2!T(10n) = 30n2(quadratic)
+I1000x time? E.g., T(n) = 82n3!T(10n) = 82000n3(cubic)
+Imuch much longer? E.g., T(n) = 2n!T(10n) = 210n= 1024n
+(exponential)
+How about the running time for linear search T(n) =an+b?
+5 / 11
+
+How to measure running time?
+Scalability: If the input size increases from nto10n, will the
+algorithm take
+Ithe same time? E.g., T(n) = 42!T(10n) = 42 (constant)
+I10x time? E.g., T(n) = 15n!T(10n) = 150n(linear)
+I100x time? E.g., T(n) = 0:3n2!T(10n) = 30n2(quadratic)
+I1000x time? E.g., T(n) = 82n3!T(10n) = 82000n3(cubic)
+Imuch much longer? E.g., T(n) = 2n!T(10n) = 210n= 1024n
+(exponential)
+How about the running time for linear search T(n) =an+b?
+5 / 11
+
+How to measure running time?
+Scalability: If the input size increases from nto10n, will the
+algorithm take
+Ithe same time? E.g., T(n) = 42!T(10n) = 42 (constant)
+I10x time? E.g., T(n) = 15n!T(10n) = 150n(linear)
+I100x time? E.g., T(n) = 0:3n2!T(10n) = 30n2(quadratic)
+I1000x time? E.g., T(n) = 82n3!T(10n) = 82000n3(cubic)
+Imuch much longer? E.g., T(n) = 2n!T(10n) = 210n= 1024n
+(exponential)
+How about the running time for linear search T(n) =an+b?
+5 / 11
+
+How to measure running time?
+Scalability: If the input size increases from nto10n, will the
+algorithm take
+Ithe same time? E.g., T(n) = 42!T(10n) = 42 (constant)
+I10x time? E.g., T(n) = 15n!T(10n) = 150n(linear)
+I100x time? E.g., T(n) = 0:3n2!T(10n) = 30n2(quadratic)
+I1000x time? E.g., T(n) = 82n3!T(10n) = 82000n3(cubic)
+Imuch much longer? E.g., T(n) = 2n!T(10n) = 210n= 1024n
+(exponential)How about the running time for linear search T(n) =an+b?
+5 / 11
+
+How to measure running time?
+Scalability: If the input size increases from nto10n, will the
+algorithm take
+Ithe same time? E.g., T(n) = 42!T(10n) = 42 (constant)
+I10x time? E.g., T(n) = 15n!T(10n) = 150n(linear)
+I100x time? E.g., T(n) = 0:3n2!T(10n) = 30n2(quadratic)
+I1000x time? E.g., T(n) = 82n3!T(10n) = 82000n3(cubic)
+Imuch much longer? E.g., T(n) = 2n!T(10n) = 210n= 1024n
+(exponential)
+How about the running time for linear search T(n) =an+b?
+5 / 11
+
+Asymptotic notation
+ForT(n) =an+b, whennapproaches innity, we have
+lim
+n!1T(10n)
+T(n)= lim
+n!110an+b
+an+b= 10:
+So, asymptotically, it has the same scaling behavior as f(n) = 15n.And they both grow much slower than g(n) = 0:3n2, even though
+f(1) = 15>g(1) = 0:3.
+6 / 11
+
+Asymptotic notation
+ForT(n) =an+b, whennapproaches innity, we have
+lim
+n!1T(10n)
+T(n)= lim
+n!110an+b
+an+b= 10:
+So, asymptotically, it has the same scaling behavior as f(n) = 15n.
+And they both grow much slower than g(n) = 0:3n2, even though
+f(1) = 15>g(1) = 0:3.
+6 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.IIntuitively, the constant callows us to ignore multiplicative
+factors: 15n=O(n)because we can choose c= 20 .
+IIt also helps us to focus on asymptotic growth rate, if fgrows
+no faster than g, then we only need to pick csuch that
+f(n0)cg(n0)for some small initial value n0.
+IOn the other hand, if fgrows faster than g, then no matter
+how largecis,f(n)will eventually exceed g(n).
+7 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+IIntuitively, the constant callows us to ignore multiplicative
+factors: 15n=O(n)because we can choose c= 20 .IIt also helps us to focus on asymptotic growth rate, if fgrows
+no faster than g, then we only need to pick csuch that
+f(n0)cg(n0)for some small initial value n0.
+IOn the other hand, if fgrows faster than g, then no matter
+how largecis,f(n)will eventually exceed g(n).
+7 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+IIntuitively, the constant callows us to ignore multiplicative
+factors: 15n=O(n)because we can choose c= 20 .
+IIt also helps us to focus on asymptotic growth rate, if fgrows
+no faster than g, then we only need to pick csuch that
+f(n0)cg(n0)for some small initial value n0.IOn the other hand, if fgrows faster than g, then no matter
+how largecis,f(n)will eventually exceed g(n).
+7 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+IIntuitively, the constant callows us to ignore multiplicative
+factors: 15n=O(n)because we can choose c= 20 .
+IIt also helps us to focus on asymptotic growth rate, if fgrows
+no faster than g, then we only need to pick csuch that
+f(n0)cg(n0)for some small initial value n0.
+IOn the other hand, if fgrows faster than g, then no matter
+how largecis,f(n)will eventually exceed g(n).
+7 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)
+Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .
+log(7n5) =O(logn)
+Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.
+n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)
+Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .
+log(7n5) =O(logn)
+Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.
+n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .
+log(7n5) =O(logn)
+Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.
+n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)
+Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .log(7n5) =O(logn)
+Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.
+n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)
+Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .
+log(7n5) =O(logn)Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.
+n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)
+Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .
+log(7n5) =O(logn)
+Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+For two functions f;g:N!R+, we sayf=O(g)if there exist
+c>0andn02Nsuch thatf(n)cg(n)for allnn0.
+Examples: (All logs are in base 2unless another base is specied.)
+2n+1=O(2n);Proof. 2n+1= 22n; can takec= 2,n0= 1.
+22n=O(2n);FALSE
+(n+ 10)3=O(n3)
+Proof 1: (n+ 10)3(11n)3= 113n3, forn0= 1.
+Proof 2: (n+ 10)3(2n)3= 8n3, forn0= 10 .
+log(7n5) =O(logn)
+Proof: log(7n5)log 7 + 5 log n12 logn, forn0= 2.
+n5+ 1888n3+nlogn=O(n5)
+n5+ 1888n3+nlogn=O(n6)
+8 / 11
+
+Asymptotic notation: big-O
+Fact: For any real number r>0,logn=O(nr).
+Example:r= 0:01,logn=O(n0:01).
+Proof. Since logxxfor allx1, we have
+logn=1
+rlognr1
+rnr:
+The equality above holds by the property of logarithms.
+Hence one can take c= 1=randn0= 1 and the inequality in the
+denition of big-O is satised: we have shown that there exist c>0
+andn02Nsuch that logncnrfornn0. 
+Question: What are candn0in our example: logn=O(n0:01)?
+9 / 11
+
+Asymptotic notation: big-O
+Fact: For any constants ; > 0,logn=O(n).
+Example:= 100 ,= 1=10,log100n=O(n0:1).
+Proof. Letr==; clearlyris a positive constant.
+Use the inequality from previous slide:
+logn=O(nr);or
+lognc1nr=c1n=;for some (constant) c1>0andnn0:
+Raise to the power :
+lognc
+1n;fornn0;that is;
+logncn;fornn0;
+wherec=c
+1. 
+10 / 11
+
+Asymptotic notation: big-O
+Fact: For any xed k0,nk=O(2n).
+Example:k= 1000 ,n1000=O(2n).
+Proof. Since limx!1x
+logx=1, there exists n02Nsuch that
+kn0
+logn0. Hence we can write:
+nknn0
+logn0nn
+logn=
+2lognn
+logn= 2n;fornn0:
+Thus one can take c= 1 andn0as above and the inequality in the
+denition of Ois satised: we have shown that there exist c >0
+andn02Nsuch thatnkc2nfornn0. 
+Question: What are candn0in our example: n1000=O(2n)?
+11 / 11

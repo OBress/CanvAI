@@ -1,0 +1,1 @@
+Solutions cover three probability problems: finding the conditional probability a defective item came from Factory B (≈0.444); conditional probabilities for dice rolls (both 2/11); and using binomial probability for 10-question multiple-choice guessing to find the chance of exactly (≈0.0055) or ≥6 correct (≈0.0063).

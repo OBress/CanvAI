@@ -1,0 +1,104 @@
+λ-Calculus-Church Numerals
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•We can write any natural number n using add1and 0in a functional 
+programming
+•(add1 (add 0))
+2
+•(add1 (add1 (add1 0)))
+3
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•We can write any natural number n using add1and 0in a functional 
+programming
+•(add1 (add 0))
+2
+•(lambda (f) (f(f(f0))))
+3
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•We can write any natural number n using add1and 0in a functional 
+programming
+•(add1 (add 0))
+2
+•(lambda (f) (lambda (x) (f (f (f x)))))
+3
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•Can write any natural number n as:
+•1 + …. + 0  = n times
+•0 = 0
+•1 = 1 + 0
+•2 = 1 + 1 + 0
+•3 = 1 + 1 + 1 +0
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•Represent the number nas a function that accepts another function g and 
+returns a function that performs g ntimes
+•1 + …. + 0  = n times
+•0 = (λ(f) (λ(x) x))
+•1 = (λ(f) (λ(x) (f x)))
+•2 = (λ(f) (λ(x) (f (f x)))) 
+•3 = (λ(f) (λ(x) (f (f (f x))))) 
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•When we use this encoding, any two expressions that are alpha-equivalent to 
+nis n
+•(((λ(y) (y y)) (λ (x)x))
+(λ (z) (λ (x) (z (z x)))))
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•Given a number n. Its normal-form (when it is fully-reduced) must be 
+something like
+•n = (λ (f) (f (f … (f x) …))) 
+•How can you generate n + 1?
+
+Church Encoding
+CMPSC 461 –Programming Language Concepts•Given a number n. Its normal-form (when it is fully-reduced) must be 
+something like
+•n = (λ (f) (f (f … (f x) …))) 
+•How can you generate n + 1?
+•n + 1 = (λ (f) (f(f (f … (f x) …)) ))
+
+Church Encoding: SUCC
+CMPSC 461 –Programming Language Concepts•Now, how could I wrote a function, succ, which computes n + 1 using only the 
+lambda calculus?
+•(λ (n)
+(λ (f) (λ (x) (f ((n f) x)))))
+
+Church Encoding: SUCC
+CMPSC 461 –Programming Language Concepts•(define succ
+(lambda (n) (lambda (f) (lambda (x) (f ((n f) x))))))
+•;; (succ 1) should equal 2
+•((λ (n)
+(λ (f) (λ (x) (f ((n f) x)))))
+(λ (f) (λ (x) (f x))))
+
+Church Encoding: PLUS
+CMPSC 461 –Programming Language Concepts•Now how do you do addition? We need two arguments using currying.
+•plus = (lambda (n) (lambda (k) ..))
+•one = (lambda (f) (lambda (x) (f x)))
+•We can call this like: ((plus one) one) ;; compute 2
+
+Church Encoding: PLUS
+CMPSC 461 –Programming Language Concepts•((n f) x) ;; applies fto x n times
+•((k f) x) ;; applies fto x ktimes
+•plus =  (λ (n) (λ (k) (λ (f) (λ (x) ((k f) ((n f) x))))) )
+
+Church Encoding: Try at Home
+CMPSC 461 –Programming Language Concepts•(plus 0 1);; (λ (f) (λ (x) (f x)))
+•(plus 1 1);; (λ (f) (λ (x) (f (f x))))
+•(plus 2 0);; (λ (f) (λ (x) (f (f x))))
+
+Church Encoding: MULT
+CMPSC 461 –Programming Language Concepts•((n f) x) ;; applies fto x n times
+•((k f) x) ;; applies fto x ktimes
+•mult=  (λ (n) (λ (k) (λ (f) (λ (x)(((n k) f) x)))) )
+
+Church Encoding: Try at Home
+CMPSC 461 –Programming Language Concepts•(mult 1 1);; (λ (f) (λ (x) (f x)))
+•(mult 2 1);; (λ (f) (λ (x) (f (f x))))
+•(mult 2 0);; (λ (f) (λ (x)  x))

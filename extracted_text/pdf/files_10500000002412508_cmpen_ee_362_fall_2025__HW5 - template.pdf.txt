@@ -1,0 +1,89 @@
+CMPEN/EE 362 - HW5 
+Student Name:  _________________________________ 
+Problem 1  
+Consider the network shown in Figure 1.  
+a) Use Dijkstra’s algorithm to compute the minimum -cost paths from c to all the nodes. You need 
+to show the steps by giving a table as shown in class.  
+b) Give t he resulting routing tree from c .  
+c) Give the resulting forwarding table at c (each entry has fields “destination” and “link” as shown 
+in class) . 
+ 
+Figure 1. Example  for Dijkstra’s algorithm  
+  x
+ab
+cfe
+d1
+101
+1
+2
+12
+338
+73
+
+Problem 2  
+Consider the network shown in Figure 2. Suppose that the network uses a synchronous version of DV 
+algorithm, where  in each iteration, each node exchanges its distance vectors (computed in the previous 
+iteration) with its neighbors and updates its distance vectors based on the exchanged information.  Let 
+Di(x) and n i(x) denote the distance and the next -hop node to route from node i to node x (i= y, w, z).  
+ 
+Figure 2. Example for DV algorithm  
+a) Complete the following table by giving values of D i(x) and n i(x) to show how DV converges. You 
+need to show all iterations until convergence.  How many iterations does it take to converge?  
+(Recall: DV needs an extra iteration after the last distance vector update to inform the 
+neighbors.)  
+source   iteration t=0  t=1 t=2 …  
+i = y 3, x    
+i = w ∞    
+i = z 39, x    
+ 
+b) Suppose that poisoned reverse is not used. Suppose now that the link cost between x and y increases to 50. Use a table similar to the one used in a) to show how DV re -stabilizes from the 
+previous stable state (i.e., initially, it is in the stable state computed in a)). How many iterations are needed for DV to converge?  
+c) Repeat b), but now suppose that poisoned reverse is used. How many iterations are needed 
+now? Does poisoned reverse prevent the count -to-infinity problem  (i.e., does it prevent routing 
+loop) ? 
+d) What is the minimum  integer  value of c(y, z) such that there is no count -to-infinity wh en c(x, y) 
+changes from 3 to 50, if poisoned reverse is used? 
+ 
+ xy
+zw
+35 21
+39
+
+Problem 3  
+Consider the network shown in Figure 3. Suppose that AS1 and AS 2 use OSPF  (basically Dijkstra’s 
+algorithm)  for their intra- AS routing, and AS 3 and AS4 use IGRP for intra -AS routing. Initially, no physical 
+link exists between AS4 and the other  ASes. Suppose all the intra -AS links have equal cost.  
+ 
+Figure 3. Example of BGP.  
+a) Give the routing protocol used to learn about prefix x at each of the following routers: 3a, 2c, 
+2d, 1a. (hint: select among OSPF, IGRP, eBGP, iBGP)  
+b) Which interface (i 1 or i 2) will router 2d use to reach x? Why?  
+c) Now suppose that links are added between AS4 and AS1/AS3 as shown in Figure 3. Suppose 
+router 2d learns that x is reachable via both AS3 and AS1, with identical local preference. Which 
+interface will 2d use to reach x? Why?  
+d) Again suppose that links are added between AS4 and AS1/AS3 as shown in Figure 3. Suppose 
+router 1d learns that x is reachable via both AS2 and AS4, with identical local preference. Which 
+interface will 1d use to reach x? Why?  
+ 
+ 
+ 
+1b
+1d
+1c
+ 1a
+2b
+2d
+2c
+ 2a
+3b
+3d
+3c
+ 3a
+AS 2AS 3
+AS 1
+X
+4b
+4d
+4c
+ 4aAS 4
+i1i2i1 i2

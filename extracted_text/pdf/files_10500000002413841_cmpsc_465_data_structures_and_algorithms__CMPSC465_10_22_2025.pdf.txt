@@ -1,0 +1,247 @@
+Greedy algorithms 
+CMPSС 465 - Yana Safonova 
+
+
+The minimum spanning tree 
+
+A cycle has to enter and leave the cut the same amount of times Kruskal’s algorithm - proof of correctness 
+
+Kruskal’s algorithm - proof of correctness 
+
+The cut property 
+A B
+D CE
+FG2
+3
+63
+455
+136
+7
+S = {E, F, G} 
+
+Kruskal’s algorithm - proof of correctness 
+
+Kruskal’s algorithm - proof of correctness 
+
+The cycle property 
+A B
+D CE
+FG2
+3
+63
+455
+136
+7
+(A, C, D, B) 
+(A, D, B, C) 
+(D, E, F) 
+(E, F, G) 
+
+
+Kruskal’s algorithm - proof of correctness 
+
+Kruskal’s algorithm - proof of correctness 
+
+
+Kruskal’s algorithm - implementation 
+
+
+Disjoint sets or union-find sets or 
+merge-find sets 
+
+What is a disjoint set? 
+A data structure that is also known as the disjoint set  or the merge-find 
+set
+Example: 
+There are 5 people: A, B, C, D, and E. 
+A is B's friend, B is C's friend, and D is E's friend, therefore, the following 
+is true: 
+●A, B, and C are connected to each other 
+●D and E are connected to each other 
+{A, B, C} and {D, E} are two disjoint sets 
+How can we quickly compute if two people are in the same friend group? 
+
+Disjoint set - description 
+Operations: 
+Union(A, B): Connect two elements A and B 
+Find(A, B): Find whether the two elements A and B are connected 
+Example:  
+A set of elements S = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}. 
+Arr[ ] that is indexed by elements of sets, which are of size N (N = 10) is 
+used for the operations of union  and find.
+Assumption: 
+A and B objects are connected only if arr[ A ] = arr[ B ]. 
+
+Disjoint set 
+The array of representatives 
+
+Disjoint set - Union(2, 1) 
+
+
+Disjoint set - Union(4, 3), Union(8, 4), Union(9, 3) 
+
+
+Disjoint set - Union(6, 5) 
+
+
+Disjoint set - 5 disjoint sets 
+●First subset comprises the elements {3, 4, 8, 9} 
+●Second subset comprises the elements {1, 2} 
+●Third subset comprises the elements {5, 6} 
+●Fourth subset comprises the elements {0} 
+●Fifth subset comprises the elements {7} 
+
+Disjoint set - find operations 
+●Find(0, 7): 0 and 7 are disconnected: FALSE 
+●Find(8, 9): Although 8 and 9 are not connected directly, there is a 
+path that connects them: TRUE 
+
+Disjoint set - final representatives 
+
+
+Disjoint set - naive implementation 
+    def initialize(Arr, N): 
+        for i in range(N): 
+            Arr[ i ] = i 
+ 
+    # returns true if A and B are connected, else returns 
+false 
+    def find(Arr, A, B): 
+        return Arr[ A ] == Arr[ B ]  
+        #if Arr[ A ] == Arr[ B ]: 
+        #    return True 
+        #else: 
+        #    return False   
+    
+    #change all entries from Arr[ A ] to Arr[ B ] 
+    def union(Arr, N, A, B): 
+        TEMP = Arr[ A ] 
+        for i in range(N): 
+            if Arr[ i ] == TEMP: 
+                Arr[ i ] = Arr[ B ] 
+
+Disjoint set - naive implementation 
+    def initialize(Arr, N): 
+        for i in range(N): 
+            Arr[ i ] = i 
+ 
+    # returns true if A and B are connected, else returns 
+false 
+    def find(Arr, A, B): 
+        return Arr[ A ] == Arr[ B ]  
+        #if Arr[ A ] == Arr[ B ]: 
+        #    return True 
+        #else 
+        #    return False   
+    
+    #change all entries from Arr[ A ] to Arr[ B ] 
+    def union(Arr, N, A, B): 
+        TEMP = Arr[ A ] 
+        for i in range(N): 
+            if Arr[ i ] == TEMP: 
+                Arr[ i ] = Arr[ B ] O(N) and 
+O(N2) if 
+applied to 
+all 
+elements 
+
+Kruskal’s algorithm + naive disjoint sets 
+●M is the number of edges 
+●N is the number of vertices 
+●The maximum number of M is N(N - 1) / 2 or O(N2)
+●O(M) * O(N) = O(N3) - too slow! 
+
+Disjoint sets 
+●Stores non-overlapping sets 
+●Union(a, b) = merges sets where a and b are located 
+●Find(a, b) = tells whether or not a and b are located in the same 
+set 
+ Naive implementation 
+Find O(1)
+Union O(N) 
+Union for all 
+elements O(N2)
+
+Optimized disjoint set 
+
+
+Optimized disjoint set - union(0, 1) 
+
+
+Optimized disjoint set - union(0, 2) 
+We only change the representative for the 
+old root! 
+
+Optimized disjoint set - union(0, 2) 
+In the previous implementation, 
+Arr would be [2, 2, 2, 3 ,4 5] 
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+UNION becomes faster 
+FIND becomes longer 
+
+Optimized disjoint set - union(3, 4) 
+
+
+Optimized disjoint set - union(1, 4) 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - how to compute the 
+representative of 1? 
+
+
+Optimized disjoint set - implementation 
+    #finding root of an element 
+    def root(Arr, i): 
+        while Arr[ i ] != i: 
+            i = Arr[ i ] 
+        return i 
+    def union(Arr, A, B): 
+        root_A = root(Arr, A)      
+        root_B = root(Arr, B) 
+        Arr[ root_A ] = root_B 
+    def find(Arr, A, B): 
+        return root(Arr, A)==root(Arr, B) 
+
+Optimized disjoint set - only a half-way through! 
+    #finding root of an element 
+    def root(Arr, i): 
+        while Arr[ i ] != i: 
+            i = Arr[ i ] 
+        return i 
+    def union(Arr, A, B): 
+        root_A = root(Arr, A)      
+        root_B = root(Arr, B) 
+        Arr[ root_A ] = root_B 
+    def find(Arr, A, B): 
+        return root(Arr, A)==root(Arr, B) We don’t 
+have a 
+loop here 
+anymore A loop is 
+hidden 
+here

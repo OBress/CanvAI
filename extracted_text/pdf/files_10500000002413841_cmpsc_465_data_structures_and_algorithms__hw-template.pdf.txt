@@ -1,0 +1,28 @@
+CMPSC 465 Fall 2025 Homework 1 September 7, 2025
+Name: Alice
+Access ID: xyz1234
+Collaborators: Bob (xyz2341), Carl (xyz3412)
+References: Book X, https://www.overleaf.com/learn/latex/Learn_LaTeX_
+in_30_minutes
+1
+
+CMPSC 465 Fall 2025 Homework 1 September 7, 2025
+Problem 1
+Your solution starts here ...
+2
+
+CMPSC 465 Fall 2025 Homework 1 September 7, 2025
+Problem 2
+3
+
+CMPSC 465 Fall 2025 Homework 1 September 7, 2025
+Problem 3
+4
+
+CMPSC 465 Fall 2025 Homework 1 September 7, 2025
+Problem 4
+5
+
+CMPSC 465 Fall 2025 Homework 1 September 7, 2025
+Problem 5
+6

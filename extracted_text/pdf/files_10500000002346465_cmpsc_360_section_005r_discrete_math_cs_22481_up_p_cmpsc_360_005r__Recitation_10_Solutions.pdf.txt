@@ -1,0 +1,81 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 10 Solutions
+1. Fermat’s Little Theorem: Simplify the following using Fermat’s Little Theorem:
+(a) 5300mod 13
+(b) 347mod 7
+Answer:
+(a) According to FLT, 512≡1 mod 13
+300 mod 12 = 0
+Hence, 5300≡50≡1 mod 13
+(b) According to FLT, 36≡1 mod 7
+Now, consider 4 mod 6 ≡-2 mod 6
+Therefore, 47mod 6 ≡ −27mod 6 ≡-128 mod 6 ≡4
+So, the question reduces to 34mod 7 which is 4.
+2. Linear Congruence:
+(a) Find all solutions, if possible to 6 x≡4(mod 17 )
+(b) Find all solutions, if possible to 2 x≡5(mod 8 )
+(c) Find all solutions, if possible to 3 x≡6(mod 12 )
+Answer:
+(a)
+First, find the inverse of 6 modulo 17.
+Since gcd (6,17) =1,the inverse exists.
+Using the extended Euclidean algorithm, we find that 6 ×3≡1(mod 17 ).
+Multiplying both sides of the original equation by 3:
+6x×3≡4×3(mod 17 )
+18x≡12 (mod 17 )
+x≡12 (mod 17 )
+So, the solution is x≡12 (mod 17 ).
+(b)gcd(2,8) =2, which does not divide 5. Thus, no solution exists.
+(c)gcd(3,12) =3. Thus, 3−1mod 12 does not exist. However, there are still 3 solutions
+unique modulo 12. Notice that we can first simplify the congruence to x≡2 mod 4. All
+the values of xthat satisfy this and are less than 12 are: 2,6, and 10. Thus, the 3 solutions
+are:
+x≡2(mod 12 )
+CMPSC 360, Fall 2024, Worksheet 10 Solutions 1
+
+x≡6(mod 12 )
+x≡10(mod 12 )
+3. Chinese Remainder Theorem: Consider the following system of linear congruences:
+x≡2 (mod 4)
+6x≡3 (mod 15)
+Solve for all solutions using CRT. (Hint: There are 3 unique solutions modulo 60)
+Answer:
+The second congruence 6 x≡3(mod 15 )has three solutions i.e., x≡3 (mod 15) and x≡
+8 (mod 15) and x≡13 (mod 15). Based on these 3 solutions, we can generate three systems of
+linear congruences:
+x≡2 (mod 4)
+x≡3 (mod 15)
+and,
+x≡2 (mod 4)
+x≡8 (mod 15)
+and,
+x≡2 mod 4
+x≡13 mod 15
+We can solve each of these systems of linear congruence independently using CRT. The com-
+mon modulus mwill be the same i.e., m=4×15=60. We get three solutions:
+x≡18 (mod 60)
+and,
+x≡38 (mod 60)
+and,
+x≡58 (mod 60)
+4. RSA:
+(a) Given p = 23 and q = 19. Compute the public and the private keys.
+(b) Daniel wants to send the message M = 13 to Alice. Using Alice’s public and private keys,
+calculate the ciphertext C, and the value for R when Alice recovers the message.
+Answer:
+CMPSC 360, Fall 2024, Worksheet 10 Solutions 2
+
+(a)n=p∗q=23∗19=437
+So,k= (p−1)∗(q−1) =22∗18=396
+We have to find an esuch that 1 <e<kandgcd(e,k) =1
+If e=5, e∗d≡1modk = 5∗d≡1mod396
+d=317
+public key, (n,e)= (437, 5)
+private key, (n,d)= (437, 317)
+(b) Alice’s public key is (437,5).
+We need to find the remainder of when Meis divided by 437.
+Me=135=371293 is divided by 437, the remainder is 280. Daniel sent the Cipher text,
+C = 280.
+We need to find the remainder of when Cdis divided by 437 to decrypt received ciphertext
+Cd=280317is divided by 437, the remainder is 13.
+CMPSC 360, Fall 2024, Worksheet 10 Solutions 3

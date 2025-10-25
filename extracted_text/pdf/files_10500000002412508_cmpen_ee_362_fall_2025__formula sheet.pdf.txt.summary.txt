@@ -1,0 +1,1 @@
+This document outlines key networking formulas, including calculations for supported users in circuit/packet switching, end-to-end delay, HTTP response/object download times, file distribution (client-server/P2P), TCP throughput, ALOHA protocol efficiency, and physical layer harmonics.

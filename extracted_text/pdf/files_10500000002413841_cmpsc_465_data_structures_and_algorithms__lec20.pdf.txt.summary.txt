@@ -1,0 +1,1 @@
+The Ford-Fulkerson algorithm calculates max flow in a network by augmenting paths in residual graphs. While not polynomial in general, it proves the Max-Flow Min-Cut Theorem: max flow value equals min s-t cut capacity. This theorem has diverse applications in graph theory & optimization.

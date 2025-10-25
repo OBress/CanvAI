@@ -1,0 +1,110 @@
+CMPEN/EE 362 - HW2  
+Student Name: _________________________  
+Problem 1  
+Consider the following string of ASCII characters that were captured by  Wireshark when the browser 
+sent an HTTP GET message (i.e., this is the  actual content of an HTTP GET message). The characters 
+<cr><lf> are  carriage return and line -feed characters (that is, the italized character string  <cr> in the text 
+below represents the single carriage- return character that was  contained at that point in the HTTP 
+header). Answer the following questions,  indicating where in the HTTP GET message below you find the 
+answer.  
+GET /cs453/index.html HTTP/1.1<cr><lf>Host: gaia.cs.umass.edu<cr><lf>User-
+Agent: Mozilla/5.0 (Windows;U; Windows NT 5.1; en- US; rv:1.7.2) 
+Gecko/20040804 Netscape/7.2 (ax) <cr><lf>Accept:ext/xml, application/xml, 
+application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5 
+<cr><lf>Accept- Language: en- us,en;q=0.5<cr><lf>Accept- Encoding: 
+zip,deflate<cr><lf>Accept- Charset: ISO- 8859-1,utf-8;q=0.7,*;q=0.7 
+<cr><lf>Keep- Alive: 300<cr><lf>Connection:keep- alive<cr><lf><cr><lf> 
+a) What is the URL of the document requested by the browser?  
+b) What version of HTTP is the browser running?  
+c) Does the browser request a non -persistent or a persistent connection?  
+d) What is the IP address of the host on which the browser is running?  
+e) What type of browser initiates this message? Why is the browser type needed in an HTTP 
+request message?  
+  
+
+Problem 2  
+The text below shows the reply sent from the server in response to the HTTP  GET message in the 
+question above. Answer the following questions, indicating  where in the message below you find the 
+answer.  
+HTTP/1.1 200 OK<cr><lf>Date: Tue, 07 Mar 2008 12:39:45GMT<cr><lf>Server: 
+Apache/2.0.52 (Fedora)<cr><lf>Last- Modified: Sat, 10 Dec2005 18:27:46 
+GMT<cr><lf>ETag: ”526c3- f22-a88a4c80”<cr><lf>Accept- Ranges: 
+bytes<cr><lf>Content- Length: 3874<cr><lf>Keep- Alive: 
+timeout=max=100<cr><lf>Connection: Keep-Alive<cr><lf>Content- Type: text/html; 
+charset=ISO- 8859-1<cr><lf><cr><lf><!doctype html public ”- //w3c//dtd html 
+4.0transitional//en”><lf><html><lf><head><lf> <meta http- equiv=”Content- Type” 
+content=”text/html; charset=iso- 8859-1”><lf> <meta name=”GENERATOR” 
+content=”Mozilla/4.79 [en] (Windows NT 5.0; U) Netscape]”><lf> <title>CMPSCI 
+453 / 591 /NTU- ST550ASpring 2005 homepage</title><lf></head><lf><much more 
+document text following here (not shown)> 
+a) Was the server able to successfully find the document or not? What time  was the document 
+reply provided?  
+b) When was the document last modified?  
+c) How many bytes are there in the document being returned?  
+d) What are the first 5 bytes of the document being returned? Did the server  agree to a persistent 
+connection?  
+  
+
+Problem 3  
+Using your  Web browser to obtain a Web page containing a small HTML file referring to 12 objects, each 
+of size 100K bits. Suppose that for each of the following questions, the IP address of the Web server is 
+initially unknown , and that your host needs to visit all  types of DNS servers (one  server  per type) to 
+retrieve the IP address. Each visi t to a DNS server  takes an RTT of 10 ms. The path  between your host 
+and the Web server has an RTT of  50 ms  and a throughput  of 1 Mbps .  
+e) How long does it take to obtain the base HTML? (hint: ignore transmission time)  
+f) How long does it take to obtain the entire Web page using non -persistent HTTP without parallel 
+connections ? 
+g) Repeat b) for using 5 parallel connections , each having an RTT of 50 ms and a throughput of 1 
+Mbps .  
+h) How long does it take to obtain the entire Web page using persistent HTTP without pipelining?  
+i) Repeat d) for persistent HTTP with pipelining.  
+j) What is the minimum number of parallel connections that non -persistent HTTP needs  to be 
+faster than persistent HTTP without pipelining?  Assume that each connection has the same RTT 
+and throughput as in c).  
+  
+
+Problem 4  
+Consider hosts in an institutional network accessing content via the following network. Suppose each 
+object is 80K bits, hosts in the institutional network generate 18 requests/sec, and hosts from other 
+parts of the Internet (not shown) generate 100 requests/sec. Suppose that the total delay for Router2 to 
+send a request to Router3  and Router3 to send the response back to Router2  is 2 seconds. Ignore 
+propagation delays for other links . Ignore the delays from hosts to the cache in the case of cache misses .  
+Approximate the access link delay (including queuing and transmission delays) by 1/(𝜇𝜇−𝜆𝜆), where 𝜇𝜇  is 
+the service rate and 𝜆𝜆 is the arrival rate (unit: objects/sec).  
+ 
+a) Find the total delay for obtaining one object from the origin server to a host in the institutional network.  
+b) Suppose that 20% of requests generated by the institutional network are served by a local cache  
+(i.e., the cache hit rate is 0.2) . Repeat a).  
+c) What is the minimum cache hit rate to make the delay no greater than 100 ms  (answer to the 
+second decimal place) ?  
+ 
+ origin
+serverspublic
+Internet
+institutional
+network1 Gbps LANRc= 1.54 Mbps 
+Router2
+Router1 Rs= 20 Mbps 
+cache1 Gbps LANRouter3Router4
+Content 
+providerRTT = 2 sec 
+
+Problem 5  
+Use the tool nslookup to find out :  
+a) the IP address and the canonical name of CNN’s web server (hostname: www.cnn.com ),  
+b) the IP address and name of CNN’s authorative DNS servers  (domain name: cnn.com) , and  
+c) the IP address and name of CNN’s mail servers  (alias: cnn.com) .  
+You should submit a printout of the command line input/output and clearly mark the answer to each 
+question.  
+  
+
+Problem 6  
+Consider distributing a file of F=80 Gbits to N peers. The server has an upload capacity of u s=10 Mbps. 
+Each peer has a download capacity of d=10 Mbps, and an upload capacity of u. Round all answers to 
+integers.  
+a) For N=10, 100, 1000, and u=500 Kbps, 2 Mbps, 10 Mbps, make a chart (i.e., a table) giving the minimum file distribution time for each combination of N and u for the client -server 
+architecture.  
+b) Repeat a) for the P2P architecture.  
+ 
+ 
+ 

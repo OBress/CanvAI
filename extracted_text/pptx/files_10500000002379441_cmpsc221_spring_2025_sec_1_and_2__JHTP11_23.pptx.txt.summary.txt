@@ -1,0 +1,1 @@
+This content features Chapter 23, "Concurrency," from "Java How to Program, 11/e." All rights are copyrighted by Pearson Education, Inc. from 1992-2018. Questions can be directed to paul.deitel@deitel.com.

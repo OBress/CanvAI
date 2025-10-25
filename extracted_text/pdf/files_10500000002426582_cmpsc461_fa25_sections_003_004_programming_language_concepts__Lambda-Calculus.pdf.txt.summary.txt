@@ -1,0 +1,1 @@
+Prof. Suman Saha's CMPSC 461 explores λ-Calculus, detailing its syntax, application to programming languages, and anonymous functions. It covers λ-term examples, syntax vs. semantics, capture-avoiding substitution, bound/free variables, and α-reduction, concluding with β-reduction, including formal definitions and examples.

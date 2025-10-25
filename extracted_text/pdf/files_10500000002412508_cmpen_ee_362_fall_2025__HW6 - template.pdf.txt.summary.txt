@@ -1,0 +1,1 @@
+CMPEN/EE 362 HW6 covers error detection (parity, checksum, CRC), deriving slotted/pure ALOHA efficiency, analyzing network addressing (IP/MAC, subnets, ARP, DHCP, DNS), packet headers in routed networks, and Ethernet frame forwarding with switch table learning in multi-switch environments.

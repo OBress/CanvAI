@@ -1,0 +1,1 @@
+CMPSC 461's 'Exceptions' addresses program deviations (e.g., out-of-memory, divide-by-zero). While C uses workarounds like special return values, modern languages provide features to isolate error-checking and direct execution to handlers. Exceptions are pre-defined or user-defined, generated via 'throw', caught, and involve propagation.

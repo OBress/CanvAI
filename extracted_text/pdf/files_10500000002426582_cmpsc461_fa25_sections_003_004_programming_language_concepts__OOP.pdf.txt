@@ -1,0 +1,127 @@
+Object-Oriented Programming
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Abstract Data Types
+CMPSC 461 –Programming Language Concepts
+
+
+Classifying Operations
+CMPSC 461 –Programming Language Concepts
+
+
+ADT Examples
+CMPSC 461 –Programming Language Concepts
+
+
+ADT Examples
+CMPSC 461 –Programming Language Concepts
+
+
+ADT Examples
+CMPSC 461 –Programming Language Concepts
+
+
+OOP Terminology
+CMPSC 461 –Programming Language Concepts
+
+
+Object-Oriented Programming
+CMPSC 461 –Programming Language Concepts
+
+
+Encapsulation (Information hiding)
+CMPSC 461 –Programming Language Concepts
+
+
+Subtyping
+CMPSC 461 –Programming Language Concepts
+
+
+Inheritance
+CMPSC 461 –Programming Language Concepts
+
+
+Overriding
+CMPSC 461 –Programming Language Concepts
+
+
+Object-Oriented Programming
+CMPSC 461 –Programming Language Concepts
+
+
+Running Example
+CMPSC 461 –Programming Language Concepts
+
+
+Memory Layout (Fields)
+CMPSC 461 –Programming Language Concepts
+
+
+Memory Layout (Functions)
+CMPSC 461 –Programming Language Concepts
+
+
+Static Dispatch
+CMPSC 461 –Programming Language Concepts
+
+
+Implementation: Static
+CMPSC 461 –Programming Language Concepts
+
+
+Dynamic Dispatch
+CMPSC 461 –Programming Language Concepts
+
+
+Implementation: Dynamic
+CMPSC 461 –Programming Language Concepts
+
+
+Trivial Memory Layout
+CMPSC 461 –Programming Language Concepts
+
+
+Virtual Table (vtable)
+CMPSC 461 –Programming Language Concepts
+
+
+Virtual Table (vtable)
+CMPSC 461 –Programming Language Concepts
+
+
+Virtual Table (vtable)
+CMPSC 461 –Programming Language Concepts
+
+
+Virtual Table (vtable)
+CMPSC 461 –Programming Language Concepts
+
+
+Downcasting/Upcasting
+CMPSC 461 –Programming Language Concepts
+
+
+Member Lookup: Case 1
+CMPSC 461 –Programming Language Concepts
+
+
+Member Lookup: Case 2
+CMPSC 461 –Programming Language Concepts
+
+
+Member Lookup: Case 3
+CMPSC 461 –Programming Language Concepts
+
+
+Dynamic Dispatch with VTables
+CMPSC 461 –Programming Language Concepts
+
+
+Static vs. Dynamic Dispatching
+CMPSC 461 –Programming Language Concepts
+
+
+Cost of Dynamic Dispatch
+CMPSC 461 –Programming Language Concepts

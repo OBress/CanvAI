@@ -1,0 +1,511 @@
+Chapter 16Generic Collections
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.1  Introduction
+
+Java collections framework
+Contains prebuilt generic data structures
+After reading Chapter 17, Java SE 8 Lambdas and Streams, you’ll be able to reimplement many of Chapter 16’s examples in a more concise and elegant manner, and in a way that makes them easier to parallelize to improve performance on today’s multi-core systems. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.2  Collections Overview
+
+A collection is a data structure—actually, an object—that can hold references to other objects. 
+Usually, collections contain references to objects of any type  that has the is-a relationship with the type stored in the collection. 
+Figure 16.1 lists some of the collections framework interfaces. 
+Package java.util. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.3  Type-Wrapper Classes
+
+Each primitive type has a corresponding type-wrapper class (in package java.lang). 
+Boolean, Byte, Character, Double, Float, Integer, Long and Short. 
+Each type-wrapper class enables you to manipulate primitive-type values as objects. 
+Collections cannot manipulate variables of primitive types. 
+They can manipulate objects of the type-wrapper classes, because every class ultimately derives from Object. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.3  Type-Wrapper Classes (cont.)
+
+Each of the numeric type-wrapper classes—Byte, Short, Integer, Long, Float and Double—extends class Number. 
+The type-wrapper classes are final classes, so you cannot extend them. 
+Primitive types do not have methods, so the methods related to a primitive type are located in the corresponding type-wrapper class. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.4  Autoboxing and Auto-Unboxing
+
+A boxing conversion converts a value of a primitive type to an object of the corresponding type-wrapper class. 
+An unboxing conversion converts an object of a type-wrapper class to a value of the corresponding primitive type. 
+These conversions are performed automatically—called autoboxing and auto-unboxing. 
+Example: 
+// create integerArray Integer[] integerArray = new Integer[5]; // assign Integer 10 to integerArray[ 0 ] integerArray[0] = 10; // get int value of Integer int value = integerArray[0]; 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.5  Interface Collection and Class Collections
+
+Interface Collection contains bulk operations for adding, clearing and comparing objects in a collection. 
+A Collection can be converted to an array. 
+Interface Collection provides a method that returns an Iterator object, which allows a program to walk through the collection and remove elements from the collection during the iteration. 
+Class Collections provides static methods that search, sort and perform other operations on collections. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6  Lists
+
+A List (sometimes called a sequence) is an ordered Collection that can contain duplicate elements. 
+List indices are zero based.
+In addition to the methods inherited from Collection, List provides methods for manipulating elements via their indices, manipulating a specified range of elements, searching for elements and obtaining a ListIterator to access the elements.
+Interface List is implemented by several classes, including ArrayList, LinkedList and Vector. 
+Autoboxing occurs when you add primitive-type values to objects of these classes, because they store only references to objects. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6  Lists (cont.)
+
+Class ArrayList and Vector are resizable-array implementations of List. 
+Inserting an element between existing elements of an ArrayList or Vector is an inefficient operation. 
+A LinkedList enables efficient insertion (or removal) of elements in the middle of a collection, but is much less efficient than an ArrayList for jumping to a specific element in the collection. 
+We discuss the architecture of linked lists in Chapter 21.
+The primary difference between ArrayList and Vector is that operations on Vectors are synchronized by default, whereas those on ArrayLists are not. 
+Unsynchronized collections provide better performance than synchronized ones. 
+For this reason, ArrayList is typically preferred over Vector in programs that do not share a collection among threads. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6.1 ArrayList and Iterator 
+
+List method add adds an item to the end of a list. 
+List method size retursn the number of elements. 
+List method get retrieves an individual element’s value from the specified index. 
+Collection method iterator gets an Iterator for a Collection. 
+Iterator- method hasNext determines whether there are more elements to iterate through. 
+Returns true if another element exists and false otherwise. 
+Iterator method next obtains a reference to the next element.
+Collection method contains determine whether a Collection contains a specified element.
+Iterator method remove removes the current element from a Collection.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6.1 ArrayList and Iterator 
+
+Type Inference with the <> Notation
+Lines 14 and 21 specify the type stored in the ArrayList (that is, String) on the left and right sides of the initialization statements. 
+Java SE 7 introduced type inferencing with the <> notation—known as the diamond notation—in statements that declare and create generic type variables and objects. For example, line 14 can be written as:
+
+	List<String> list = new ArrayList<>();
+
+Java uses the type in angle brackets on the left of the declaration (that is, String) as the type stored in the ArrayList created on the right side of the declaration.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6.2 LinkedList 
+
+List method addAll appends all elements of a collection to the end of a List. 
+List method listIterator gets A List’s bidirectional iterator. 
+String method toUpperCase gets an uppercase version of a String. 
+List-Iterator method set replaces the current element to which the iterator refers with the specified object. 
+String method toLowerCase returns a lowercase version of a String. 
+List method subList obtaina a portion of a List. 
+This is a so-called range-view method, which enables the program to view a portion of the list. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6.2 LinkedList (cont.)
+
+List method clear remove the elements of a List. 
+List method size returns the number of items in the List. 
+ListIterator method  hasPrevious determines whether there are more elements while traversing the list backward. 
+ListIterator method previous gets the previous element from the list. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6.2 LinkedList (cont.)
+
+Class Arrays provides static method asList to view an array as a List collection. 
+A List view allows you to manipulate the array as if it were a list. 
+This is useful for adding the elements in an array to a collection and for sorting array elements. 
+Any modifications made through the List view change the array, and any modifications made to the array change the List view. 
+The only operation permitted on the view returned by asList is set, which changes the value of the view and the backing array. 
+Any other attempts to change the view result in an UnsupportedOperationException.
+List method toArray gets an array from a List collection. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.6.2 LinkedList (cont.)
+
+LinkedList method addLast adds an element to the end of a List. 
+LinkedList method add also adds an element to the end of a List.
+LinkedList method addFirst adds an element to the beginning of a List. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7  Collections Methods
+
+Class Collections provides several high-performance algorithms for manipulating collection elements. 
+The algorithms (Fig. 16.5) are implemented as static methods. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.1 Method sort 
+
+Method sort sorts the elements of a List
+The elements must implement the Comparable interface. 
+The order is determined by the natural order of the elements’ type as implemented by a compareTo method. 
+Method compareTo is declared in interface Comparable and is sometimes called the natural comparison method. 
+The sort call may specify as a second argument a Comparator object that determines an alternative ordering of the elements.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.1 Method sort (cont.)
+
+The Comparator interface is used for sorting a Collection’s elements in a different order. 
+The static Collections method reverseOrder returns a Comparator object that orders the collection’s elements in reverse order. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.1 Method sort (cont.)
+
+Figure 16.8 creates a custom Comparator class, named TimeComparator, that implements interface Comparator to compare two Time2 objects. 
+Class Time2, declared in Fig. 8.5, represents times with hours, minutes and seconds.
+Class TimeComparator implements interface Comparator, a generic type that takes one type argument.
+A class that implements Comparator must declare a compare method that receives two arguments and returns a negative integer if the first argument is less than the second, 0 if the arguments are equal or a positive integer if the first argument is greater than the second. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.2 Method shuffle
+
+Method shuffle randomly orders a List’s elements. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.3 Methods reverse, fill, copy, max and min 
+
+Collections method reverse reverses the order of the elements in a List
+Method fill overwrites elements in a List with a specified value. 
+Method copy takes two arguments—a destination List and a source List. 
+Each source List element is copied to the destination List. 
+The destination List must be at least as long as the source List; otherwise, an IndexOutOfBoundsException occurs. 
+If the destination List is longer, the elements not overwritten are unchanged. 
+Methods min and max each operate on any Collection. 
+Method min returns the smallest element in a Collection, and method max returns the largest element in a Collection. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.4 Method binarySearch 
+
+static Collections method binarySearch locates an object in a List. 
+If the object is found, its index is returned. 
+If the object is not found, binarySearch returns a negative value. 
+Method binarySearch determines this negative value by first calculating the insertion point and making its sign negative. 
+Then, binarySearch subtracts 1 from the insertion point to obtain the return value, which guarantees that method binarySearch returns positive numbers (>= 0) if and only if the object is found. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.7.5 Methods addAll, frequency and disjoint
+
+Collections method addAll takes two arguments—a Collection into which to insert the new element(s) and an array that provides elements to be inserted. 
+Collections method frequency takes two arguments—a Collection to be searched and an Object to be searched for in the collection. 
+Method frequency returns the number of times that the second argument appears in the collection. 
+Collections method disjoint takes two Collections and returns true if they have no elements in common. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.8  Class PriorityQueue and Interface Queue 
+
+Interface Queue extends interface Collection and provides additional operations for inserting, removing and inspecting elements in a queue. 
+PriorityQueue orders elements by their natural ordering. 
+Elements are inserted in priority order such that the highest-priority element (i.e., the largest value) will be the first element removed from the PriorityQueue. 
+Common PriorityQueue operations are 
+offer to insert an element at the appropriate location based on priority order
+poll to remove the highest-priority element of the priority queue
+peek to get a reference to the highest-priority element of the priority queue
+clear to remove all elements in the priority queue  
+size to get the number of elements in the queue. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.9  Sets
+
+A Set is an unordered Collection of unique elements (i.e., no duplicates). 
+The collections framework contains several Set implementations, including HashSet and TreeSet. 
+HashSet stores its elements in a hash table, and TreeSet stores its elements in a tree. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.9  Sets (cont.)
+
+The collections framework also includes the SortedSet interface (which extends Set) for sets that maintain their elements in sorted order. 
+Class TreeSet implements SortedSet.  
+TreeSet method headSet gets a subset of the TreeSet in which every element is less than the specified value. 
+TreeSet method tailSet gets a subset in which each element is greater than or equal to the specified value.
+SortedSet methods first and last get the smallest and largest elements of the set, respectively. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.10  Maps
+
+Maps associate keys to values. 
+The keys in a Map must be unique, but the associated values need not be. 
+If a Map contains both unique keys and unique values, it is said to implement a one-to-one mapping. 
+If only the keys are unique, the Map is said to implement a many-to-one mapping—many keys can map to one value. 
+Three of the several classes that implement interface Map are Hashtable, HashMap and TreeMap. 
+Hashtables and HashMaps store elements in hash tables, and TreeMaps store elements in trees. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.10  Maps (Cont.)
+
+Interface SortedMap extends Map and maintains its keys in sorted order—either the elements’ natural order or an order specified by a Comparator. 
+Class TreeMap implements SortedMap. 
+Hashing is a high-speed scheme for converting keys into unique array indices. 
+A hash table’s load factor affects the performance of hashing schemes. 
+The load factor is the ratio of the number of occupied cells in the hash table to the total number of cells in the hash table. 
+The closer this ratio gets to 1.0, the greater the chance of collisions.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.10  Maps (Cont.)
+
+Map method containsKey determines whether a key is in a map.
+Map method put creates a new entry or replaces an existing entry’s value. 
+Method put returns the key’s prior associated value, or null if the key was not in the map.
+Map method get obtain the specified key’s associated value in the map. 
+HashMap method keySet returns a set of the keys. 
+Map method size returns the number of key/value pairs in the Map. 
+Map method isEmpty returns a boolean indicating whether the Map is empty.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.11  Synchronized Collections
+
+Synchronization wrappers are used for collections that might be accessed by multiple threads. 
+A wrapper object receives method calls, adds thread synchronization and delegates the calls to the wrapped collection object. 
+The Collections API provides a set of static methods for wrapping collections as synchronized versions. 
+Method headers for the synchronization wrappers are listed in Fig. 16.20. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.12  Unmodifiable Collections
+
+The Collections class provides a set of static methods that create unmodifiable wrappers for collections. 
+Unmodifiable wrappers throw UnsupportedOperationExceptions if attempts are made to modify the collection. 
+In an unmodifiable collection, the references stored in the collection are not modifiable, but the objects they refer are modifiable unless they belong to an immutable class like String. 
+Headers for these methods are listed in Fig. 16.21. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.13  Abstract Implementations
+
+The collections framework provides various abstract implementations of Collection interfaces from which you can quickly “flesh out” complete customized implementations. 
+These include 
+a thin Collection implementation called an AbstractCollection
+a List implementation that allows array-like access to its elements called an AbstractList
+a Map implementation called an AbstractMap
+a List implementation that allows sequential access (from beginning to end) to its elements called an AbstractSequentialList
+a Set implementation called an AbstractSet 
+a Queue implementation called AbstractQueue. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.14  Java SE 9: Convenience Factory Methods for Immutable Collections
+
+Java SE 9 adds new static convenience factory methods to interfaces List, Set and Map that enable you to create small immutable collections
+You simply pass the elements as arguments to a convenience factory method, which creates the collection 
+The convenience factory methods instead return custom collection objects that are optimized to store small collections
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.14  Java SE 9: Convenience Factory Methods for Immutable Collections (cont.)
+
+List Interface’s Convenience Factory Method of  
+List convenience factory method of to create an immutable List
+Method of has overloads for Lists of zero to 10 elements and an additional overload that can receive any number of elements
+The List’s elements are guaranteed to be in the same order as method of’s arguments
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.14  Java SE 9: Convenience Factory Methods for Immutable Collections (cont.)
+
+Set Interface’s Convenience Factory Method of 
+Set’s method of has overloads for Sets of zero to 10 elements and an additional overload that can receive any number of elements
+Note in the two sample outputs of this program that the order of the Set’s elements is different in each output
+According to the Set interface’s documentation, the iteration order is unspecified for Sets returned by the convenience factory methods
+That order can change between executions
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.14  Java SE 9: Convenience Factory Methods for Immutable Collections (cont.)
+
+Map Interface’s Convenience Factory Method of  
+Map convenience factory method of creates an immutable Map
+Map method of has overloads for Maps of zero to 10 key–value pair
+Each pair of arguments represents one key–value pair
+For Maps with more than 10 key–value pairs, interface Map provides the method ofEntries
+According to the Map interface’s documentation, the iteration order is unspecified for the keys in Maps returned by the convenience factory methods
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+16.14  Java SE 9: Convenience Factory Methods for Immutable Collections (cont.)
+
+Map Interface’s Convenience Factory Method ofEntries  
+Map convenience factory method ofEntries creates an immutable Map
+Each of this method’s variable number of arguments is the result of a call to Map’s static-method entry, which creates and returns a Map.Entry object representing one key–value pair
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

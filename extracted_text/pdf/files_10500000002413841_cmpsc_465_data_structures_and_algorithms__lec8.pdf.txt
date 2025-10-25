@@ -1,0 +1,511 @@
+CMPSC 465: LECTURE VIII
+Binary Heaps
+Ke Chen
+September 15, 2025
+
+Quick review: stack and queue
+Stack
+ILast In, First Out (LIFO).
+IConstant time insert (push)
+and delete (pop) at the
+same end.
+ICommon implementations:
+array, linked list.
+stackpush
+pop
+1 / 9
+
+Quick review: stack and queue
+Stack
+ILast In, First Out (LIFO).
+IConstant time insert (push)
+and delete (pop) at the
+same end.
+ICommon implementations:
+array, linked list.Queue
+IFirst In, First Out (FIFO).
+IConstant time insert
+(enqueue) and delete
+(dequeue) at dierent ends.
+ICommon implementations:
+circular array, linked list
+with a tail pointer.
+stackpush
+popdequeue at head
+enqueue at tailqueue
+1 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMaxO(1) O(1) O(1)
+InsertionO(n) O(1) O(logn)
+DeletionO(n) O(n) O(logn)
+ChangePriorityO(n) O(n) O(logn)
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMaxO(1) O(1) O(1)
+InsertionO(n) O(1) O(logn)
+DeletionO(n) O(n) O(logn)
+ChangePriorityO(n) O(n) O(logn)
+Sorted list
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1)O(1) O(1)
+InsertionO(n) O(1) O(logn)
+DeletionO(n) O(n) O(logn)
+ChangePriorityO(n) O(n) O(logn)
+Sorted list
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1)O(1) O(1)
+Insertion O(n)O(1) O(logn)
+Deletion O(n)O(n) O(logn)
+ChangePriority O(n)O(n) O(logn)
+Sorted list
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1)O(1) O(1)
+Insertion O(n)O(1) O(logn)
+Deletion O(n)O(n) O(logn)
+ChangePriority O(n)O(n) O(logn)
+Sorted list
+array can do binary search but in worst-
+case requires linear shift;
+linked list supports constant-time inser-
+tion/deletion but cannot binary search
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1)O(1) O(1)
+Insertion O(n)O(1) O(logn)
+Deletion O(n)O(n) O(logn)
+ChangePriority O(n)O(n) O(logn)
+Sorted listArray with
+pointer to max
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1) O(1)O(1)
+Insertion O(n)O(1) O(logn)
+Deletion O(n)O(n) O(logn)
+ChangePriority O(n)O(n) O(logn)
+Sorted listArray with
+pointer to max
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1) O(1)O(1)
+Insertion O(n) O(1)O(logn)
+Deletion O(n)O(n) O(logn)
+ChangePriority O(n)O(n) O(logn)
+Sorted listArray with
+pointer to max
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1) O(1)O(1)
+Insertion O(n) O(1)O(logn)
+Deletion O(n) O(n)O(logn)
+ChangePriority O(n)O(n) O(logn)
+Sorted listArray with
+pointer to max
+worst-case: max is removed
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1) O(1)O(1)
+Insertion O(n) O(1)O(logn)
+Deletion O(n) O(n)O(logn)
+ChangePriority O(n) O(n)O(logn)
+Sorted listArray with
+pointer to max
+worst-case: max is removed
+may need to nd new max
+2 / 9
+
+Priority queue
+Motivation Can we reorder elements in the container so that
+those with higher priority are handled rst?
+GetMax O(1) O(1) O(1)
+Insertion O(n) O(1) O(logn)
+Deletion O(n) O(n) O(logn)
+ChangePriority O(n) O(n) O(logn)Sorted listArray with
+pointer to maxBinary heap
+2 / 9
+
+Complete tree
+Denition A binary tree is complete if
+Ithe tree is completely lled in all levels except possibly in the
+lowest level; and
+Iall nodes in the last level are as far left as possible.complete complete not complete
+3 / 9
+
+Complete tree
+Denition A binary tree is complete if
+Ithe tree is completely lled in all levels except possibly in the
+lowest level; and
+Iall nodes in the last level are as far left as possible.
+completecomplete not complete
+3 / 9
+
+Complete tree
+Denition A binary tree is complete if
+Ithe tree is completely lled in all levels except possibly in the
+lowest level; and
+Iall nodes in the last level are as far left as possible.
+complete completenot complete
+3 / 9
+
+Complete tree
+Denition A binary tree is complete if
+Ithe tree is completely lled in all levels except possibly in the
+lowest level; and
+Iall nodes in the last level are as far left as possible.
+complete complete not complete
+3 / 9
+
+A complete tree in an array
+Observe that a complete tree ts snugly in an array.For an index i,parent (i) =bi=2c,left(i) = 2i, and right (i) = 2i+ 1.
+h1
+h2
+h4
+h8 h9h5
+h10 h11h3
+h6
+h12h7
+h1h2h3h4h5h6h7h8h9h10h11h12
+4 / 9
+
+A complete tree in an array
+Observe that a complete tree ts snugly in an array.
+For an index i,parent (i) =bi=2c,left(i) = 2i, and right (i) = 2i+ 1.
+h1
+h2
+h4
+h8 h9h5
+h10 h11h3
+h6
+h12h7
+h1h2h3h4h5h6h7h8h9h10h11h12
+4 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+20
+16
+14
+4 18
+2 710
+9
+83
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+IEquivalently, the max-heap property requires
+H[i]H[parent (i)]for each i >1.IDuplicate keys are permitted.
+IMin-heaps are completely analogous.
+ICan be generalized to d-ary heaps.
+Exercise: Does an array sorted in non-decreasing order represent a
+max-heap? E.g., 10, 8, 7, 7, 3, 2, 2, 1.
+We will see later that we don't need to sort in order to construct
+a heap from an array.
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+IEquivalently, the max-heap property requires
+H[i]H[parent (i)]for each i >1.
+IDuplicate keys are permitted.IMin-heaps are completely analogous.
+ICan be generalized to d-ary heaps.
+Exercise: Does an array sorted in non-decreasing order represent a
+max-heap? E.g., 10, 8, 7, 7, 3, 2, 2, 1.
+We will see later that we don't need to sort in order to construct
+a heap from an array.
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+IEquivalently, the max-heap property requires
+H[i]H[parent (i)]for each i >1.
+IDuplicate keys are permitted.
+IMin-heaps are completely analogous.ICan be generalized to d-ary heaps.
+Exercise: Does an array sorted in non-decreasing order represent a
+max-heap? E.g., 10, 8, 7, 7, 3, 2, 2, 1.
+We will see later that we don't need to sort in order to construct
+a heap from an array.
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+IEquivalently, the max-heap property requires
+H[i]H[parent (i)]for each i >1.
+IDuplicate keys are permitted.
+IMin-heaps are completely analogous.
+ICan be generalized to d-ary heaps.Exercise: Does an array sorted in non-decreasing order represent a
+max-heap? E.g., 10, 8, 7, 7, 3, 2, 2, 1.
+We will see later that we don't need to sort in order to construct
+a heap from an array.
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+IEquivalently, the max-heap property requires
+H[i]H[parent (i)]for each i >1.
+IDuplicate keys are permitted.
+IMin-heaps are completely analogous.
+ICan be generalized to d-ary heaps.
+Exercise: Does an array sorted in non-decreasing order represent a
+max-heap? E.g., 10, 8, 7, 7, 3, 2, 2, 1.We will see later that we don't need to sort in order to construct
+a heap from an array.
+5 / 9
+
+Binary max-heap
+A binary max-heap is a complete binary tree that satises the
+Max-Heap Property The key at each node is smaller than or
+equal to the key of its parent node (except for the root).
+Example: H[1::12] = 20 ;16;10;14;8;9;3;4;1;2;7;8.
+IEquivalently, the max-heap property requires
+H[i]H[parent (i)]for each i >1.
+IDuplicate keys are permitted.
+IMin-heaps are completely analogous.
+ICan be generalized to d-ary heaps.
+Exercise: Does an array sorted in non-decreasing order represent a
+max-heap? E.g., 10, 8, 7, 7, 3, 2, 2, 1.
+We will see later that we don't need to sort in order to construct
+a heap from an array.
+5 / 9
+
+Heap operations
+Suppose H[1::n]is a binary max-heap.
+GetMax Takes O(1), all we have to do is return H[1].Insertion
+IInsert in the rst available position H[n+ 1].
+Example Suppose we want to insert 18 in:
+20
+16
+14
+4 18
+2 710
+9
+83Violate the max-heap property
+6 / 9
+
+Heap operations
+Suppose H[1::n]is a binary max-heap.
+GetMax Takes O(1), all we have to do is return H[1].
+Insertion
+IInsert in the rst available position H[n+ 1].
+Example Suppose we want to insert 18 in:
+20
+16
+14
+4 18
+2 710
+9
+83Violate the max-heap property
+6 / 9
+
+Heap operations
+Suppose H[1::n]is a binary max-heap.
+GetMax Takes O(1), all we have to do is return H[1].
+Insertion
+IInsert in the rst available position H[n+ 1].
+Example Suppose we want to insert 18 in:
+20
+16
+14
+4 18
+2 710
+9
+83
+18Violate the max-heap property
+6 / 9
+
+Heap operations
+Suppose H[1::n]is a binary max-heap.
+GetMax Takes O(1), all we have to do is return H[1].
+Insertion
+IInsert in the rst available position H[n+ 1].
+Example Suppose we want to insert 18 in:
+20
+16
+14
+4 18
+2 710
+9
+83
+18
+Violate the max-heap property
+6 / 9
+
+Heap operations
+Insertion
+IInsert in the rst available position H[n+ 1].
+IIdea Let the new element \bubble up" by swapping until it
+nds the right position.
+20
+16
+14
+4 18
+2 710
+9
+8 183
+18IThis process is called HeapifyUp .
+7 / 9
+
+Heap operations
+Insertion
+IInsert in the rst available position H[n+ 1].
+IIdea Let the new element \bubble up" by swapping until it
+nds the right position.
+20
+16
+14
+4 18
+2 710
+9
+8 183
+918IThis process is called HeapifyUp .
+7 / 9
+
+Heap operations
+Insertion
+IInsert in the rst available position H[n+ 1].
+IIdea Let the new element \bubble up" by swapping until it
+nds the right position.
+20
+16
+14
+4 18
+2 710
+9
+8 183
+91018IThis process is called HeapifyUp .
+7 / 9
+
+Heap operations
+Insertion
+IInsert in the rst available position H[n+ 1].
+IIdea Let the new element \bubble up" by swapping until it
+nds the right position.
+20
+16
+14
+4 18
+2 710
+9
+8 183
+9101818IThis process is called HeapifyUp .
+7 / 9
+
+Heap operations
+Insertion
+IInsert in the rst available position H[n+ 1].
+IIdea Let the new element \bubble up" by swapping until it
+nds the right position.
+20
+16
+14
+4 18
+2 710
+9
+8 183
+9101818
+IThis process is called HeapifyUp .
+7 / 9
+
+Heap operations
+HeapifyUp( H,i)
+while i >1and H[i]> H[parent (i)]do
+swap H[i]andH[parent (i)]
+i=parent (i)
+Insert( H[1::n],key)
+// Assume the array Hstill has available
+space
+H[n+ 1] = key
+HeapifyUp( H,n+ 1)
+n=n+ 1
+Correctness?Time complexity?
+HeapifyUp takes O(h)time where his the height of the heap.
+h=O(logn).
+8 / 9
+
+Heap operations
+HeapifyUp( H,i)
+while i >1and H[i]> H[parent (i)]do
+swap H[i]andH[parent (i)]
+i=parent (i)
+Insert( H[1::n],key)
+// Assume the array Hstill has available
+space
+H[n+ 1] = key
+HeapifyUp( H,n+ 1)
+n=n+ 1
+Correctness?
+Time complexity?
+HeapifyUp takes O(h)time where his the height of the heap.h=O(logn).
+8 / 9
+
+Heap operations
+HeapifyUp( H,i)
+while i >1and H[i]> H[parent (i)]do
+swap H[i]andH[parent (i)]
+i=parent (i)
+Insert( H[1::n],key)
+// Assume the array Hstill has available
+space
+H[n+ 1] = key
+HeapifyUp( H,n+ 1)
+n=n+ 1
+Correctness?
+Time complexity?
+HeapifyUp takes O(h)time where his the height of the heap.
+h=O(logn).
+8 / 9

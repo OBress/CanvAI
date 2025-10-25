@@ -1,0 +1,1 @@
+Suman Saha's CMPSC 461 material introduces λ-Calculus Boolean concepts, covering bound versus free variables (with examples), useful rules, evaluation, evaluation order, β-reduction (with examples), and the encoding of Boolean values within λ-Calculus.

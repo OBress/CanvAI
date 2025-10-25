@@ -1,0 +1,545 @@
+Grammar
+Professor: Suman Saha
+CMPSC 461 – Programming Language Concepts
+
+
+Where we are?
+CMPSC 461 – Programming Language Concepts
+
+
+What is Syntax Analysis?
+•After lexical analysis (scanning), we have a series of tokens.
+•In Syntax analysis  (or parsing), we want to interpret what those tokens mean.
+•Goal: Recover the structure  describe by that series of tokens.
+•Goal: Report errors if those tokens do not properly encode a structure.
+CMPSC 461 – Programming Language Concepts
+
+Formal Languages
+•An alphabet  is a set Σ of symbols that act as letters.
+•A language  over Σ is a set of strings made from symbols in Σ.
+•When scanning, our alphabet was ASCII or Unicode characters. We produced 
+tokens.
+•When parsing, our alphabet is the set of tokens produced by the scanner.
+CMPSC 461 – Programming Language Concepts
+
+The Limits of Regular Languages
+•When scanning, we used regular expressions to define each token.
+•Unfortunately, regular expressions are (usually) too weak to define 
+programming languages.
+•Cannot define a regular expression matching all expressions with properly balanced 
+parentheses.
+•Cannot define a regular expression matching all functions with properly nested block 
+structure.
+•We need a more powerful formalism.
+CMPSC 461 – Programming Language Concepts
+
+
+Grammars
+•It is written in a metalanguage
+•It defines all the legal strings of characters that can form a syntactically valid 
+program
+CMPSC 461 – Programming Language Concepts
+
+Context -Free Grammars
+•Context -Free Grammars 
+– Developed by Noam Chomsky in the mid -1950s 
+– Describe the syntax of natural languages 
+– Define a class of languages called context -free languages 
+– Was originally designed for natural languages 
+CMPSC 461 – Programming Language Concepts
+
+Context -Free Grammars
+•Using the notation of Backus -Naur Form (BNF) to describe CFG
+•A grammar G <N, T, P, S> consists of the following
+•A finite set N of non -terminal symbols
+•A finite set T of terminal symbols, that is disjoint from N
+•A finite set P of production rules of the form
+    A → ω
+       where ω is a string of nonterminal and terminal
+•Start symbol
+CMPSC 461 – Programming Language Concepts
+
+
+Backus -Naur Form (BNF) Grammars
+•A rule has a left -hand side (LHS), one or more right -hand side (RHS), 
+and consists of terminal and nonterminal symbols
+•For instance
+•<binaryDigit > → 0
+•<binaryDigit > → 1
+•We can write <binaryDigit > → 0 | 1
+CMPSC 461 – Programming Language Concepts
+
+
+Extended BNF Grammar
+•Extended BNF simplifies writing a grammar by introducing metasymbols  for 
+iteration; option, and choice
+•BNF
+ <expr> :=   <expr> + <term>
+   |<expr> - <term> | <term>
+•EBNF
+ <expr> :=  <expr> {(+ | -) <term> } | <term>
+CMPSC 461 – Programming Language Concepts
+
+
+Extended BNF Grammar
+•BNF
+ <ifStmt > :=     if (<expr> )  <stmt >
+   |  if (<expr> ) <stmt > else <stmt >
+•EBNF
+ <ifStmt > := if (<expr> )  <stmt > [else <stmt >]
+CMPSC 461 – Programming Language Concepts
+
+
+Extended BNF Grammar
+•However, EBNF is any more powerful than BNF for formally describing 
+language syntax
+ A → x {y} z
+•Equivalent to
+ A → x A’ z
+ A’ → ε| y A’
+CMPSC 461 – Programming Language Concepts
+
+
+Derivation
+•To determine that the given string of symbols belongs to grammar 
+•A sequence of steps where nonterminals  are replaced by the right -hand side 
+of a production is called a derivation. 
+•Leftmost derivation
+•Rightmost derivation
+•Sentential form vs Sentence
+•Asentential form is any string derivable from the start symbol.
+•Asentence is a sentential form consisting only of terminals
+•If string α derives string ω, we write α ⇒* ω.
+CMPSC 461 – Programming Language Concepts
+
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+CMPSC 461 – Programming Language Concepts
+
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+CMPSC 461 – Programming Language Concepts
+
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer  → Integer Digit
+            
+CMPSC 461 – Programming Language Concepts
+
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer  Digit
+   → Integer Digit Digit
+         
+CMPSC 461 – Programming Language Concepts
+
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer  Digit Digit
+   → Digit Digit  Digit
+      
+CMPSC 461 – Programming Language Concepts
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer Digit Digit
+   → Digit  Digit  Digit
+   → 3 Digit Digit
+   
+CMPSC 461 – Programming Language Concepts
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer Digit Digit
+   → Digit Digit  Digit
+   → 3 Digit  Digit
+   → 3 5 Digit
+CMPSC 461 – Programming Language Concepts
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer Digit Digit
+   → Digit Digit  Digit
+   → 3 Digit Digit
+   → 3 5 Digit  → 352
+CMPSC 461 – Programming Language ConceptsWhat if I choose
+ 
+Integer → Digit
+
+
+Leftmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer Digit Digit
+   → Digit Digit  Digit
+   → 3 Digit Digit
+   → 3 5 Digit  → 352
+CMPSC 461 – Programming Language ConceptsInteger ⇒* 352
+
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer  → Integer Digit
+            
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer  2
+         
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer  2
+   → Integer Digit 2
+      
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer 2
+   → Integer Digit  2
+   → Integer  5 2
+   
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer 2
+   → Integer Digit 2
+   → Integer  5 2
+   → Digit 5 2
+   
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer 2
+   → Integer Digit 2
+   → Integer 5 2
+   → Digit  5 2
+   → 3 5 2
+   
+CMPSC 461 – Programming Language Concepts
+
+Rightmost Derivation
+•Say, we have grammar
+ Integer → Digit | Integer Digit
+ Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•352 is an Integer?
+ Integer → Integer Digit
+   → Integer 2
+   → Integer Digit 2
+   → Integer 5 2
+   → Digit  5 2
+   → 3 5 2
+   
+CMPSC 461 – Programming Language ConceptsInteger ⇒* 352
+
+Top Hat
+CMPSC 461 – Programming Language Concepts
+
+The Language of a Grammar
+•If G is a CFG with alphabet Σ and start symbol S, then the language of G  is 
+the set
+   L(G) = { ω∈Σ*|S ⇒* ω}
+•That is, L(G) is the set of strings derivable from the start symbol.
+•Note: ωmust be in Σ*, the set of strings made from terminals. String 
+involving nonterminals  aren’t in the language.
+CMPSC 461 – Programming Language Concepts
+
+
+Context -Free Languages
+•A language L is called a context -free language  (or CFL) if there is a CFG 
+G such that L = L(G).
+CMPSC 461 – Programming Language Concepts
+
+From Regexes to CFGs
+•CFGs consist purely of production rules of the form A → ω. They do not 
+have the regular expression operators * or ∪. 
+•However, we can convert regular expressions to CFGs as follows: 
+     S → a*b
+CMPSC 461 – Programming Language Concepts
+
+
+From Regexes to CFGs
+•CFGs consist purely of production rules of the form A → ω. They do not 
+have the regular expression operators * or ∪. 
+•However, we can convert regular expressions to CFGs as follows: 
+     S → Ab 
+     A → Aa | ε
+CMPSC 461 – Programming Language Concepts
+
+
+From Regexes to CFGs
+•CFGs consist purely of production rules of the form A → ω. They do not 
+have the regular expression operators * or ∪. 
+•However, we can convert regular expressions to CFGs as follows: 
+     S → a(b ∪ c*)  
+CMPSC 461 – Programming Language Concepts
+
+
+From Regexes to CFGs
+•CFGs consist purely of production rules of the form A → ω. They do not 
+have the regular expression operators * or ∪. 
+•However, we can convert regular expressions to CFGs as follows: 
+     S → aX
+     X → b | C 
+     C → C c | ε
+CMPSC 461 – Programming Language Concepts
+
+
+Regular Languages and CFLs
+•Theorem: Every regular language is context -free. 
+•Proof Idea: Use the construction from the previous slides to convert a 
+regular expression for L into a CFG for L. 
+•Problem Set Exercise: Instead, show how to convert a DFA/NFA into a 
+CFG
+CMPSC 461 – Programming Language Concepts
+
+The Language of a Grammar
+•Consider the following CFG G: 
+   S → aSb | ε 
+•What strings can this generate?
+CMPSC 461 – Programming Language ConceptsL(G) = { anbn | n ∈ ℕ }a a a a b b b b
+
+
+Designing CFGs
+•Like designing DFAs, NFAs, and regular expressions, designing CFGs is a 
+craft. 
+•When thinking about CFGs: 
+•Think recursively:  Build up bigger structures from smaller ones. 
+•Have a construction plan:  Know in what order you will build up the string. 
+•Store information in nonterminals : Have each nonterminal correspond to 
+some useful piece of information.
+CMPSC 461 – Programming Language Concepts
+
+Designing CFGs
+•Let Σ = { a, b} and let L = {w ∈ Σ* | w is a palindrome } 
+•We can design a CFG for L by thinking inductively: 
+•Base case: ε, a, and b are palindromes. 
+•If ω is a palindrome, then aωa and bωb are palindromes. 
+    S → ε|a | b | aSa | bSb 
+CMPSC 461 – Programming Language Concepts
+
+
+Designing CFGs
+•Let Σ = {  (, ) } and let L = {w ∈ Σ* | w is a string of balanced 
+parentheses } 
+•Some sample string in L
+((()))
+(())()
+(()())(()())
+((((()))(())))
+ε
+()()
+CMPSC 461 – Programming Language Concepts
+
+
+Designing CFGs
+•Let Σ = {  (, ) } and let L = {w ∈ Σ* | w is a string of balanced 
+parentheses } 
+•Let's think about this recursively. 
+•Base case:  the empty string is a string of balanced parentheses. 
+•Recursive step:  Look at the closing parenthesis that matches the first open 
+parenthesis. 
+    
+    ((()(()))(()))(())((()))
+CMPSC 461 – Programming Language Concepts
+
+
+Designing CFGs
+•Let Σ = {  (, ) } and let L = {w ∈ Σ* | w is a string of balanced 
+parentheses } 
+•Let's think about this recursively. 
+•Base case:  the empty string is a string of balanced parentheses. 
+•Recursive step:  Look at the closing parenthesis that matches the first open 
+parenthesis. Removing the first parenthesis and the matching parenthesis 
+forms two new strings of balanced parentheses. 
+     S → (S)S | ε 
+CMPSC 461 – Programming Language Concepts
+
+
+Designing CFGs: A Caveat
+•Let Σ = {  a, b } and let L = {w ∈ Σ* | w has the same number of a’s 
+and b’s } 
+•Is this a CFG for L? 
+   S → aSb | bSa | ε 
+•Can you derive the string abba ?
+CMPSC 461 – Programming Language Concepts
+
+
+Designing CFGs: A Caveat
+•When designing a CFG for a language, make sure that it 
+•generates all the strings in the language and 
+•never generates a string outside the language. 
+•The first of these can be tricky – make sure to test your grammars!
+CMPSC 461 – Programming Language Concepts
+
+CFG Caveats II
+•Is the following grammar a CFG for the language { anbn | n ∈ ℕ }? 
+    S → aSb 
+•What strings can you derive? 
+•Answer: None! 
+•What is the language of the grammar? 
+•Answer: Ø 
+•When designing CFGs, make sure your recursion terminates!
+CMPSC 461 – Programming Language Concepts
+
+
+CFG Caveats III
+•When designing CFGs, remember that each nonterminal can be 
+expanded out independently of the others.
+•Let Σ = {a, ≟} and let L = { an≟ an | n ∈ ℕ }. 
+•Is the following a CFG for L?
+CMPSC 461 – Programming Language ConceptsS → X≟X 
+X → aX | εS 
+⇒ X≟X 
+⇒ aX≟X 
+⇒ aaX≟X 
+⇒ aa≟X 
+⇒ aa≟aX 
+⇒ aa≟a
+
+
+Finding a Build Order
+•Let Σ = {a, ≟} and let L = { an≟ an | n ∈ ℕ }. 
+•To build a CFG for L, we need to be more clever with how we construct 
+the string. 
+•If we build the strings of a's independently of one another, then we can't 
+enforce that they have the same length. 
+•Idea: Build both strings of a's at the same time. 
+•Here's one possible grammar based on that idea:
+CMPSC 461 – Programming Language ConceptsS 
+⇒ aSa 
+⇒ aaSaa 
+⇒ aaaSaaa 
+⇒ aaa≟aaaS → ≟ | aSa
+
+
+Function Prototypes
+•Let Σ = { void, int, double, name, (, ), ,, ; }. 
+•Let's write a CFG for C -style function prototypes! 
+•Examples: 
+•void name(int name, double name); 
+•int name(); 
+•int name(double name); 
+•int name(int, int name, int); 
+•void name(void);
+CMPSC 461 – Programming Language Concepts
+
+
+Function Prototypes
+•Here's one possible grammar:  
+•S → Ret name ( Args ); 
+•Ret → Type | void 
+•Type → int | double 
+•Args  → ε|void | ArgList  
+•ArgList  → OneArg  | ArgList , OneArg  
+•OneArg  → Type | Type name 
+•Fun question to think about: what changes would you need to make to 
+support pointer types?
+CMPSC 461 – Programming Language Concepts
+
+
+CFGs for Programming Languages
+  BLOCK → STMT 
+    | { STMTS } 
+   STMTS → ε
+    |STMT STMTS 
+   STMT → EXPR ; 
+    | if (EXPR ) BLOCK 
+    | while ( EXPR ) BLOCK 
+    | do BLOCK while ( EXPR ); 
+    | BLOCK 
+    | … 
+   
+   EXPR → identifier  
+    | constant 
+    | EXPR + EXPR 
+    | EXPR – EXPR 
+    | EXPR * EXPR 
+    | ...
+CMPSC 461 – Programming Language Concepts
+
+
+Reading and Exercises
+Reading
+•Chapter: 2.2 (Michael Scott Book)
+CMPSC 461 – Programming Language Concepts
+
+References
+Lecture Materials of CS 103, Stanford University
+CMPSC 461 – Programming Language Concepts

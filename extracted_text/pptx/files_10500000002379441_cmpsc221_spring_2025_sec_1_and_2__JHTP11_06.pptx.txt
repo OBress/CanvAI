@@ -1,0 +1,500 @@
+Chapter 6Methods: A Deeper Look 
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.1  Introduction 
+
+Best way to develop and maintain a large program is to construct it from small, simple pieces, or modules. 
+divide and conquer. 
+Topics in this chapter
+static methods
+Method-call stack
+Simulation techniques with random-number generation.
+How to declare values that cannot change (i.e., constants) in your programs. 
+Method overloading.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.2  Program Units in Java 
+
+Java programs combine new methods and classes that you write with predefined methods and classes available in the Java Application Programming Interface and in other class libraries. 
+Related classes are typically grouped into packages so that they can be imported into programs and reused. 
+You’ll learn how to group your own classes into packages in Section 21.4.10. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.2  Program Units in Java (cont.) 
+
+Java 9 introduces another program unit called modules (Chapter 36).
+The Java API provides a rich collection of predefined classes that contain methods for performing common mathematical calculations, string manipulations, character manipulations, input/output operations, database operations, networking operations, file processing, error checking and more.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.2  Program Modules in Java (Cont.)
+
+Divide and Conquer with Classes and Methods
+Classes and methods help you modularize a program by separating its tasks into self-contained units. 
+Statements in method bodies
+Written only once
+Hidden from other methods
+Can be reused from several locations in a program
+Divide-and-conquer approach
+Constructing programs from small, simple pieces
+Software reusability
+Use existing classes and methods as building blocks to create new pro-grams. 
+Dividing a program into meaningful methods makes the program easier to debug and maintain.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.2  Program Modules in Java (Cont.)
+
+Hierarchical Relationship Between Method Calls
+Hierarchical form of management (Fig. 6.1). 
+A boss (the caller) asks a worker (the called method) to perform a task and report back (return) the results after completing the task. 
+The boss method does not know how the worker method performs its designated tasks. 
+The worker may also call other worker methods, unbeknown to the boss. 
+“Hiding” of implementation details promotes good software engineering. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math 
+
+Sometimes a method performs a task that does not depend on an object. 
+Applies to the class in which it’s declared as a whole 
+Known as a static method or a class method
+It’s common for classes to contain convenient static methods to perform common tasks. 
+To declare a method as static, place the keyword static before the return type in the method’s declaration. 
+Calling a static method 
+ClassName.methodName(arguments)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+Math Class Methods
+Class Math provides a collection of static methods that enable you to perform common mathematical calculations. 
+Method arguments may be constants, variables or expressions. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+Recall that each object of a class maintains its own copy of every instance variable of the class. 
+There are variables for which each object of a class does not need its own separate copy (as you’ll see momentarily). 
+Such variables are declared static and are also known as class variables. 
+When objects of a class containing static variables are created, all the objects of that class share one copy of those variables. 
+Together a class’s static variables and instance variables are known as its fields. 
+You’ll learn more about static fields in Section 8.11.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+Math Class static Constants PI and E
+Math fields for commonly used mathematical constants
+Math.PI (3.141592653589793)
+Math.E (2.718281828459045)
+Declared in class Math with the modifiers public, final and static
+public allows you to use these fields in your own classes. 
+A field declared with keyword final is constant—its value cannot change after the field is initialized. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.3  static Methods, static Fields and Class Math (Cont.)
+
+Why is method main declared static?
+The JVM attempts to invoke the main method of the class you specify—at this point no objects of the class have been created. 
+Declaring main as static allows the JVM to invoke main without creating an instance of the class. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.4  Declaring Methods with Multiple Parameters
+
+Multiple parameters are specified as a comma-separated list. 
+There must be one argument in the method call for each parameter (sometimes called a formal parameter) in the method declaration. 
+Each argument must be consistent with the type of the corresponding parameter. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.4  Declaring Methods with Multiple Parameters (Cont.)
+
+Implementing method maximum by reusing method Math.max 
+Two calls to Math.max, as follows:
+return Math.max(x, Math.max( y, z ));
+The first specifies arguments x and Math.max(y, z). 
+Before any method can be called, its arguments must be evaluated to determine their values. 
+If an argument is a method call, the method call must be performed to determine its return value. 
+The result of the first call is passed as the second argument to the other call, which returns the larger of its two arguments. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.4  Declaring Methods with Multiple Parameters (Cont.)
+
+Assembling Strings with String Concatenation
+String concatenation 
+Assemble String objects into larger strings with operators + or +=. 
+When both operands of operator + are Strings, operator + creates a new String object 
+characters of the right operand are placed at the end of those in the left operand
+Every primitive value and object in Java can be represented as a String. 
+When one of the + operator’s operands is a String, the other is converted to a String, then the two are concatenated. 
+If a boolean is concatenated with a String, the boolean is converted to the String "true" or "false". 
+All objects have a toString method that returns a String representation of the object. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.5  Notes on Declaring and Using Methods
+
+Three ways to call a method: 
+Using a method name by itself to call another method of the same class
+Using a variable that contains a reference to an object, followed by a dot (.) and the method name to call a method of the referenced object
+Using the class name and a dot (.) to call a static method of a class
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.5  Notes on Declaring and Using Methods (Cont.)
+
+Three ways to return control to the statement that calls a method: 
+When the program flow reaches the method-ending right brace 
+When the following statement executes
+	return;
+When the method returns a result with a statement like
+	return expression;
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.5  Notes on Declaring and Using Methods (Cont.)
+
+Non-static methods are typically called instance methods. 
+A static method can call other static methods of the same class directly and can manipulate static variables in the same class directly. 
+To access the class’s instance variables and instance methods, a static method must use a reference to an object of the class. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.6  Method-Call Stack and and Activation Records 
+
+Stack data structure 
+Analogous to a pile of dishes 
+A dish is placed on the pile at the top (referred to as pushing the dish onto the stack). 
+A dish is removed from the pile from the top (referred to as popping the dish off the stack). 
+Last-in, first-out (LIFO) data structures
+The last item pushed onto the stack is the first item popped from the stack. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.6  Method-Call Stack and Activation Records (cont.)
+
+Method-Call Stack
+One of the most important mechanisms for computer science students to understand is the method-call stack (or program-execution stack).
+supports the method call/return mechanism.
+Also supports the creation, maintenance and destruction of each called method’s local  variables.
+
+©1992-2017 by Pearson Education, Inc. All Rights Reserved.
+
+6.6  Method-Call Stack and Activation Records (cont.)
+
+Stack Frames
+Each method eventually must return control to the function that called it.
+Each time a method calls another method, an entry is pushed onto the method call stack.
+This entry, called a stack frame or an activation record, contains the return address that the called method needs in order to return to the calling method.
+
+
+©1992-2017 by Pearson Education, Inc. All Rights Reserved.
+
+6.6  Method-Call Stack and Activation Records (cont.)
+
+Local Variables and Stack Frames
+When a method call returns, the stack frame for the method call is popped, and control transfers to the return address in the popped stack frame.
+Stack Overflow
+The amount of memory in a computer is finite, so only a certain amount of memory can be used to store activation records on the method call stack. 
+If more method calls occur than can have their activation records stored on the method call stack, an a fatal error known as stack overflow occurs.
+
+©1992-2017 by Pearson Education, Inc. All Rights Reserved.
+
+6.7  Argument Promotion and Casting
+
+Argument promotion
+Converting an argument’s value, if possible, to the type that the method expects to receive in its corresponding parameter. 
+Conversions may lead to compilation errors if Java’s promotion rules are not satisfied. 
+Promotion rules 
+specify which conversions are allowed.
+apply to expressions containing values of two or more primitive types and to primitive-type values passed as arguments to methods. 
+Each value is promoted to the “highest” type in the expression. 
+Figure 6.4 lists the primitive types and the types to which each can be promoted. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.7  Argument Promotion and Casting (Cont.)
+
+Converting values to types lower in the table of Fig. 6.4 will result in different values if the lower type cannot represent the value of the higher type
+In cases where information may be lost due to conversion, the Java compiler requires you to use a cast operator to explicitly force the conversion to occur—otherwise a compilation error occurs. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.8  Java API Packages
+
+Java contains many predefined classes that are grouped into categories of related classes called packages. 
+A great strength of Java is the Java API’s thousands of classes. 
+Some key Java API packages that we use in this book are described in Fig. 6.5. 
+Overview of the packages in Java: 
+http://docs.oracle.com/javase/7/docs/api/overview-summary.html
+http://download.java.net/jdk8/docs/api/overview-summary.html
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.9  Case Study: Secure Random-Number Generation
+
+Simulation and game playing
+element of chance
+Class SecureRandom (package java.security) 
+Such objects can produce random boolean, byte, float, double, int, long and Gaussian values
+SecureRandom objects produce nondeterministic random numbers that cannot be predicted. 
+Documentation for class SecureRandom
+docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.9  Case Study: Random-Number Generation (Cont.)
+
+The range of values produced by SecureRandom method nextInt often differs from the range of values required in a particular Java application. 
+SecureRandom method nextInt that receives an int argument returns a value from 0 up to, but not including, the argument’s value. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.9  Case Study: Random-Number Generation (Cont.)
+
+Rolling a Six-Sided Die
+int face = 1 + randomNumbers.nextInt(6);
+The argument 6—called the scaling factor—represents the number of unique values that nextInt should produce (0–5)
+This is called scaling the range of values
+A six-sided die has the numbers 1–6 on its faces, not 0–5. 
+We shift the range of numbers produced by adding a shifting value—in this case 1—to our previous result, as in 
+The shifting value (1) specifies the first value in the desired range of random integers. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.9  Case Study: Random-Number Generation (Cont.)
+
+To show that the numbers produced by nextInt occur with approximately equal likelihood, let’s simulate 60,000,000 rolls of a die with the application in Fig. 6.7. 
+Each integer from 1 to 6 should appear approximately 10,000,000 times. 
+We used the _ digit separator to make the int value 60_000_000 more readable. 
+Note that this example might take several seconds to execute.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.10  Case Study: A Game of Chance; Introducing enum Types
+
+Basic rules for the dice game Craps:
+You roll two dice. Each die has six faces, which contain one, two, three, four, five and six spots, respectively. After the dice have come to rest, the sum of the spots on the two upward faces is calculated. If the sum is 7 or 11 on the first throw, you win. If the sum is 2, 3 or 12 on the first throw (called “craps”), you lose (i.e., the “house” wins). If the sum is 4, 5, 6, 8, 9 or 10 on the first throw, that sum becomes your “point.” To win, you must continue rolling the dice until you “make your point” (i.e., roll that same point value). You lose by rolling a 7 before making your point. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.10  Case Study: A Game of Chance; Introducing enum Types (Cont.)
+
+Notes:
+myPoint is initialized to 0 to ensure that the application will compile. 
+If you do not initialize myPoint, the compiler issues an error, because myPoint is not assigned a value in every case of the switch statement, and thus the program could try to use myPoint before it is assigned a value. 
+gameStatus is assigned a value in every case of the switch statement (including the default case)—thus, it’s guaranteed to be initialized before it’s used, so we do not need to initialize it.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.10  Case Study: A Game of Chance; Introducing Enumerations (Cont.)
+
+enum type Status 
+An enum type in its simplest form declares a set of constants represented by identifiers. 
+Special kind of class that is introduced by the keyword enum and a type name.
+Braces delimit an enum declaration’s body. 
+Inside the braces is a comma-separated list of enum constants, each representing a unique value. 
+The identifiers in an enum must be unique. 
+Variables of an enum type can be assigned only the constants declared in the enum. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.10  Case Study: A Game of Chance; Introducing Enumerations (Cont.)
+
+Why Some Constants Are Not Defined as enum Constants
+Java does not allow an int to be compared to an enum constant. 
+Java does not provide an easy way to convert an int value to a particular enum constant. 
+Translating an int into an enum constant could be done with a separate switch statement. 
+This would be cumbersome and would not improve the readability of the program (thus defeating the purpose of using an enum).
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.11  Scope of Declarations 
+
+Declarations introduce names that can be used to refer to such Java entities. 
+The scope of a declaration is the portion of the program that can refer to the declared entity by its name. 
+Such an entity is said to be “in scope” for that portion of the program. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.11  Scope of Declarations (Cont.)
+
+Basic scope rules:
+The scope of a parameter declaration is the body of the method in which the declaration appears. 
+The scope of a local-variable declaration is from the point at which the declaration appears to the end of that block. 
+The scope of a local-variable declaration that appears in the initialization section of a for statement’s header is the body of the for statement and the other expressions in the header. 
+A method or field’s scope is the entire body of the class. 
+Any block may contain variable declarations. 
+If a local variable or parameter in a method has the same name as a field of the class, the field is hidden until the block terminates execution—this is called shadowing. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.12  Method Overloading
+
+Method overloading 
+Methods of the same name declared in the same class
+Must have different sets of parameters
+Compiler selects the appropriate method to call by examining the number, types and order of the arguments in the call. 
+Used to create several methods with the same name that perform the same or similar tasks, but on different types or different numbers of arguments. 
+Literal integer values are treated as type int, so the method call in line 9 invokes the version of square that specifies an int parameter. 
+Literal floating-point values are treated as type double, so the method call in line 10 invokes the version of square that specifies a double parameter. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.12  Method Overloading (cont.)
+
+Distinguishing Between Overloaded Methods
+The compiler distinguishes overloaded methods by their signatures—the methods’ name and the number, types and order of its parameters. 
+Return types of overloaded methods
+Method calls cannot be distinguished by return type. 
+Figure 6.10 illustrates the errors generated when two methods have the same signature and different return types. 
+Overloaded methods can have different return types if the methods have different parameter lists. 
+Overloaded methods need not have the same number of parameters. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+6.13  (Optional) GUI and Graphics Case Study: Colors and Filled Shapes
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

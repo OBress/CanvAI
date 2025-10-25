@@ -1,0 +1,1813 @@
+Chapter 4: network layer
+
+chapter goals: 
+understand principles behind network layer services, focusing on data plane:
+network layer service models
+forwarding versus routing
+how a router works
+generalized forwarding
+instantiation, implementation in the Internet
+
+4-1
+
+Network Layer: Data Plane
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-2
+
+Network Layer: Data Plane
+
+Network layer
+
+transport segment from sending to receiving host 
+network layer protocols in every host, router
+
+Two key network-layer functions:
+routing: determine the path to take
+forwarding: move packets from a router’s input port to appropriate output port
+
+
+4-3
+
+Network Layer: Data Plane
+
+Network layer: data plane, control plane
+
+Data plane
+forwarding function
+local, per-router function
+“which output port to forward this datagram to?”
+
+Control plane
+routing function
+network-wide logic
+“which path to take to reach the destination host?”
+two control-plane architectures:
+per-router control plane (traditional)
+logically centralized control plane (software-defined networking (SDN))
+
+
+
+4-4
+
+Network Layer: Data Plane
+
+Per-router control plane
+
+Individual routing algorithm components in each and every router interact in the control plane
+
+5-5
+
+Network Layer: Control Plane
+
+1
+
+2
+
+values in arriving 
+packet header
+
+3
+
+Logically centralized control plane
+
+A distinct (typically remote) controller interacts with local control agents (CAs)
+
+5-6
+
+Network Layer: Control Plane
+
+values in arriving 
+packet header
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-7
+
+Network Layer: Data Plane
+
+Router architecture overview
+
+routing 
+processor
+
+router input ports
+
+router output ports
+
+forwarding data plane  (hardware) operates in nanosecond timeframe
+
+routing, management
+control plane (software)
+operates in millisecond 
+time frame
+
+high-level view of generic router architecture:
+
+4-8
+
+Network Layer: Data Plane
+
+line
+termination
+
+link 
+layer 
+protocol
+(receive)
+
+lookup,
+forwarding
+
+
+queueing
+
+Input port functions
+
+decentralized switching: 
+using header field values, lookup output port using forwarding table in input port memory (“match plus action”)
+
+physical layer:
+bit-level reception
+
+data link layer:
+e.g., Ethernet
+see chapter 5
+
+switch
+fabric
+
+4-9
+
+Network Layer: Data Plane
+
+packet can be dropped due to detected error
+
+line
+termination
+
+link 
+layer 
+protocol
+(receive)
+
+lookup,
+forwarding
+
+
+queueing
+
+Input port functions
+
+decentralized switching: 
+using header field values, lookup output port using forwarding table in input port memory (“match plus action”)
+destination-based forwarding: forward based only on destination IP address (traditional)
+generalized forwarding: forward based on any set of header field values
+
+physical layer:
+bit-level reception
+
+data link layer:
+e.g., Ethernet
+see chapter 5
+
+switch
+fabric
+
+4-10
+
+Network Layer: Data Plane
+
+packet can be dropped due to detected error
+
+Destination Address Range
+
+11001000 00010111 00010000 00000000
+through                                 
+11001000 00010111 00010111 11111111
+
+11001000 00010111 00011000 00000000
+through
+11001000 00010111 00011000 11111111  
+
+11001000 00010111 00011001 00000000
+through
+11001000 00010111 00011111 11111111  
+
+otherwise
+
+Link Interface
+
+
+0
+
+
+
+1
+
+
+
+2
+
+
+3  
+
+
+Q: but what happens if ranges don’t divide up so nicely? 
+
+Destination-based forwarding
+
+forwarding table
+
+4-11
+
+Network Layer: Data Plane
+
+Longest prefix matching
+
+Destination Address Range                        
+11001000 00010111 00010*** ********* 
+11001000 00010111 00011000 *********
+11001000 00010111 00011*** *********
+otherwise             
+
+DA: 11001000  00010111  00011000  10101010 
+
+examples:
+
+DA: 11001000  00010111  00010110  10100001 
+
+which interface?
+
+which interface?
+
+when looking for forwarding table entry for given destination address, use longest address prefix that matches destination address.
+
+longest prefix matching
+
+Link interface
+0
+1
+2
+3
+
+4-12
+
+Network Layer: Data Plane
+
+Longest prefix matching
+
+we’ll see why longest prefix matching is used shortly, when we study addressing
+longest prefix matching: often performed using ternary content addressable memories (TCAMs)
+content addressable: present address to TCAM: retrieve address in one clock cycle, regardless of table size
+Cisco Catalyst: can up ~1M routing table entries in TCAM
+
+4-13
+
+Network Layer: Data Plane
+
+Review
+
+Network layer basics: 
+2 key network layer functions
+Data plane vs. control plane
+Per-router control plane vs. logically centralized control plane
+Service model
+Router:
+Router architecture
+Longest prefix matching
+
+Network Layer
+
+4-14
+
+Switching fabrics
+
+“switch” packet from input buffer to appropriate output buffer
+switching rate: rate at which packets can be transfer from inputs to outputs
+N inputs: switching rate N times line rate desirable
+three types of switching fabrics
+
+4-15
+
+Network Layer: Data Plane
+
+Switching via memory
+
+first generation routers:
+traditional computers with switching under direct control of CPU
+packet copied to system’s memory
+ speed limited by memory bandwidth (2 bus crossings per datagram)
+
+4-16
+
+Network Layer: Data Plane
+
+Switching via a bus
+
+datagram from input port memory
+    to output port memory via a shared bus
+bus contention:  switching speed limited by bus bandwidth
+32 Gbps bus, Cisco 6500: sufficient speed for access and enterprise routers
+
+bus
+
+4-17
+
+Network Layer: Data Plane
+
+Switching via interconnection network
+
+banyan networks, crossbar, other interconnection nets initially developed to connect processors in multiprocessor
+advanced design: fragmenting datagram into fixed length cells, switch cells through the fabric. 
+Cisco 12000: switches 60 Gbps through the interconnection network
+
+4-18
+
+Network Layer: Data Plane
+
+Output port functions
+
+queueing required when datagrams arrive from fabric faster than the transmission rate
+
+
+
+scheduling discipline chooses among queued datagrams for transmission
+
+line
+termination
+
+link 
+layer 
+protocol
+(send)
+
+switch
+fabric
+
+Datagram (packets) can be dropped due to buffer overflow
+
+important for performance (delay) & fairness
+
+4-19
+
+Network Layer: Data Plane
+
+Input/output port queueing
+
+switching fabric is slower than input ports combined  queueing may occur at input ports (rare)
+output link is slower than switching fabric  queueing may occur at output ports (common!)
+queueing causes delays and losses (due to buffer overflow)!
+
+
+4-20
+
+Network Layer: Data Plane
+
+Scheduling policies
+
+scheduling: choose next packet to send on link
+FIFO (first in first out) scheduling: send in order of arrival to queue
+
+queue
+(waiting area)
+
+packet
+arrivals
+
+packet
+departures
+
+link
+ (server)
+
+4-21
+
+Network Layer: Data Plane
+
+Scheduling policies: priority
+
+priority scheduling: send highest priority queued packet 
+multiple classes, with different priorities
+class may depend on marking or other header info, e.g. IP source/dest, port numbers, etc.
+real world example? 
+
+arrivals
+
+departures
+
+packet in service
+
+4-22
+
+Network Layer: Data Plane
+
+FCC to propose rules for net neutrality that ban internet providers from blocking websites | CNN Business
+
+Scheduling policies: still more
+
+Round Robin (RR) scheduling:
+multiple classes
+cyclically scan class queues, sending one complete packet from each class (if available)
+
+2
+
+3
+
+3
+
+arrivals
+
+departures
+
+packet in service
+
+4-23
+
+Network Layer: Data Plane
+
+Weighted Fair Queuing (WFQ): 
+generalized Round Robin
+each class gets weighted amount of service in each cycle
+
+
+Scheduling policies: still more
+
+4-24
+
+Network Layer: Data Plane
+
+4 main components of a router
+Input ports, output ports, routing processor, switching fabric
+3 types of switching fabrics
+Memory-based, bus-based, interconnection network-based
+3 key functions at input/output ports
+line termination, link layer protocol, table lookup/queueing
+4 scheduling policies
+FIFO, priority, RR, WFQ
+
+
+4-25
+
+Review
+
+Network Layer: Data Plane
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-26
+
+Network Layer: Data Plane
+
+IP datagram format
+
+how much overhead?
+20 bytes of TCP
+20 bytes of IP
+= 40 bytes + app layer overhead
+
+4-27
+
+Network Layer: Data Plane
+
+IP fragmentation, reassembly
+
+network links have MTU (max. transmission unit) – largest payload size (#bytes) of a link-layer frame
+different link types, different MTUs 
+large IP datagram divided (“fragmented”) within net
+one datagram becomes several datagrams
+“reassembled” only at final destination
+IP header bits used to identify, order related fragments
+
+fragmentation: 
+in: one large datagram
+out: 3 smaller datagrams
+
+4-28
+
+Network Layer: Data Plane
+
+example:
+4000-byte datagram
+MTU = 1500 bytes
+Both include 20 bytes of IP header
+
+
+
+IP fragmentation, reassembly
+
+4-29
+
+Network Layer: Data Plane
+
+example:
+4000 byte datagram
+MTU = 1500 bytes
+
+
+1480 bytes in data field
+
+offset =
+1480/8 
+
+IP fragmentation, reassembly
+
+4-30
+
+Network Layer: Data Plane
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-31
+
+Network Layer: Data Plane
+
+IP addressing: introduction
+
+IP address: 32-bit identifier for host, router interface 
+interface: connection between host/router and physical link
+router’s typically have multiple interfaces
+host typically has one or two interfaces (e.g., wired Ethernet, wireless 802.11)
+IP addresses associated with each interface
+
+223.1.1.1
+
+223.1.1.3
+
+223.1.1.4
+
+223.1.2.9
+
+223.1.2.2
+
+223.1.2.1
+
+223.1.3.2
+
+223.1.3.1
+
+223.1.1.1 = 11011111 00000001 00000001 00000001
+
+223
+
+1
+
+1
+
+1
+
+4-32
+
+Network Layer: Data Plane
+
+
+
+
+IP address: 
+subnet part - high order bits shared by interfaces in the same subnet
+host part - low order bits 
+
+
+subnet mask: /24
+
+Subnets
+
+4-33
+
+Network Layer: Data Plane
+
+Subnets
+
+What’s a subnet ?
+device interfaces that can physically reach each other without intervening router
+recipe
+detach each interface from its host or router
+each isolated network is called a subnet
+
+
+network consisting of 3 subnets
+
+223.1.1.1
+
+223.1.1.3
+
+223.1.1.4
+
+223.1.2.9
+
+223.1.3.2
+
+223.1.3.1
+
+223.1.1.2
+
+223.1.3.27
+
+223.1.2.2
+
+223.1.2.1
+
+4-34
+
+Network Layer: Data Plane
+
+how many?
+
+223.1.1.1
+
+223.1.1.3
+
+223.1.1.4
+
+223.1.2.2
+
+223.1.2.1
+
+223.1.2.6
+
+223.1.3.2
+
+223.1.3.1
+
+223.1.3.27
+
+223.1.1.2
+
+223.1.7.0
+
+223.1.7.1
+
+223.1.8.0
+
+223.1.8.1
+
+223.1.9.1
+
+223.1.9.2
+
+Subnets
+
+4-35
+
+Network Layer: Data Plane
+
+Review
+
+IP (v4):
+Datagram format
+IP fragmentation (why? how supported by header fields?)
+Subnet
+What is an IP address associated with?
+How to define a “subnet”?
+
+Network Layer
+
+4-36
+
+IP addressing: CIDR
+
+CIDR: Classless InterDomain Routing
+subnet portion of address of arbitrary length
+address format: a.b.c.d/x, where x is # bits in subnet portion of address
+
+11001000  00010111  00010000  00000000
+
+subnet
+part
+
+host
+part
+
+200.23.16.0/23
+
+4-37
+
+Network Layer: Data Plane
+
+Q: Is IP address 200.23.17.1 within this subset?
+
+
+
+
+Q1: what are all possible subnet addresses of subnet 3?
+
+Q2: how many hosts are supported in subnet 3 using each of the above addresses?
+
+Exercise
+
+4-38
+
+Network Layer: Data Plane
+
+A: 
+Subnet address	#IP addresses
+223.1.3.0/24	232-24 = 256 
+223.1.3.0/25	232-25 = 128
+223.1.3.0/26	232-26 = 64
+223.1.3.0/27	232-27 = 32
+
+IP addresses: how to get one?
+
+Q: How does a host get IP address?
+
+A1: hard-coded by system admin in a file
+Windows: control panel → network → configuration → tcp/ip → properties
+UNIX: /etc/rc.config
+
+A2: DHCP (Dynamic Host Configuration Protocol): dynamically get address from as server
+“plug-and-play” 
+
+
+
+4-39
+
+Network Layer: Data Plane
+
+DHCP: Dynamic Host Configuration Protocol
+
+goal: allow host to dynamically obtain its IP address from network server when it joins network
+can renew its lease on address in use
+allows reuse of addresses (only hold address while connected/“on”)
+support for mobile users who want to join network 
+DHCP overview:
+host broadcasts “DHCP discover” msg [optional]
+DHCP server responds with “DHCP offer” msg [optional]
+host requests IP address: “DHCP request” msg
+DHCP server sends address: “DHCP ack” msg 
+
+
+4-40
+
+Network Layer: Data Plane
+
+An application-layer protocol that runs over UDP
+
+DHCP client-server scenario
+
+223.1.1.0/24
+
+223.1.2.0/24
+
+223.1.3.0/24
+
+223.1.1.1
+
+223.1.1.3
+
+223.1.1.4
+
+223.1.2.9
+
+223.1.3.2
+
+223.1.3.1
+
+223.1.1.2
+
+223.1.3.27
+
+223.1.2.2
+
+223.1.2.1
+
+DHCP
+server
+
+arriving DHCP
+client needs 
+address in this
+network
+
+4-41
+
+Network Layer: Data Plane
+
+DHCP server: 223.1.2.5
+
+arriving
+ client
+
+DHCP client-server scenario
+
+4-42
+
+Network Layer: Data Plane
+
+DHCP: more than IP addresses
+
+DHCP can return more than just allocated IP address on subnet:
+address of first-hop router for client
+name and IP address of local DNS sever
+subnet mask (indicating subnet versus host portion of address)
+
+4-43
+
+Network Layer: Data Plane
+
+IP addresses: how to get one?
+
+Q: how does network get subnet part of IP addr?
+A: gets allocated portion of its provider ISP’s address space
+
+ISP's block          11001000  00010111  00010000  00000000    200.23.16.0/20 
+
+Organization 0    11001000  00010111  00010000  00000000    200.23.16.0/23 
+Organization 1    11001000  00010111  00010010  00000000    200.23.18.0/23 
+Organization 2    11001000  00010111  00010100  00000000    200.23.20.0/23 
+   ...                                          …..                                   ….                ….
+Organization 7    11001000  00010111  00011110  00000000    200.23.30.0/23 
+
+
+4-44
+
+Network Layer: Data Plane
+
+Hierarchical addressing: route aggregation
+
+“Send me anything
+with addresses 
+beginning 
+200.23.16.0/20”
+
+Fly-By-Night-ISP
+
+Organization 0
+
+Organization 7
+
+Internet
+
+Organization 1
+
+ISPs-R-Us
+
+“Send me anything
+with addresses 
+beginning 
+199.31.0.0/16”
+
+Organization 2
+
+hierarchical addressing allows efficient advertisement of routing 
+information:
+
+4-45
+
+Network Layer: Data Plane
+
+ISPs-R-Us has a more specific route to Organization 1
+→ longer prefix wins
+
+“Send me anything
+with addresses 
+beginning 
+200.23.16.0/20”
+
+Fly-By-Night-ISP
+
+Organization 0
+
+Organization 7
+
+Internet
+
+Organization 1
+
+ISPs-R-Us
+
+“Send me anything
+with addresses 
+beginning 199.31.0.0/16
+or 200.23.18.0/23”
+
+Organization 2
+
+Hierarchical addressing: more specific routes
+
+4-46
+
+Network Layer: Data Plane
+
+IP addressing: the last word...
+
+Q: how does an ISP get block of addresses?
+A: ICANN: Internet Corporation for Assigned 
+     Names and Numbers http://www.icann.org/
+allocates addresses
+manages DNS
+assigns domain names, resolves disputes
+
+4-47
+
+Network Layer: Data Plane
+
+Review
+
+CIDR:
+How many hosts are in a 203.12.0.0/23 subnet?
+DHCP:
+How does a host obtain an IP address? 
+Hierarchical addressing:
+How does an organizational/ISP network obtain its block of IP addresses?
+Why is forwarding based on “longest prefix matching”?
+
+
+Network Layer
+
+4-48
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-49
+
+Network Layer: Data Plane
+
+NAT: network address translation
+
+10.0.0.1
+
+10.0.0.2
+
+10.0.0.3
+
+10.0.0.4
+
+138.76.29.7
+
+local network
+(e.g., home network)
+10.0.0/24
+
+rest of
+Internet
+
+datagrams with source or 
+destination in this network
+have 10.0.0/24 address for 
+source, destination (as usual)
+
+all datagrams leaving local
+network have same single source NAT IP address: 138.76.29.7,different source port numbers
+
+4-50
+
+Network Layer: Data Plane
+
+   implementation: NAT router must:
+outgoing datagrams: replace (source IP address, port #) of every outgoing datagram to (NAT IP address, new port #)
+. . . remote clients/servers will respond using (NAT IP address, new port #) as destination addr
+remember (in NAT translation table) every (source IP address, port #)  to (NAT IP address, new port #) translation pair
+incoming datagrams: replace (NAT IP address, new port #) in dest fields of every incoming datagram with corresponding (source IP address, port #) stored in NAT table
+
+
+NAT: network address translation
+
+4-51
+
+Network Layer: Data Plane
+
+10.0.0.1
+
+10.0.0.2
+
+10.0.0.3
+
+10.0.0.4
+
+138.76.29.7
+
+NAT translation table
+WAN side addr        LAN side addr
+
+138.76.29.7, 5001   10.0.0.1, 3345
+……                                         ……
+
+3: reply arrives
+ dest. address:
+ 138.76.29.7, 5001
+
+4: NAT router
+changes datagram
+dest addr from
+138.76.29.7, 5001 to 10.0.0.1, 3345 
+
+
+NAT: network address translation
+
+4-52
+
+Network Layer: Data Plane
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+16-bit port-number field: 
+~ 60,000 simultaneous connections with a single LAN-side address!
+NAT is controversial:
+routers should only process up to layer 3
+address shortage should be solved by IPv6
+NAT traversal: what if client wants to connect to server behind NAT?
+
+
+NAT: network address translation
+
+4-53
+
+Network Layer: Data Plane
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-54
+
+Network Layer: Data Plane
+
+IPv6: motivation
+
+primary motivation: 32-bit address space soon to be completely allocated.  
+additional motivation:
+header format helps speed processing/forwarding
+header changes to facilitate QoS 
+
+IPv6 datagram format: 
+fixed-length 40 byte header
+
+4-55
+
+Network Layer: Data Plane
+
+IPv6 datagram format
+
+4-56
+
+Network Layer: Data Plane
+
+IPv4 
+
++flow Label: identify datagrams in same “flow.” 
+-fragmentation: only performed by the source
+-checksum: removed to reduce processing time at each hop
+-options: allowed, but outside of header, indicated by “next hdr”
+ 
+
+IPv6 datagram format: more on fragmentation
+
+4-57
+
+Network Layer: Data Plane
+
+-fragmentation: only performed by the source
+
+How: 
+Either use IPv6 default minimum MTU of 1280 bytes
+Or use Path MTU Discovery based on ICMPv6 “packet too big” message
+
+
+
+
+
+ICMPv6 Fields: 
+Type	2 
+Code	Set to 0 (zero) by the originator and ignored by the receiver. 
+MTU	The Maximum Transmission Unit of the next-hop link. 
+
+Transition from IPv4 to IPv6
+
+not all routers can be upgraded simultaneously
+no “flag days”
+how will network operate with mixed IPv4 and IPv6 routers? 
+tunneling: IPv6 datagram carried as payload in IPv4 datagram among IPv4 routers
+
+IPv4 source, dest addr 
+
+IPv4 header fields 
+
+IPv4 datagram
+
+IPv6 datagram
+
+4-58
+
+Network Layer: Data Plane
+
+Tunneling
+
+physical view:
+
+IPv4
+
+IPv4
+
+C
+
+D
+
+4-59
+
+Network Layer: Data Plane
+
+physical view:
+
+C
+
+D
+
+Tunneling
+
+IPv4
+
+IPv4
+
+4-60
+
+Network Layer: Data Plane
+
+IPv6: adoption
+
+By 2015, (latest stats: https://www.google.com/intl/en/ipv6/statistics.html)
+Google: 8% of clients access services via IPv6 
+NIST: 1/3 of all US government domains are IPv6 capable
+
+
+
+
+
+
+
+Long time for deployment (why?)
+ 20 years and counting!
+ think of application-level changes in last 20 years: WWW, Facebook, streaming media, Skype, …
+
+4-61
+
+Network Layer: Data Plane
+
+42M IP addresses, 33 M IP links, 40K ASes
+
+71K IPv6 addresses, 186K IPv6 links, 5K ASes
+
+Review
+
+NAT:
+motivation, mechanism
+IPv6 vs. IPv4
+Key differences
+Compatibility: IPv6-inside-IPv4 tunneling
+
+Network Layer
+
+4-62
+
+4.1 Overview of Network layer
+data plane
+control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+network address translation
+IPv6
+
+4.4 Generalized Forward and SDN
+match
+action
+OpenFlow  examples of match-plus-action in action
+
+
+Chapter 4: outline
+
+4-63
+
+Network Layer: Data Plane
+
+Generalized Forwarding and SDN
+
+2
+
+3
+
+0100 1101
+
+values in arriving
+packet’s header
+
+1
+
+control plane
+
+data plane
+
+Each router contains a flow table that is computed and distributed by a logically centralized routing controller
+
+4-64
+
+Network Layer: Data Plane
+
+OpenFlow data plane abstraction
+
+flow: defined by header fields
+generalized forwarding: simple packet-handling rules
+Match: values in packet header fields
+Actions: drop/forward/modify matched packet, or send matched packet to controller 
+Counters: #bytes and #packets
+Priority: disambiguate overlapping patterns
+
+
+Flow table in a router (computed and distributed by controller) define router’s match+action rules
+
+4-65
+
+Network Layer: Data Plane
+
+OpenFlow data plane abstraction
+
+flow: defined by header fields
+generalized forwarding: simple packet-handling rules
+Match: values in packet header fields
+Actions: drop/forward/modify matched packet, or send matched packet to controller 
+Counters: #bytes and #packets
+Priority: disambiguate overlapping patterns
+
+src=1.2.*.*, dest=3.4.5.*  drop                        
+src = *.*.*.*, dest=3.4.*.*  forward(2)
+3.  src=10.1.2.3, dest=*.*.*.*  send to controller
+
+* : wildcard
+
+OpenFlow: Flow Table Entries
+
+Switch
+Port
+
+MAC
+src
+
+MAC
+dst
+
+Eth
+type
+
+VLAN
+ID
+
+IP
+Src
+
+IP
+Dst
+
+IP
+Prot
+
+TCP
+sport
+
+TCP
+dport
+
+Match
+
+Action
+
+Stats
+
+Forward packet to port(s)
+Encapsulate and forward to controller
+Drop packet
+Send to normal processing pipeline
+Modify Fields
+
+Packet + byte counters
+
+Link layer
+
+Network layer
+
+Transport layer
+
+Destination IP-based forwarding (router):
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+51.6.0.8
+
+*
+
+*
+
+*
+
+port6
+
+Examples
+
+IP datagrams destined to IP address  51.6.0.8 should be forwarded to output port 6 
+
+Destination MAC-based forwarding (switch):
+
+*
+
+22:A7:23:
+11:E1:02
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+port3
+
+layer 2 frames from MAC address 22:A7:23:11:E1:02 should be forwarded to output port 3 
+
+*
+
+Examples
+
+4-69
+
+Network Layer: Data Plane
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+*
+
+22
+
+drop
+
+Firewall:
+
+do not forward datagrams destined to port 22 (block SSH)
+
+*
+
+*
+
+*
+
+*
+
+*
+
+128.119.1.1
+
+*
+
+*
+
+*
+
+*
+
+drop
+
+do not forward datagrams sent by host 128.119.1.1
+
+*
+
+*
+
+*
+
+*
+
+*
+
+10.0.0.1
+
+*
+
+*
+
+3345
+
+*
+
+IP src ← 138.76.29.7 sport ← 5001
+
+NAT:
+
+translate address 10.0.0.1, 3345 to 138.76.29.7, 5001
+
+*
+
+*
+
+*
+
+*
+
+*
+
+138.76.29.7
+
+*
+
+*
+
+5001
+
+*
+
+IP dst ← 10.0.0.1 dport ← 3345
+
+OpenFlow abstraction
+
+Router
+match: longest destination IP prefix
+action: forward out a link
+Switch
+match: destination MAC address
+action: forward or flood
+
+Firewall
+match: IP addresses and TCP/UDP port numbers
+action: permit or deny 
+NAT
+match: IP address and port
+action: rewrite address and port
+
+
+match+action: unifies different kinds of devices
+
+4-70
+
+Network Layer: Data Plane
+
+OpenFlow example
+
+Host h1
+10.1.0.1
+
+
+Host h2
+10.1.0.2
+
+
+Host h4
+10.2.0.4
+
+
+Host h3
+10.2.0.3
+
+
+Host h5
+10.3.0.5
+
+s1
+
+s2
+
+s3
+
+1
+
+2
+
+3
+
+4
+
+1
+
+2
+
+3
+
+4
+
+1
+
+2
+
+3
+
+4
+
+Host h6
+10.3.0.6
+
+Example: datagrams from hosts h5 and h6 should be sent to h3 or h4, via s1 and from there to s2
+
+Chapter 4: done!
+
+Question: how do forwarding tables (destination-based forwarding) or flow tables (generalized forwarding) computed?
+Answer: by the control plane (next chapter)
+
+4.1 Overview of Network layer: data plane and control plane
+4.2 What’s inside a router
+4.3 IP: Internet Protocol
+datagram format
+fragmentation
+IPv4 addressing
+NAT
+IPv6
+
+4.4 Generalized Forward and SDN
+match plus action
+OpenFlow example
+
+4-72
+
+Network Layer: Data Plane
+
+retired slides
+
+Network Layer
+
+4-73
+
+Network layer service models:
+
+Network
+Architecture
+
+Internet
+
+ATM
+
+ATM
+
+ATM
+
+ATM
+
+Service
+Model
+
+best effort
+
+CBR
+
+VBR
+
+ABR
+
+UBR
+
+Bandwidth
+
+none
+
+constant
+rate
+guaranteed
+rate
+guaranteed 
+minimum
+none
+
+Loss
+
+no
+
+yes
+
+yes
+
+no
+
+no
+
+Order
+
+no
+
+yes
+
+yes
+
+yes
+
+yes
+
+Timing
+
+no
+
+yes
+
+yes
+
+no
+
+no
+
+Congestion
+feedback
+
+no (inferred
+via loss)
+no
+congestion
+no
+congestion
+yes
+
+no
+
+Guarantees ?
+
+4-74
+
+Network Layer: Data Plane
+
+Network service model
+
+Q: What service model for “channel” transporting datagrams from sender to receiver?
+
+example:
+guaranteed delivery
+guaranteed maximum delay
+
+guaranteed in-order delivery
+guaranteed minimum bandwidth 
+
+4-75
+
+Network Layer: Data Plane
+
+The Internet network layer
+
+host, router network layer functions:
+
+routing protocols
+ path selection
+ RIP, OSPF, BGP
+
+ICMP protocol
+ error reporting
+ router “signaling”
+
+transport layer: TCP, UDP
+
+link layer
+
+physical layer
+
+network
+layer
+
+4-76
+
+Network Layer: Data Plane
+
+motivation: local network uses just one IP address as far as outside world is concerned:
+expand #supported devices: just one IP address for all devices
+isolation: (1) can change addresses in local network without notifying outside world, (2) can change ISP without changing addresses in local network
+security: devices inside local network not explicitly addressable by outside world 
+
+
+NAT: network address translation
+
+4-77
+
+Network Layer: Data Plane
+
+Q: How does B know the IPv4 address of E?
+Static tunnel: manually configured
+Dynamic tunnel: discovered from heartbeat messages from E
+Automatic IPv6 Connectivity Client Utility (AICCU): automatically configure the tunnel
+
+4-78
+
+Tunneling
+
+Network Layer: Data Plane

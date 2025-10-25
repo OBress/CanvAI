@@ -1,0 +1,189 @@
+CMPSC 461: Pr ogramming Language Concepts, Fall 2024
+Assignment 7 Practice She et (T y p es)
+Last up date d: No v emb er 16, 2024
+Pr oblem 1:  T yp e Infer ence
+1) Giv en the follo wing lamb da e xpr essions, determine the most general typ e that can b e inferr e d or
+mention why an e xpr ession is not typ eable:
+a) 𝑓1 = 𝜆 𝑥 . 𝜆 𝑦 . ( 𝑥 + 1 0 ) = = 𝑦
+b) 𝑓2 = 𝜆 𝑥 . 𝜆 𝑦 . 𝜆 𝑧 . ( 𝑥 ∗ 𝑧 𝑦 > 0 ) && 𝑦
+c) 𝑓3 = 𝜆 𝑤 . 𝜆 𝑥 . 𝜆 𝑦 . 𝜆 𝑧 if 𝑥 𝑧 ≥ 𝑦 then 𝑧 else 𝑤
+d) 𝑓4 = 𝜆 𝑥 . 𝜆 𝑦 . 𝜆 𝑧 . ( 𝑥 𝑧 && 𝑦 𝑧 ) + 1
+Since w e don’t hav e p olymorphic typ es, y ou may use capital letters to r epr esent basic typ es.
+2) What is the typ e of the follo wing term?
+( 𝜆 𝑛 : Bool . 𝜆 𝑚 : Nat . 𝑛 && ( 𝑚 ≥ 2 ) ) true 5
+Justify y our answ er with the pr o of tr e e for the giv en term. Y ou can r efer to the typing rules in the
+App endix. Make sur e y ou mention which typing rules ar e y ou using at each step of the pr o of tr e e .
+Solution
+1) a) Nat → Nat → Bool
+b) Nat → Bool → ( Bool → Nat ) → Bool
+c) 𝐴 → ( 𝐴 → Nat ) → Nat → 𝐴 → 𝐴
+d) This is not typ eable b e cause w e cannot add a b o olean and a natural numb er .
+2) T - V ar is omitte d for br e vity .
+1 / 5
+
+𝑛:Bool
+,𝑚
+:Nat
+⊢𝑛:Bool
+𝑛:Bool
+,𝑚
+:Nat
+⊢𝑚
+:Nat
+𝑛:Bool
+,𝑚
+:Nat
+⊢2:Nat
+T -Ge q𝑛:Bool
+,𝑚
+:Nat
+⊢𝑚
+≥2:Bool
+T - And𝑛:Bool
+,𝑚
+:Nat
+⊢𝑛&&
+( 𝑚
+≥2):Bool
+T - Abs𝑛:Bool
+⊢𝜆𝑚
+:Nat
+.𝑛&&
+( 𝑚
+≥2):Bool
+T - Abs⊢𝜆𝑛:Bool
+.𝜆𝑚
+:Nat
+.𝑛&&
+( 𝑚
+≥2):Bool
+→
+Nat
+→
+Bool
+T - T rue⊢true
+:Bool
+T - App⊢( 𝜆𝑛:Bool
+.𝜆𝑚
+:Nat
+.𝑛&&
+( 𝑚
+≥2) )true
+:Nat
+→
+Bool
+T -Nat⊢5:Nat
+T - App⊢( 𝜆𝑛:Bool
+.𝜆𝑚
+:Nat
+.𝑛&&
+( 𝑚
+≥2) )true
+5:Bool
+Pr oblem 2:  T yp e system
+1) W rite do wn a typing rule ( call it T -EQ ) for the term 𝑡1 = = 𝑡2 , such that the e quality test takes in tw o
+natrual numb ers and r eturns a Bo olean value .
+2) What is the typ e of the follo wing term?
+2 / 5
+
+( 𝜆 𝑥 : Bool . 𝜆 𝑦 : Nat . ( 𝑦 = = ( 8 + 3 ) ) 𝑥 ) true
+Justify y our answ er with the pr o of tr e e for the giv en term. Y ou can r efer to the typing rules in the
+App endix. Make sur e y ou mention which typing rules ar e y ou using at each step of the pr o of tr e e .
+Solution
+1) Se e T -Eq  in app ende x.
+2) T - V ar is omitte d for br e vity .
+𝑥 : Bool , 𝑦 : Nat ⊢ 𝑦 : NatT -Nat
+⊢ 8 : NatT -Nat
+⊢ 3 : NatT - A dd
+⊢ 8 + 3 : NatT -Eq
+𝑥 : Bool , 𝑦 : Nat ⊢ 𝑦 = = ( 8 + 3 ) : BoolT - Abs
+𝑥 : Bool ⊢ 𝜆 𝑦 : Nat . ( 𝑦 = = ( 8 + 3 ) ) : Nat → BoolT - Abs
+𝜆 𝑥 : Bool . 𝜆 𝑦 : Nat . ( 𝑦 = = ( 8 + 3 ) ) : Bool → Nat → BoolT - T rue
+⊢ true : BoolT - App
+⊢ ( 𝜆 𝑥 : Bool . 𝜆 𝑦 : Nat . ( 𝑦 = = ( 8 + 3 ) ) ) 𝑥 true : Nat → Bool
+Pr oblem 3:  T yp e Infer ence
+Giv en the follo wing lamb da e xpr essions, determine the most general typ e that can b e inferr e d or mention
+why an e xpr ession is not typ eable:
+1) 𝑓1 = 𝜆 𝑥 . 𝑥 ≥ 1 0
+2) 𝑓2 = 𝜆 𝑥 . 𝜆 𝑦 . 𝜆 𝑧 . ( 𝑥 𝑧 ≥ 1 0 ) + false
+3) 𝑓3 = 𝜆 𝑥 . 𝜆 𝑦 . 𝜆 𝑧 . if ( 𝑥 𝑧 ≥ 𝑦 ) then true else false
+4) 𝑓4 = 𝜆 𝑥 . 𝜆 𝑦 . 𝜆 𝑧 . ( 𝑥 𝑧 = = 3 ) && ( 𝑦 𝑧 = = 0 )
+Since w e don’t hav e p olymorphic typ es, y ou may use capital letters to r epr esent basic typ es.
+Solution
+1) Nat → Bool
+2) This is not typ eable b e cause w e cannot add a b o olean and a natural numb er .
+3) ( 𝐴 → Nat ) → Nat → 𝐴 → Bool
+4) ( 𝐴 → Nat ) → ( 𝐴 → Nat ) → 𝐴 → Bool
+Pr oblem 4:  T yp es, T yp e Systems and T yp e Infer ence
+1) Mention tw o differ ences b etw e en Str ongly typ e d and W eakly typ e d pr ogramming languages.
+2) Consider a simply typ e d lamb da calculus and its typing rules. Y ou can r efer to the typing rules in the
+App endix. W rite do wn a typing rule (T -Star ) for the ne w unar y op erator ★ , so that op eration ★ 𝑛
+r eturning false  if 𝑛  is less than 3, and true  other wise .
+3) Using y our solution for part 2, infer what is the typ e of the term
+( 𝜆 𝑠 : Nat . 𝜆 𝑧 : Bool . ( 1 0 ≥ 𝑛 ) && ★ 𝑠 ) 8
+Justify y our answ er with the pr o of tr e e for the giv en term. Make sur e y ou mention which typing rules
+ar e y ou using at each step of the pr o of tr e e .
+Solution
+3 / 5
+
+1) In str ongly typ e d languages, strict typ e enfor cement is pr esent, meaning variables ar e b ound to sp e cific
+data typ es and conv ersions b etw e en typ es typically r e quir e e xplicit casting. This helps catch typ e-
+r elate d err ors at compile-time , enhancing co de r eliability . In contrast, w eakly typ e d languages allo w
+mor e fle xibility , often implicitly conv erting b etw e en typ es, which can sometimes lead to une xp e cte d
+b ehavior or err ors that ar e har der to dete ct during de v elopment.
+2) Γ ⊢ 𝑡 : NatT -Star
+Γ ★ 𝑡 : Nat → Bool
+3) T - V ar is omitte d for br e vity . T o av oid page o v erflo w , let Δ = 𝑠 : Nat , 𝑧 : Bool .
+T -Nat
+Δ ⊢ 1 0 : Nat Δ ⊢ 𝑠 : NatT -Ge q
+Δ ⊢ 1 0 ≥ 𝑛 : BoolΔ ⊢ 𝑠 : NatT -Star
+Δ ⊢ ★ 𝑠 : BoolT - And
+Δ ⊢ ( 1 0 ≥ 𝑠 ) && ★ 𝑠 : BoolT - Abs
+𝑠 : Nat ⊢ 𝜆 𝑧 : Bool . ( 1 0 ≥ 𝑠 ) && ★ 𝑠 : Bool → BoolT - Abs
+⊢ 𝜆 𝑠 : Nat . 𝜆 𝑧 : Bool . ( 1 0 ≥ 𝑠 ) && ★ 𝑠 : Nat → Bool → BoolT -Nat
+⊢ 8 : NatT - App
+⊢ ( 𝜆 𝑠 : Nat . 𝜆 𝑧 : Bool . ( 1 0 ≥ 𝑠 ) && ★ 𝑠 ) 8 : Nat → Bool → Bool
+App endix
+Simply T yp e d Lamb da Calculus Extende d with Bo oleans and Natural Numb ers
+Syntax
+T erms
+𝑡 ⩴ 𝑥 ( variable )
+| 𝜆 𝑥 : 𝜏 . 𝑡 ( abstraction )
+| 𝑡 𝑡 ( application )
+| true ( constant true )
+| false ( constant false )
+| if 𝑡 then 𝑡 else 𝑡 ( conditional )
+| 𝑛 ( constant natrual number )
+| 𝑡 + 𝑡 ( nat addition )
+| 𝑡 && 𝑡 ( bool and )
+| 𝑡 ≥ 𝑡 ( nat greater than or equal to )
+| 𝑡 = = 𝑡 ( nat equality )
+T yp es
+𝜏 ⩴ 𝜏 → 𝜏 ( function type )
+| Bool ( boolean type )
+| Nat ( natural number type )
+4 / 5
+
+T yping
+T -Na t
+Γ ⊢ 𝑛 : Nat
+T -True
+Γ ⊢ true : Bool
+T -False
+Γ ⊢ false : Bool
+𝑥 : 𝜏 ∈ ΓT -V ar
+Γ ⊢ 𝑥 : 𝜏
+Γ , 𝑥 : 𝜏1 ⊢ 𝑡 : 𝜏2T -Abs
+Γ ⊢ 𝜆 𝑥 : 𝜏 . 𝑡 : 𝜏1 → 𝜏2
+Γ ⊢ 𝑡1 : 𝜏1 → 𝜏2 Γ ⊢ 𝑡2 : 𝜏1T -App
+Γ ⊢ 𝑡1 𝑡2 : 𝜏2Γ ⊢ 𝑡1 : Bool Γ ⊢ 𝑡2 : 𝜏 Γ ⊢ 𝑡3 : 𝜏T -If
+Γ ⊢ if 𝑡1 then 𝑡2 else 𝑡3 : 𝜏
+Γ ⊢ 𝑡1 : Nat Γ ⊢ 𝑡2 : NatT -Add
+Γ ⊢ 𝑡1 + 𝑡2 : Nat
+Γ ⊢ 𝑡1 : Bool Γ ⊢ 𝑡2 : BoolT -And
+Γ ⊢ 𝑡1 && 𝑡2 : Bool
+Γ ⊢ 𝑡1 : Nat Γ ⊢ 𝑡2 : NatT -Geq
+Γ ⊢ 𝑡1 ≥ 𝑡2 : Bool
+Γ ⊢ 𝑡1 : Nat Γ ⊢ 𝑡2 : NatT -Eq
+Γ ⊢ 𝑡1 = = 𝑡2 : Bool
+5 / 5

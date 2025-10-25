@@ -1,0 +1,1 @@
+This drawing application includes undo/clear buttons, shape selection (line, oval, rectangle), fill/unfill options, gradient painting with dual color choosers, adjustable stroke width/dash length for dashed/solid lines, a dynamic drawing panel for real-time shape creation, a status bar displaying mouse coordinates, and individual attribute preservation for each drawn shape.

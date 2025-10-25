@@ -1,0 +1,1 @@
+CMPSC 461 introduces Functional Programming using Scheme, taught by Suman Saha. Scheme, influencing modern languages, employs recursion, prefix expressions (e.g., (+ 3 4)), dynamic typing, and treats functions as values. It utilizes DrRacket, features user-defined and anonymous functions, `define` for variables, and lists as its primary data structure.

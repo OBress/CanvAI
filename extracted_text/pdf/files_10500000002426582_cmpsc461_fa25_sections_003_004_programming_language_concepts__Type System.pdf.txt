@@ -1,0 +1,45 @@
+Type System
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Simply Typed Lambda Calculus
+•Type system: takes program as input and returns either the type of the 
+program or rejects the program
+•Types: int | bool | string | 1 -> 2
+Examples:
+•3 A ll the numbers are int and valid program. Well typed.
+•λx:int.x Identity function. Well typed.
+•λx:int.(x+1) Well typed. int-> int
+•(true 3) Not well typed . true can not be a function.
+•λx:int.(x x) Not well typed . x is int and int can not be a function.
+CMPSC 461 –Programming Language Concepts
+
+Simply Typed Lambda Calculus
+CMPSC 461 –Programming Language Concepts
+
+
+Examples
+CMPSC 461 –Programming Language ConceptsReturn either the type of the 
+program or reject the program
+λx:int.(x+1)
+
+
+Examples
+CMPSC 461 –Programming Language Concepts
+Return either the type of the 
+program or reject the program
+(λx:int.(x+1)) 2
+
+
+Examples
+CMPSC 461 –Programming Language Concepts
+Return either the type of the 
+program or reject the program
+true 3
+
+Examples
+CMPSC 461 –Programming Language Concepts
+Return either the type of the 
+program or reject the program
+λx:int.(x x)

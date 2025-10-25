@@ -1,0 +1,1 @@
+HTTP messages detail protocol version (1.1), connection type (persistent), status (200 OK), and file info. Web page retrieval times are analyzed across various HTTP methods, factoring DNS RTTs. Network delay calculations consider link/cache performance and required hit rates. CNN's DNS records (web server IP, nameservers, and anycast mail servers) are detailed.

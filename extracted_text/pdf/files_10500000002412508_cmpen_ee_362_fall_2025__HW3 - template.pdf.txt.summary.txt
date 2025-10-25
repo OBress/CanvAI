@@ -1,0 +1,1 @@
+This homework covers network fundamentals (IP, ports, sockets), error detection (checksums, RDT protocols, FSMs), and TCP. TCP topics include sequence/ACK numbers, RTT estimation, various retransmission schemes, and congestion control (Reno/Tahoe, window dynamics, throughput analysis).

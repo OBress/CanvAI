@@ -1,0 +1,1 @@
+This CMPEN362 Practice Midterm Exam assesses network fundamentals. P1 covers Internet architecture, packet delays, and TCP/UDP properties. P2 involves network delay calculations for message segmentation and web content retrieval. P3 focuses on designing a stop-and-wait transport protocol, requiring completion of a receiver's FSM states and event-action list.

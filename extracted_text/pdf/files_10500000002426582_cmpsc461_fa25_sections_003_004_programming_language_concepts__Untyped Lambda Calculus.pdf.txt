@@ -1,0 +1,339 @@
+Untyp e d Lamb da Calculus Notes
+Yip eng Liu
+Last up date d: Octob er 27, 2024
+Contents
+1. Basics  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  1
+1.1. Intr o duction  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  1
+1.2. Syntax  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+1.3. Scop e  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+1.4. Evaluation  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+1.4.1. Beta Re duction  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+1.4.2. Alpha Conv ersion  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  3
+1.4.3. Eta Re duction  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  3
+1.4.4. Evaluation Strategy  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+1.4.5. Op erational Semantics  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+2. Pr ogramming in Lamb da Calculus  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+2.1. Functions of mor e arguments  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+2.2. Chur ch Bo olean  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  6
+2.3. Pairs  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  6
+2.4. Chur ch Numerals  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  7
+2.5. Re cursion  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  8
+3. Refer ences  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+1. Basics
+Lamb da calculus is a formal system for e xpr essing computations. Untyp e d lamb da calculus, can b e se en
+as a computation mo del alternativ e to T uring machines, in which all computation is r e duce d to function
+application and abstraction. It is also a simple pr ogramming language use d widely as a cor e language in
+many comple x pr ogramming language implementations. It is so simple y et p o w erful enough to e xpr ess
+any computation as mathematical obje ct, in which pr op erties can b e pr o v e d easily . Extension to basic
+lamb da calculus brings comple x featur e such as mutable r efer ence , e xception handling, and typ e system
+etc.
+1.1. Intr o duction
+The ke y idea is that in lamb da calculus, e v er ything  is a function. Arguments passe d to functions ar e
+function, and r esult r eturne d by a function is also function. For e xample , assuming that the language has
+integer , if  e xpr ession, and r e cursion (those featur es can b e formulate d as functions, w e will se e!), then
+factorial  can b e deﬁne d as follo ws:
+factorial = 𝜆 𝑛 . if ( 𝑛 = = 0 ) 1 ( 𝑛 ∗ factorial ( 𝑛 − 1 ) )
+Mathematically , the factorial function is deﬁne d as:
+1 / 10
+
+factorial ( 𝑛 ) = {1 if 𝑛 = 0
+𝑛 ∗ factorial ( 𝑛 − 1 ) otherwise
+The abstraction, 𝜆 𝑛 . … , is the same as writing a function that takes an argument n  and r eturns the r esult
+of the e xpr ession.
+1.2. Syntax
+The syntax of untyp e d lamb da calculus consists of only thr e e typ e of terms: a variable  𝑥 , an abstraction  of
+a variable  fr om a term 𝑡 , written as 𝜆 𝑥 . 𝑡 , and an application  of term a term 𝑡1  to another term 𝑡2 , written
+as 𝑡1 𝑡2 . Formally:
+T erms Deﬁnition
+𝑡 ⩴ 𝑥 ( variable )
+| 𝜆 𝑥 . 𝑡 ( abstraction )
+| 𝑡 𝑡 ( application )
+W e usually use 𝑡 , 𝑠 , 𝑢 , etc. to denote an arbitrar y term. Similarly , 𝑥 , 𝑦 , 𝑧 , etc. ar e use d to denote arbitrar y
+variables. Applications ar e left-asso ciativ e , so 𝑡 𝑠 𝑢  is the same as ( ( 𝑡 𝑠 ) 𝑢 ) . Bo dy of abstraction is e x-
+tende d as far as p ossible , as the r esult 𝜆 𝑥 . 𝜆 𝑦 . 𝑥 𝑦  is the same as 𝜆 𝑥 . ( 𝜆 𝑦 . ( 𝑥 𝑦 ) ) .
+1.3. Scop e
+An o ccurr ence of a variable 𝑥  in a term 𝑡  is said to b e b ound  if it is within the scop e of an abstraction 
+𝜆 𝑥 . 𝑡 . On the other hand, an o ccurr ence of a variable 𝑥  is said to b e fr e e  if it app ears in a term 𝑡  but is not
+b ound. For e xample , o ccurr ences of 𝑥  in 𝜆 𝑦 . 𝑥  and 𝑥 𝑦  ar e fr e e , while those in 𝜆 𝑥 . 𝜆 𝑦 . ( 𝑥 𝑦 )  and 𝜆 𝑥 . 𝑥
+ar e b ound. In ( 𝜆 𝑥 . 𝑥 ) 𝑥 , the ﬁrst o ccurr ence of 𝑥  is b ound, while the se cond is fr e e .
+Fr e e V ariables Deﬁnition
+The set of fr e e  variables of a term 𝑡  is denote d as FV ( 𝑡 ) :
+FV ( 𝑥 ) = { 𝑥 }
+FV ( 𝜆 𝑥 . 𝑡 ) = FV ( 𝑡 ) \ { 𝑥 }
+FV ( 𝑡 𝑠 ) = FV ( 𝑡 ) ∪ FV ( 𝑠 )
+1.4. Evaluation
+Pur e lamb da calculus do es not hav e constants or primitiv es – w e can not p erform arithmetic op erations,
+lo ops, or printing. The only thing w e can do is to apply functions to arguments.
+1.4.1. Beta Re duction
+W e call a term of the form ( 𝜆 𝑥 . 𝑡 ) 𝑠  a r e de x  (r e ducible e xpr ession), and the pr o cess of r eplacing the r e de x
+with the r esult of the application is calle d b eta r e duction :
+( 𝜆 𝑥 . 𝑡 ) 𝑠 ⟶𝛽
+[ 𝑥 ↦ 𝑠 ] 𝑡
+2 / 10
+
+wher e [ 𝑥 ↦ 𝑠 ] 𝑡  denotes the r esult of r eplacing all fr e e  o ccurr ences of 𝑥  in 𝑡  with 𝑠 . For e xample , ( 𝜆 𝑥 . 𝑥 ) 𝑦
+e valuates to 𝑦 , and ( 𝜆 𝑥 . 𝑥 ( 𝜆 𝑥 . 𝑥 ) ) 𝑠  e valuates to 𝑠 ( 𝜆 𝑥 . 𝑥 ) . Formally , w e deﬁne the captur e-av oiding
+substitution as follo ws:
+Substitution Deﬁnition
+[ 𝑥 ↦ 𝑠 ] 𝑥 = 𝑠
+[ 𝑥 ↦ 𝑠 ] 𝑦 = 𝑦 if 𝑥 ≠ 𝑦
+[ 𝑥 ↦ 𝑠 ] ( 𝜆 𝑦 . 𝑡 ) = 𝜆 𝑦 . [ 𝑥 ↦ 𝑠 ] 𝑡 if 𝑦 ≠ 𝑥 and 𝑦 ∉ FV ( 𝑠 )
+[ 𝑥 ↦ 𝑠 ] ( 𝑡 𝑢 ) = [ 𝑥 ↦ 𝑠 ] 𝑡 [ 𝑥 ↦ 𝑠 ] 𝑢
+1.4.2. Alpha Conv ersion
+Consider 𝜆 𝑥 . 𝑥  and 𝜆 𝑦 . 𝑦  – do the y r epr esent the same function? Y es! Although variable names ar e dif-
+fer ent, the meaning of the terms ar e the same . W e say that tw o terms ar e alpha-e quivalent  if the y ar e the
+same up to r enaming of b ound variables. And it is intuitiv e that variable names can b e change d without
+changing the meaning of the term. This op eration is calle d alpha-conv ersion :
+( 𝜆 𝑥 . 𝑡 ) ⟶𝛼( 𝜆 𝑦 . [ 𝑥 ↦ 𝑦 ] 𝑡 ) if 𝑦 ∉ FV ( 𝑡 )
+wher e 𝑥  in the binder is r eplace d with 𝑦  in the b o dy of the abstraction.
+Sometimes w e ne e d to r ename variables to av oid variable captur e in e valuation. For e xample , let’s e val-
+uate the follo wing term:
+( 𝜆 𝑥 . ( 𝜆 𝑦 . 𝑥 𝑦 ) ) ( 𝜆 𝑥 . 𝑥 𝑦 )
+Notice that w e can not r eplace 𝑥  in the inner lamb da with ( 𝜆 𝑥 . 𝑥 𝑦 )  dir e ctly , b e cause 𝑦  is alr eady b ound
+in the inner lamb da, but fr e e in the outer term. Then w e ne e d to do alpha-conv ersion , or r ename 𝑦  in the
+inner lamb da to av oid variable captur e . Let’s r ename 𝑦  to 𝑧 . Then the term b e comes:
+( 𝜆 𝑥 . ( 𝜆 𝑦 . 𝑥 𝑦 ) ) ( 𝜆 𝑥 . 𝑥 𝑦 ) ⟶𝛼( 𝜆 𝑥 . ( 𝜆 𝑧 . 𝑥 𝑧 ) ) ( 𝜆 𝑥 . 𝑥 𝑦 )
+No w w e can do b eta r e duction, r eplacing 𝑥  in the inner lamb da with 𝜆 𝑥 . 𝑥 𝑦 :
+( 𝜆 𝑥 . ( 𝜆 𝑧 . 𝑥 𝑧 ) ) ( 𝜆 𝑥 . 𝑥 𝑦 ) ⟶𝛽
+( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 𝑦 ) 𝑧 ) ⟶𝛽
+𝜆 𝑧 . 𝑧 𝑦
+When picking ne w name for variables, w e ne e d to make sur e that the ne w variable name is not alr eady
+use d in the term, i.e . it do es not captur e any fr e e variables in the term. For e xample , it is incorr e ct  to
+r ename 𝑦  to 𝑧  in 𝜆 𝑧 . 𝜆 𝑦 . ( 𝑧 𝑦 ) , b e cause 𝑧  is fr e e  in ( 𝑧 𝑦 ) .
+1.4.3. Eta Re duction
+Eta r e duction  captur es the natur e of function e xtensionality: tw o functions ar e e qual if the y giv e the same
+r esult for all arguments. For e xample , 𝜆 𝑥 . 𝑓 𝑥  is the same as 𝑓  if 𝑥  is not fr e e in 𝑓 . Formally , w e deﬁne eta
+r e duction as:
+𝜆 𝑥 . 𝑡 𝑥 ⟶𝜂
+𝑡 if 𝑥 ∉ FV ( 𝑡 )
+3 / 10
+
+1.4.4. Evaluation Strategy
+When e valuating a term, w e can cho ose diﬀer ent strategies to p erform b eta r e duction, i.e . which r e de x
+to r e duce ﬁrst. A term is str ongly normalizing  if e v er y r e duction se quence terminates in a normal form,
+and w eakly normalizing  if ther e e xists a r e duction se quence that terminates in a normal form, but not all
+r e duction se quences terminate . It has b e en pr o v en that in untyp e d lamb da calculus, normalizing terms
+always hav e a unique normal form, but not all terms ar e normalizing. Thus, diﬀer ent e valuation strategies
+may lead to diﬀer ent r esults. Let’s consider se v eral e valuation strategies:
+Full b eta r e duction Any r e de x can b e r e duce d at any time .
+Consider the follo wing term, which has thr e e r e de xes:
+( 𝜆 𝑥 . 𝑥 ) ( ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) )
+( 𝜆 𝑥 . 𝑥 ) ( ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) )
+( 𝜆 𝑥 . 𝑥 ) ( ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) )
+W e can r e duce the innermost ﬁrst, and then do the middle one , and ﬁnally the outermost one:
+( 𝜆 𝑥 . 𝑥 ) ( ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) ) ⟶ ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 )
+⟶ ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . 𝑧 )
+⟶ 𝜆 𝑧 . 𝑧
+Normal or der r e duction Always r e duce the leftmost, outermost r e de x ﬁrst.
+Let’s do the same term with normal or der r e duction:
+( 𝜆 𝑥 . 𝑥 ) ( ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) ) ⟶ ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 )
+⟶ 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧
+⟶ 𝜆 𝑧 . 𝑧
+W e get the same r esult using diﬀer ent r e duction se quences!
+Call by name Do normal or der r e duction, but do not r e duce inside abstractions.
+( 𝜆 𝑥 . 𝑥 ) ( ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) ) ⟶ ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 )
+⟶ 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧
+This is the normal form! W e can not r e duce it further b e cause w e don’t r e duce inside abstractions.
+Call by value Only r e duce outermost r e de xes and a r e de x is r e duce d only when its right-hand side is
+in normal form.
+( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) ⟶ ( 𝜆 𝑥 . 𝑥 ) ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 )
+⟶ 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧
+Note that w e can not r e duce further ( 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧 ) , the right-hand side after the ﬁrst step , as it is in
+normal form. W e don’t r e duce inside abstractions as in call by name . Call by value is strict in the sense
+4 / 10
+
+that arguments ar e e valuate d b efor e the function is applie d. Sometimes it fails to ﬁnd the normal form,
+e v en if it e xists.
+W e hav e se en that in call by name and call by name , 𝜆 𝑧 . ( 𝜆 𝑥 . 𝑥 ) 𝑧  is r egar de d as normal form, while ther e
+is still a r e de x in it. On the other hand, in normal or der r e duction, since w e can r e duce the r e de x inside the
+abstraction, w e get the normal form 𝜆 𝑧 . 𝑧 . If a term has b eta normal form (no b eta r e duction p ossible),
+then normal or der r e duction will ﬁnd it. The term ab o v e e valuates to diﬀer ent r esults dep ending on the
+e valuation strategy , but e v entually the y all lead to the same normal form as the one yielde d by normal
+or der r e duction after some r e ductions. This r enders Chur ch-Rosser the or em , or the conﬂuence pr op erty ,
+which states that if a term can b e r e duce d to tw o diﬀer ent normal forms, then those normal forms ar e
+e quivalent up to alpha-conv ersion.
+1.4.5. Op erational Semantics
+Op erational semantics is a formal way to describ e ho w the e valuation of a term pr o ce e ds. Let’s adopt call
+by value e valuation strategy . W e can deﬁne the e valuation r elation 𝑡 → 𝑡′:
+𝑡1 ⟶ 𝑡′
+1E-App1
+𝑡1 𝑡2 ⟶ 𝑡′
+1 𝑡2
+𝑡2 ⟶ 𝑡′
+2E-App2
+𝑣1 𝑡2 ⟶ 𝑣1 𝑡′
+2
+E-AppAbs
+( 𝜆 𝑥 . 𝑡1 2 ) 𝑣2 ⟶ [ 𝑥 ↦ 𝑣2 ] 𝑡1 2
+𝑣  denotes a value , which is a term that cannot b e r e duce d further . In our case , a value is an abstraction 
+𝜆 𝑥 . 𝑡 . E-App1  applies to any application whose left-hand side is not a value , while E-App2  applies to any
+application whose right-hand side is not a value . That means, E-App1  is always applie d b efor e E-App2  –
+w e use E-App1  to r e duce 𝑡1  to a value , then use E-App2  to r e duce 𝑡2  to a value , and ﬁnally use E-AppAbs
+to r e duce the application. The e valuation or der is determine d by the rules! If w e instead use call by name ,
+w e can deﬁne the e valuation r elation as follo ws:
+𝑡1 ⟶ 𝑡′
+1E-App1
+𝑡1 𝑡2 ⟶ 𝑡′
+1 𝑡2
+E-AppAbs
+( 𝜆 𝑥 . 𝑡1 2 ) 𝑡2 ⟶ [ 𝑥 ↦ 𝑡2 ] 𝑡1 2
+Can y ou se e the diﬀer ence? In call by name , w e do not r e duce the right-hand side b efor e applying the
+function. This is wher e lazy e valuation comes fr om! Mor e o v er , in E-AppAbs  w e no longer r e quir e the
+right-hand side to b e a value .
+2. Pr ogramming in Lamb da Calculus
+No w that w e hav e a basic understanding of lamb da calculus, w e can start pr ogramming in it! W e will se e
+ho w to deﬁne various data structur es and functions using lamb da calculus.
+2.1. Functions of mor e arguments
+Obser v e that lamb da calculus only allo ws functions of one argument, but functions of mor e arguments
+can b e obtaine d by curr ying . For e xample , a function of tw o arguments, 𝑓 ( 𝑥 , 𝑦 ) , can b e r epr esente d as 
+5 / 10
+
+( 𝜆 𝑥 . ( 𝜆 𝑦 . 𝑓 𝑥 𝑦 ) ) . Remo ving unne cessar y par entheses, w e can write it as 𝜆 𝑥 . 𝜆 𝑦 . 𝑓 𝑥 𝑦 . A function tak-
+ing tw o arguments is a function that takes one argument and r eturns a function that takes another ar-
+gument!
+2.2. Chur ch Bo olean
+Bo olean values and conditionals can b e easily deﬁne d in lamb da calculus. W e deﬁne true  and false  as
+follo ws:
+true = 𝜆 𝑥 . 𝜆 𝑦 . 𝑥
+false = 𝜆 𝑥 . 𝜆 𝑦 . 𝑦
+And w e deﬁne if  function as:
+if = 𝜆 𝑏 . 𝜆 𝑥 . 𝜆 𝑦 . 𝑏 𝑥 𝑦
+This function do es not do much: it just applies tw o arguments to the b o olean value . Let’s se e ho w it w orks:
+if true 𝑢 𝑣 = ( 𝜆 𝑏 . 𝜆 𝑥 . 𝜆 𝑦 . 𝑏 𝑥 𝑦 ) true 𝑢 𝑣
+⟶ ( 𝜆 𝑥 . 𝜆 𝑦 . true 𝑥 𝑦 ) 𝑢 𝑣
+⟶ ( 𝜆 𝑦 . true 𝑢 𝑦 ) 𝑣
+⟶ true 𝑢 𝑣
+= ( 𝜆 𝑥 . 𝜆 𝑦 . 𝑥 ) 𝑢 𝑣
+⟶ ( 𝜆 𝑦 . 𝑢 ) 𝑣
+⟶ 𝑢
+if true 𝑢 𝑣  e valuates to 𝑢 ! Similarly , w e can deﬁne other b o olean functions:
+and = 𝜆 𝑏 . 𝜆 𝑐 . 𝑏 𝑐 false
+or = 𝜆 𝑏 . 𝜆 𝑐 . 𝑏 true 𝑐
+not = 𝜆 𝑏 . 𝑏 false true
+Those deﬁnitions ar e not unique , and w e can deﬁne them in many ways. The insight her e is that a chur ch
+b o olean is a function that takes tw o arguments and r eturns one of them – true  r eturns the ﬁrst argument,
+and false  r eturns the se cond argument. K e eping this in mind, it is easy to se e that why the ab o v e deﬁ-
+nitions make sense . For e xample , the function and , takes tw o b o olean values 𝑏  and 𝑐 , and r eturns 𝑐  if 𝑏
+is true , and false  other wise . Thus, it r eturns true  if b oth 𝑏  and 𝑐  ar e true , and false  if either of them
+is false .
+2.3. Pairs
+Using b o olean, w e can deﬁne pairs as w ell.
+pair = 𝜆 𝑓 . 𝜆 𝑠 . 𝜆 𝑏 . 𝑏 𝑓 𝑠
+fst = 𝜆 𝑝 . 𝑝 true
+snd = 𝜆 𝑝 . 𝑝 false
+Let 𝑝 = pair 𝑢 𝑣 , then fst 𝑝  e valuates to 𝑢 , and snd 𝑝  e valuates to 𝑣 . Let’s tr y:
+6 / 10
+
+fst ( pair 𝑢 𝑣 ) = fst ( ( 𝜆 𝑓 . 𝜆 𝑠 . 𝜆 𝑏 . 𝑏 𝑓 𝑠 ) 𝑢 𝑣 )
+⟶ fst ( ( 𝜆 𝑠 . 𝜆 𝑏 . 𝑏 𝑢 𝑠 ) 𝑣 )
+⟶ fst ( 𝜆 𝑏 . 𝑏 𝑢 𝑣 )
+= ( 𝜆 𝑝 . 𝑝 true ) ( 𝜆 𝑏 . 𝑏 𝑢 𝑣 )
+⟶ ( 𝜆 𝑏 . 𝑏 𝑢 𝑣 ) true
+⟶ true 𝑢 𝑣
+⟶∗𝑢
+Do y ou se e ho w the deﬁnition of b o olean helps us to deﬁne pairs?
+2.4. Chur ch Numerals
+Natural numb ers can b e r epr esente d in lamb da calculus as Chur ch numerals :
+𝑐0 = 𝜆 𝑓 . 𝜆 𝑥 . 𝑥
+𝑐1 = 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 𝑥
+𝑐2 = 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑓 𝑥 )
+𝑐3 = 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑓 ( 𝑓 𝑥 ) )
+…
+𝑐𝑛 = 𝜆 𝑓 . 𝜆 𝑥 . 𝑓𝑛𝑥
+A Chur ch numeral 𝑐𝑛  is a function that takes tw o arguments, a function 𝑓  and a value 𝑥 , and applies 𝑓
+to 𝑥  𝑛  times. For e xample , 𝑐2  is a function that takes a function 𝑓  and a value 𝑥 , and applies 𝑓  to 𝑥  twice .
+Successor
+W e deﬁne the successor function as:
+succ = 𝜆 𝑛 . 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑛 𝑓 𝑥 )
+It takes a Chur ch numeral 𝑛  and r eturns another Chur ch numeral that r epr esents the successor of 𝑛 , i.e .
+applying 𝑓  to 𝑥  one mor e time than 𝑛  do es. Let’s tr y succ 𝑐2 :
+succ 𝑐2 = ( 𝜆 𝑛 . 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑛 𝑓 𝑥 ) ) 𝑐2
+⟶ 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑐2 𝑓 𝑥 )
+⟶ 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( ( 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑓 𝑥 ) ) 𝑓 𝑥 )
+⟶ 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( ( 𝜆 𝑥 . 𝑓 ( 𝑓 𝑥 ) ) 𝑥 )
+⟶ 𝜆 𝑓 . 𝜆 𝑥 . 𝑓 ( 𝑓 ( 𝑓 𝑥 ) )
+= 𝑐3
+A ddition
+Then w e deﬁne addition:
+plus = 𝜆 𝑚 . 𝜆 𝑛 . 𝜆 𝑓 . 𝜆 𝑥 . 𝑚 𝑓 ( 𝑛 𝑓 𝑥 )
+7 / 10
+
+It takes tw o Chur ch numerals 𝑚  and 𝑛 , and r eturns another Chur ch numeral that r epr esents the sum of
+𝑚  and 𝑛 . If w e had ( 𝑚 𝑓 𝑥 ) , it w ould apply 𝑓  to 𝑥  𝑚  times. No w w e hav e ( 𝑚 𝑓 ( 𝑛 𝑓 𝑥 ) ) , which applies
+𝑓  to ( 𝑛 𝑓 𝑥 )  𝑚  times, wher e ( 𝑛 𝑓 𝑥 )  applies 𝑓  to 𝑥  𝑛  times. Thus, it applies 𝑓  to 𝑥  𝑚 + 𝑛  times!
+Multiplication
+What ab out multiplication?
+times = 𝜆 𝑚 . 𝜆 𝑛 . 𝑚 ( plus 𝑛 ) 𝑐0
+Her e w e use another trick: plus 𝑛  is a function that takes Chur ch numeral 𝑚  and r eturns 𝑚 + 𝑛 . Passing
+it as the ﬁrst argument to 𝑚  will apply it 𝑚  times on 𝑐0  – that is, it will add 𝑛  to 0  𝑚  times, which is 𝑚 ∗
+𝑛 . alternativ ely , w e can deﬁne multiplication as:
+times = 𝜆 𝑚 . 𝜆 𝑛 . 𝜆 𝑓 . 𝜆 𝑥 . 𝑚 ( 𝑛 𝑓 ) 𝑥
+Can y ou se e the similarity b etw e en the tw o deﬁnitions?
+Exp onentiation
+For 𝑚𝑛, w e deﬁne:
+exp = 𝜆 𝑚 . 𝜆 𝑛 . 𝑛 𝑚
+A v er y short deﬁnition that lo oks w eir d. T o se e ho w it w orks, let’s supp ose 𝑛  is a Chur ch numeral. Then
+w e hav e
+𝑛 𝑓 𝑥 = 𝑓𝑛𝑥
+𝑛 𝑓 = 𝑓𝑛( 𝜂 -reduction )
+Let’s r eplace 𝑓  with 𝑚 :
+𝑛 𝑚 = 𝑚𝑛
+W e disco v er that 𝑛 𝑚  is the same as 𝑚𝑛! Thus our deﬁnition do es the right thing.
+Pr e de cessor
+Surprisingly , pr e de cessor is the har dest function to deﬁne . It is not clear ho w to r emo v e one application
+of 𝑓  fr om 𝑥 . One trick is to use a pair of numb ers ( 𝑛 − 1 , 𝑛 )  to r epr esent 𝑛 , and then w e can e xtract the
+pr e de cessor fr om the pair .
+zz = pair 𝑐0 𝑐0
+ss = 𝜆 𝑝 . pair ( snd 𝑝 ) ( succ ( snd 𝑝 ) )
+pred = 𝜆 𝑛 . fst ( 𝑛 ss zz )
+When ss  is applie d to a pair , it r eturns a pair of the se cond element of the pair and the successor of the
+se cond element. Thus, ss  is a function that takes a pair ( 𝑛 − 1 , 𝑛 )  and r eturns ( 𝑛 , 𝑛 + 1 ) . Then, pred  takes
+a Chur ch numeral 𝑛  and r eturns the ﬁrst element of the pair ( 𝑛 − 1 , 𝑛 ) , which is 𝑛 − 1 .
+2.5. Re cursion
+Ther e is no built-in r e cursion in lamb da calculus, b e cause when deﬁning a term, w e can not r efer itself
+in its b o dy . If w e do not hav e e xpr ess lo op/r e cursion in a language , then the language can not e xpr ess
+8 / 10
+
+any computation. Her e in untyp e d lamb da calculus, w e can deﬁne r e cursiv e functions using ﬁxe d-p oint
+combinators.
+Re call that in untyp e d lamb da calculus, some terms ar e not normalizing, i.e . the y do not hav e a normal
+form. Consider the follo wing term calle d the Omega combinator :
+Ω = ( 𝜆 𝑥 . 𝑥 𝑥 ) ( 𝜆 𝑥 . 𝑥 𝑥 )
+It has only one r e de x, and it r e duces to itself:
+( 𝜆 𝑥 . 𝑥 𝑥 ) ( 𝜆 𝑥 . 𝑥 𝑥 ) ⟶ ( 𝜆 𝑥 . 𝑥 𝑥 ) ( 𝜆 𝑥 . 𝑥 𝑥 )
+No matter ho w many times w e apply b eta r e duction, w e will ne v er r each a normal form. Let’s consider
+another term calle d the Y combinator :
+𝑌 = 𝜆 𝑓 . ( 𝜆 𝑥 . 𝑓 ( 𝑥 𝑥 ) ) ( 𝜆 𝑥 . 𝑓 ( 𝑥 𝑥 ) )
+It is har d to se e what this term do es by lo oking at its deﬁnition. It is also calle d ﬁxe d-p oint combinator ,
+and it can b e use d to deﬁne r e cursiv e functions in lamb da calculus. Let’s tr y applying 𝑌  to some function
+𝑔 :
+𝑌 𝑔 = ( 𝜆 𝑓 . ( 𝜆 𝑥 . 𝑓 ( 𝑥 𝑥 ) ) ( 𝜆 𝑥 . 𝑓 ( 𝑥 𝑥 ) ) ) 𝑔
+⟶ ( 𝜆 𝑥 . 𝑔 ( 𝑥 𝑥 ) ) ( 𝜆 𝑥 . 𝑔 ( 𝑥 𝑥 ) )
+⟶ 𝑔 ( 𝜆 𝑥 . 𝑔 ( 𝑥 𝑥 ) ) ( 𝜆 𝑥 . 𝑔 ( 𝑥 𝑥 ) )
+= 𝑔 ( 𝑌 𝑔 )
+𝑌 𝑔  e valuates to 𝑔 ( 𝑌 𝑔 ) ! Ho w e v er , in the setting of call by value , 𝑌 𝑔  div erges b e cause it tries to e valuate
+𝑌 𝑔  b efor e applying 𝑔  to it. Ther e is another ﬁxe d-p oint combinator calle d the Z combinator  that w orks
+in call by value:
+𝑍 = 𝜆 𝑓 . ( 𝜆 𝑥 . 𝑓 ( 𝜆 𝑦 . 𝑥 𝑥 𝑦 ) ) ( 𝜆 𝑥 . 𝑓 ( 𝜆 𝑦 . 𝑥 𝑥 𝑦 ) )
+A ctually it is an eta e xpansion of 𝑌 , and b e cause of the argument 𝑣 , 𝑍 𝑔  in the right-hand side will not
+b e e valuate d eagerly in call by value language . Let’s se e ho w it w orks:
+𝑍 𝑔 𝑣 = ( 𝜆 𝑓 . ( 𝜆 𝑥 . 𝑓 ( 𝜆 𝑦 . 𝑥 𝑥 𝑦 ) ) ( 𝜆 𝑥 . 𝑓 ( 𝜆 𝑦 . 𝑥 𝑥 𝑦 ) ) ) 𝑔 𝑣
+⟶ ( 𝜆 𝑥 . 𝑔 ( 𝜆 𝑦 . 𝑥 𝑥 𝑦 ) ) ( 𝜆 𝑥 . 𝑔 ( 𝜆 𝑦 . 𝑥 𝑥 𝑦 ) ) 𝑣
+⟶ 𝑔 ( 𝜆 𝑦 . ( 𝜆 𝑥 . 𝑔 ( 𝜆 𝑘 . 𝑥 𝑥 𝑘 ) ) ( 𝜆 𝑥 . 𝑔 ( 𝜆 𝑘 . 𝑥 𝑥 𝑘 ) ) 𝑦 ) 𝑣
+⟶𝜂
+𝑔 ( 𝜆 𝑥 . 𝑔 ( 𝜆 𝑘 . 𝑥 𝑥 𝑘 ) ) ( 𝜆 𝑥 . 𝑔 ( 𝜆 𝑘 . 𝑥 𝑥 𝑘 ) ) 𝑣
+= 𝑔 ( 𝑍 𝑔 ) 𝑣
+It b ehav es the same way as 𝑌 𝑔 . In r eal w orld pr ogramming languages, ﬁxe d p oint combinators ar e usually
+calle d fix . T o deﬁne a r e cursiv e function, ﬁrst w e deﬁne a function 𝑔 = 𝜆 𝑓 . …  wher e the b o dy contains
+a r efer ence to 𝑓 , and then w e apply fix  to 𝑔  to get the r e cursiv e function. For e xample , to deﬁne the
+factorial function, w e can deﬁne 𝑔  as:
+𝑔 = 𝜆 𝑓 . 𝜆 𝑛 . if ( 𝑛 = = 𝑐0 ) then 𝑐1 else ( 𝑛 ∗ 𝑓 ( 𝑛 − 1 ) )
+factorial = fix 𝑔
+9 / 10
+
+assuming that w e hav e the multiplication, subtraction, e quality , and if e xpr ession. No w w e gaine d the
+ability to deﬁne r e cursiv e functions in lamb da calculus!
+3. Refer ences
+• Pier ce , B. C. (2002). T yp es and Pr ogramming Languages
+• Felleisen, M., & F latt, M. (2006). Pr ogramming Languages and Lamb da Calculi
+10 / 10

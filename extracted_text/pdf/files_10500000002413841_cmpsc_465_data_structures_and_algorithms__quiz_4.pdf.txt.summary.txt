@@ -1,0 +1,1 @@
+CMPSC 465 Data Structures & Algorithms Quiz 4 (Fall 2025, Ke Chen & Yana Safonova) consists of 5 multiple-choice questions on graph theory. Topics include edge verification in adjacency lists, DFS traversals, max edges in simple undirected graphs, topological sort uniqueness in DAGs, and back edge definitions in DFS trees.
