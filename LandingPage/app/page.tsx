@@ -3,12 +3,13 @@
 import { Shader, ChromaFlow, Swirl } from "shaders/react";
 import { CustomCursor } from "@/components/custom-cursor";
 import { GrainOverlay } from "@/components/grain-overlay";
-import { WorkSection } from "@/components/work-section";
-import { ServicesSection } from "@/components/services-section";
+import { WorkSection } from "@/components/privacy-section";
+import { ServicesSection } from "@/components/features-section";
 import { AboutSection } from "@/components/about-section";
 import { ContactSection } from "@/components/contact-section";
 import { MagneticButton } from "@/components/magnetic-button";
 import { useRef, useEffect, useState } from "react";
+import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,23 @@ export default function Home() {
   const touchStartX = useRef(0);
   const shaderContainerRef = useRef<HTMLDivElement>(null);
   const scrollThrottleRef = useRef<number | undefined>(undefined);
+
+  // Words for typing animation
+  const animatedText = useTypingAnimation({
+    words: [
+      "Assistant",
+      "Companion",
+      "Helper",
+      "Tutor",
+      "Guide",
+      "Mentor",
+      "Coach",
+      "Advisor",
+    ],
+    typingSpeed: 100,
+    deletingSpeed: 50,
+    pauseDuration: 2000,
+  });
 
   useEffect(() => {
     const checkShaderReady = () => {
@@ -249,15 +267,15 @@ export default function Home() {
         </button>
 
         <div className="hidden items-center gap-8 md:flex">
-          {["Home", "Work", "Services", "About", "Contact"].map(
+          {["Home", "Features", "Privacy", "Install", "Contact"].map(
             (item, index) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(index)}
-                className={`group relative font-sans text-sm font-medium transition-colors ${
+                className={`group relative font-sans text-sm font-medium transition-all duration-300 ${
                   currentSection === index
-                    ? "text-foreground"
-                    : "text-foreground/80 hover:text-foreground"
+                    ? "text-foreground scale-125"
+                    : "text-foreground/80 hover:text-foreground scale-100"
                 }`}
               >
                 {item}
@@ -296,19 +314,25 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="mb-4 inline-block animate-in fade-in slide-in-from-bottom-4 rounded-full border border-foreground/20 bg-foreground/15 px-4 py-1.5 backdrop-blur-md duration-700">
               <p className="font-mono text-xs text-foreground/90">
-                AI Powered Assistance
+                Full AI Integration
               </p>
             </div>
             <h1 className="mb-6 animate-in fade-in slide-in-from-bottom-8 font-sans text-6xl font-light leading-[1.1] tracking-tight text-foreground duration-1000 md:text-7xl lg:text-8xl">
               <span className="text-balance">
-                YOUR
+                Your
                 <br />
-                Personal Assistant
+                <span className="whitespace-nowrap">
+                  Personal{" "}
+                  <span className="underline decoration-2 underline-offset-4">
+                    {animatedText}
+                  </span>
+                  <span className="animate-pulse">|</span>
+                </span>
               </span>
             </h1>
             <p className="mb-8 max-w-xl animate-in fade-in slide-in-from-bottom-4 text-lg leading-relaxed text-foreground/90 duration-1000 delay-200 md:text-xl">
               <span className="text-pretty">
-                Welcome to the future of AI-powered assistance.
+                Welcome to the future of using Canvas.
               </span>
             </p>
             <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
@@ -343,8 +367,8 @@ export default function Home() {
           </div>
         </section>
 
-        <WorkSection />
         <ServicesSection />
+        <WorkSection />
         <AboutSection scrollToSection={scrollToSection} />
         <ContactSection />
       </div>

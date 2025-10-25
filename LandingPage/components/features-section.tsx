@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useReveal } from "@/hooks/use-reveal"
+import { useReveal } from "@/hooks/use-reveal";
 
 export function ServicesSection() {
-  const { ref, isVisible } = useReveal(0.3)
+  const { ref, isVisible } = useReveal(0.3);
 
   return (
     <section
@@ -13,44 +13,57 @@ export function ServicesSection() {
       <div className="mx-auto w-full max-w-7xl">
         <div
           className={`mb-12 transition-all duration-700 md:mb-16 ${
-            isVisible ? "translate-y-0 opacity-100" : "-translate-y-12 opacity-0"
+            isVisible
+              ? "translate-y-0 opacity-100"
+              : "-translate-y-12 opacity-0"
           }`}
         >
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Capabilities
+            Features
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ What we bring to the table</p>
+          <p className="font-mono text-sm text-foreground/60 md:text-base">
+            / What we bring to the table
+          </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 md:gap-x-16 md:gap-y-12 lg:gap-x-24">
           {[
             {
               title: "Creative Development",
-              description: "Pushing the boundaries of what's possible on the web",
+              description:
+                "Pushing the boundaries of what's possible on the web",
               direction: "top",
             },
             {
               title: "Visual Design",
-              description: "Crafting memorable experiences through thoughtful aesthetics",
+              description:
+                "Crafting memorable experiences through thoughtful aesthetics",
               direction: "right",
             },
             {
               title: "Motion & Animation",
-              description: "Bringing interfaces to life with purposeful movement",
+              description:
+                "Bringing interfaces to life with purposeful movement",
               direction: "left",
             },
             {
               title: "Technical Strategy",
-              description: "Building scalable solutions that perform beautifully",
+              description:
+                "Building scalable solutions that perform beautifully",
               direction: "bottom",
             },
           ].map((service, i) => (
-            <ServiceCard key={i} service={service} index={i} isVisible={isVisible} />
+            <ServiceCard
+              key={i}
+              service={service}
+              index={i}
+              isVisible={isVisible}
+            />
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function ServiceCard({
@@ -58,27 +71,27 @@ function ServiceCard({
   index,
   isVisible,
 }: {
-  service: { title: string; description: string; direction: string }
-  index: number
-  isVisible: boolean
+  service: { title: string; description: string; direction: string };
+  index: number;
+  isVisible: boolean;
 }) {
   const getRevealClass = () => {
     if (!isVisible) {
       switch (service.direction) {
         case "left":
-          return "-translate-x-16 opacity-0"
+          return "-translate-x-16 opacity-0";
         case "right":
-          return "translate-x-16 opacity-0"
+          return "translate-x-16 opacity-0";
         case "top":
-          return "-translate-y-16 opacity-0"
+          return "-translate-y-16 opacity-0";
         case "bottom":
-          return "translate-y-16 opacity-0"
+          return "translate-y-16 opacity-0";
         default:
-          return "translate-y-12 opacity-0"
+          return "translate-y-12 opacity-0";
       }
     }
-    return "translate-x-0 translate-y-0 opacity-100"
-  }
+    return "translate-x-0 translate-y-0 opacity-100";
+  };
 
   return (
     <div
@@ -89,10 +102,16 @@ function ServiceCard({
     >
       <div className="mb-3 flex items-center gap-3">
         <div className="h-px w-8 bg-foreground/30 transition-all duration-300 group-hover:w-12 group-hover:bg-foreground/50" />
-        <span className="font-mono text-xs text-foreground/60">0{index + 1}</span>
+        <span className="font-mono text-xs text-foreground/60">
+          0{index + 1}
+        </span>
       </div>
-      <h3 className="mb-2 font-sans text-2xl font-light text-foreground md:text-3xl">{service.title}</h3>
-      <p className="max-w-sm text-sm leading-relaxed text-foreground/80 md:text-base">{service.description}</p>
+      <h3 className="mb-2 font-sans text-2xl font-light text-foreground md:text-3xl">
+        {service.title}
+      </h3>
+      <p className="max-w-sm text-sm leading-relaxed text-foreground/80 md:text-base">
+        {service.description}
+      </p>
     </div>
-  )
+  );
 }
