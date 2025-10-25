@@ -310,48 +310,113 @@ export default function Home() {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {/* Hero Section */}
-        <section className="flex min-h-screen w-screen shrink-0 flex-col justify-end px-6 pb-16 pt-24 md:px-12 md:pb-24">
-          <div className="max-w-3xl">
-            <div className="mb-4 inline-block animate-in fade-in slide-in-from-bottom-4 rounded-full border border-foreground/20 bg-foreground/15 px-4 py-1.5 backdrop-blur-md duration-700">
-              <p className="font-mono text-xs text-foreground/90">
-                Full AI Integration
-              </p>
-            </div>
-            <h1 className="mb-6 animate-in fade-in slide-in-from-bottom-8 font-sans text-6xl font-light leading-[1.1] tracking-tight text-foreground duration-1000 md:text-7xl lg:text-8xl">
-              <span className="text-balance">
-                Your
-                <br />
-                <span className="whitespace-nowrap">
-                  Personal{" "}
-                  <span className="underline decoration-2 underline-offset-4">
-                    {animatedText}
+        <section className="flex min-h-screen w-screen shrink-0 items-center px-6 pt-24 pb-16 md:px-12 md:pb-24">
+          <div className="mx-auto w-full max-w-7xl">
+            <div className="grid gap-8 md:grid-cols-2 md:gap-32 lg:gap-40">
+              {/* Left side - Hero content */}
+              <div className="flex flex-col justify-center">
+                <div className="mb-4 inline-block w-fit animate-in fade-in slide-in-from-bottom-4 rounded-full border border-foreground/20 bg-foreground/15 px-3 py-1 backdrop-blur-md duration-700">
+                  <p className="font-mono text-xs text-foreground/90">
+                    Full AI Integration
+                  </p>
+                </div>
+                <h1 className="mb-6 animate-in fade-in slide-in-from-bottom-8 font-sans text-6xl font-light leading-[1.1] tracking-tight text-foreground duration-1000 md:text-7xl lg:text-8xl">
+                  <span className="text-balance">
+                    Your
+                    <br />
+                    <span className="whitespace-nowrap">
+                      Personal{" "}
+                      <span className="underline decoration-2 underline-offset-4">
+                        {animatedText}
+                      </span>
+                      <span className="animate-pulse">|</span>
+                    </span>
                   </span>
-                  <span className="animate-pulse">|</span>
-                </span>
-              </span>
-            </h1>
-            <p className="mb-8 max-w-xl animate-in fade-in slide-in-from-bottom-4 text-lg leading-relaxed text-foreground/90 duration-1000 delay-200 md:text-xl">
-              <span className="text-pretty">
-                Welcome to the future of using Canvas.
-              </span>
-            </p>
-            <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
-              <MagneticButton
-                size="lg"
-                variant="primary"
-                onClick={() =>
-                  window.open("https://v0.app/templates/R3n0gnvYFbO", "_blank")
-                }
-              >
-                Open The Github
-              </MagneticButton>
-              <MagneticButton
-                size="lg"
-                variant="secondary"
-                onClick={() => scrollToSection(2)}
-              >
-                View Demo
-              </MagneticButton>
+                </h1>
+                <p className="mb-8 max-w-xl animate-in fade-in slide-in-from-bottom-4 text-lg leading-relaxed text-foreground/90 duration-1000 delay-200 md:text-xl">
+                  <span className="text-pretty">
+                    Welcome to the future of using Canvas.
+                  </span>
+                </p>
+                <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
+                  <MagneticButton
+                    size="lg"
+                    variant="primary"
+                    onClick={() =>
+                      window.open(
+                        "https://v0.app/templates/R3n0gnvYFbO",
+                        "_blank"
+                      )
+                    }
+                  >
+                    Open The Github
+                  </MagneticButton>
+                  <MagneticButton
+                    size="lg"
+                    variant="secondary"
+                    onClick={() => scrollToSection(2)}
+                  >
+                    View Demo
+                  </MagneticButton>
+                </div>
+              </div>
+
+              {/* Right side - Stats with creative layout */}
+              <div className="flex flex-col justify-center space-y-6 md:space-y-12">
+                {[
+                  {
+                    value: "+50%",
+                    label: "Efficiency",
+                    sublabel: "In Canvas Learning",
+                    direction: "right",
+                  },
+                  {
+                    value: "24/7",
+                    label: "Support",
+                    sublabel: "Always Available",
+                    direction: "left",
+                  },
+                  {
+                    value: "2hr",
+                    label: "A Week",
+                    sublabel: "Saved In Time",
+                    direction: "right",
+                  },
+                ].map((stat, i) => {
+                  const getRevealClass = () => {
+                    if (!isLoaded) {
+                      return stat.direction === "left"
+                        ? "-translate-x-16 opacity-0"
+                        : "translate-x-16 opacity-0";
+                    }
+                    return "translate-x-0 opacity-100";
+                  };
+
+                  return (
+                    <div
+                      key={i}
+                      className={`flex items-baseline gap-4 border-l border-foreground/30 pl-4 transition-all duration-700 md:gap-8 md:pl-8 ${getRevealClass()}`}
+                      style={{
+                        transitionDelay: `${300 + i * 150}ms`,
+                        marginLeft: i % 2 === 0 ? "0" : "auto",
+                        maxWidth: i % 2 === 0 ? "100%" : "85%",
+                      }}
+                    >
+                      <div className="text-3xl font-light text-foreground md:text-6xl lg:text-7xl">
+                        {stat.value}
+                      </div>
+                      <div>
+                        <div className="font-sans text-base font-light text-foreground md:text-xl">
+                          {stat.label}
+                        </div>
+                        <div className="font-mono text-xs text-foreground/60">
+                          {stat.sublabel}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

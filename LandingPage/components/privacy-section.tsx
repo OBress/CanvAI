@@ -22,7 +22,7 @@ export function WorkSection() {
             Privacy
           </h2>
           <p className="font-mono text-sm text-foreground/60 md:text-base">
-            / Your Data Stays With You
+            / Your Data Is <span className="underline">Safe</span>
           </p>
         </div>
 
@@ -30,23 +30,26 @@ export function WorkSection() {
           {[
             {
               number: "01",
-              title: "Kinetic Typography",
-              category: "Interactive Experience",
-              year: "2024",
+              title: "No Data Collection",
+              category:
+                "All data is stored locally and securely on your device.",
+              year: "",
               direction: "left",
             },
             {
               number: "02",
-              title: "Generative Patterns",
-              category: "Visual System",
-              year: "2024",
+              title: "Secure Data Sharing",
+              category:
+                "Data is only shared with trusted companies like OpenAI and Google but never stored. Your data is never shared with us.",
+              year: "",
               direction: "right",
             },
             {
               number: "03",
-              title: "Spatial Interface",
-              category: "3D Navigation",
-              year: "2023",
+              title: "Full Compliance With Canvas TOS",
+              category:
+                "All actions are compliant with Canvas's Terms of Service.",
+              year: "",
               direction: "left",
             },
           ].map((project, i) => (

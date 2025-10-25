@@ -8,9 +8,31 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Shaders Landing Page",
-  description: "Created with v0",
-  generator: "v0.app",
+  title: "CanvAI - Canvas Learning Assistant",
+  description:
+    "CanvAI is a learning assistant that helps you learn faster and smarter.",
+  generator: "CanvAI",
+  keywords: [
+    "CanvAI",
+    "Canvas Learning Assistant",
+    "Learning Assistant",
+    "Learning",
+    "Assistant",
+    "AI",
+    "AI Assistant",
+    "AI Learning Assistant",
+    "AI Learning",
+    "AI Assistant",
+    "AI Learning Assistant",
+  ],
+  authors: [{ name: "CanvAI", url: "https://canvai.com" }],
+  creator: "CanvAI",
+  publisher: "CanvAI",
+  openGraph: {
+    title: "CanvAI - Canvas Learning Assistant",
+    description:
+      "CanvAI is a learning assistant that helps you learn faster and smarter.",
+  },
 };
 
 export default function RootLayout({

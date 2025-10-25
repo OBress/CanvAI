@@ -8,7 +8,7 @@ export function ServicesSection() {
   return (
     <section
       ref={ref}
-      className="flex h-screen w-screen shrink-0 snap-start items-center px-6 pt-20 md:px-12 md:pt-0 lg:px-16"
+      className="flex min-h-screen w-screen shrink-0 snap-start items-center px-6 py-20 md:px-12 lg:px-16"
     >
       <div className="mx-auto w-full max-w-7xl">
         <div
@@ -26,31 +26,25 @@ export function ServicesSection() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 md:gap-x-16 md:gap-y-12 lg:gap-x-24">
+        <div className="grid gap-8 md:grid-cols-3 md:gap-x-8 lg:gap-x-12">
           {[
             {
-              title: "Creative Development",
+              title: "Find Course Material",
               description:
-                "Pushing the boundaries of what's possible on the web",
+                "Automatically find course material between lectures and assignments and answer your questions.",
               direction: "top",
             },
             {
-              title: "Visual Design",
+              title: "Automatic What If Reports",
               description:
-                "Crafting memorable experiences through thoughtful aesthetics",
-              direction: "right",
+                "Can calculate theoritical grade scores for assignments and give back the grade in a class.",
+              direction: "top",
             },
             {
-              title: "Motion & Animation",
+              title: "Content On Your Midterm",
               description:
-                "Bringing interfaces to life with purposeful movement",
-              direction: "left",
-            },
-            {
-              title: "Technical Strategy",
-              description:
-                "Building scalable solutions that perform beautifully",
-              direction: "bottom",
+                "Scans your lectures and practice tests to create review material for your midterm exam.",
+              direction: "top",
             },
           ].map((service, i) => (
             <ServiceCard
@@ -95,7 +89,7 @@ function ServiceCard({
 
   return (
     <div
-      className={`group transition-all duration-700 ${getRevealClass()}`}
+      className={`group flex flex-col transition-all duration-700 ${getRevealClass()}`}
       style={{
         transitionDelay: `${index * 150}ms`,
       }}
@@ -109,9 +103,38 @@ function ServiceCard({
       <h3 className="mb-2 font-sans text-2xl font-light text-foreground md:text-3xl">
         {service.title}
       </h3>
-      <p className="max-w-sm text-sm leading-relaxed text-foreground/80 md:text-base">
+      <p className="mb-6 max-w-sm text-sm leading-relaxed text-foreground/80 md:text-base">
         {service.description}
       </p>
+
+      {/* Floating Glass Panel Image Container */}
+      <div className="relative mt-auto">
+        <div
+          className="group/image relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md transition-all duration-500 hover:scale-[1.02] hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_-15px_rgba(255,255,255,0.3)]"
+          style={{
+            transform: "translateZ(50px)",
+          }}
+        >
+          {/* Placeholder for image - you can replace this div with an <img> tag */}
+          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-white/10 to-transparent">
+            <span className="font-mono text-xs text-foreground/40">
+              Image {index + 1}
+            </span>
+          </div>
+
+          {/* Glass reflection effect */}
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-tr from-transparent via-white/5 to-white/20" />
+
+          {/* Glow effect on hover */}
+          <div
+            className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover/image:opacity-100"
+            style={{
+              background:
+                "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
