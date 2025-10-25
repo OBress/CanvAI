@@ -1,0 +1,84 @@
+
+---
+
+**Flashcard 1:**
+
+**Q:** What is the primary goal of Lexical Analysis in a compiler's front-end?
+
+**A:** The primary goal of Lexical Analysis is to divide the character stream into meaningful sequences called lexemes, label each lexeme with a token for syntax analysis, remove non-significant blanks and comments, and optionally update the symbol tables with identifiers and numbers.
+
+---
+
+**Flashcard 2:**
+
+**Q:** Define a token in the context of lexical analysis.
+
+**A:** A token is a <name, attribute> pair where the attribute might be multi-valued, representing a meaningful sequence of characters like identifiers, operators, or punctuation in the source code.
+
+---
+
+**Flashcard 3:**
+
+**Q:** How are patterns and lexemes related in lexical analysis?
+
+**A:** A pattern describes the character strings for the lexemes of a token. Lexemes are sequences of characters that match the pattern for a token, and patterns are typically defined through regular expressions.
+
+---
+
+**Flashcard 4:**
+
+**Q:** What are common token classes in programming languages?
+
+**A:** Common token classes include keywords, punctuation symbols (e.g., parentheses, commas), identifiers, operators, and constants (e.g., numbers, literal strings).
+
+---
+
+**Flashcard 5:**
+
+**Q:** How does the lexical analyzer handle lexical errors?
+
+**A:** Lexical errors occur when a token cannot be recognized. Recovery methods include panic mode (deleting successive characters until a valid token is found), deleting or inserting a character, or replacing/transposing characters to form a valid token.
+
+---
+
+---
+
+**Flashcard 6:**
+
+**Q:** What is an alphabet in the context of programming language concepts?
+
+**A:** An alphabet is a finite set of symbols. For example, Σ1 = {0,1,2,3,4,5,6,7,8,9} is a 10-element set of decimal digits.
+
+---
+
+**Flashcard 7:**
+
+**Q:** What does the regular expression `(01)*` represent?
+
+**A:** It represents a regular language where strings consist of zero or more repetitions of the pattern "01", such as "", "01", "0101", etc.
+
+---
+
+**Flashcard 8:**
+
+**Q:** How do you denote a string of length zero in regular expressions?
+
+**A:** A string of length zero is called the null string or empty string and is denoted by ε.
+
+---
+
+**Flashcard 9:**
+
+**Q:** What is the purpose of using a backslash (\) in regular expressions?
+
+**A:** A backslash is used to escape special characters, allowing them to be matched literally. For example, to match "1+2=3", you use the regular expression `1\+2=3`.
+
+---
+
+**Flashcard 20:**
+
+**Q:** What is the precedence order of operations in regular expressions?
+
+**A:** The precedence order, from high to low, is Closure (*), Concatenation, and Alternation (|).
+
+---
