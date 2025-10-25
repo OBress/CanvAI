@@ -1,83 +1,122 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark, .dark *));
+
+/* 
+  Color Palette:
+  --color-dark-primary: #303841 (Dark gray-blue)
+  --color-dark-secondary: #3A4750 (Lighter gray-blue)
+  --color-accent: #00ADB5 (Cyan/Turquoise)
+  --color-light: #EEEEEE (Light gray)
+  
+  Variations for aesthetics:
+  - Lighter: #4A5865 (for borders/subtle elements)
+  - Darker: #252C33 (for deep backgrounds)
+  - Accent light: #33BFCA (hover states)
+  - Accent dark: #008B93 (pressed states)
+*/
 
 :root {
-  --background: oklch(0.12 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.15 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.65 0.22 250);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.25 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.68 0.18 45);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.25 0 0);
-  --input: oklch(0.25 0 0);
-  --ring: oklch(0.65 0.22 250);
-  --chart-1: oklch(0.65 0.22 250);
-  --chart-2: oklch(0.68 0.18 45);
-  --chart-3: oklch(0.6 0.15 280);
-  --chart-4: oklch(0.7 0.2 30);
-  --chart-5: oklch(0.55 0.18 200);
+  /* Light Theme Colors */
+  --color-dark-primary: #303841;
+  --color-dark-secondary: #3A4750;
+  --color-accent: #00ADB5;
+  --color-light: #EEEEEE;
+  
+  /* Aesthetic Variations - Light Theme */
+  --color-lighter: #4A5865;
+  --color-darker: #252C33;
+  --color-accent-light: #33BFCA;
+  --color-accent-dark: #008B93;
+  --color-white: #FFFFFF;
+  
+  /* Semantic Color Mappings - Light Theme */
+  --background: var(--color-light);
+  --foreground: var(--color-dark-primary);
+  --card: #FFFFFF;
+  --card-foreground: var(--color-dark-primary);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--color-dark-primary);
+  --primary: var(--color-accent);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--color-dark-secondary);
+  --secondary-foreground: var(--color-light);
+  --muted: var(--color-lighter);
+  --muted-foreground: var(--color-dark-secondary);
+  --accent: var(--color-accent);
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: var(--color-lighter);
+  --input: var(--color-lighter);
+  --ring: var(--color-accent);
+  
+  /* Additional UI Elements */
+  --nav-background: rgba(238, 238, 238, 0.8);
+  --button-hover: var(--color-accent-light);
+  --button-active: var(--color-accent-dark);
+  --text-primary: var(--color-dark-primary);
+  --text-secondary: var(--color-dark-secondary);
+  --text-muted: var(--color-lighter);
+  --overlay: rgba(48, 56, 65, 0.25);
+  
+  /* Shader/Background Colors */
+  --shader-color-a: var(--color-accent);
+  --shader-color-b: var(--color-accent-light);
+  --shader-accent: var(--color-dark-secondary);
+  
+  /* Custom Cursor Colors */
+  --cursor-color: var(--color-dark-primary);
+  
   --radius: 0.75rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
-  --background: oklch(0.12 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.15 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.65 0.22 250);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.25 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.68 0.18 45);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.25 0 0);
-  --input: oklch(0.25 0 0);
-  --ring: oklch(0.65 0.22 250);
-  --chart-1: oklch(0.65 0.22 250);
-  --chart-2: oklch(0.68 0.18 45);
-  --chart-3: oklch(0.6 0.15 280);
-  --chart-4: oklch(0.7 0.2 30);
-  --chart-5: oklch(0.55 0.18 200);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Dark Theme - Inverted */
+  --background: var(--color-dark-primary);
+  --foreground: var(--color-light);
+  --card: var(--color-dark-secondary);
+  --card-foreground: var(--color-light);
+  --popover: var(--color-dark-secondary);
+  --popover-foreground: var(--color-light);
+  --primary: var(--color-accent);
+  --primary-foreground: var(--color-dark-primary);
+  --secondary: var(--color-dark-secondary);
+  --secondary-foreground: var(--color-light);
+  --muted: var(--color-darker);
+  --muted-foreground: var(--color-lighter);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-dark-primary);
+  --destructive: #EF4444;
+  --destructive-foreground: var(--color-light);
+  --border: var(--color-darker);
+  --input: var(--color-dark-secondary);
+  --ring: var(--color-accent);
+  
+  /* Additional UI Elements - Dark Theme */
+  --nav-background: rgba(48, 56, 65, 0.8);
+  --button-hover: var(--color-accent-light);
+  --button-active: var(--color-accent-dark);
+  --text-primary: var(--color-light);
+  --text-secondary: var(--color-light);
+  --text-muted: var(--color-lighter);
+  --overlay: rgba(0, 0, 0, 0.4);
+  
+  /* Shader/Background Colors - Dark Theme */
+  --shader-color-a: var(--color-accent);
+  --shader-color-b: var(--color-dark-secondary);
+  --shader-accent: var(--color-accent-dark);
+  
+  /* Custom Cursor Colors - Dark Theme */
+  --cursor-color: var(--color-light);
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --font-sans: "Geist", "Geist Fallback";
   --font-mono: "Geist Mono", "Geist Mono Fallback";
+  
+  /* Tailwind Color Mappings */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -97,23 +136,12 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  
+  /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
@@ -121,8 +149,10 @@
     @apply border-border outline-ring/50;
     cursor: none;
   }
+  
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   [data-scroll-container] {
