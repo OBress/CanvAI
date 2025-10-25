@@ -22,7 +22,16 @@ def vectorize(csv_filename: str = "sample.csv", out_dir_name: str = "vectorstore
 	Returns the created DB object (or None on failure).
 	"""
 	base = Path(__file__).parent
-	csv_path = base / csv_filename
+	# Prefer a top-level project 'data' folder (two parents up from this file).
+	# e.g., <repo>/data/<csv_filename>
+	project_root = Path(__file__).resolve().parents[2]
+	data_dir = project_root / "data"
+	if data_dir.exists():
+		csv_path = data_dir / csv_filename
+		print(f"Using CSV from project data folder: {csv_path}")
+	else:
+		csv_path = base / csv_filename
+		print(f"Using CSV from script folder: {csv_path}")
 	if not csv_path.exists():
 		print(f"CSV file not found at {csv_path.resolve()}")
 		return None
@@ -135,15 +144,19 @@ if __name__ == "__main__":
 	import argparse
 	parser = argparse.ArgumentParser(description="Vectorize CSV and/or perform semantic search")
 	parser.add_argument("--vectorize", action="store_true", help="Run vectorization to build/save the vector database")
-	parser.add_argument("--dbname", type=str, default="db_faiss", help="Name to use for saved vectorstore (folder name)")
+	parser.add_argument("--dbname", "--db_name", dest="dbname", type=str, default="db_faiss", help="Name to use for saved vectorstore (folder name)")
+	parser.add_argument("--csv", "--csv_filename", dest="csv", type=str, default="sample.csv", help="CSV filename to vectorize (relative to project data/ or script folder)")
+	parser.add_argument("--outdir", dest="outdir", type=str, default="vectorstore", help="Directory to save/load the vectorstore")
 	parser.add_argument("--query", type=str, help="Run a semantic search with this query")
 	parser.add_argument("--k", type=int, default=3, help="Number of results to return for search")
 	parser.add_argument("--recreate", action="store_true", help="If search is requested and DB missing, recreate it")
+	parser.add_argument("--export", nargs="?", const="vectorstore_export.csv", help="Export saved vectorstore to CSV; optionally provide output filename")
 	args = parser.parse_args()
 
 	if args.vectorize:
-		vectorize(db_name=args.dbname)
+		vectorize(csv_filename=args.csv, out_dir_name=args.outdir, db_name=args.dbname)
 
 	if args.query:
-		perform_search(args.query, k=args.k, recreate_if_missing=args.recreate, db_name=args.dbname)
-    
+		perform_search(args.query, k=args.k, csv_filename=args.csv, out_dir_name=args.outdir, recreate_if_missing=args.recreate, db_name=args.dbname)
+
+	
