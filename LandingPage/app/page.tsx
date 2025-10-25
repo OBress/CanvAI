@@ -214,8 +214,8 @@ export default function Home() {
       >
         <Shader className="h-full w-full">
           <Swirl
-            colorA="#303841"
-            colorB="#3A4750"
+            colorA="#0D0C11"
+            colorB="#16151B"
             speed={0.4}
             detail={0.5}
             blend={35}
@@ -227,13 +227,13 @@ export default function Home() {
             fineY={10}
           />
           <ChromaFlow
-            baseColor="#00ADB5"
-            upColor="#3A4750"
-            downColor="#252C33"
-            leftColor="#303841"
-            rightColor="#33BFCA"
-            intensity={0.7}
-            radius={2.5}
+            baseColor="#00FF41"
+            upColor="#9D00FF"
+            downColor="#7B00FF"
+            leftColor="#BB00FF"
+            rightColor="#00FF88"
+            intensity={1.2}
+            radius={1.2}
             momentum={35}
             maskType="alpha"
             opacity={0.85}
@@ -242,7 +242,7 @@ export default function Home() {
         <div
           className="absolute inset-0 transition-colors duration-300"
           style={{
-            backgroundColor: "rgba(48, 56, 65, 0.65)",
+            backgroundColor: "rgba(13, 12, 17, 0.65)",
           }}
         />
       </div>
@@ -349,7 +349,7 @@ export default function Home() {
                       )
                     }
                   >
-                    Open The Github
+                    Install Now
                   </MagneticButton>
                   <MagneticButton
                     size="lg"

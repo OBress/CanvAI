@@ -4,29 +4,30 @@
 @custom-variant dark (&:is(.dark, .dark *));
 
 /* 
-  Color Palette:
-  --color-dark-primary: #303841 (Dark gray-blue)
-  --color-dark-secondary: #3A4750 (Lighter gray-blue)
+  Color Palette - Domaski's Black Aesthetic:
+  --color-dark-primary: #0D0C11 (Domaski's black - absolute black)
+  --color-dark-secondary: #16151B (Slightly lighter)
   --color-accent: #00ADB5 (Cyan/Turquoise)
   --color-light: #EEEEEE (Light gray)
   
   Variations for aesthetics:
-  - Lighter: #4A5865 (for borders/subtle elements)
-  - Darker: #252C33 (for deep backgrounds)
+  - Lighter: #28272D (for borders/subtle elements)
+  - Mid-tone: #1F1E24 (for cards/elevated surfaces)
   - Accent light: #33BFCA (hover states)
   - Accent dark: #008B93 (pressed states)
 */
 
 :root {
   /* Light Theme Colors */
-  --color-dark-primary: #303841;
-  --color-dark-secondary: #3A4750;
+  --color-dark-primary: #0D0C11;
+  --color-dark-secondary: #16151B;
   --color-accent: #00ADB5;
   --color-light: #EEEEEE;
   
   /* Aesthetic Variations - Light Theme */
-  --color-lighter: #4A5865;
-  --color-darker: #252C33;
+  --color-lighter: #28272D;
+  --color-darker: #0D0C11;
+  --color-midtone: #1F1E24;
   --color-accent-light: #33BFCA;
   --color-accent-dark: #008B93;
   --color-white: #FFFFFF;
@@ -59,7 +60,7 @@
   --text-primary: var(--color-dark-primary);
   --text-secondary: var(--color-dark-secondary);
   --text-muted: var(--color-lighter);
-  --overlay: rgba(48, 56, 65, 0.25);
+  --overlay: rgba(13, 12, 17, 0.25);
   
   /* Shader/Background Colors */
   --shader-color-a: var(--color-accent);
@@ -95,13 +96,13 @@
   --ring: var(--color-accent);
   
   /* Additional UI Elements - Dark Theme */
-  --nav-background: rgba(48, 56, 65, 0.8);
+  --nav-background: rgba(13, 12, 17, 0.8);
   --button-hover: var(--color-accent-light);
   --button-active: var(--color-accent-dark);
   --text-primary: var(--color-light);
   --text-secondary: var(--color-light);
   --text-muted: var(--color-lighter);
-  --overlay: rgba(0, 0, 0, 0.4);
+  --overlay: rgba(13, 12, 17, 0.6);
   
   /* Shader/Background Colors - Dark Theme */
   --shader-color-a: var(--color-accent);
