@@ -1,0 +1,1 @@
+CMPSC 465 HW3 details heap operations (build, insert, delete) on arrays, analyzes min/max nodes for height h, and proves Heapify-UP's Ω(logn) worst-case. It designs a two-heap structure for O(logn) median-of-stream tracking and proves an n-element binary heap's height is ⌊log2n⌋.

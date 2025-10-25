@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 7 covers determining function constants from equality conditions, evaluating sigma/pi notation expressions (some zero), converting series/products to compact notation, and mathematical induction proofs, specifically for n!>3^n (n≥7), the sum of cubes, and 6^n+4 divisibility by 5.

@@ -1,0 +1,1 @@
+CMPSC 465 (Oct 10, 2025) covers All Pairs Shortest Paths (APSP) using Floyd-Warshall (O(V^3), detects negative cycles) by recursively updating distances. It also defines Maximum Flow for capacitated directed graphs with source/sink, detailing s-t flows with capacity/conservation rules to find the highest value.

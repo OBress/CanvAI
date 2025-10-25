@@ -1,0 +1,1 @@
+Assignment 1 for CMPSC 461: Programming Language Concepts (Fall 2025) by Prof. Suman Saha is due Sep 12, 2025. Submissions must be typed, marked on Gradescope, and include PSU ID. It covers lexical analysis concepts: token, pattern, lexeme, symbol table, lookahead, and error recovery methods, requiring conceptual explanations.

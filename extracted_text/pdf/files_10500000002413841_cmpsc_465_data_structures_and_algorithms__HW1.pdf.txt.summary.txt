@@ -1,0 +1,1 @@
+CMPSC 465 HW 1, due Sep 15 (10 pm), covers data structures & algorithms concepts: comparing growth rates (O/Ω/Θ), Big-O/Theta proofs, useful identities, and solving recurrence relations. Students may collaborate, but must write solutions individually, acknowledge sources, and submit via Gradescope. Late homework will not be accepted.

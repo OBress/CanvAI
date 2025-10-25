@@ -1,0 +1,1 @@
+This final review summarizes networking concepts from physical to application layers, covering internet architecture, protocols (HTTP, TCP, IP, BGP), underlying mechanisms, and performance analysis. Topics include switching, routing, error detection, and signal modulation. The exam tests these via selection and calculation questions.

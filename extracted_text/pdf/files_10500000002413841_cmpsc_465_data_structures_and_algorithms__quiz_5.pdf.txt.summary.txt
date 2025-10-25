@@ -1,0 +1,1 @@
+This CMPSC 465 Quiz 5 (Fall 2025) covers Data Structures & Algorithms topics including strongly connected components and `post` numbers, BFS for shortest paths in unweighted graphs, Dijkstra's algorithm limitations (negative-weight edges) and behavior upon visiting a node, and the uniqueness of shortest paths in weighted graphs.

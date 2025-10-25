@@ -1,0 +1,1 @@
+CMPSC 461 (Fall 2025) Assignment 2, by Prof. Suman Saha, is due Sep 19, 11:59 PM. Submissions must be typed on Gradescope, with problems on separate, marked pages including student info; no handwritten work is accepted. The assignment features two Context-Free Grammar problems, requiring conceptual understanding.

@@ -1,0 +1,1 @@
+This homework analyzes HTTP GET/reply messages, calculates webpage retrieval times considering DNS, non-persistent/persistent HTTP, and parallel connections. It also examines caching's impact on network delay, utilizes nslookup for DNS queries, and compares file distribution performance between client-server and P2P architectures.

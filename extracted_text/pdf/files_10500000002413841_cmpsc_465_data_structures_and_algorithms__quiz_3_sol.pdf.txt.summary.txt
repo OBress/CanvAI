@@ -1,0 +1,1 @@
+CMPSC 465 Quiz 3 covers heap fundamentals: In a min-heap, parent nodes are less than or equal to their children. Increasing a max-heap's root value does not violate the heap property. A binary heap of height 'h' must have a minimum of 2^h nodes. If HeapSort uses a min-heap, the array is sorted in descending order.

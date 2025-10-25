@@ -1,0 +1,1 @@
+Solutions for CMPSC 360 Worksheet 9 include proofs by induction (x^(2n)-y^(2n) is divisible by x+y) and strong induction (12|(n^4-n^2), n-1 breaks for n-piece chocolate). Number theory covers modulo arithmetic and decimal/octal base conversion.

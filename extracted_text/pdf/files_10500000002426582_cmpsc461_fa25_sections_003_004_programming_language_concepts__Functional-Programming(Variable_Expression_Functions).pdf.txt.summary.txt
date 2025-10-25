@@ -1,0 +1,1 @@
+CMPSC 461 by Suman Saha introduces Functional Programming via Scheme, a paradigm distinct from imperative languages. Scheme uses DrRacket, employs prefix notation for expressions, dynamic typing, and treats functions as values (lambda functions, recursion), influencing modern multi-paradigm languages like Python and Java.

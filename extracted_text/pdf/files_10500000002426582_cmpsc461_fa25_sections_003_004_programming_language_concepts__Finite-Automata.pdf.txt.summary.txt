@@ -1,0 +1,1 @@
+Finite Automata (NFAs/DFAs) are equivalent to regular expressions, implementing them via NFA simulation or NFA-to-DFA conversion and simulation. For lexical analysis, token NFAs are combined, resolving ambiguities using longest prefix and priority rules, often by merging all NFAs into a single automaton.

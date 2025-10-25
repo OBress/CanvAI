@@ -1,0 +1,1 @@
+CMPSC 360 Discrete Math Worksheet 3 focuses on foundational logic concepts. Tasks include simplifying logical expressions using equivalence rules, verifying logical equivalences via properties and truth tables, translating between natural language and predicate logic using quantifiers, and proving/disproving if a given compound proposition is a contingency.

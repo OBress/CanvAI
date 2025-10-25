@@ -1,0 +1,1 @@
+This content is Chapter 12, "JavaFX Graphical User Interfaces: Part 1," from "Java How to Program, 11/e." It is copyrighted by Pearson Education, Inc. from 1992-2018. Questions can be directed to paul.deitel@deitel.com.

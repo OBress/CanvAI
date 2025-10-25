@@ -1,0 +1,1 @@
+Professor Suman Saha's CMPSC 461, Programming Language Concepts, covers Memory Management. Topics include heap management and various garbage collection techniques: reference counting, tracing collection methods like Mark-And-Sweep, Mark-and-Compact, and Stop-and-Copy (Stop-the-World collectors), plus Short-Pause and Generational GC.

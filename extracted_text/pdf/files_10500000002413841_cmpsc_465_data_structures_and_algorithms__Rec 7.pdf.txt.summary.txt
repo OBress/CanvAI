@@ -1,0 +1,1 @@
+CMPSC 465 Worksheet 7 (Fall 2025) focuses on Max Flow Min Cut problems. Tasks include applying Ford-Fulkerson, drawing residual graphs, reducing multi-source/sink and project assignment problems to standard max-flow, and developing a linear-time algorithm to verify a given max-flow solution.

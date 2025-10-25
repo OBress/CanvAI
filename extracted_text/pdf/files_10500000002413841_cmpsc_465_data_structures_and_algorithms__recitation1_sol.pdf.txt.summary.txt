@@ -1,0 +1,1 @@
+This CMPSC 465 worksheet covers asymptotic analysis. It includes ordering functions by growth rates (constant to exponential), analyzing pseudo-code running times (e.g., Θ(n^2), Θ(n log log n)), proving summation identities (e.g., ∑k^j=Θ(n^(j+1)), ∑∑ij=Θ(n^4)), and solving recurrence relations (e.g., O(n^4 log n), O(n^(3/2)log n), O(n^(2/3))).

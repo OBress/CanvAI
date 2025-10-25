@@ -1,0 +1,1 @@
+The "Pizza Servings Calculator" assignment features a GUI having a 350x300 JFrame titled 'Pizza Servings Calculator'. It includes a red title label, a 4-col text field for pizza size input, and a 'Calculate Servings' button. Its handler computes/displays 2-decimal-place servings in a label. JPanel for grid line 2. Late policy: 4% daily, max 40%. Good OOP expected.

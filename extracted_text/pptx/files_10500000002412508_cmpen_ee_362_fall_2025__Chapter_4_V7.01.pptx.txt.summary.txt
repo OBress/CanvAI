@@ -1,0 +1,1 @@
+The Network Layer's data plane handles packet forwarding. It covers router architecture; IP (IPv4/IPv6 datagrams, fragmentation, addressing, NAT, tunneling); and generalized forwarding. This includes SDN/OpenFlow, using match+action rules for flexible packet handling via centralized control.

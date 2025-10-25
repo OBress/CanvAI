@@ -1,0 +1,1 @@
+CMPSC 465 Quiz 6 covered algorithms: Bellman-Ford fails on undirected graphs with negative edge cycles; over-updating is harmless without negative cycles. Floyd-Warshall's recursion is `min(dist k-1[i,j], dist k-1[i,k]+dist k-1[k,j])`. Network flow: source output equals sink input, and increasing edge capacity doesn't always boost max flow.

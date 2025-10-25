@@ -1,0 +1,1 @@
+Quiz 3 from CMPSC 465, Fall 2025, tests knowledge of heap properties. Topics include min/max-heap relationships, operations (IncreaseKey, Insert), minimum node count by height, and HeapSort behavior when using min-heaps.

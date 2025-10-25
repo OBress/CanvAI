@@ -1,0 +1,1 @@
+CMPSC 465 Quiz 4 covered data structures and algorithms, clarifying that verifying a single edge in an adjacency list takes O(n), identifying plausible DFS traversals, stating the maximum edges in a simple undirected graph is n(n-1)/2, confirming topological sort isn't always unique, and defining DFS back edges as leading to an ancestor node.

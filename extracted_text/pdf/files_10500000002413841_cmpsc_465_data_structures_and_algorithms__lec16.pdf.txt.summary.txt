@@ -1,0 +1,1 @@
+Dijkstra's Algorithm, a weighted BFS, finds shortest paths from a source in graphs with positive edge weights. It uses a priority queue to iteratively extract the unvisited node with the minimum current distance, updating neighbor distances. Its binary min-heap complexity is O((|V|+|E|)log|V|), with ongoing research seeking optimization.

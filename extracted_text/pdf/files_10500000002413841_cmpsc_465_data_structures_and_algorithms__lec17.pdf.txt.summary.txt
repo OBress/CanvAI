@@ -1,0 +1,1 @@
+Dijkstra's algorithm fails with negative edge weights or cycles, as shortest distances become undefined. The Bellman-Ford algorithm addresses this by iteratively relaxing all graph edges `|V|-1` times. This computes single-source shortest paths in `O(|V|*|E|)` time, detects negative cycles, and can be extended for `O(|V|^2*|E|)` all-pairs shortest path solutions.

@@ -1,0 +1,1 @@
+This document is Quiz 1 for CMPSC 465 Data Structures & Algorithms, Fall 2025. It features five multiple-choice questions covering core concepts: InsertionSort array transitions, Big-O and Big-Omega definitions for algorithm analysis, Big-O relationships between functions, Big-Omega proof by definition, and properties of MergeSort.

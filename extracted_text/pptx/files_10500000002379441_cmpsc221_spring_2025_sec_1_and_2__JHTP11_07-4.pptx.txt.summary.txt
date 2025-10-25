@@ -1,0 +1,1 @@
+Java arrays are fixed-length, 0-indexed, homogeneous data, initialized with `new` or `{}`, pass-by-value; enhanced for iterates. Bounds are checked (ArrayIndexOutOfBoundsException). `java.util.Arrays` offers utilities. `ArrayLists` are dynamic, generic, resizable collections with `add`/`get`/`remove` methods, using `<>`.

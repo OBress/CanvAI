@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 6 covers relations and functions. It involves determining relational properties (reflexive, symmetric, transitive, antisymmetric, equivalence, poset), proving equivalence relations & describing classes, identifying functions, and assessing functional properties like bijectivity.

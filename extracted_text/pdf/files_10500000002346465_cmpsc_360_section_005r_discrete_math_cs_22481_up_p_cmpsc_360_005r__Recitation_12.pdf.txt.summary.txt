@@ -1,0 +1,1 @@
+CMPSC 360 Discrete Mathematics Fall 2024 Worksheet 12 presents three probability problems: one using Bayes' Theorem to find the source factory of a defective product, another involving conditional probabilities for dice rolls (sum of 3 or 7 given at least one 1), and a third calculating binomial probabilities for guessing answers on a 10-question multiple-choice exam.

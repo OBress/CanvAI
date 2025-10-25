@@ -1,0 +1,1 @@
+CMPSC 465 HW3, due Sept 22, 10 PM (Gradescope), covers Heaps: operations (build, insert, delete), Heap Sort, designing a streaming median algorithm, and height proofs. Collaborate on problems but submit individual solutions, adhering to strict formatting & Gradescope page assignment. Late work is not accepted.

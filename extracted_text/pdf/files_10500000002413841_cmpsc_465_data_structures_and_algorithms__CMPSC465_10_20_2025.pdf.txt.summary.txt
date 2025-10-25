@@ -1,0 +1,1 @@
+Greedy algorithms make local optimal choices, often fast but not always globally optimal (e.g., Knapsack). They yield optimal solutions given greedy choice and optimal substructure. Applications include Minimum Spanning Tree (MST) (e.g., Kruskal's algorithm), where they guarantee optimality.

@@ -1,0 +1,1 @@
+Polymorphism processes subclass objects via a superclass type, dynamically executing methods for system extensibility. Interfaces define common methods for unrelated classes, allowing polymorphic processing. Java 8+ added default, static, and private interface methods, enhancing flexibility and promoting loose coupling.

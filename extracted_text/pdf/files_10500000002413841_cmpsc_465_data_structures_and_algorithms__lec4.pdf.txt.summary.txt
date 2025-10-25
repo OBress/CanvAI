@@ -1,0 +1,1 @@
+This lecture details methods for solving recurrences like MergeSort's T(n)=2T(n/2)+O(n). Techniques include substitution (proving O(n log n) by induction), unrolling the recurrence to sum work, and using a recursion tree. These approaches lead to the Master Theorem, which provides a generalized solution for T(n)=aT(n/b)+O(n^d) based on constants a, b, and d.

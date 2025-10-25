@@ -1,0 +1,1 @@
+This CMPEN/EE 362 HW 3 Rubric, worth 15 points, covers 8 problems. It outlines grading criteria for TCP sockets, checksums (error detection), deadlocks, state machines, network protocol sequence/ACK numbers in loss scenarios, RTT/TimeoutInterval calculations, and GBN/SR/TCP comparisons, with specific point deductions for incorrect answers, missing steps, or explanations.

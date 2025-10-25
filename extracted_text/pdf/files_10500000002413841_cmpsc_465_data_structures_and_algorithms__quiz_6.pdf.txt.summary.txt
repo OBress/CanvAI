@@ -1,0 +1,1 @@
+CMPSC 465 Fall 2025 Quiz 6, from Ke Chen & Yana Safonova, assessed students on data structures and algorithms. Questions covered Bellman-Ford's use with negative edge weights and iteration effects, Floyd-Warshall's recursion, and network flow properties including valid flow definitions and how maximum flow reacts to capacity increases.

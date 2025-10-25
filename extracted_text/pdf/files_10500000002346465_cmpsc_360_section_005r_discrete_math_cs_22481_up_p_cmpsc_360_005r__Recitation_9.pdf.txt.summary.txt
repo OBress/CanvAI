@@ -1,0 +1,1 @@
+CMPSC 360 Worksheet 9 (Fall 2024) covers Discrete Math, featuring induction proofs for divisibility (x^2n-y^2n, 12|(n^4-n^2)) and problem-solving (chocolate bar breaks). Number theory exercises include modular arithmetic (e.g., 18^10 mod 39) and base conversions (decimal-to-octal, octal-to-decimal).

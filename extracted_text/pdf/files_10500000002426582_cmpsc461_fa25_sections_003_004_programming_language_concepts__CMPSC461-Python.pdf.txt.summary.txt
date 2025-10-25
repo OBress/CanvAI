@@ -1,0 +1,1 @@
+This course features two Python projects, assuming prior programming knowledge. Resources are provided for Python review (syntax, data structures, debugging), with one month to prepare. Instructors will offer conceptual and design guidance, but students must debug their own code as direct code fixes will not be provided for this 400-level course.

@@ -1,0 +1,1 @@
+Explores Breadth First Search (BFS) for graph traversal and shortest paths. BFS uses a queue to explore graphs "layer by layer", effectively finding reachable vertices and single-source shortest paths in unweighted graphs with O(|V|+|E|) complexity. It introduces concepts for weighted graphs, including using dummy nodes for positive integer edge weights.

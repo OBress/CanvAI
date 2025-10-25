@@ -1,0 +1,1 @@
+CMPSC 465 Worksheet 3 explains min-heap delete-min (root swap, heapify-down) and max-heap building (iterative heapify-down). It proves a max node count at height h and details an O(nlogk) time/O(k) space min-heap algorithm for finding the k-th largest element.

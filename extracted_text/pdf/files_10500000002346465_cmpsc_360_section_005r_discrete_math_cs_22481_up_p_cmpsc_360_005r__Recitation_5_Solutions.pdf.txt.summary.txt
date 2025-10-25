@@ -1,0 +1,1 @@
+This CMPSC 360 worksheet solutions document covers discrete mathematics proofs. It disproves `a^2=b^2 => a=b` and `n^2+n+41 is prime` via counterexamples. It then uses contrapositive to prove divisibility rules for 4 and properties of even/odd numbers, and contradiction for real number inequalities and prime divisibility.

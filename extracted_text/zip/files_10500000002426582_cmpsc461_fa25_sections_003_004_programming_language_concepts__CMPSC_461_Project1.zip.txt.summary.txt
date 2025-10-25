@@ -1,0 +1,1 @@
+Multiple files (e.g., ASTNodeDefs.py, checker.py) failed processing in `extract_text_from_downloads.py`. A `ValueError` occurred at line 101 because the script attempted to get a relative path, but the files were located in a temporary directory (`AppData\\Local\\Temp`) and not within the expected `downloads` subpath.

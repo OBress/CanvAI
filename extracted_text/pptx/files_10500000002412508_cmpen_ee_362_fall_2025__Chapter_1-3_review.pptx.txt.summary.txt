@@ -1,0 +1,1 @@
+The midterm covers Networking Ch. 1-3, focusing on Internet architecture, packet/circuit switching, app architectures (CS/P2P), HTTP, DNS, and TCP/UDP protocols (incl. flow/congestion control). It assesses concepts, protocols, and performance analysis (delay, throughput, rdt). The 50-min, closed-book exam has short answer, calculation, and design problems.
