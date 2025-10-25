@@ -1,0 +1,157 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 7
+1. Determine which functional properties the following functions satisfy and whether they are
+bijective:
+(a)f:Z→Qandf(x) =2x−3
+5
+(b)f:R→Randf(x) =3x2+11x
+Answer:
+(a)Injectivity:
+Assume x1,x2∈Zandf(x1) =f(x2).
+=⇒2x1−3
+5=2x2−3
+5
+=⇒x1=x2
+Thus, by the definition of injectivity, fis injective.
+Surjectivity:
+Suppose that for some x∈Z,y=f(x). Then,
+y=2x−3
+5
+=⇒x=5y+3
+2
+Fory=2∈Q,x=13
+2/∈Z. Therefore, fis not surjective.
+(b)Injectivity:
+Not injective because f(1) =f(−14
+3) =14 and 1 ̸=−14
+3.
+Surjectivity:
+For some x∈R, lety=f(x)
+=⇒y=3x2+11x
+=⇒3x2+11x−y=0
+=⇒x=−11+√121+12y
+6
+Fory=−11,x/∈R
+Therefore, fis not surjective on R
+2. Suppose f(x) =√
+2x−5,g(x) =5x2−3. What is the domain of f? What is the domain of g?
+Find the composite functions below. For each composite function, state the domain.
+(a)f◦g(x)
+(b)g◦f(x)
+(c)f◦f(x)
+(d)g◦g(x)
+Answer:
+(a)f◦g(x)
+f◦g(x) =p
+2(5x2−3)−5=√
+10x2−11. Domain = {x∈R| |x| ≥q
+11
+10}.
+CMPSC 360, Fall 2024, Worksheet 7 1
+
+(b)g◦f(x)
+g◦f(x) =5(2x−5)−3=10x−28. Domain = domain of f={x∈R|x≥5/2}.
+(c)f◦f(x)
+f◦f(x) =p
+2√
+2x−5−5. Domain: we have to make sure√
+2x−5≥5/2. Some alge-
+braic work gives x≥45/8 (which encompasses the domain of f:x≥5/2.
+(d)g◦g(x)
+g◦g(x) =5(5x2−3)2−3. Domain: R.
+3. Consider the function f:R\{− 4} →R\{2}defined as f(x) =2x−1
+x+4.
+(a) Determine whether the function fhas an inverse, and if so, find the expression for f−1(x).
+(b) Would fhave an inverse if we change the function’s domain and codomain to f:Z\
+{−4} →Z\{2}? Explain your reasoning.
+Answer:
+(a) Determining if the Function Has an Inverse:
+To determine if the function fhas an inverse, we need to check both injectivity (one-to-
+one) and subjectivity of the function.
+Suppose f(a) =f(b)for some aandbin the domain, R\{− 4}. We have:
+f(x) =2x−1
+x+4
+So, if f(a) =f(b), then:
+2a−1
+a+4=2b−1
+b+4
+Cross-multiplying:
+(2a−1)(b+4) = ( 2b−1)(a+4)
+Expanding and simplifying:
+2ab+8a−b−4=2ab+8b−a−4=⇒8a−b−4=8b−a−4=⇒9a=9b=⇒a=b
+Since f(a) =f(b)implies a=b, the function is injective.
+Letybe an arbitrary real number in R\{2}, we need to find an xsuch that:
+2x−1
+x+4=y
+2x−1=xy+4y
+(2−y)x=4y+1
+Since y̸=2, then y−2̸=0.
+So, we have x=4y+1
+2−y. Let’s check whether xcould be −4:
+CMPSC 360, Fall 2024, Worksheet 7 2
+
+Ifx=−4, then 4 y+1=−8+4y, thus 1 =−8 but this is not true, so x̸=4. Then we can
+say the function is surjective.
+Finding the Inverse Function f−1(x):
+To find the inverse function, we swap xandyin the equation:
+y=2x−1
+x+4
+and solve for y:
+x=2y−1
+y+4=⇒y=4x+1
+2−x
+Now, yis the subject of the formula:
+f−1(x) =4x+1
+2−x
+(b) Inverse does not exist. For values in the new domain, there are no equivalent values in the
+codomain. Example: f(1).
+4. Let f:Z→Zbe defined by f(x) =x+1 and let g:Z→Zbe defined by g(x) =−x.
+Find the composition g◦fand determine if it is a bijection over the set of integers, Z.
+Answer:
+Given the functions:
+f(x) =x+1
+g(x) =−x
+To find the composition g◦f, we apply function ffirst and then apply function gto the result:
+g◦f(x) =g(f(x))
+g◦f(x) =g(x+1)
+g◦f(x) =−(x+1)
+g◦f(x) =−x−1
+So, the composition g◦fisg◦f(x) =−x−1.
+Next, we’ll determine if g◦fis a bijection over the set of integers, Z.
+For a function to be bijective, it must be both injective (one-to-one) and surjective (onto).
+Injective: A function is injective if for every distinct pair of inputs, the outputs are also distinct.
+Suppose:
+g◦f(a) =g◦f(b)
+for some integers aandb. This implies:
+−a−1=−b−1
+−a=−b
+CMPSC 360, Fall 2024, Worksheet 7 3
+
+a=b
+Since amust equal bfor the outputs to be the same, g◦fis injective.
+Surjective: A function is surjective if every element in the codomain (in this case, Z) has a
+preimage in the domain. Let ybe an arbitrary integer in Z. We need to find an xsuch that:
+g◦f(x) =y
+−x−1=y
+−x=y+1
+x=−y−1
+For any integer y, the value x=−y−1 is also an integer. Hence, g◦fis surjective.
+Since g◦fis both injective and surjective, it is a bijection over the set of integers, Z.
+5. Given the functions h:M→Nandk:N→Pwhere
+M={a,b,c,d,e}
+N={j,k,l,m,n}
+P={s,t,u,v,w}
+and the functions are represented by the rosters:
+h={(a,j),(b,k),(c,l),(d,m),(e,n)}
+k={(j,t),(k,s),(l,u),(m,v),(n,w)}
+Determine k◦handh◦k.
+Answer:
+Using the definition of function composition, we can compute k◦hfor each element in M:
+(k◦h)(a) =k(h(a)) = k(j) =t
+(k◦h)(b) =k(h(b)) = k(k) =s
+(k◦h)(c) =k(h(c)) = k(l) =u
+(k◦h)(d) =k(h(d)) = k(m) =v
+(k◦h)(e) =k(h(e)) = k(n) =w
+k◦h={(a,t),(b,s),(c,u),(d,v),(e,w)}
+h◦kis not defined because h:M→Nandk:N→P.
+CMPSC 360, Fall 2024, Worksheet 7 4

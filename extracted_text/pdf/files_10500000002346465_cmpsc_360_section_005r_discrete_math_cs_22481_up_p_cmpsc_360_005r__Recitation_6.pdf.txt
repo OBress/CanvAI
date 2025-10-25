@@ -1,0 +1,26 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 6
+1. Determine if the following relations are reflexive, symmetric, antisymmetric, transitive, equiv-
+alence relation, or poset (i.e., partially ordered set) on the respective sets:
+(a)R0={(a,a),(b,b),(a,c),(c,a)}onA0={a,b,c,d}
+(b)R1={(a,a),(c,c),(b,b),(a,d),(d,b),(a,b),(a,c)}onA1={a,b,c,d,e}.
+(c) Also, determine the relational properties that R1satisfies on A0from above.
+(d)R2={(x,y)∈P×P|x⊆y}defined on Psuch that Pis the power set of an arbitrary set
+X
+2. Prove that the following relation Ris an equivalence relation on Z:
+R={(x,y)∈Z×Z|x2−y2
+4∈Z}
+3. Let A=a,b,c,d,e. Suppose Ris an equivalence relation on A. Suppose Rhas three equivalence
+classes. Also aRd andbRc. Write out Ras a set.
+4. Define a relation RonZasxRyif and only if 3 x−5yis even. Prove Ris an equivalence relation.
+Describe its equivalence classes.
+5. Determine if the following relations are functions:
+(a)f0:{1,2,3} → { 1,2,3}andf0={(1,1),(2,1),(3,2)}
+(b)f1:{1,2,3,4} → { 1,2,3}andf1={(1,1),(2,1),(3,2)}
+(c)f2:{a,b,c} → { a,b}andf2:{(a,a),(b,a),(b,c)}
+6. Determine which functional properties the following functions satisfy and whether they are
+bijective:
+(a)f:Z→Qandf(x) =2x−3
+5
+(b)f:R→Randf(x) =3x2+11x
+CMPSC 360, Fall 2024, Worksheet 6 1

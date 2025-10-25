@@ -1,0 +1,50 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 4
+1. Simplify the following expressions.
+(a)¬∀x∃y(P(x,y)∧∃zR(x,y,z))
+(b)¬∀x(∃y∀zP(x,y,z)∧∃z∀yP(x,y,z))
+Answer:
+2. Use the rules of inference to show that the following arguments are valid:
+(a)q↔p,q∧r,p→s,s→t⊢t∨r
+(b)u→s,p∧(p∨q)→s,u⊢p
+Answer:
+CMPSC 360, Fall 2024, Worksheet 4 1
+
+3.Inference rules for predicate logics:
+A plant is considered endangered if it has not been found in at least three different locations.
+The Blueleaf plant has been found in only one location this year. According to environmental
+regulations, an endangered plant cannot be commercially traded. We have a specific Blueleaf
+plant in question.
+This scenario can be formalized using the following predicates, assuming the universe of dis-
+course is the set of all plants:
+•E(x):xis endangered.
+•F(x,n):xis found in ndifferent locations.
+•T(x):xcan be traded.
+The term ”Blueleaf” refers to a particular instance of a plant.
+Given:
+(a)∀x(¬F(x,3)→E(x))- A plant not found in at least three locations is endangered.
+(b)∀x(E(x)→ ¬T(x))- An endangered plant cannot be traded.
+(c)F(Blueleaf ,1)- The Blueleaf plant has been found in only one location.
+To Prove:
+•E(Blueleaf )∧¬T(Blueleaf )- The Blueleaf plant is endangered and cannot be traded.
+Answer:
+CMPSC 360, Fall 2024, Worksheet 4 2
+
+4. Let nbe a positive integer. Prove that if nis an even, then 4 n2+48n+144 is a perfect square.
+(a) What is the given statement and your assumptions?
+(b) What is your conclusion?
+(c) Construct the proof:
+Answer:
+5. Using the direct proof method, prove that if n is an odd perfect square, then n is of the form
+4k+1. Answer the questions as directed.
+(a) What are the assumptions?
+(b) What are you trying to conclude?
+(c) Show your work.
+Answer:
+CMPSC 360, Fall 2024, Worksheet 4 3
+
+6. Consider the following theorem:
+”For an integer n, ifnis odd, then n3is odd.”
+Verify that the theorem is true using direct proof.
+Answer:
+CMPSC 360, Fall 2024, Worksheet 4 4

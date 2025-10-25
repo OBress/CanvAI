@@ -1,0 +1,856 @@
+Chapter 1Introduction to Computers, the Internet and Java
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.1  Introduction
+
+Java is one of the world’s most widely used computer programming languages. 
+You’ll learn to write instructions in the Java programming language
+commanding computers to perform tasks.
+Software (i.e., the instructions you write) controls hardware (i.e., computers). 
+You’ll learn object-oriented programming—today’s key programming methodology.
+You’ll create and work with many software objects. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.1  Introduction (Cont.)
+
+For many organizations, the preferred language for meeting their enterprise programming needs is Java. 
+Java is also widely used for implementing Internet-based applications and software for devices that communicate over a network. 
+There are billions of personal computers in use and an even larger number of mobile devices with computers at their core
+According to Oracle’s 2016 JavaOne conference keynote presentation (http://bit.ly/JavaOne2016Keynote), there are now 10 million Java developers worldwide and Java runs on 15 billion devices (Fig. 1.1), including two billion vehicles and 350 million medical devices. 
+In addition, the explosive growth of mobile phones, tablets and other devices is creating significant opportunities for programming mobile apps. 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.1  Introduction (Cont.)
+
+Java Standard Edition
+Java How to Program, 10/e is based on Java Standard Edition 8 (Java SE 8) and Java Standard Edition 9 (Java SE 9)
+Java Standard Edition contains the capabilities needed to develop desktop and server applications. 
+Prior to Java SE 8, Java supported three programming paradigms
+Procedural programming
+Object-oriented programming 
+Generic programming
+Java SE 8 added the beginnings of functional programming with lambdas and streams
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.1  Introduction (Cont.)
+
+Java Enterprise Edition
+Java is used in such a broad spectrum of applications that it has two other editions.
+The Java Enterprise Edition (Java EE) is geared toward developing large-scale, distributed networking applications and web-based applications.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.1  Introduction (Cont.)
+
+Java Micro Edition (Java ME) 
+Subset of Java SE.
+Geared toward developing applications for resource-constrained embedded devices, such as 
+Smartwatches
+MP3 players
+television set-top boxes
+smart meters (for monitoring electric energy usage) 
+and more. 
+Many of the devices in  use Java ME.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.2  Hardware and Software
+
+Computers can perform calculations and make logical decisions phenomenally faster than human beings can.
+Today’s personal computers can perform billions of calculations in one second—more than a human can perform in a lifetime.
+Supercomputers are already performing thousands of trillions (quadrillions) of instructions per second! 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.2  Computers: Hardware and Software (Cont.)
+
+Computers process data under the control of sequences of instructions called computer programs.
+These software programs guide the computer through ordered actions specified by people called computer programmers.
+You’ll learn a key programming methodology that’s enhancing programmer productivity, thereby reducing software development costs—object-oriented programming. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.2  Computers: Hardware and Software (Cont.)
+
+A computer consists of various devices referred to as hardware 
+(e.g., the keyboard, screen, mouse, hard disks, memory, DVD drives and processing units).
+Computing costs are dropping dramatically, owing to rapid developments in hardware and software technologies.
+Computers that might have filled large rooms and cost millions of dollars decades ago are now inscribed on silicon chips smaller than a fingernail, costing perhaps a few dollars each.
+Silicon-chip technology has made computing so economical that computers have become a commodity. 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.2 .1 Moore’s Law
+
+Every year or two, the capacities of computers have approximately doubled inexpensively.
+This remarkable trend often is called Moore’s Law.
+Named for the person who identified the trend, Gordon Moore, co-founder of Intel.
+Moore’s Law and related observations apply especially to the amount of memory that computers have for programs, the amount of secondary storage (such as solid-state drive storage) they have to hold programs and data over longer periods of time, and their processor speeds—the speeds at which they execute their programs (i.e., do their work).
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.2 .1 Moore’s Law (Cont.)
+
+Similar growth has occurred in the communications field.
+Costs have plummeted as enormous demand for communications bandwidth (i.e., information-carrying capacity) has attracted intense competition.
+Such phenomenal improvement is fostering the Information Revolution.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.2.2  Computer Organization
+
+Computers can be envisioned as divided into various logical units or sections.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy
+
+Data items processed by computers form a data hierarchy that becomes larger and more complex in structure as we progress from the simplest data items (called “bits”) to richer ones, such as characters and fields.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Bits
+The smallest data item in a computer can assume the value 0 or the value 1. 
+Such a data item is called a bit (short for “binary digit”—a digit that can assume either of two values). 
+Remarkably, the impressive functions performed by computers involve only the simplest manipulations of 0s and 1s—examining a bit’s value, setting a bit’s value and reversing a bit’s value (from 1 to 0 or from 0 to 1). 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Characters 
+We prefer to work with decimal digits (0–9), uppercase letters (A–Z), lowercase letters (a–z), and special symbols (e.g., $, @, %, &, *, (, ), –, +, ", :, ? and / ). 
+Digits, letters and special symbols are known as characters. The computer’s character set is the set of all the characters used to write programs and represent data items on that device. 
+Computers process only 1s and 0s, so every character is represented as a pattern of 1s and 0s. 
+Java uses Unicode® characters that are composed of one, two or four bytes (8, 16 or 32 bits). 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Unicode contains characters for many of the world’s languages. 
+See Appendix B for more information on the ASCII (American Standard Code for Information Interchange) character set—the popular subset of Unicode that represents uppercase and lowercase letters in the English alphabet, digits and some common special characters.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Fields
+Just as characters are composed of bits, fields are composed of characters or bytes. 
+A field is a group of characters or bytes that conveys meaning. 
+For example, a field consisting of uppercase and lowercase letters could be used to represent a person’s name, and a field consisting of decimal digits could represent a person’s age.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Records 
+Several related fields can be used to compose a record (implemented as a class in Java). 
+In a payroll system, for example, the record for an employee might consist of the following fields (possible types for these fields are shown in parentheses):
+Employee identification number (a whole number)
+Name (a string of characters)
+Address (a string of characters)
+Hourly pay rate (a number with a decimal point)
+Year-to-date earnings (a number with a decimal point)
+Amount of taxes withheld (a number with a decimal point)
+Thus, a record is a group of related fields. 
+In the preceding example, all the fields belong to the same employee. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Files
+A file is a group of related records. 
+More generally, a file contains arbitrary data in arbitrary formats. 
+In some operating systems, a file is viewed simply as a sequence of bytes—any organization of the bytes in a file, such as organizing the data into records, is a view created by the application programmer.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Database
+A database is a collection of data that’s organized for easy access and manipulation. 
+The most popular database model is the relational database in which data is stored in simple tables. 
+A table includes records and fields. 
+For example, a table of students might include first name, last name, major, year, student ID number and grade point average fields. 
+The data for each student is a record, and the individual pieces of information in each record are the fields. 
+You can search, sort and otherwise manipulate the data based on its relationship to multiple tables or databases.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.3  Data Hierarchy (Cont.)
+
+Big Data
+The amount of data being produced worldwide is enormous and growing explosively. 
+According to IBM, approximately 2.5 quintillion bytes (2.5 exabytes) of data are created daily 
+According to Salesforce.com, as of October 2015 90% of the world’s data was created in just the prior 12 months
+Big data applications deal with such massive amounts of data and this field is growing quickly, creating lots of opportunity for software developers. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.4  Machine Languages, Assembly Languages and High-Level Languages
+
+Programmers write instructions in various programming languages, some directly understandable by computers and others requiring intermediate translation steps.
+These may be divided into three general types:
+Machine languages
+Assembly languages
+High-level languages
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.4  Machine Languages, Assembly Languages and High-Level Languages (Cont.)
+
+Machine Languages
+Any computer can directly understand only its own machine language, defined by its hardware design.
+Generally consist of strings of numbers (ultimately reduced to 1s and 0s) that instruct computers to perform their most elementary operations one at a time.
+Machine dependent—a particular ma-chine language can be used on only one type of computer.
+Assembly Languages and Assemblers
+English-like abbreviations that represent elementary operations  formed the basis of assembly languages.
+Translator programs called assemblers convert early assembly-language programs to machine language.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.4  Machine Languages, Assembly Languages and High-Level Languages (Cont.)
+
+High-Level Languages and Compilers
+High-level languages 
+Single statements accomplish substantial tasks.
+Compilers convert high-level language programs into machine language.
+Allow you to write instructions that look almost like everyday English and contain commonly used mathematical notations.
+A payroll program written in a high-level language might contain a single statement such as
+grossPay = basePay + overTimePay
+Interpreters
+Compiling a high-level language program into machine language can take considerable computer time.
+Interpreter programs, developer to execute high-level language programs directly, avoid the delay or compilation, although they run slower than compiled programs.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5  Introduction to Object Technology
+
+Objects, or more precisely, the classes objects come from, are essentially reusable software components.
+There are date objects, time objects, audio objects, video objects, automobile objects, people objects, etc.
+Almost any noun can be reasonably represented as a software object in terms of attributes (e.g., name, color and size) and behaviors (e.g., calculating, moving and communicating).
+Software development groups can use a modular, object-oriented design-and-implementation approach to be much more productive than with earlier popular techniques like “structured programming”—object-oriented programs are often easier to understand, correct and modify.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.1  The Automobile as an Object
+
+Automobile as an Object
+Let’s begin with a simple analogy.
+Suppose you want to drive a car and make it go faster by pressing its accelerator pedal.
+Before you can drive a car, someone has to design it.
+A car typically begins as engineering drawings, similar to the blueprints that describe the design of a house.
+Drawings include the design for an accelerator pedal.
+Pedal hides from the driver the complex mechanisms that actually make the car go faster, just as the brake pedal hides the mechanisms that slow the car, and the steering wheel “hides” the mechanisms that turn the car.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.1  The Automobile as an Object (Cont.)
+
+Enables people with little or no knowledge of how engines, braking and steering mechanisms work to drive a car easily.
+Before you can drive a car, it must be built from the engineering drawings that describe it.
+A completed car has an actual accelerator pedal to make it go faster, but even that’s not enough—the car won’t accelerate on its own (hopefully!), so the driver must press the pedal to accelerate the car.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.2  Methods and Classes
+
+Performing a task in a program requires a method.
+The method houses the program statements that actually perform its tasks.
+Hides these statements from its user, just as the accelerator pedal of a car hides from the driver the mechanisms of making the car go faster.
+In Java, we create a program unit called a class to house the set of methods that perform the class’s tasks.
+A class is similar in concept to a car’s engineering drawings, which house the design of an accelerator pedal, steering wheel, and so on. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.3  Instantiation
+
+Just as someone has to build a car from its engineering drawings before you can actually drive a car, you must build an object of a class before a program can perform the tasks that the class’s methods define.
+An object is then referred to as an instance of its class. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.4  Reuse
+
+Just as a car’s engineering drawings can be reused many times to build many cars, you can reuse a class many times to build many objects.
+Reuse of existing classes when building new classes and programs saves time and effort.
+Reuse also helps you build more reliable and effective systems, because existing classes and components often have undergone extensive testing, debugging and performance tuning.
+Just as the notion of interchangeable parts was crucial to the Industrial Revolution, reusable classes are crucial to the software revolution that has been spurred by object technology.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.5  Messages and Method Calls
+
+When you drive a car, pressing its gas pedal sends a message to the car to perform a task—that is, to go faster.
+Similarly, you send messages to an object.
+Each message is implemented as a method call that tells a method of the object to perform its task.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.6  Attributes and Instance Variables
+
+A car has attributes
+Color, its number of doors, the amount of gas in its tank, its current speed and its record of total miles driven (i.e., its odometer reading).
+The car’s attributes are represented as part of its design in its engineering diagrams.
+Every car maintains its own attributes.
+Each car knows how much gas is in its own gas tank, but not how much is in the tanks of other cars. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.6  Attributes and Instance Variables (Cont.)
+
+An object, has attributes that it carries along as it’s used in a program.
+Specified as part of the object’s class.
+A bank-account object has a balance attribute that represents the amount of money in the account.
+Each bank-account object knows the balance in the account it represents, but not the balances of the other accounts in the bank.
+Attributes are specified by the class’s instance variables.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.7  Encapsulation and Information Hiding
+
+Classes (and their objects) encapsulate, i.e., encase, their attributes and methods.
+Objects may communicate with one another, but they’re normally not allowed to know how other objects are implemented—implementation details can be hidden within the objects themselves.
+Information hiding, as we’ll see, is crucial to good software engineering. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.8  Inheritance
+
+A new class of objects can be created conveniently by inheritance—the new class (called the subclass) starts with the characteristics of an existing class (called the superclass), possibly customizing them and adding unique characteristics of its own.
+In our car analogy, an object of class “convertible” certainly is an object of the more general class “automobile,” but more specifically, the roof can be raised or lowered. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.9  Interfaces
+
+Interfaces are collections of related methods that typically enable you to tell objects what to do, but not how to do it (we’ll see exceptions to this in Java SE 8 and 9 when we discuss interfaces in Chapter 10). 
+In the car analogy, a “basic-driving-capabilities” interface consisting of a steering wheel, an accelerator pedal and a brake pedal would enable a driver to tell the car what to do. 
+Once you know how to use this interface for turning, accelerating and braking, you can drive many types of cars, even though manufacturers may implement these systems differently.  
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.9  Interfaces (Cont.)
+
+A class implements zero or more interfaces, each of which can have one or more methods, just as a car implements separate interfaces for basic driving functions, controlling the radio, controlling the heating and air conditioning systems, and the like. 
+Just as car manufacturers implement capabilities differently, classes may implement an interface’s methods differently. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.10  Object-Oriented Analysis and Design (OOAD)
+
+How will you create the code (i.e., the program instructions) for your programs? 
+Follow a detailed analysis process for determining your project’s requirements (i.e., defining what the system is supposed to do) 
+Develop a design that satisfies them (i.e., specifying how the system should do it).
+Carefully review the design (and have your design reviewed by other software professionals) before writing any code.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.10  Object-Oriented Analysis and Design (OOAD) (Cont.)
+
+Analyzing and designing your system from an object-oriented point of view is called an object-oriented-analysis-and-design (OOAD) process.
+Languages like Java are object oriented.
+Object-oriented programming (OOP) allows you to implement an object-oriented design as a working system. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.5.11  The UML (Unified Modeling Language)
+
+The Unified Modeling Language (UML) is the most widely used graphical scheme for modeling object-oriented systems.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6  Operating Systems
+
+Software systems that make using computers more convenient.
+Provide services that allow each application to execute safely, efficiently and concurrently (i.e., in parallel) with other applications.
+The software that contains the core components of the operating system is called the kernel.
+Popular desktop operating systems include Linux, Windows 7 and macOS.
+The most popular mobile operating systems used in smartphones and tablets are Google’s Android and Apple’s iOS (for its iPhone, iPad and iPod Touch devices)
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.1  Windows—A Proprietary Operating System
+
+Mid-1980s: Microsoft developed the Windows operating system, consisting of a graphical user interface built on top of DOS—an enormously popular personal-computer operating system that users interacted with by typing commands.
+Windows borrowed from many concepts (such as icons, menus and windows) developed by Xerox PARC and popularized by early Apple Macintosh operating systems.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.1  Windows—A Proprietary Operating System (Cont.)
+
+Windows 10 is Microsoft’s latest operating system
+Features include enhancements to the Start menu and user interface, Cortana personal assistant for voice interactions, Action Center for receiving notifications, Microsoft’s new Edge web browser, and more
+Windows is a proprietary operating system—it’s controlled by Microsoft exclusively.
+Windows is by far the world’s most widely used operating system.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.2  Linux—An Open Source Operating System
+
+The Linux operating system is perhaps the greatest success of the open-source movement
+Open-source software departs from the proprietary software development style that dominated software’s early years
+With open-source development, individuals and companies contribute their efforts in developing, maintaining and evolving software in exchange for the right to use that software for their own purposes, typically at no charge
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.2  Linux—An Open Source Operating System (cont.)
+
+Open-source code is often scrutinized by a much larger audience than proprietary software, so errors often get removed faster
+Open source also encourages innovation. Enterprise systems companies, such as IBM, Oracle and many others, have made significant investments in Linux open-source development
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.2  Linux—An Open Source Operating System (cont.)
+
+Some key organizations in the open-source community are 
+the Eclipse Foundation (the Eclipse Integrated Development Environment helps programmers conveniently develop software)
+the Mozilla Foundation (creators of the Firefox web browser)
+the Apache Software Foundation (creators of the Apache web server used to develop web-based applications) 
+GitHub (which provides tools for managing open-source projects—it has millions of them under development). 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.2  Linux—An Open Source Operating System (cont.)
+
+Rapid improvements to computing and communications, decreasing costs and open-source software have made it much easier and more economical to create a software-based business now than just a decade ago
+A great example is Facebook, which was launched from a college dorm room and built with open-source software
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.2  Linux—An Open Source Operating System (cont.)
+
+The Linux kernel is the core of the most popular open-source, freely distributed, full-featured operating system
+Developed by a loosely organized team of volunteers and is popular in servers, personal computers and embedded systems (such as the computer systems at the heart of smartphones, smart TVs and automobile systems)
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.2  Linux—An Open Source Operating System (cont.)
+
+Linux source code (the program code) is available to the public for examination and modification and is free to download and install
+Linux users benefit from a huge community of developers actively debugging and improving the kernel, and the ability to customize the operating system to meet specific needs. 
+Linux has become extremely popular on servers and in embedded systems, such as Google’s Android-based smartphones.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.3  Apple’s macOS and Apple’s iOS for iPhone®, iPad® and iPod Touch® Devices
+
+Apple, founded in 1976 by Steve Jobs and Steve Wozniak, quickly became a leader in personal computing
+In 1979, Jobs and several Apple employees visited Xerox PARC (Palo Alto Research Center) to learn about Xerox’s desktop computer that featured a graphical user interface (GUI)
+That GUI served as the inspiration for the Apple Macintosh, launched with much fanfare in a memorable Super Bowl ad in 1984
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.3  Apple’s macOS and Apple’s iOS for iPhone®, iPad® and iPod Touch® Devices (cont.)
+
+The Objective-C programming language, created by Brad Cox and Tom Love at Stepstone in the early 1980s, added capabilities for object-oriented programming (OOP) to the C programming language
+Steve Jobs left Apple in 1985 and founded NeXT Inc. 
+In 1988, NeXT licensed Objective-C from StepStone and developed an Objective-C compiler and libraries which were used as the platform for the NeXTSTEP operating system’s user interface, and Interface Builder—used to construct graphical user interfaces
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.3  Apple’s macOS and Apple’s iOS for iPhone®, iPad® and iPod Touch® Devices (cont.)
+
+Jobs returned to Apple in 1996 when Apple bought NeXT. 
+Apple’s macOS operating system is a descendant of NeXTSTEP. 
+Apple’s proprietary operating system, iOS, is derived from Apple’s macOS and is used in the iPhone, iPad, iPod Touch, Apple Watch and Apple TV devices. 
+In 2014, Apple introduced its new Swift programming language, which became open source in 2015. 
+The iOS app-development community is shifting from Objective-C to Swift. 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.4  Google's Android
+
+Android—the fastest growing mobile and smartphone operating system—is based on the Linux kernel and Java. 
+One benefit of developing Android apps is the openness of the platform—the operating system is open source and free. 
+The Android operating system was developed by Android, Inc., which was acquired by Google in 2005. 
+In 2007, the Open Handset Alliance was formed to develop, maintain and evolve Android, driving innovation in mobile technology and improving the user experience while reducing costs
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.6.4  Google's Android (cont.)
+
+According to Statista.com, as of Q3 2016, Android had 87.8% of the global smartphone market share, compared to 11.5% for Apple
+Android is used in smartphones, e-reader devices, tablets, in-store touch-screen kiosks, cars, robots, multimedia players and more. 
+We present an introduction to Android app development in our textbook, Android How to Program, Third Edition, and in our professional book, Android 6 for Programmers: An App-Driven Approach, Third Edition. 
+After you learn Java, you’ll find it realtively straightforward to begin developing and running Android apps. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.7  Programming Languages
+
+Figure 1.6 provides brief comments on several popular programming languages. In the next section, we introduce Java. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.8  Java
+
+The microprocessor revolution’s most important contribution to date is that it enabled the development of personal computers. 
+Microprocessors also have had a profound impact in intelligent- consumer-electronic devices, including the recent explosion in the “Internet of Things.” 
+Recognizing this early on, Sun Microsystems in 1991 funded an internal corporate research project led by James Gosling, which resulted in a C++-based object-oriented programming language that Sun called Java. 
+Using Java, you can write programs that will run on a great variety of computer systems and computer-controlled devices. This is sometimes called “write once, run anywhere.” 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.8  Java (Cont.)
+
+Java drew the attention of the business community because of the phenomenal interest in the Internet. 
+Now used to develop large-scale enterprise applications, to enhance the functionality of web servers, to provide applications for consumer devices, to develop robotics software and for many other purposes. 
+Also the key language for developing Android smartphone and tablet apps. 
+Java has become the most widely used general-purpose programming language with more than 10 million developers. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.8  Java (Cont.)
+
+Java Class Libraries
+Rich collections of existing classes and methods 
+Also known as the Java APIs (Application Programming Interfaces). 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment
+
+Normally there are five phases
+edit
+compile
+load
+verify
+execute.
+See the Before You Begin section for information on downloading and installing the JDK on Windows, Linux and macOS.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Phase 1 consists of editing a file with an editor program
+Using the editor, you type a Java program (source code).
+Make any necessary corrections.
+Save the program.
+Java source code files are given a name ending with the .java extension indicating that the file contains Java source code. 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Two editors widely used on Linux systems are vi and emacs
+Windows provides Notepad. 
+macOS provides TextEdit. 
+Many freeware and shareware editors are also available online, including 
+Notepad++ (http://notepad-plus-plus.org)
+EditPlus (http://www.editplus.com)
+TextPad (http://www.textpad.com)
+jEdit (http://www.jedit.org) and more.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Integrated development environments (IDEs) provide tools that support the software development process, such as editors, debuggers for locating logic errors that cause programs to execute incorrectly and more. 
+The most popular Java IDEs are:
+Eclipse (http://www.eclipse.org)
+IntelliJ IDEA (http://www.jetbrains.com)
+NetBeans (http://www.netbeans.org)
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Phase 2: Compiling a Java Program into Bytecodes
+Use the command javac (the Java compiler) to compile a program. For example, to compile a program called Welcome.java, you’d type
+javac Welcome.java
+If the program compiles, the compiler produces a .class file called Welcome.class that contains the compiled version. 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Java compiler translates Java source code into bytecodes that represent the tasks to execute.
+The Java Virtual Machine (JVM)—a part of the JDK and the foundation of the Java platform—executes bytecodes.
+Virtual machine (VM)—a software application that simulates a computer
+Hides the underlying operating system and hardware from the programs that interact with it.
+If the same VM is implemented on many computer platforms, applications written for that type of VM can be used on all those platforms.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Bytecode instructions are platform independent
+Bytecodes are portable
+The same bytecode instructions can execute on any platform containing a JVM that understands the version of Java in which the bytecode instructions were compiled.
+The JVM is invoked by the java command. For example, to execute a Java application called Welcome, you’d type the command
+java Welcome
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Phase 3: Loading a Program into Memory
+The JVM places the program in memory to execute it—this is known as loading.
+Class loader takes the .class files containing the program’s bytecodes and transfers them to primary memory.
+Also loads any of the .class files provided by Java that your program uses.
+The .class files can be loaded from a disk on your system or over a network. 
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Phase 4: Bytecode Verification
+As the classes are loaded, the bytecode verifier examines their bytecodes 
+Ensures that they’re valid and do not violate Java’s security restrictions.
+Java enforces strong security to make sure that Java programs arriving over the network do not damage your files or your system (as computer viruses and worms might).
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+Phase 5: Execution
+The JVM executes the program’s bytecodes.
+JVMs typically execute bytecodes using a combination of interpretation and so-called just-in-time (JIT) compilation.
+Analyzes the bytecodes as they’re interpreted
+A just-in-time (JIT) compiler—such as Oracle’s Java HotSpot™ compiler—translates the bytecodes into the underlying computer’s machine language.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.9  A Typical Java Development Environment (Cont.)
+
+When the JVM encounters these compiled parts again, the faster machine-language code executes.
+Java programs go through two compilation phases
+One in which source code is translated into bytecodes (for portability across JVMs on different computer platforms) and 
+A second in which, during execution, the bytecodes are translated into machine language for the actual computer on which the program executes. 
+
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.10  Test-Driving a Java Application
+
+Checking your setup. Read the Before You Begin section to confirm that you’ve set up Java properly on your computer, that you’ve copied the book’s examples to your hard drive and that you know how to open a command window on your system.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11  Internet and the World Wide Web
+
+In the late 1960s, ARPA—the Advanced Research Projects Agency of the Department of Defense—rolled out plans to network the main computer systems of approximately a dozen ARPA-funded universities and research institutions.
+ARPA implemented what quickly became known as the ARPAnet, the precursor of today’s Internet. 
+Its main benefit proved to be the capability for quick and easy communication via e-mail.
+This is true even on today’s Internet, with e-mail, instant messaging, file transfer and social media such as Facebook and Twitter, enabling billions of people worldwide to communicate quickly and easily.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11  Internet and the World Wide Web (Cont.)
+
+The protocol (set of rules) for communicating over the ARPAnet became known as the Transmission Control Protocol (TCP). 
+TCP ensured that messages, consisting of sequentially numbered pieces called packets, were properly routed from sender to receiver, arrived intact and were assembled in the correct order.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.1  Internet: A Network of Networks
+
+In parallel with the early evolution of the Internet, organizations worldwide were implementing their own networks for both intraorganization (that is, within an organization) and interorganization (that is, between organizations) communication. 
+One challenge was to enable these different networks to communicate with each other. 
+The Internet Protocol (IP) created a true “network of networks,” the current architecture of the Internet. 
+The combined set of protocols is now called TCP/IP.
+Each Internet-connected- device has an IP address—a unique numerical identifier used by devices communicating via TCP/IP to locate one another on the Internet.
+
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.1  The Internet: A Network of Networks (Cont.)
+
+Businesses rapidly realized that by using the Internet, they could improve their operations and offer new and better services to their clients.
+This generated fierce competition among communications carriers and hardware and software suppliers to meet the increased infrastructure demand.
+As a result, bandwidth—the information-carrying capacity of communications lines—on the Internet has increased tremendously, while hardware costs have plummeted.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.2  World Wide Web: Making the Internet User-Friendly
+
+The World Wide Web (simply called “the web”) is a collection of hardware and software associated with the Internet that allows computer users to locate and view documents with various combinations of text, graphics, animations, audios and videos on almost any subject.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.2  The World Wide Web: Making the Internet User-Friendly (Cont.)
+
+In 1989, Tim Berners-Lee of CERN (the European Organization for Nuclear Research) began developing HyperText Markup Language (HTML)—the technology for sharing information via “hyperlinked” text documents
+He also wrote communication protocols such as HyperText Transfer Protocol (HTTP) to form the backbone of his new hypertext information system, which he referred to as the World Wide Web.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.2  The World Wide Web: Making the Internet User-Friendly (Cont.)
+
+In 1994, Berners-Lee founded  the World Wide Web Consortium (W3C), devoted to developing web technologies.
+One of the W3C’s goals is to make the web accessible to everyone regardless of disabilities, language or culture.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.3  Web Services and Mashups
+
+A mashup is an applications-development methodology in which you can rapidly develop powerful software applications by combining (often free) complementary web services and other forms of information feeds. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.4  Internet of Things
+
+The Internet is no longer just a network of computers—it’s an Internet of Things (IoT) 
+A thing is any object with an IP address and the ability to send data automatically over the Internet: 
+a car with a transponder for paying tolls, 
+monitors for parking-space availability in a garage, 
+a heart monitor implanted in a human, 
+monitors for drinkable water quality,
+a smart meter that reports energy usage, 
+radiation detectors, 
+item trackers in a warehouse,
+mobile apps that can track your movement and location,
+smart thermostats that adjust room temperatures based on weather forecasts and activity in the home
+intelligent home appliances
+and many more.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.11.4  Internet of Things (cont.)
+
+According to statista.com, there are already over 22 billion IoT devices in use today and there are expected to be over 50 billion IoT devices in 2020. 
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.12  Software Technologies
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.13  Keeping Up-to-Date with Information Technologies
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+1.14  Getting Your Questions Answered
+
+There are many online forums in which you can get your Java questions answered and interact with other Java programmers. 
+Some popular Java and general programming forums include:
+StackOverflow.com 
+Coderanch.com 
+The Oracle Java Forum—https://community.oracle.com/community/java
+</dream.in.code>—http://www.dreamincode.net/forums/forum/32-java/
+
+©1992-2018 by Pearson Education, Inc. All Rights Reserved.

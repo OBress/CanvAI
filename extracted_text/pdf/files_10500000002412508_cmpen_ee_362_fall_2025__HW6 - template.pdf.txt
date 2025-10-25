@@ -1,0 +1,78 @@
+CMPEN/EE 362 - HW6  
+Student Name: _________________________  
+Problem 1  
+Suppose the content of a packet is 1101 0110 1001 1011. Give the error detection bits for each of the 
+following codes:  
+a) 1-D even parity check  
+b) 2-D odd parity check  by arranging data into a square matrix  
+c) 8-bit checksum (not Internet checksum)  
+d) CRC for the generator G = 1001  
+  
+
+Problem 2  
+Derive the efficiency of slotted ALOHA ( you must show the steps) : 
+a) Suppose there are N transmitters, each transmitting with probability p in each slot. What is the 
+probability of successfully delivering a packet in a given slot?  
+b) What is the value of p that maximizes the success probability in a)?  
+c) What is the limit of the success probability as N goes to infinity?  
+  
+
+Problem 3  
+Repeat a) –  c) in Problem 2 for pure (unslotted) ALOHA.  
+  
+
+Problem 4  
+Consider the network in Figure 1. Suppose that host A just connected to the network and  has an empty 
+ARP table . Suppose that the ARP tables at  other hosts are up to date.  
+ 
+Figure 1. Illustration of Problem 5.  
+a) How many subnets are there in this network? List the interfaces in each subnet (by their IP 
+address and MAC address).  
+b) Suppose A is a mobile host (e.g., laptop). How does A obtain its IP address? How does it obtain 
+its MAC address?  
+c) Suppose B is a server whose hostname is known to A. A wants to send a packet to B. How does A 
+know B’ IP address?  
+d) In the packet sent by A destined to B, what are the values of these header fields: MAC src, MAC 
+dest, IP src, IP dest ? 
+e) How does A know the IP address of the left interface of R1 (i.e., IP3)? How does A know the MAC 
+address of this interface (i.e., MAC3)?  
+f) Repeat d) for the packet sent by R1  (i.e., the frame containing the A -to-B IP datagram that is 
+sent by R1) . 
+  
+R1
+IP3
+MAC3MAC2IP2IP1
+MAC1A
+IP7
+MAC7
+IP8
+MAC8B
+MAC4IP4R2
+IP5
+MAC5IP6
+MAC6 C D
+
+Problem 5  
+Consider an Ethernet with the topology shown in Figure 2. Suppose that host A sends a frame to host I, 
+and host I responds a frame to host A. Initially, all switch tables are empty. Use the host label to denote 
+its MAC address (e.g., host A’s MAC address will be A).  
+ 
+Figure 2. Illustration of a multi -switch Ethernet.  
+a) Suppose that the frame sent by A arrives at S1 at time t1, S4 at time t2, S2 at time t3, and S3 at 
+time t4. Give the content of the switch tables at S1, …, S4 (each entry contains fields “MAC 
+address”, “interface”, “time”) when the frame arrives at host I.  
+b) Suppose that the response frame sent by I arrives at S3 at time t5, S4 at time t6, and S1 at time 
+t7. Give the content of the four switch tables when the frame arrives at host A.  
+c) Is the response frame received by S2? Why?  
+ A
+BS1
+C
+DEFS2S4
+S3
+HI
+G
+1
+2
+3 41
+23 41
+23 42 3 1

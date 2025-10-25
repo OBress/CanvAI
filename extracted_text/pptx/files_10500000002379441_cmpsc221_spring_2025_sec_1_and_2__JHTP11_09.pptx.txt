@@ -1,0 +1,531 @@
+Chapter 9Object-Oriented Programming: Inheritance
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.1  Introduction
+
+Inheritance
+A new class is created by acquiring an existing class’s members and possibly embellishing them with new or modified capabilities. 
+Can save time during program development by basing new classes on existing proven and debugged high-quality software. 
+Increases the likelihood that a system will be implemented and maintained effectively.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.1  Introduction (Cont.)
+
+When creating a class, rather than declaring completely new members, you can designate that the new class should inherit the members of an existing class. 
+Existing class is the superclass
+New class is the subclass
+A subclass can be a superclass of future subclasses. 
+A subclass can add its own fields and methods. 
+A subclass is more specific than its superclass and represents a more specialized group of objects. 
+The subclass exhibits the behaviors of its superclass and can add behaviors that are specific to the subclass. 
+This is why inheritance is sometimes referred to as specialization. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.1  Introduction (Cont.)
+
+The direct superclass is the superclass from which the subclass explicitly inherits. 
+An indirect superclass is any class above the direct superclass in the class hierarchy. 
+The Java class hierarchy begins with class Object (in package java.lang)
+Every class in Java directly or indirectly extends (or “inherits from”) Object. 
+Java supports only single inheritance, in which each class is derived from exactly one direct superclass. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.1  Introduction (Cont.)
+
+We distinguish between the is-a relationship and the has-a relationship
+Is-a represents inheritance
+In an is-a relationship, an object of a subclass can also be treated as an object of its superclass 
+Has-a represents composition
+In a has-a relationship, an object contains as members references to other objects
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.2  Superclasses and Subclasses
+
+Figure 9.1 lists several simple examples of superclasses and subclasses
+Superclasses tend to be “more general” and subclasses “more specific.”
+Because every subclass object is an object of its superclass, and one superclass can have many subclasses, the set of objects represented by a superclass is typically larger than the set of objects represented by any of its subclasses. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.2  Superclasses and Subclasses (Cont.)
+
+A superclass exists in a hierarchical relationship with its subclasses. 
+Fig. 9.2 shows a sample university community class hierarchy
+Also called an inheritance hierarchy. 
+Each arrow in the hierarchy represents an is-a relationship. 
+Follow the arrows upward in the class hierarchy
+an Employee is a CommunityMember” 
+“a Teacher is a Faculty member.” 
+CommunityMember is the direct superclass of Employee, Student and Alumnus and is an indirect superclass of all the other classes in the diagram. 
+Starting from the bottom, you can follow the arrows and apply the is-a relationship up to the topmost superclass. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.2  Superclasses and Subclasses (Cont.)
+
+Fig. 9.3 shows a Shape inheritance hierarchy. 
+Van follow the arrows from the bottom of the diagram to the topmost superclass in this class hierarchy to identify several is-a relationships. 
+A Triangle is a TwoDimensionalShape and is a Shape
+ASphere is a ThreeDimensionalShape and is a Shape. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.2  Superclasses and Subclasses (Cont.)
+
+Not every class relationship is an inheritance relationship. 
+Has-a relationship
+Create classes by composition of existing classes. 
+Example: Given the classes Employee, BirthDate and TelephoneNumber, it’s improper to say that an Employee is a BirthDate or that an Employee is a TelephoneNumber. 
+However, an Employee has a BirthDate, and an Employee has a TelephoneNumber.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.2  Superclasses and Subclasses (Cont.)
+
+Objects of all classes that extend a common superclass can be treated as objects of that superclass.
+Commonality expressed in the members of the superclass. 
+Inheritance issue
+A subclass can inherit methods that it does not need or should not have. 
+Even when a superclass method is appropriate for a subclass, that subclass often needs a customized version of the method. 
+The subclass can override (redefine) the superclass method with an appropriate implementation.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.3  protected Members
+
+A class’s public members are accessible wherever the program has a reference to an object of that class or one of its subclasses. 
+A class’s private members are accessible only within the class itself. 
+protected access is an intermediate level of access between public and private. 
+A superclass’s protected members can be accessed by members of that superclass, by members of its subclasses and by members of other classes in the same package
+protected members also have package access.
+All public and protected superclass members retain their original access modifier when they become members of the subclass.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.3  protected Members (Cont.)
+
+A superclass’s private members are hidden from its subclasses 
+They can be accessed only through the public or protected methods inherited from the superclass
+Subclass methods can refer to public and protected members inherited from the superclass simply by using the member names. 
+When a subclass method overrides an inherited superclass method, the superclass version of the method can be accessed from the subclass by preceding the superclass method name with keyword super and a dot (.) separator. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4  Relationship Between Superclasses and Subclasses
+
+Inheritance hierarchy containing types of employees in a company’s payroll application 
+Commission employees are paid a percentage of their sales
+Base-salaried commission employees receive a base salary plus a percentage of their sales. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.1 Creating and Using a CommissionEmployee Class
+
+Class CommissionEmployee (Fig. 9.4) extends class Object (from package java.lang). 
+CommissionEmployee inherits Object’s methods.
+If you don’t explicitly specify which class a new class extends, the class extends Object implicitly. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.1 Creating and Using a CommissionEmployee Class (Cont.)
+
+Constructors are not inherited.
+The first task of a subclass constructor is to call its direct superclass’s constructor explicitly or implicitly
+Ensures that the instance variables inherited from the superclass are initialized properly. 
+If the code does not include an explicit call to the superclass constructor, Java implicitly calls the superclass’s default or no-argument constructor. 
+A class’s default constructor calls the superclass’s default or no-argument constructor.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.1 Creating and Using a CommissionEmployee Class (Cont.)
+
+toString is one of the methods that every class inherits directly or indirectly from class Object. 
+Returns a String representing an object. 
+Called implicitly whenever an object must be converted to a String representation. 
+Class Object’s toString method returns a String that includes the name of the object’s class. 
+This is primarily a placeholder that can be overridden by a subclass to specify an appropriate String representation.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.1 Creating and Using a CommissionEmployee Class (Cont.)
+
+To override a superclass method, a subclass must declare a method with the same signature as the superclass method
+@Override annotation 
+Indicates that a method should override a superclass method with the same signature.
+If it does not, a compilation error occurs.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.2 Creating and Using a BasePlus-CommissionEmployee Class
+
+Class BasePlusCommissionEmployee (Fig. 9.6) contains a first name, last name, social security number, gross sales amount, commission rate and base salary. 
+All but the base salary are in common with class CommissionEmployee.
+Class BasePlusCommissionEmployee’s public services include a constructor, and methods earnings, toString and get and set for each instance variable
+Most of these are in common with class CommissionEmployee.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.2 Creating and Using a BasePlus-CommissionEmployee Class (Cont.)
+
+Class BasePlusCommissionEmployee does not specify “extends Object” 
+Implicitly extends Object. 
+BasePlusCommissionEmployee’s constructor invokes class Object’s default constructor implicitly.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.2 Creating and Using a BasePlus-CommissionEmployee Class (Cont.)
+
+Much of BasePlusCommissionEmployee’s code is similar, or identical, to that of CommissionEmployee.
+private instance variables firstName and lastName and methods setFirstName, getFirstName, setLastName and getLastName are identical.
+Both classes also contain corresponding get and set methods. 
+The constructors are almost identical
+BasePlusCommissionEmployee’s constructor also sets the baseSalary. 
+The toString methods are almost identical
+BasePlusCommissionEmployee’s toString also outputs instance variable baseSalary
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.2 Creating and Using a BasePlus-CommissionEmployee Class (Cont.)
+
+We literally copied CommissionEmployee’s code, pasted it into BasePlusCommissionEmployee, then modified the new class to include a base salary and methods that manipulate the base salary. 
+This “copy-and-paste” approach is often error prone and time consuming. 
+It spreads copies of the same code throughout a system, creating a code-maintenance problems—changes to the code would need to be made in multiple classes. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.3 Creating a CommissionEmployee–BasePlusCommissionEmployee Inheritance Hierarchy
+
+Class BasePlusCommissionEmployee class extends class CommissionEmployee
+A BasePlusCommissionEmployee object is a CommissionEmployee
+Inheritance passes on class CommissionEmployee’s capabilities. 
+Class BasePlusCommissionEmployee also has instance variable baseSalary.
+Subclass BasePlusCommissionEmployee inherits CommissionEmployee’s instance variables and methods
+Only CommissionEmployee’s public and protected members are directly accessible in the subclass. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.3 Creating a CommissionEmployee–BasePlusCommissionEmployee Inheritance Hierarchy (Cont.)
+
+Each subclass constructor must implicitly or explicitly call one of its superclass’s constructors to initialize the instance variables inherited from the superclass. 
+Superclass constructor call syntax—keyword super, followed by a set of parentheses containing the superclass constructor arguments. 
+Must be the first statement in the constructor’s body. 
+If the subclass constructor did not invoke the superclass’s constructor explicitly, the compiler would attempt to insert a call to the superclass’s default or no-argument constructor. 
+Class CommissionEmployee does not have such a constructor, so the compiler would issue an error. 
+You can explicitly use super() to call the superclass’s no-argument or default constructor, but this is rarely done.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.3 Creating a CommissionEmployee–BasePlusCommissionEmployee Inheritance Hierarchy (Cont.)
+
+Compilation errors occur when the subclass attempts to access the superclass’s private instance variables.
+These lines could have used appropriate get methods to retrieve the values of the superclass’s instance variables. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.4 CommissionEmployee–BasePlusCommissionEmployee Inheritance Hierarchy Using protected Instance Variables
+
+To enable a subclass to directly access superclass instance variables, we can declare those members as protected in the superclass. 
+New CommissionEmployee class modified only the instance variable declarations of Fig. 9.4 as follows:
+	protected final String firstName;                              protected final String lastName;                               protected final String socialSecurityNumber;                   protected double grossSales;      protected double commissionRate; 
+With protected instance variables, the subclass gets access to the instance variables, but classes that are not subclasses and classes that are not in the same package cannot access these variables directly. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.4 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using protected Instance Variables (Cont.)
+
+Class BasePlusCommissionEmployee (Fig. 9.9) extends the new version of class CommissionEmployee with protected instance variables.
+These variables are now protected members of BasePlusCommissionEmployee. 
+If another class extends this version of class BasePlusCommissionEmployee, the new subclass also can access the protected members. 
+The source code in Fig. 9.9 is considerably shorter than that in Fig. 9.6
+Most of the functionality is now inherited from CommissionEmployee
+There is now only one copy of the functionality. 
+Code is easier to maintain, modify and debug—the code related to a CommissionEmployee exists only in that class. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.4 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using protected Instance Variables (Cont.)
+
+Inheriting protected instance variables enables direct access to the variables by subclasses. 
+In most cases, it’s better to use private instance variables to encourage proper software engineering. 
+Code will be easier to maintain, modify and debug.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.4 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using protected Instance Variables (Cont.)
+
+Using protected instance variables creates several potential problems.
+The subclass object can set an inherited variable’s value directly without using a set method. 
+A subclass object can assign an invalid value to the variable
+Subclass methods are more likely to be written so that they depend on the superclass’s data implementation. 
+Subclasses should depend only on the superclass services and not on the superclass data implementation. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.4 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using protected Instance Variables (Cont.)
+
+With protected instance variables in the superclass, we may need to modify all the subclasses of the superclass if the superclass implementation changes. 
+Such a class is said to be fragile or brittle, because a small change in the superclass can “break” subclass implementation. 
+You should be able to change the superclass implementation while still providing the same services to the subclasses. 
+If the superclass services change, we must reimplement our subclasses. 
+A class’s protected members are visible to all classes in the same package as the class containing the protected members—this is not always desirable. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.5 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using private Instance Variables
+
+Class CommissionEmployee declares instance variables firstName, lastName, socialSecurityNumber, grossSales and commissionRate as private and provides public methods for manipulating these values. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.5 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using private Instance Variables (Cont.)
+
+CommissionEmployee methods earnings and toString use the class’s get methods to obtain the values of its instance variables. 
+If we decide to change the internal representation of the data (e.g., variable names) only the bodies of the get and set methods that directly manipulate the instance variables will need to change. 
+These changes occur solely within the superclass-—no changes to the subclass are needed. 
+Localizing the effects of changes like this is a good software engineering practice. 
+Subclass BasePlusCommissionEmployee inherits Commission-Employee’s non-private methods and can access the private superclass members via those methods.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.5 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using private Instance Variables (Cont.)
+
+Class BasePlusCommissionEmployee (Fig. 9.11) has several changes that distinguish it from Fig. 9.9. 
+Methods earnings and toString each invoke their superclass versions and do not access instance variables directly. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.5 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using private Instance Variables (Cont.)
+
+Method earnings overrides class the superclass’s earnings method. 
+The new version calls CommissionEmployee’s earnings method with super.earnings(). 
+Obtains the earnings based on commission alone
+Placing the keyword super and a dot (.) separator before the superclass method name invokes the superclass version of an overridden method. 
+Good software engineering practice
+If a method performs all or some of the actions needed by another method, call that method rather than duplicate its code. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.4.5 CommissionEmployee–BasePlus-CommissionEmployee Inheritance Hierarchy Using private Instance Variables (Cont.)
+
+BasePlusCommissionEmployee’s toString method overrides class CommissionEmployee’s toString method. 
+The new version creates part of the String representation by calling CommissionEmployee’s toString method with the expression super.toString(). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.5  Constructors in Subclasses
+
+Instantiating a subclass object begins a chain of constructor calls 
+The subclass constructor, before performing its own tasks, explicitly uses super to call one of the constructors in its direct superclass or implicitly calls the superclass’s default or no-argument constructor
+If the superclass is derived from another class, the superclass constructor invokes the constructor of the next class up the hierarchy, and so on. 
+The last constructor called in the chain is always Object’s constructor. 
+Original subclass constructor’s body finishes executing last. 
+Each superclass’s constructor manipulates the superclass instance variables that the subclass object inherits. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+9.6   Class Object
+
+All classes in Java inherit directly or indirectly from class Object, so its 11 methods are inherited by all other classes. 
+Figure 9.12 summarizes Object’s methods. 
+Every array has an overridden clone method that copies the array.
+If the array stores references to objects, the objects are not copied—a shallow copy is performed. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+There’s much discussion in the software engineering community about the relative merits of composition and inheritance
+Each has its own place, but inheritance is often overused and composition is more appropriate in many cases
+A mix of composition and inheritance often is a reasonable design approach, as you’ll see in Exercise 9.16
+
+9.7   Designing with Composition vs. Inheritance
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+Inheritance-Based Designs
+Inheritance creates tight coupling among the classes in a hierarchy
+Each subclass typically depends on its direct or indirect superclasses’ implementations
+Changes in superclass implementation can affect the behavior of subclasses, often in subtle ways
+Tightly coupled designs are more difficult to modify than those in loosely coupled, composition-based designs 
+Change is the rule rather than the exception—this encourages composition
+
+9.7   Designing with Composition vs. Inheritance (cont.)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+In general, use inheritance only for true is-a relationships in which you can assign a subclass object to a superclass reference
+When you invoke a method via a superclass reference to a subclass object, the subclass’s corresponding method executes
+This is called polymorphic behavior, which we explore in Chapter 10
+
+9.7   Designing with Composition vs. Inheritance (cont.)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+Composition-Based Designs
+Composition is loosely coupled
+When you compose a reference as an instance variable of a class, it’s part of the class’s implementation details that are hidden from the class’s client code
+If the reference’s class type changes, you may need to make changes to the composing class’s internal details, but those changes do not affect the client code
+
+
+9.7   Designing with Composition vs. Inheritance (cont.)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+Composition-Based Designs
+In addition, inheritance is done at compile time
+Composition is more flexible—it, too, can be done at compile time, but it also can be done at execution time because non-final references to composed objects can be modified
+We call this dynamic composition
+This is another aspect of loose coupling—if the reference is of a superclass type, you can replace the referenced object with an object of any type that has an is-a relationship with the reference’s class type
+
+
+9.7   Designing with Composition vs. Inheritance (cont.)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+Composition-Based Designs
+When you use a composition approach instead of inheritance, you’ll typically create a larger number of smaller classes, each focused on one responsibility 
+Smaller classes generally are easier to test, debug and modify
+Java does not offer multiple inheritance—each class in Java may extend only one class
+However, a new class may reuse the capabilities of one or more other classes by composition. As you’ll see in Chapter 10, we can get many of multiple inheritance's benefits by implementing multiple interfaces  
+
+
+9.7   Designing with Composition vs. Inheritance (cont.)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+Recommended Exercises
+Exercise 9.3 asks you to reimplement this chapter’s CommissionEmployee–BasePlusCommissionEmployee hierarchy using composition, rather than inheritance.
+Exercise 9.16 asks you to reimplement the hierarchy using a combination of composition and inheritance in which you’ll see the benefits of composition’s loose coupling. 
+
+9.7   Designing with Composition vs. Inheritance (cont.)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

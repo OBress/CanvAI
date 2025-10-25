@@ -1,0 +1,72 @@
+CMPEN/EE 362 - HW1  
+Student Name: _________________________  
+Problem 1  
+Consider a source and a destination connected by N links (i.e., N -1 packet switches). Each link has 
+capacity R bps, and propagation delay d seconds. Ignore processing  delays  and assume that initially all 
+the buffers are empty.  
+a) Give a formula for the end -to-end delay of sending one packet of length L bits.  
+b) Generalize the formula for sending P packets of L bits each.  
+c) Now suppose the links (in the order from source to destination) have capacities R 1 < R 2 < …< R N, 
+and propagation delays d 1, d2, …, d N (with arbitrary values). Give formula for the end -to-end 
+delay of sending P packets of L bits each.  
+d) Repeat c), but assume that R 1 > R 2 > …> R N (still arbitrary values for d 1, d2, …, d N). 
+  
+
+Problem 2  
+Consider an 8 -car caravan, where the propagation speed is 100 km/hour, each car takes 1 minute to 
+pass a toll both. The caravan starts in front of toll booth A, goes through toll booth B, and ends after 
+passing toll booth C. Let d AB and d BC be the distance between A -B, and B -C.  
+a) Suppose d AB = d BC = 10 km. What is the end -to-end delay if the caravan travels together (i.e., the 
+first car must wait for the last car after passing each toll booth)?  
+b) Repeat a), but assume the cars travel separately (i.e. , not waiting for each other).  
+c) Repeat a) and b), but suppose d AB = d BC = 100 km.  
+d) Still suppose d AB = d BC = 100 km. Suppose toll booth B takes 10 minute to pass each car (A and C 
+still takes 1 minute per car). Where is the first car when the second car passes B?  
+e) Still assume that toll booth B takes 10 minute  to pass each car,  and A and C each takes 1 minute 
+per car. W hat is the maximum value of d BC such that the first car has passed C when the second 
+car passes B (dAB is irrelevant  here )? 
+  
+
+Problem 3  
+Suppose users share a 9 Mbps link. Each user consumes 1.5 Mbps when transmitting, and only transmits 
+with probability 0.2.  
+a) How many users can be supported using circuit switching?  
+b) Assume packet switching for the rest of the problem. What is the probability that 7 out of 10 
+users are transmitting?   
+c) What is the maximum number of users, such that the probability of exceeding the link capacity 
+is no more than 0.01?  Hint: Gradually increase the number of users and evaluate the probability 
+of exceeding the link capacity for each value of this number.  
+d) What is the average link utilization under the maximum number of users computed in c),  
+defined as 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒  𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡  𝑡𝑡𝑡𝑡𝑒𝑒𝑒𝑒  𝑡𝑡𝑡𝑡 𝑒𝑒ℎ𝑒𝑒 𝑙𝑙𝑡𝑡𝑡𝑡𝑙𝑙
+𝑙𝑙𝑡𝑡𝑡𝑡𝑙𝑙 𝑒𝑒𝑡𝑡𝑒𝑒𝑡𝑡𝑒𝑒𝑡𝑡𝑒𝑒 𝑐𝑐? 
+  
+
+Problem 4 
+Refer to Chapter 1 P31 for definition of message segmentation (hint:  this is analogous to letting the cars 
+travel separately as opposed to travel ing together in the caravan analogy ). Suppose the source has a 
+message of 1 Gbit to be sent to the destination via a 3 -link path (through two packet switches). Each link 
+has a capacity of 10 Mbps and a propagation delay of 0. 1 seconds. Ignore queuing and processing 
+delays.  
+a) What is the end -to-end delay to send the message without segmentation?  
+b) What is the end -to-end delay if the message is sent with segmentation into 500 packets, of 2 
+Mbit each?  
+c) Repeat a) and b) when there are 10 links (i.e., 9 packet switches) between the source and the 
+destination.  
+d) Suppose now that each packet needs a header of 1 Kbit . Repeat the calculation in b) (for the 3 -
+link case).  
+e) What are the benefits of message segmentation?  
+f) What are the drawbacks of message segmentation?  
+  
+
+Problem 5 
+Suppose you are asked to design a highway control system where all the sensors share a 1  Mbps link to 
+the control center. Each sensor transmits with probability 0.1. When it transmits, it can transmit either 
+only numerical measurements at 0.1 Mbps , or both numerical measurements and video at 1 Mbps.  
+a) How many sensors can be supported using circuit switching if they transmit only numerical 
+measurements? And what if they transmit both numerical measurements and video?  
+b) Assume that sensors only transmit numerical measurements. How many sensors can be 
+supported using packet switching such that the probability of exceeding the link capacity is no 
+more than 0.005?  
+c) Repeat b) but assume that sensors transmit both numerical measurements and video.  
+d) Compare b -c) with a), at which transmission rate (0.1 Mbps or 1 Mbps) the sensors benefit more 
+from packet switching?  

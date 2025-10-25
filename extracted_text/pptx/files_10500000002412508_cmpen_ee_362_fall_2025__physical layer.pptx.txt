@@ -1,0 +1,858 @@
+Physical Layer: “Computer Networks”, Tanenbaum, Chap2 (2.1, 2.2, 2.3, 2.5)
+
+ Functions
+ Fundamentals/Channel Capacity
+ Analog Overview
+ Digital Overview
+ Modulation
+ Media Types
+ twisted pair
+ coaxial cable
+ fiber
+ wireless
+
+Physical Layer
+
+ Physical Layer
+ electrical/optical transmission of bits or symbols
+ physical control signals
+ 
+
+Periodic Signals
+
+Peak Amplitude (A)
+maximum strength of signal
+volts
+Frequency (f)
+Rate of change of signal
+Hertz (Hz) or cycles per second
+Period = time for one repetition (T)
+T = 1/f
+Phase ()
+Relative position in time
+
+Fourier Analysis
+
+ Fourier theorem: A periodic signal (of period T) is made up of (possibly infinite) component signals
+ component signals are sine waves
+ f=1/T: fundamental frequency
+
+
+
+The component waves satisfy:
+
+
+
+
+Jean-Baptiste Fourier
+1768-1830
+
+ 
+
+ 
+
+ 
+
+ 
+
+dt
+
+dt
+
+Fourier Analysis
+
+ Fourier theorem: A periodic signal (of period T) is made up of (possibly infinite) component signals
+
+
+
+Define: x(t):=1, yn(t):=sin(2πnft), zn(t):=cos(2πnft)
+{x(t), yn(t), zn(t)} is an orthogonal basis of {periodic signals of period T}
+Fourier theorem  a basis
+Pairwise orthogonal:
+
+
+
+
+Fourier Analysis
+
+ A periodic signal (of period T) is made up of (possibly infinite) component signals
+ component signals are sine waves
+ f=1/T: fundamental frequency
+
+
+
+ The coefficients are given by:
+
+
+
+
+
+ Fourier coefficients ↔ original signal
+
+Why Fourier Analysis?
+
+Transmission medium will “selectively” pass signals from 0-frequency to some cutoff frequency fc (physical property of the medium)
+no sharp cutoff  fc: frequency when power is attenuated by half (aka “bandwidth”)
+
+
+ASCII code for ‘b’, represented by a discrete signal
+
+equally attenuated at all frequencies
+
+strongly attenuated at  frequencies > fc
+
+0.5
+
+Bandwidth-Limited Signals
+
+ 
+
+Bandwidth-Limited Signals
+
+(d) – (e) Successive approximations to the original signal.
+
+Relation between Data Rate and #Harmonics
+
+ 
+
+Relation between Data Rate and #Harmonics
+
+higher bit rate  fewer harmonics  higher bit error rate
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Review
+
+Physical layer service
+Signal composition:
+Fourier analysis
+
+Analog and Digital Data Transmission
+
+Data 
+Logical entities that convey meaning (e.g., content of a call, content of a file)
+can be continuous (analog data) or discrete (digital data)
+Signals
+Physical representations of data (e.g., electric pulse, electromagnetic wave)
+Signal is the means by which data are propagated
+can be continuous (analog signal) or discrete (digital signal)
+
+Can use analog signal to carry digital data
+Modem
+Can use digital signal to carry analog data 
+Compact Disc audio
+
+
+Modulation and Coding
+
+ Digital Data, Analog Signal
+ Analog Data, Digital Signal
+ Analog Data, Analog Signal
+ Digital Data, Digital Signal
+
+Digital Data Modulation
+
+Modem
+modulator (D-to-A converter) & demodulator (A-to-D converter)
+
+Two classes of modulation schemes:
+baseband modulation
+signal occupies frequency from 0 to a cutoff frequency
+common for wired channels
+passband modulation
+signal occupies a shifted frequency band (not starting from 0)
+common for wireless channels
+
+
+0
+
+fc
+
+frequency
+
+0
+
+frequency
+
+Baseband Modulation
+
+Common for wired channels
+Basically aim at encoding a sequence of 0’s and 1’s by two voltage levels
+Schemes (aka line codes):
+Nonreturn to Zero (NRZ)
+Nonreturn to Zero Inverted (NRZI)
+Biphase: Manchester, Differential Manchester
+Bipolar: Alternate Mark Inversion (AMI)
+
+
+
+Pay attention to 2 properties: whether the code is (1) self-synchronized, (2) balanced
+“self-synchronized signal”: allows receiver to detect boundaries of bit intervals
+“balanced signal”: positive voltages and negative voltages average to ~zero
+non-zero average  DC component  wasted energy (DC component will be filtered out)
+balanced signal can be used to calibrate receiver: use the average as detection threshold
+
+Nonreturn to Zero (NRZ)
+
+Two different voltages for 0 and 1 bits
+E.g. negative voltage for 0, positive voltage for 1
+Voltage constant during bit interval
+no transition, i.e., “no return to zero voltage”
+
+
+
+
+Intuitive, but seldom used in practice
+
+
+Nonreturn to Zero Inverted (NRZI)
+
+NRZ causes synchronization issues when sending long runs of 0’s or 1’s
+the signal looks almost identical when sending a run of 100 0’s and a run of 101 0’s
+
+Idea: Data encoded as presence or absence of signal transition 
+Transition (low-to-high or high-to-low) denotes a 1
+No transition denotes a 0
+
+
+
+
+
+
+An example of “differential encoding”, used in USB (Universal Serial Bus)
+
+Q: How about long runs of 0’s?
+
+A: code the bit sequence to “break up” the 0’s (see Figure 2-21. 4B/5B mapping)
+
+Biphase
+
+Idea: Send both the data and the clock signal
+Manchester
+Transition in middle of each bit period, transmitted signal = clock XOR data
+Low to high represents 0
+High to low represents 1
+Used by IEEE 802.3 (Ethernet)
+
+
+
+
+Differential Manchester
+End-of-bit transition is only clocking 
+Mid-bit transition represents 0
+No mid-bit transition represents 1
+Note: this is also a differential encoding scheme
+Used by IEEE 802.5 (token ring)
+
+
+Bipolar Encoding (Alternate Mark Inversion (AMI))
+
+Biphase codes (Manchester & differential Manchester) are balanced
+Another balanced code: Alternate Mark Inversion (AMI)
+3 voltage levels: -1 V, 0 V, +1 V
+zero is represented by 0 V 
+one is represented by +1 or -1 V alternatingly
+
+Summary of Line Codes (for Baseband Transmission)
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Review
+
+Digital data  signal conversion 
+modulation for baseband transmission
+modulation for passband transmission
+
+
+
+Passband Modulation
+
+Common for wireless channels
+
+Signal occupies a shifted frequency band (not starting from 0)
+data encoded by modifying (“modulating”) a carrier signal
+
+
+carrier signal
+
+Methods for Passband Modulation
+
+ (a) A binary signal
+ (b) Amplitude modulation
+
+(c) Frequency modulation
+(d) Phase modulation
+
+
+Amplitude Shift Keying
+
+Values represented by different amplitudes of carrier
+Usually, one amplitude is zero
+i.e. presence and absence of carrier is used
+
+
+
+
+Susceptible to sudden gain changes
+Inefficient
+Used over optical fiber
+
+
+Frequency Shift Keying
+
+Values represented by different frequencies (near carrier)
+
+
+
+
+Less susceptible to error than ASK
+High frequency radio
+Even higher frequency on LANs using co-ax
+
+Phase Shift Keying
+
+Phase of carrier signal is shifted to represent data
+
+Binary Phase Shift Keying (BPSK):
+
+
+
+
+
+Quadrature Phase Shift Keying (QPSK): More efficient use of channel by letting each signal element representing more than one bit
+e.g. shifts of {0, /2, , 3/2} or {/4, 3/4, 5/4, 7/4}
+Each element represents two bits
+
+Can use 8 phase angles and have more than one amplitude
+9600bps modem use 12 angles, four of which have two amplitudes
+
+
+Quadrature Amplitude Modulation
+
+Simultaneously modulate phase and amplitude to transmit data at a higher rate
+
+For example:
+Quadrature Phase Shift Keying (QPSK): Use 4 shift values to represent two bits per signal element 
+e.g. shifts of {0, /2, , 3/2} or {/4, 3/4, 5/4, 7/4}
+Each element represents 2 bits (i.e., log2 4)
+Quadrature Amplitude Modulation (QAM)-16: Use 12 phase shifts, 4 of which have 2 amplitude levels  
+#possible signal elements = 8 + 4*2 = 16
+Each element represents 4 bits (i.e., log2 16)
+
+Constellation diagram
+
+(a) QPSK.
+(b) QAM-16.
+(c) QAM-64.
+
+An easier way of representing possible signal elements (symbols) of a modulation scheme
+
+phase
+
+amplitude
+
+2 bits/symbol
+4 bits/symbol
+6 bits/symbol
+
+ Decoding example: QAM
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Gray-coded QAM-16
+
+Tradeoff: higher data rate  higher error rate
+
+Review
+
+Digital data  signal conversion 
+baseband: line codes
+passband: ASK, FSK, PSK, QAM
+
+
+
+Transmission Media
+
+Guided
+Twisted Pair
+
+Coaxial cable
+
+Optical fiber
+
+Free space (unguided)
+Wireless
+
+Transmission Media
+
+Guided
+Twisted Pair
+telephone network, DSL, Ethernet 
+amplifiers every 5km to 6km
+repeater every 2km or 3km
+
+Coaxial cable
+TV network, Cable
+amplifiers every few km
+repeater every 1km
+
+Optical fiber
+backbone, datacenter, HPC
+repeater spaced 10s of km
+
+
+Free space
+Wireless
+single hop 
+multi-hop allowed 
+
+Summary of Physical Layer
+
+ Physical layer fundamentals 
+Fourier analysis, signal vs. data, analog vs. digital, data rate vs. bandwidth
+ Modulation
+digital  analog, analog  digital, analog  analog, digital  digital
+ Media Types
+ guided: twisted pair, coaxial cable, fiber
+ free-space: wireless
+
+
+Synthesis: a day in the life of a web request
+
+Journey down protocol stack complete!
+ application, transport, network, link, physical
+Putting-it-all-together: synthesis!
+ goal: identify, review, understand protocols (at all layers) involved in a seemingly simple scenario: requesting a web page
+ scenario: student attaches laptop to campus network, requests/receives www.google.com 
+
+
+
+A day in the life: scenario
+
+Comcast network 
+68.80.0.0/13
+
+Google’s network 
+64.233.160.0/19 
+
+64.233.169.105
+
+web server
+
+DNS server
+
+
+school network 
+68.80.2.0/24
+
+web page
+
+A day in the life… connecting to the Internet
+
+connecting laptop needs to get its own IP address, addr of first-hop router, addr of DNS server: use DHCP
+
+DHCP request encapsulated in UDP, encapsulated in IP, encapsulated in 802.3 Ethernet, modulated by Manchester code
+
+
+Ethernet frame broadcast (dest: FFFFFFFFFFFF) on LAN, received at router running DHCP server
+
+Ethernet demuxed to IP demuxed, UDP demuxed to DHCP 
+
+DHCP server formulates DHCP ACK containing client’s IP address, IP address of first-hop router for client, name & IP address of local DNS server
+
+
+encapsulation at DHCP server, frame forwarded through LAN, demultiplexing at client
+
+
+Client now has IP address, knows name & addr of local DNS 
+server, IP address of its first-hop router
+
+DHCP client receives DHCP ACK reply
+
+A day in the life… connecting to the Internet
+
+A day in the life… ARP (before DNS, before HTTP)
+
+before sending HTTP request, need IP address of www.google.com:  DNS
+
+DNS query created, encapsulated in UDP, encapsulated in IP, encapsulated in Eth.  To send frame to router, need MAC address of router interface: ARP
+
+
+ARP query broadcast, received by router, which replies with ARP reply giving MAC address of router interface
+
+client now knows MAC address of first hop router, so can now send frame containing DNS query 
+
+IP datagram containing DNS query forwarded via LAN switch from client to 1st hop router
+
+IP datagram forwarded from campus network into Comcast network, routed (tables created by RIP, OSPF, IS-IS and/or BGP routing protocols) to DNS server
+
+demuxed to DNS server
+DNS server replies to client with IP address of www.google.com 
+
+Comcast network 
+68.80.0.0/13
+
+DNS server
+
+
+A day in the life… using DNS
+
+A day in the life…TCP connection carrying HTTP
+
+to send HTTP request, client first opens TCP socket to web server
+
+TCP SYN segment (step 1 in 3-way handshake) inter-domain routed to web server
+
+TCP connection established (for client!)
+
+64.233.169.105
+
+web server
+
+web server responds with TCP SYNACK (step 2 in 3-way handshake)
+
+A day in the life… HTTP request/reply 
+
+HTTP request sent into TCP socket
+
+IP datagram containing HTTP request routed to www.google.com
+
+IP datagram containing HTTP reply routed back to client
+
+64.233.169.105
+
+web server
+
+web server responds with HTTP reply (containing web page)
+
+web page finally (!!!) displayed
+
+Skipped slides
+
+Transmission Impairments
+
+Signal received may differ from signal transmitted
+Analog - degradation of signal quality
+Digital - bit errors
+Caused by
+Attenuation
+Delay distortion
+Noise
+Interference
+
+
+Q: How to reduce impairments?
+A: Strategy differs for analog/digital transmission
+
+Analog Transmission
+
+Analog signal transmitted without regard to content
+May be analog or digital data
+Attenuated over distance 
+Use amplifiers to boost signal
+Also amplifies noise!
+
+
+Amplify-and-forward
+
+Digital Transmission
+
+Intermediate nodes aware of content
+Integrity endangered by noise, attenuation etc.
+Repeaters used, which
+receives signal
+Extracts bit pattern
+Retransmits
+Overcome signal attenuation without amplifying noise!
+
+
+
+
+
+Advantages over analog transmission:
+data integrity: lower error rate, longer distance
+
+
+
+decode-and-forward
+
+Modulation and Coding
+
+ Digital Data, Analog Signal
+ Analog Data, Digital Signal
+ Analog Data, Analog Signal
+ Digital Data, Digital Signal
+
+Analog Data, Digital Signal
+
+Digitization
+Conversion of analog data into digital data
+Digital data can then be transmitted
+The transmission may first convert the digital data back to an analog signal (different from original)
+The conversion done using a codec
+
+
+Pulse Code Modulation (PCM)
+
+Nyquist Sampling Theorem: If a signal is sampled at regular intervals at a rate higher than twice the highest signal frequency, the samples contain all the information of the original signal.
+
+Example: Voice data limited to below 4000Hz
+Require 8000 sample per second
+Each sample assigned digital value  Quantization
+E.g., 4-bit quantization gives 16 levels, 8-bit quantization gives 256 levels
+To modulate voice with 256 levels, we need 8000 samples/sec of 8 bits each  data rate is 64 kbps
+
+
+
+
+
+
+
+ Tradeoff: more bits per sample means smaller quantization error but more bits generated
+
+   8      9     11   13    14   15  15   15   ...
+
+10001001101111011110111111111111 ...
+
+Review
+
+Digital data  analog signal conversion 
+baseband: line codes
+passband: ASK, FSK, PSK, QAM
+Analog data  digital signal conversion
+sampling, quantization
+
+
+
+Analog Signals Carrying Analog and Digital Data
+
+Digital Signals Carrying Analog and Digital Data
+
+Data
+
+Channel Capacity
+
+Data rate
+In bits per second
+Rate at which data can be communicated
+Bandwidth
+In cycles per second or Hertz
+Constrained by transmitter and medium
+
+The two are proportional to each other:
+Nyquist Theorem (noiseless channel): maximum data rate = 2B log2V bits/sec
+B – channel bandwidth (must sample at twice this rate)
+V – discrete levels of signal (e.g., 2 if we are using 1 and 0)
+Shannon’s Theorem (noisy channel): maximum data rate = 2B log2(1 + S/N) bits/sec
+B – channel bandwidth
+S – signal power
+N – noise power
+
+
+
+Modulation Rate
+
+Delta Modulation
+
+Analog input is approximated by a staircase function
+Move up or down one level () at each sample interval
+Binary output: 1 - moving up, 0 - moving down 
+
+easier to compress
+
+Modulation and Coding
+
+ Digital Data, Analog Signal
+ Analog Data, Digital Signal
+ Analog Data, Analog Signal
+ Digital Data, Digital Signal
+
+Analog Data, Analog Signals
+
+Why modulate analog signals?
+Higher frequency can give more efficient transmission
+Permits frequency division multiplexing (chapter 8)
+Types of modulation
+Amplitude
+Frequency
+Phase
+
+Analog Modulation
+
+Modulation and Coding
+
+ Digital Data, Analog Signal
+ Analog Data, Digital Signal
+ Analog Data, Analog Signal
+ Digital Data, Digital Signal
+
+Digital Data, Digital Signal
+
+Digital signal
+Discrete, discontinuous voltage pulses
+Each pulse is a signal element
+Binary data encoded into signal elements
+
+
+Transmission Media
+
+Guided
+Twisted Pair
+Coaxial cable
+Optical fiber
+Free space
+Wireless
+
+Twisted Pairs
+
+Category 5 UTP cable with four twisted pairs
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Twisted Pair
+
+Most common medium
+Telephone network
+Between house and local exchange (subscriber loop)
+Within buildings
+To private branch exchange (PBX)
+For local area networks (LAN)
+10Mbps or 100Mbps
+
+
+Analog 
+Amplifiers every 5km to 6km
+Digital
+Use either analog or digital signals
+repeater every 2km or 3km
+Limited distance
+Limited bandwidth (1MHz)
+Limited data rate (100MHz)
+Susceptible to interference and noise
+
+
+Coaxial Cable
+
+
+
+
+
+
+
+Most versatile medium
+Television distribution
+Ariel to TV
+Cable TV
+Long distance telephone transmission
+Can carry 10,000 voice calls simultaneously
+Being replaced by fiber optic
+Short distance computer systems links
+Local area networks
+
+
+Analog
+Amplifiers every few km
+Closer if higher frequency
+Up to 500MHz
+Digital
+Repeater every 1km
+Closer for higher data rates
+
+Fiber Cables
+
+Greater capacity
+Data rates of hundreds of Gbps
+Smaller size & weight
+Lower attenuation
+Electromagnetic isolation
+Greater repeater spacing
+10s of km at least
+
+Long-haul trunks
+Metropolitan trunks
+Rural exchange trunks
+Subscriber loops
+LANs
+
+
+Fiber Optics (1)
+
+Three examples of a light ray from inside a silica fiber impinging on the air/silica boundary at different angles.
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Fiber Optics (2)
+
+Light trapped by total internal reflection.
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Transmission of Light Through Fiber
+
+Attenuation of light through fiber in the infrared region
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Wireless Transmission
+
+ Multipath fading
+
+
+
+
+
+
+ Rayleigh Fading
+ statistical model of fading over the air
+ Distortion
+ can be combated with equalizers
+ Shadows
+ obstructions
+
+Channels
+
+ Allow more than one session to take place on a single physical link
+ Increases network capacity
+
+Frequency Division Multiplexing
+
+(a) The original bandwidths.
+(b) The bandwidths raised in frequency.
+(b) The multiplexed channel.
+
+Wireless Access Basics
+
+ Frequency Division Multiple Access (FDMA):
+   e.g. the analog cellular system: 1G
+
+
+
+
+ Time Division Multiple Access (TDMA):
+  e.g. IS-54 and IS-136, GSM, PDC: 2G
+  GPRS: 2.5G
+  UWC-136, EDGE: 3G
+
+
+
+ Code Division Multiple Access (CDMA):
+  e.g. IS-95A,B (cdmaOne) : 2G
+  IS-2000 (cdma2000), WCDMA : 3G
+
+Wavelength Division Multiplexing
+
+Wavelength division multiplexing.
+
+Time Division Multiplexing
+
+Time Division Multiplexing (TDM).
+
+Computer Networks, Fifth Edition by Andrew Tanenbaum and David Wetherall, © Pearson Education-Prentice Hall, 2011
+
+Time Division Multiplexing
+
+The T1 carrier (1.544 Mbps).
+
+Time Division Multiplexing (3)
+
+Multiplexing T1 streams into higher carriers.

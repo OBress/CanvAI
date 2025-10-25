@@ -1,0 +1,676 @@
+CMPSC 465: LECTURE VII
+More Examples of Divide-and-Conquer
+Ke Chen
+September 12, 2025
+
+Median of medians as pivot for selection
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+Time complexity?
+IWorst-case: T(n) =cn=5 +T(n=5) + ( n) +T(?)
+=T(n=5) +T(?) + ( n).
+1 / 9
+
+How good is MoM?
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+n= 30,m= 20 ,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 3
+2 / 9
+
+How good is MoM?
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+n= 30,m= 20 ,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 3
+2 / 9
+
+How good is MoM?
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+n= 30,m= 20 ,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 315 29
+20 36
+25 14
+2 / 9
+
+How good is MoM?
+I(m)(n=5)=2 =n=10medians ; also n=10medians .IFor each median m, there are at least 2 more in its group m.
+IFor each median m, there are at least 2 more in its group m.
+IIn total, we can guarantee 3(n=5)=2 = 3n=10numbers m; also
+3n=10numbers m.
+n= 30 ,m= 20,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 315 29
+36
+25 1415 29
+20 36
+25 14
+2 / 9
+
+How good is MoM?
+I(m)(n=5)=2 =n=10medians ; also n=10medians .
+IFor each median m, there are at least 2 more in its group m.IFor each median m, there are at least 2 more in its group m.
+IIn total, we can guarantee 3(n=5)=2 = 3n=10numbers m; also
+3n=10numbers m.
+n= 30 ,m= 20,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 315 29
+36
+25 1415 29
+20 36
+25 147 5
+2 / 9
+
+How good is MoM?
+I(m)(n=5)=2 =n=10medians ; also n=10medians .
+IFor each median m, there are at least 2 more in its group m.
+IFor each median m, there are at least 2 more in its group m.IIn total, we can guarantee 3(n=5)=2 = 3n=10numbers m; also
+3n=10numbers m.
+n= 30 ,m= 20,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 315 29
+36
+25 1415 29
+20 36
+25 147 5 88 91
+2 / 9
+
+How good is MoM?
+I(m)(n=5)=2 =n=10medians ; also n=10medians .
+IFor each median m, there are at least 2 more in its group m.
+IFor each median m, there are at least 2 more in its group m.IIn total, we can guarantee 3(n=5)=2 = 3n=10numbers m; also
+3n=10numbers m.
+n= 30 ,m= 20,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 315 29
+36
+25 1415 29
+20 36
+25 147 5 88 91
+13 67 54 18
+2 / 9
+
+How good is MoM?
+I(m)(n=5)=2 =n=10medians ; also n=10medians .
+IFor each median m, there are at least 2 more in its group m.
+IFor each median m, there are at least 2 more in its group m.
+IIn total, we can guarantee 3(n=5)=2 = 3n=10numbers m; also
+3n=10numbers m.
+n= 30 ,m= 20,15 numbers m,15 numbers m
+19 7 15 42 5 88 91 4 29 21
+13 67 54 18 20 73 8 36 49 2
+9 25 31 44 12 6 80 14 22 315 29
+36
+25 1415 29
+20 36
+25 147 5 88 91
+13 67 54 18 73 49
+31 44 6 3
+2 / 9
+
+How good is MoM?
+I(m)(n=5)=2 =n=10medians ; also n=10medians .
+IFor each median m, there are at least 2 more in its group m.
+IFor each median m, there are at least 2 more in its group m.
+IIn total, we can guarantee 3(n=5)=2 = 3n=10numbers m; also
+3n=10numbers m.
+n= 30 ,m= 20 ,15 numbers m,15 numbers m
+15 29
+36
+25 1415 29
+20 36
+25 147 5 88 91
+13 67 54 18 73 49
+31 44 6 319 7 15 5 4 13 18 3 8 2
+9 12 6 14 20 73 29 36 49 21
+88 25 31 44 67 54 80 91 22 4220
+2 / 9
+
+Median of medians as pivot
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+Time complexity?
+IWorst-case: T(n) =T(n=5) +T(?) + ( n)=T(n=5) +T(7n/10 ) + ( n).
+I(Exercise) Prove that T(n) =O(n).
+I(Exercise) What happens if we group by 3, or7?
+3 / 9
+
+Median of medians as pivot
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+Time complexity?
+IWorst-case: T(n) =T(n=5) +T(n-3(n/5)/2 ) + ( n)=T(n=5) +T(7n/10 ) + ( n).
+I(Exercise) Prove that T(n) =O(n).
+I(Exercise) What happens if we group by 3, or7?
+3 / 9
+
+Median of medians as pivot
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+Time complexity?
+IWorst-case: T(n) =T(n=5) +T(n-3(n/5)/2 ) + ( n)
+=T(n=5) +T(7n/10 ) + ( n).I(Exercise) Prove that T(n) =O(n).
+I(Exercise) What happens if we group by 3, or7?
+3 / 9
+
+Median of medians as pivot
+Select( A,k):
+1. Divide the input Ainto groups of 5.
+2. Find the median of each group.
+3. Recursively nd the median mof all these n=5medians.
+4. Partition Awith pivot m.
+5. Do recursive call as in RandomizedSelect.
+Time complexity?
+IWorst-case: T(n) =T(n=5) +T(n-3(n/5)/2 ) + ( n)
+=T(n=5) +T(7n/10 ) + ( n).
+I(Exercise) Prove that T(n) =O(n).
+I(Exercise) What happens if we group by 3, or7?
+3 / 9
+
+Matrix multiplication
+Input: Twonnmatrices AandB
+Output: C=ABRecall:
+A 
+B =
+=C
+i
+ji; j
+C(i; j) =nX
+k=1A(i; k)B(k; j):
+Direct computation takes O(n3)time. Obvious lower bound is
+
+(n2).Can we do better?
+4 / 9
+
+Matrix multiplication
+Input: Twonnmatrices AandB
+Output: C=AB
+Recall:
+A 
+B =
+=C
+i
+ji; jC(i; j) =nX
+k=1A(i; k)B(k; j):
+Direct computation takes O(n3)time. Obvious lower bound is
+
+(n2).Can we do better?
+4 / 9
+
+Matrix multiplication
+Input: Twonnmatrices AandB
+Output: C=AB
+Recall:
+A 
+B =
+=C
+i
+ji; j
+C(i; j) =nX
+k=1A(i; k)B(k; j):Direct computation takes O(n3)time. Obvious lower bound is
+
+(n2).Can we do better?
+4 / 9
+
+Matrix multiplication
+Input: Twonnmatrices AandB
+Output: C=AB
+Recall:
+A 
+B =
+=C
+i
+ji; j
+C(i; j) =nX
+k=1A(i; k)B(k; j):
+Direct computation takes O(n3)time. Obvious lower bound is
+
+(n2).Can we do better?
+4 / 9
+
+Matrix multiplication
+Input: Twonnmatrices AandB
+Output: C=AB
+Recall:
+A 
+B =
+=C
+i
+ji; j
+C(i; j) =nX
+k=1A(i; k)B(k; j):
+Direct computation takes O(n3)time. Obvious lower bound is
+
+(n2).Can we do better?
+4 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).Same as direct computation!
+5 / 9
+
+Matrix multiplication by divide-and-conquer
+Idea: Divide matrices into four n=2n=2blocks and perform
+multiplication block-wise.
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Fact: C=AB=A11B11+A12B21A11B12+A12B22
+A21B11+A22B21A21B12+A22B22
+IWe obtain a divide-and-conquer algorithm with 8subproblems
+of size n=2each.
+ITo combine results of subproblems, we need 4additions of
+n=2n=2matrices, which take O(n2)time.
+ISo the running time satises
+T(n) = 8T(n=2) +O(n2) T(n) =O(n3).
+Same as direct computation!
+5 / 9
+
+Strassen's idea (1969)
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Let
+P1=A11(B12 B22) P2= (A11+A12)B22
+P3= (A21+A22)B11 P4=A22(B21 B11)
+P5= (A11+A22)(B11+B22)P6= (A12 A22)(B21+B22)
+P7= (A11 A21)(B11+B12)Then AB=C=P5+P4 P2+P6 P1+P2
+P3+P4 P1+P5 P3 P7
+6 / 9
+
+Strassen's idea (1969)
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Let
+P1=A11(B12 B22) P2= (A11+A12)B22
+P3= (A21+A22)B11 P4=A22(B21 B11)
+P5= (A11+A22)(B11+B22)P6= (A12 A22)(B21+B22)
+P7= (A11 A21)(B11+B12)
+Then AB=C=P5+P4 P2+P6 P1+P2
+P3+P4 P1+P5 P3 P7
+6 / 9
+
+Strassen's idea (1969)
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Let
+P1=A11(B12 B22) P2= (A11+A12)B22
+P3= (A21+A22)B11 P4=A22(B21 B11)
+P5= (A11+A22)(B11+B22)P6= (A12 A22)(B21+B22)
+P7= (A11 A21)(B11+B12)
+Then AB=C=P5+P4 P2+P6 P1+P2
+P3+P4 P1+P5 P3 P7
+Verify: P1+P2=A11(B12 B22) + (A11+A12)B22
+=A11B12 A11B22+A11B22+A12B22
+=A11B12+A12B22
+6 / 9
+
+Strassen's idea (1969)
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Let
+P1=A11(B12 B22) P2= (A11+A12)B22
+P3= (A21+A22)B11 P4=A22(B21 B11)
+P5= (A11+A22)(B11+B22)P6= (A12 A22)(B21+B22)
+P7= (A11 A21)(B11+B12)
+Then AB=C=P5+P4 P2+P6 P1+P2
+P3+P4 P1+P5 P3 P7
+P1; : : : ; P 7requires 7n=2n=2matrix multiplications, therefore
+T(n) = 7T(n=2) +O(n2) O(nlog 7) =O(n2:81)
+.Can we do better?
+6 / 9
+
+Strassen's idea (1969)
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Let
+P1=A11(B12 B22) P2= (A11+A12)B22
+P3= (A21+A22)B11 P4=A22(B21 B11)
+P5= (A11+A22)(B11+B22)P6= (A12 A22)(B21+B22)
+P7= (A11 A21)(B11+B12)
+Then AB=C=P5+P4 P2+P6 P1+P2
+P3+P4 P1+P5 P3 P7
+P1; : : : ; P 7requires 7n=2n=2matrix multiplications, therefore
+T(n) = 7T(n=2) +O(n2) O(nlog 7) =O(n2:81).Can we do better?
+6 / 9
+
+Strassen's idea (1969)
+A=A11A12
+A21A22
+B=B11B12
+B21B22
+Let
+P1=A11(B12 B22) P2= (A11+A12)B22
+P3= (A21+A22)B11 P4=A22(B21 B11)
+P5= (A11+A22)(B11+B22)P6= (A12 A22)(B21+B22)
+P7= (A11 A21)(B11+B12)
+Then AB=C=P5+P4 P2+P6 P1+P2
+P3+P4 P1+P5 P3 P7
+P1; : : : ; P 7requires 7n=2n=2matrix multiplications, therefore
+T(n) = 7T(n=2) +O(n2) O(nlog 7) =O(n2:81).
+Can we do better?
+6 / 9
+
+Matrix multiplication
+Can we do better?
+Figure by Jochen Burghardt
+7 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).
+Divide-and-conquer:
+1 Divide the points into two parts.2 Find a closest pair in each.
+3 Find if any cross-boundary pair is
+closer.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+8 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).Divide-and-conquer:
+1 Divide the points into two parts.2 Find a closest pair in each.
+3 Find if any cross-boundary pair is
+closer.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+8 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).
+Divide-and-conquer:
+1 Divide the points into two parts.2 Find a closest pair in each.
+3 Find if any cross-boundary pair is
+closer.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+8 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Find a closest pair in each.3 Find if any cross-boundary pair is
+closer.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+8 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Find a closest pair in each.
+3 Find if any cross-boundary pair is
+closer.Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+8 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Find a closest pair in each.
+3 Find if any cross-boundary pair is
+closer.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+8 / 9
+
+Closest pair of points
+Input: A set of npoints in the plane.
+Output: A pair of points with the smallest Euclidean distance.
+Brute-force: O(n2).
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Find a closest pair in each.
+3 Find if any cross-boundary pair is
+closer.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) 
+O(nlogn).
+8 / 9
+
+Convex hull
+Input: A set of npoints in the plane.
+Output: The convex hull , i.e., smallest convex shape that
+contains all the points.
+Divide-and-conquer:
+1 Divide the points into two parts.2 Compute the convex hull of each.
+3 Merge the two convex polygons.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+9 / 9
+
+Convex hull
+Input: A set of npoints in the plane.
+Output: The convex hull , i.e., smallest convex shape that
+contains all the points.
+Divide-and-conquer:
+1 Divide the points into two parts.2 Compute the convex hull of each.
+3 Merge the two convex polygons.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+9 / 9
+
+Convex hull
+Input: A set of npoints in the plane.
+Output: The convex hull , i.e., smallest convex shape that
+contains all the points.
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Compute the convex hull of each.3 Merge the two convex polygons.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+9 / 9
+
+Convex hull
+Input: A set of npoints in the plane.
+Output: The convex hull , i.e., smallest convex shape that
+contains all the points.
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Compute the convex hull of each.
+3 Merge the two convex polygons.Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+9 / 9
+
+Convex hull
+Input: A set of npoints in the plane.
+Output: The convex hull , i.e., smallest convex shape that
+contains all the points.
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Compute the convex hull of each.
+3 Merge the two convex polygons.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) O(nlogn).
+9 / 9
+
+Convex hull
+Input: A set of npoints in the plane.
+Output: The convex hull , i.e., smallest convex shape that
+contains all the points.
+Divide-and-conquer:
+1 Divide the points into two parts.
+2 Compute the convex hull of each.
+3 Merge the two convex polygons.
+Can be done in O(n)time, there-
+foreT(n) = 2 T(n=2) + O(n) 
+O(nlogn).
+9 / 9

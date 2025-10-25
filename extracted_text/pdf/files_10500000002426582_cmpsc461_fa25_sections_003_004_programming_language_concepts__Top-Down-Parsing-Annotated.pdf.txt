@@ -1,0 +1,365 @@
+Top-down Parsing
+Professor: Suman Saha
+CMPSC 461 – Programming Language Concepts
+
+
+Top-down Parser
+•The parse tree is constructed 
+•From the top
+•From left to right
+•Terminal are seen in order of appearance in 
+the token stream:
+•t2 t5 t6 t8 t9 
+•Top-down parsing methods
+•Recursive descent
+•Predictive parsing
+CMPSC 461 – Programming Language Concepts
+
+
+Recursive Descent Parsing
+•It is built from a set of mutually recursive procedures (or a non -recursive 
+equivalent) where each such procedure implements one of 
+thenonterminals of the grammar .
+•Recursive descent parsing suffers from backtracking
+•Backtracking : It means one derivation of a production fails; the syntax analyzer restart 
+the process using different rules of same production.
+•This technique may process the input string more than once to determine the right 
+production
+CMPSC 461 – Programming Language Concepts
+
+Backtracking
+•Say, we have grammar
+ S → rXd | rZd
+ X → oa | ea
+ Z → ai
+•For input string read
+CMPSC 461 – Programming Language Concepts
+
+Backtracking
+•Say, we have grammar
+ S → rXd | rZd
+ X → oa | ea
+ Z → ai
+•For input string read
+CMPSC 461 – Programming Language ConceptsS
+r X d
+
+Backtracking
+•Say, we have grammar
+ S → rXd | rZd
+ X → oa | ea
+ Z → ai
+•For input string read
+CMPSC 461 – Programming Language ConceptsS
+r X d
+S
+r X d
+o a
+
+Backtracking
+•Say, we have grammar
+ S → rXd | rZd
+ X → oa | ea
+ Z → ai
+•For input string read
+CMPSC 461 – Programming Language ConceptsS
+r X d
+S
+r X d
+o aS
+r X d
+o a
+
+Backtracking
+•Say, we have grammar
+ S → rXd | rZd
+ X → oa | ea
+ Z → ai
+•For input string read
+CMPSC 461 – Programming Language ConceptsS
+r X d
+S
+r X d
+o aS
+r X d
+o a
+S
+r X d
+e a
+
+Recursive Descent Parsing
+•Left-recursive grammar has a non -terminal S 
+  S →+Sα for some α
+•Recursive descent does not work in such case. the starting symbol is 
+repeated immediately after the arrow; making the derivation refer to itself 
+infinitely times.
+•While the parser may be partially correct, it may not terminate.
+CMPSC 461 – Programming Language Concepts
+
+Elimination of Left Recursion
+•Consider the left -recursive grammar
+  S → S α| β
+•S generates all string starting with a β and followed by a number of α
+•Can rewrite using right -recursion
+  S → βS’ 
+  S’ → αS’ | ε
+CMPSC 461 – Programming Language Concepts
+
+Elimination of Left Recursion
+•The grammar 
+  S → A α | δ 
+  A → S β 
+  is also left -recursive because
+  S →+S βα
+•This left -recursion can also be eliminated? (Exercise)
+CMPSC 461 – Programming Language Concepts
+
+Predictive Parsing
+•It is like a recursive descent parser does not have left recursion but has the 
+capability to predict which production is to be used to replace the input 
+string. It does not suffer from backtracking. 
+•It uses a look -ahead pointer, which points to the next input symbols. To make 
+the parser back -tracking free, the predictive parser accepts only a class of 
+grammar known as LL(k) grammar 
+•LL(k) grammar is a subset of context -free grammar
+     
+CMPSC 461 – Programming Language Concepts
+
+Predictive Parsing
+•It is like a recursive descent parser does not have left recursion but has the 
+capability to predict which production is to be used to replace the input 
+string. It does not suffer from backtracking. 
+•It uses a look -ahead pointer, which points to the next input symbols. To make 
+the parser back -tracking free, the predictive parser accepts only a class of 
+grammar known as LL(k) grammar 
+•LL(k) grammar is a subset of context -free grammar
+     
+CMPSC 461 – Programming Language ConceptsLL(k)
+Left to right
+Left most derivation
+k lookahead symbol
+
+Predictive Parsing and Left Factoring
+•Given grammar 
+  
+  E → T + E | T 
+  T → int | int * T | ( E ) 
+•Hard to predict because 
+•For T two productions start with int
+•For E it is not clear how to predict
+•A grammar must be left -factored before use for predictive parsing
+CMPSC 461 – Programming Language Concepts
+
+Predictive Parsing and Left Factoring
+•Given grammar 
+  
+  E → T + E | T 
+  T → int | int * T | ( E ) 
+•Factor out common prefixes of productions
+E→ T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+CMPSC 461 – Programming Language Concepts
+
+Top Hat
+CMPSC 461 – Programming Language Concepts
+
+LL(1) Parsing Table
+•LL(1) means that for each non -terminal and token there 
+is only one production
+•Can be specified via 2D tables
+•One dimension for current non -terminal to expand
+•One dimension for next token 
+•A table entry contains one production ( We will talk about how 
+to find table entry later )
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+
+
+LL(1) Parsing Table
+•Consider the [E, int] entry
+•When current non -terminal is E and next input is int, use production E → T X
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+
+
+LL(1) Parsing Table
+•Consider the [Y,+] entry
+•When current non -terminal is Y and current token is +, get rid of Y
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+
+
+LL(1) Parsing Table
+•Blank entries indicate error situations
+•Consider the [E,*] entry
+•There is no way to derive a string starting with * from non -terminal E
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+
+
+LL(1) Parsing Table
+•We use a stack to keep track of pending non -terminals
+•We reject when we encounter an error state
+•We accept when we encounter end -of-input
+Stack Input Action 
+E $ int* int$ T X 
+T X $ int* int$ intY 
+intY X $ int* int$ terminal 
+Y X $ * int$ * T 
+* T X $ * int$ terminal 
+T X $ int$ intY 
+intY X $ int$ terminal 
+Y X $ $ ε 
+X $ $ ε 
+$ $ ACCEPT
+CMPSC 461 – Programming Language Concepts
+
+
+FIRST() and FOLLOW()
+•FIRST(C) for a grammar symbol C is the set of terminals that begin the strings 
+derivable from C
+  First(C) = { t | C →* t α} ∪{ε | C →* ε}
+•First of terminal is terminal itself
+•FIRST(E) = { (, int}
+•FIRST(X) = {+, ε }
+•FIRST(T) = { (, int}
+•FIRST(Y) = {*, ε }
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+
+
+FIRST() and FOLLOW()
+•Follow(C) to be the set of terminals that can appear immediately to the right of 
+Non-Terminal C in some sentential form.
+•Rules:
+•If C is the start symbol then $ ∈ Follow(C) 
+•If C → A B then First(B) ⊆ Follow(A) and Follow(C) ⊆ Follow(B) 
+•Also, if B →* ε then Follow(C) ⊆ Follow(A)
+•FOLLOW(E) = { ), $}
+•FOLLOW(X) = { ), $ }
+•FOLLOW(T) = { +, ), $}
+•FOLLOW(Y) = {+, ), $ }
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+FIRST(E) = { (, int}
+FIRST(X) = {+, ε }
+FIRST(T) = { (, int}
+FIRST(Y) = {*, ε }
+
+
+FIRST() and FOLLOW()
+•Follow(C) to be the set of terminals that can appear immediately to the right of 
+Non-Terminal C in some sentential form.
+•Rules:
+•If C is the start symbol then $ ∈ Follow(C) 
+•If C → A B then First(B) ⊆ Follow(A) and Follow(C) ⊆ Follow(B) 
+•Also, if B →* ε then Follow(C) ⊆ Follow(A)
+•FOLLOW(E) = { ), $}
+•FOLLOW(X) = { ), $ }
+•FOLLOW(T) = { +, ), $}
+•FOLLOW(Y) = {+, ), $ }
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+FIRST(E) = { (, int}
+FIRST(X) = {+, ε }
+FIRST(T) = { (, int}
+FIRST(Y) = {*, ε }
+
+
+FIRST() and FOLLOW()
+•Follow(C) to be the set of terminals that can appear immediately to the right of 
+Non-Terminal C in some sentential form.
+•Rules:
+•If C is the start symbol then $ ∈ Follow(C) 
+•If C → A B then First(B) ⊆ Follow(A) and Follow(C) ⊆ Follow(B) 
+•Also, if B →* ε then Follow(C) ⊆ Follow(A)
+•FOLLOW(E) = { ), $}
+•FOLLOW(X) = { ), $ }
+•FOLLOW(T) = { +, ), $}
+•FOLLOW(Y) = {+, ), $ }
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+FIRST(E) = { (, int}
+FIRST(X) = {+, ε }
+FIRST(T) = { (, int}
+FIRST(Y) = {*, ε }
+
+
+FIRST() and FOLLOW()
+•Follow(C) to be the set of terminals that can appear immediately to the right of 
+Non-Terminal C in some sentential form.
+•Rules:
+•If C is the start symbol then $ ∈ Follow(C) 
+•If C → A B then First(B) ⊆ Follow(A) and Follow(C) ⊆ Follow(B) 
+•Also, if B →* ε then Follow(C) ⊆ Follow(A)
+•FOLLOW(E) = { ), $}
+•FOLLOW(X) = { ), $ }
+•FOLLOW(T) = { +, ), $}
+•FOLLOW(Y) = {+, ), $ }
+CMPSC 461 – Programming Language ConceptsLeft-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+FIRST(E) = { (, int}
+FIRST(X) = {+, ε }
+FIRST(T) = { (, int}
+FIRST(Y) = {*, ε }
+
+
+Constructing LL(1) Parsing Table
+•Construct a parsing table T for CFG G
+•For each production A → α in G do:
+•For each terminal t ∈ First( α) do
+•T[A, t] = α
+•If ε ∈ First( α), for each t ∈ Follow(A)  do
+•T[A, t] = α
+•If ε ∈ First( α) and $ ∈ Follow(A) do
+•T[A, $] = α
+CMPSC 461 – Programming Language Concepts
+Left-factored Grammar
+E→T X
+X→ + E| ε 
+T→ ( E) | intY
+Y→ * T| ε
+FIRST(E) = { (, int}
+FIRST(X) = {+, ε }
+FIRST(T) = { (, int}
+FIRST(Y) = {*, ε }FOLLOW(E) = { ), $}
+FOLLOW(X) = { ), $ }
+FOLLOW(T) = { +, ), $}
+FOLLOW(Y) = {+, ), $ }
+
+
+Reading and Exercises
+Reading
+•Chapter: 2.3.1, 2.3.2, and 2.3.3 (Michael Scott Book)
+Exercises
+•Exercises : 2.11 - 2.26 (Michael Scott Book)
+CMPSC 461 – Programming Language Concepts

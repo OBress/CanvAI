@@ -1,0 +1,64 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 2
+Lecture Section: Monday, Sep 15, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) We can apply the Master Theorem to
+recurrences of the form T(n) =a·T(n
+b)+O(2n·d)
+(where a>0,b>1 and d≥0) and conclude that:
+T(n) =
+
+Θ(nd) ifd>logba
+Θ(ndlogn) ifd=logba
+Θ(nlogba) ifd<logba
+(a) True
+(b) False
+Answer (b) False
+Master Theorem applies to recurrences of the form
+T(n) =a·T(n
+b) +Θ(nd). Everything besides the
+given T(n)is correct.
+2.(2 pts.) The recurrence relation for the median-
+of-medians algorithm can be approximated as
+T(n) =Tn
+5
++T7n
+10
++O(n). What is the
+overall time complexity derived from this recur-
+rence?
+(a)O(n2)
+(b)O(nlogn)
+(c)O(n)
+(d)O(logn)
+Answer (c) Solving this recurrence shows that the
+total work is linear, as the subproblem sizes de-
+crease geometrically, leading to a total time com-
+plexity of O(n).
+3.(2 pts.) Given two arrays of numbers x=
+[2,4,12]andy= [3,4,5]. What would be the re-
+sult of Merge (x,y)in the merge-sort algorithm?(a)[2,3,4,5,4,12]
+(b)[2,5,4,4,3,12]
+(c)[3,4,4,2,5,12]
+(d)[2,3,4,4,5,12]
+Answer (d) [2,3,4,4,5,12]
+When Merge runs on two sorted arrays, it always
+returns a sorted array.
+4.(2 pts.) What is the role of the pivot in the
+QuickSort algorithm?
+(a) To sort the entire array in one step.
+(b) To partition the array into two subarrays for
+recursive sorting.
+(c) To compute the median of the array elements.
+(d) To merge two sorted subarrays.
+Answer (b) To partition the array into two subar-
+rays for recursive sorting.
+5.(2 pts.) What is the time complexity of the stan-
+dard divide-and-conquer algorithm for matrix mul-
+tiplication?
+(a)O(n4)
+(b)O(n3)
+(c)O(n2)
+(d)O(nloglog n)
+Answer (b) O(n3)
+CMPSC 465, Fall 2025, Quiz 2 1

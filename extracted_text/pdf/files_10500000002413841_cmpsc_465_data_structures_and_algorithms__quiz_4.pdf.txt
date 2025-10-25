@@ -1,0 +1,40 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 4
+Lecture Section: Monday, Sep 29, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) We have a graph with nvertices, which
+is given in the adjacency list representation. How
+much time will it take to verify that a single edge
+exists?
+(a)O(nlogn)
+(b)O(n)
+(c)O(1)
+(d)O(n2)
+2.(2 pts.) Consider the following graph,
+a
+b e f
+h
+g
+Which of the following are plausible DFS traver-
+sals of the graphs? Mark all correct answers .
+(a) a b f e h g
+(b) a b f h g e
+(c) a f b e h g
+(d) g e b a f h3.(2 pts.) What is the maximum number of edges
+possible in a simple undirected graph having nver-
+tices?
+(a)n(n+1)
+2
+(b)n(n−1)
+2
+(c)n(n−1)
+4.(2 pts.) The topological sort of a Directed
+Acyclic Graph (DAG) is always unique.
+(a) True
+(b) False
+5.(2 pts.) In a DFS tree, back edges are defined as:
+(a) Edges that lead to the root node.
+(b) Edges that point into the current node.
+(c) Edges that lead to a child node.
+(d) Edges that lead to an ancestor node.
+CMPSC 465, Fall 2025, Quiz 4 1

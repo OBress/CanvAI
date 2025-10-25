@@ -1,0 +1,133 @@
+4.14  (Optional) GUI and Graphics Case Study: Creating Simple Drawings
+
+Java’s coordinate system is a scheme for identifying points on the screen. 
+The upper-left corner of a GUI component has the coordinates (0, 0). 
+A coordinate pair is composed of an x-coordinate (the horizontal coordinate) and a y-coordinate (the vertical coordinate).
+The x-coordinate is the horizontal location (from left to right). 
+The y-coordinate is the vertical location (from top to bottom). 
+The x-axis describes every horizontal coordinate, and the y-axis every vertical coordinate.
+Coordinate units are measured in pixels. The term pixel stands for “picture element.” A pixel is a display monitor’s smallest unit of resolution. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+4.14  (Optional) GUI and Graphics Case Study: Creating Simple Drawings (Cont.)
+
+Class Graphics (from package java.awt) provides various methods for drawing text and shapes onto the screen.
+Class JPanel (from package javax.swing) provides an area on which we can draw.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+4.14  (Optional) GUI and Graphics Case Study: Creating Simple Drawings (Cont.)
+
+The keyword extends creates a so-called inheritance relationship. 
+The class from which DrawPanel inherits, JPanel, appears to the right of keyword extends. 
+In this inheritance relationship, JPanel is called the superclass and DrawPanel is called the subclass. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+4.14  (Optional) GUI and Graphics Case Study: Creating Simple Drawings (Cont.)
+
+JPanel has a paintComponent method, which the system calls every time it needs to display the JPanel. 
+The first statement in every paintComponent method you create should always be
+	super.paintComponent( g );
+JPanel methods getWidth and getHeight return the JPanel’s width and height, respectively. 
+Graphics method drawLine draws a line between two points represented by its four arguments. The first two are the x- and y-coordinates for one endpoint, and the last two arguments are the coordinates for the other endpoint. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+4.14  (Optional) GUI and Graphics Case Study: Creating Simple Drawings (Cont.)
+
+To display the DrawPanel on the screen, place it in a window. 
+Create a window with an object of class JFrame. 
+JFrame method setDefaultCloseOperation with the argument JFrame.EXIT_ON_CLOSE indicates that the application should terminate when the user closes the window. 
+JFrame’s add method attaches the DrawPanel (or any other GUI component) to a JFrame. 
+JFrame method setSize takes two parameters that represent the width and height of the JFrame, respectively. 
+JFrame method setVisible with the argument true displays the JFrame. 
+When a JFrame is displayed, the DrawPanel’s paintComponent method is implicitly called
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+5.10  (Optional) GUI and Graphics Case Study: Drawing Rectangles and Ovals
+
+Graphics methods drawRect and drawOval
+Method drawRect requires four arguments. The first two represent the x- and y-coordinates of the upper-left corner of the rectangle; the next two represent the rectangle’s width and height. 
+To draw an oval, method drawOval creates an imaginary rectangle called a bounding rectangle and places inside it an oval that touches the midpoints of all four sides. 
+Method drawOval requires the same four arguments as method drawRect. The arguments specify the position and size of the bounding rectangle for the oval. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+6.13  (Optional) GUI and Graphics Case Study: Colors and Filled Shapes (Cont.)
+
+Class Color also contains a constructor of the form:
+public Color( int r, int g, int b )
+so you can create custom colors by specifying the red, green and blue component values.
+Graphics methods fillRect and fillOval draw filled rectangles and ovals, respectively. 
+Graphics method setColor sets the current drawing color. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+7.15  (Optional) GUI and Graphics Case Study: Drawing Arcs
+
+Drawing arcs in Java is similar to drawing ovals—an arc is simply a section of an oval.
+Graphics method fillArc draws a filled arc.
+Method fillArc requires six parameters. 
+The first four represent the bounding rectangle in which the arc will be drawn. 
+The fifth parameter is the starting angle on the oval, and the sixth specifies the sweep, or the amount of arc to cover. 
+Starting angle and sweep are measured in degrees, with zero degrees pointing right. 
+A positive sweep draws the arc counterclockwise.
+Method drawArc requires the same parameters as fillArc, but draws the edge of the arc rather than filling it.
+Method setBackground changes the background color of a GUI component.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+9.8  (Optional) GUI and Graphics Case Study: Displaying Text and Images Using Labels
+
+Labels are a convenient way of identifying GUI components on the screen and keeping the user informed about the current state of the program. 
+A JLabel (from package javax.swing) can display text, an image or both. 
+The example in Fig. 9.13 demonstrates several JLabel features, including a plain text label, an image label and a label with both text and an image.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+9.8  (Optional) GUI and Graphics Case Study: Displaying Text and Images Using Labels (Cont.)
+
+An ImageIcon represents an image that can be displayed on a JLabel.
+The constructor for ImageIcon receives a String that specifies the path to the image. 
+ImageIcon can load images in GIF, JPEG and PNG image formats. 
+JLabel method setText changes the text the label displays. 
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.
+
+9.8  (Optional) GUI and Graphics Case Study: Displaying Text and Images Using Labels (Cont.)
+
+An overloaded version of method add that takes two parameters allows you to specify the GUI component to add to a JFrame and the location in which to add it.
+The first parameter is the component to attach.
+The second is the region in which it should be placed. 
+Each JFrame has a layout to position GUI components.
+Default layout for a JFrame is BorderLayout.
+Five regions—NORTH (top), SOUTH (bottom), EAST (right side), WEST (left side) and CENTER (constants in class BorderLayout)
+Each region is declared as a constant in class BorderLayout. 
+When calling method add with one argument, the JFrame places the component in the BorderLayout’s CENTER automatically.
+
+© Copyright 1992-2012 by Pearson Education, Inc. All Rights Reserved.

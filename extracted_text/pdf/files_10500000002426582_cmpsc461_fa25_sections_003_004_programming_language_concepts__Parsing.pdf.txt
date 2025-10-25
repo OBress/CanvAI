@@ -1,0 +1,545 @@
+Parsing
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Parse Trees
+•Derivation in graphical form
+•The root node always contains the start symbol
+•Each internal node has as its direct descendants the elements that appear 
+on the right-hand side grammar
+•The leaves of the parse tree are always terminal symbol
+CMPSC 461 –Programming Language Concepts
+
+Parse Trees
+•Derivation in graphical form
+•The root node always contains the start symbol
+•Each internal node has as its direct descendants the elements that appear 
+on the right-hand side grammar
+•The leaves of the parse tree are always terminal symbol
+Integer → Integer Digit
+CMPSC 461 –Programming Language ConceptsInteger
+Integer Digit
+
+Parse Trees
+Parse Tree of 352
+CMPSC 461 –Programming Language ConceptsInteger
+Integer DigitInteger → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Parse Trees
+Parse Tree of 352
+CMPSC 461 –Programming Language ConceptsInteger
+Integer Digit
+2Integer → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Parse Trees
+Parse Tree of 352
+CMPSC 461 –Programming Language ConceptsInteger
+Integer Digit
+Integer Digit 2Integer → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Parse Trees
+Parse Tree of 352
+CMPSC 461 –Programming Language ConceptsInteger
+Integer Digit
+Integer Digit
+52Integer → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Parse Trees
+Parse Tree of 352
+CMPSC 461 –Programming Language ConceptsInteger
+Integer Digit
+Integer Digit
+Digit 52Integer → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Parse Trees
+Parse Tree of 352
+CMPSC 461 –Programming Language ConceptsInteger
+Integer Digit
+Integer Digit
+Digit
+352Integer → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Parse Trees
+•Given grammar
+Expr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+CMPSC 461 –Programming Language Concepts
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + TermExpr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + Term
+Expr - TermExpr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + Term
+Expr - Term
+TermExpr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + Term
+Expr - Term
+Term
+5Expr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + Term
+Expr - Term
+Term
+54Expr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + Term
+Expr - Term
+Term
+543Expr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Parse Trees
+Parse of the string 5 – 4 + 3
+(5-4)+3 
+≠
+5 – (4 + 3)
+CMPSC 461 –Programming Language ConceptsExpr
+Expr + Term
+Expr - Term
+Term
+543Expr → Expr + Term 
+| Expr – Term 
+| Term 
+Term → 0 | … | 9 | (Expr)
+
+Ambiguous Grammar
+•A grammar is ambiguous if, for any string
+•it has more than one parse tree, or
+•there is more than one right-most derivation, or
+•there is more than one left-most derivation 
+(the three conditions are equivalent)
+CMPSC 461 –Programming Language Concepts
+
+Ambiguous Grammar
+•A grammar is ambiguous if, for any string
+•it has more than one parse tree, or
+•there is more than one right-most derivation, or
+•there is more than one left-most derivation 
+(the three conditions are equivalent)
+•Unambiguous grammar is preferred 
+•However, ambiguity may tolerable 
+•Tradeoff between the size of the grammar and the information it is trying to 
+convey 
+CMPSC 461 –Programming Language Concepts
+
+Ambiguity
+•Ambiguity = Program structure is not uniquely defined
+•E → E + E | E * E | (E) | id
+•String id * id + id has two parse trees:
+CMPSC 461 –Programming Language Concepts
+
+
+Dangling Else Problem
+Given grammar
+Stmt → if Expr then Stmt
+| if Expr then Stmt else Stmt
+| other
+Example: 
+if E1 then 
+if E2 then S1 else S2
+CMPSC 461 –Programming Language Concepts
+
+Dangling Else Problem
+CMPSC 461 –Programming Language ConceptsStmt
+if Expr then Stmtif E1 then 
+if E2 then S1 else S2
+
+Dangling Else Problem
+CMPSC 461 –Programming Language ConceptsStmt
+if Expr then Stmt
+E1if E1 then 
+if E2 then S1 else S2
+
+Dangling Else Problem
+CMPSC 461 –Programming Language ConceptsStmt
+if Expr then Stmt
+E1
+if Expr then Stmt else Stmtif E1 then 
+if E2 then S1 else S2
+
+Dangling Else Problem
+CMPSC 461 –Programming Language ConceptsStmt
+if Expr then Stmt
+E1
+if Expr then Stmt else Stmt
+E2 S1S2if E1 then 
+if E2 then S1 else S2
+
+Dangling Else Problem
+CMPSC 461 –Programming Language ConceptsStmt
+if Expr then Stmt
+E1
+if Expr then Stmt
+E2 S1S2if E1 then 
+if E2 then S1 else S2
+else Stmt
+
+Dealing with Ambiguity
+•There are several ways to handle ambiguity
+•We will discuss one of them
+•Rewriting the grammar
+CMPSC 461 –Programming Language Concepts
+
+Precedence
+Rewriting the grammar
+•use a different nonterminal for each precedence
+•Start with the lowest precedence
+CMPSC 461 –Programming Language Concepts
+
+Precedence
+Rewriting the grammar
+•use a different nonterminal for each precedence
+•Start with the lowest precedence
+CMPSC 461 –Programming Language ConceptsE → E – E | E/ E | (E) | id
+rewrite to
+E → E – E | T
+T → T / T | F
+F → id | (E)
+
+Precedence
+Parse tree for id –id / id
+CMPSC 461 –Programming Language ConceptsE → E – E | T
+T → T / T | F
+F → id | (E)
+
+
+Associativity
+•The grammar captures operator precedence, but it is still ambiguous!
+•fails to express that both subtraction and division are left associative;
+CMPSC 461 –Programming Language ConceptsE → E – E | id
+Parse tree for id - id – id . 
+Let’s consider a single value of id = 3
+
+
+Recursion
+•Grammar is recursive in nonterminal Xif:
+X → + ... X ...
+→ + means “in one or more steps, Xderives a sequence of symbols that 
+includesan X”
+CMPSC 461 –Programming Language Concepts
+
+Recursion
+•Grammar is recursive in nonterminal Xif:
+X → + ... X ...
+→ + means “in one or more steps, Xderives a sequence of symbols that 
+includesan X”
+•Grammar is left recursive in Xif:
+X → + X ...
+In one or more steps, X derives a sequence of symbols that starts with an X
+CMPSC 461 –Programming Language Concepts
+
+Recursion
+•Grammar is recursive in nonterminal Xif:
+X → + ... X ...
+→ + means “in one or more steps, Xderives a sequence of symbols that 
+includesan X”
+•Grammar is left recursive in Xif:
+X → + X ...
+In one or more steps, X derives a sequence of symbols that starts with an X
+•A grammar is right recursive in Xif:
+X → + ... X
+In one or more steps, Xderives a sequence of symbols that ends with and X
+CMPSC 461 –Programming Language Concepts
+
+How to Fix Associativity
+•The grammar given above is both left and right recursive in non-terminals 
+exp and term
+•To correctly expresses operator associativity:
+•For left associativity, use left recursion
+•For right associativity, use right recursion
+CMPSC 461 –Programming Language ConceptsHere's the correct grammar
+E → E – T | T
+T → T/ F | F
+F → id | (E)
+
+Abstract Syntax Tree
+•An abstract syntax tree (AST) is a simplified version of a parse tree. An AST 
+only contains information related to analyzing the source text and ignores 
+extra syntactic information used for parsing text.
+•Why do we need alternative?
+•Fewer intermediate nodes and subtrees
+•All information like parse tree but smaller
+CMPSC 461 –Programming Language Concepts
+
+Transform Parse tree into AST
+•Discard all the punctuation, such as semicolon
+•Discard all nonterminal which are trivial roots, ones with only a single 
+subtree
+•Finally, replace the remaining non-terminals with the operators which are a 
+leaf of one of their immediate subtrees.
+CMPSC 461 –Programming Language Concepts
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language Concepts•z = x + 2 * y; Assignment
+Identifier = Expression ;
+zConjunction
+Equality
+Relation
+Addition
+Term
+Term
+Factor
+Primary
+Identifier
+xTerm
+Factor
+Primary
+Literal
+2Factor
+Primary
+Identifier
+yMulOp
+*AddOp
++
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 1 Assignment
+Identifier = Expression
+zConjunction
+Equality
+Relation
+Addition
+Term
+Term
+Factor
+Primary
+Identifier
+xTerm
+Factor
+Primary
+Literal
+2Factor
+Primary
+Identifier
+yMulOp
+*AddOp
++
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 2 Assignment
+Identifier = Expression
+z
+Term
+Factor
+Primary
+Identifier
+xTerm
+Factor
+Primary
+Literal
+2Factor
+Primary
+Identifier
+yMulOp
+*AddOp
++Term
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 2 Assignment
+Identifier = Expression
+z
+Identifier
+xTerm
+Factor
+Primary
+Literal
+2Factor
+Primary
+Identifier
+yMulOp
+*AddOp
++Term
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 2 Assignment
+Identifier = Expression
+z
+Identifier
+xTerm
+Factor
+Primary
+Literal
+2Factor
+Primary
+Identifier
+yMulOp
+*+
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 2 Assignment
+Identifier = Expression
+z
+Identifier
+xTerm
+2Factor
+Primary
+Identifier
+yMulOp
+*+
+Literal
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 2 Assignment
+Identifier = Expression
+z
+Identifier
+xTerm
+2Identifier
+y*+
+LiteralFactor
+Primary
+
+Example (Parse Tree)
+CMPSC 461 –Programming Language ConceptsApply Rule 2 Assignment
+Identifier = Expression
+z
+Identifier
+xTerm
+2Identifier
+y*+
+Literal
+
+Example (AST)
+CMPSC 461 –Programming Language ConceptsApply Rule 3 =
++ z
+x*
+2 y
+
+Parsing
+•Top-down : the parser starts constructing the parse tree from the start symbol 
+and then tries to transform the start symbol to the input 
+•Bottom-up : parsing with the input symbols and tries to construct the parse 
+tree up to the start symbols
+CMPSC 461 –Programming Language ConceptsParsing
+Top-down Bottom-up
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+S →  aABe
+A →  Abc|b
+B→ d
+•Given input string: abbcde
+CMPSC 461 –Programming Language Concepts
+
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+E → T + E | T
+T → int * T | int | (E)
+•Given input string: int * int + int
+CMPSC 461 –Programming Language Concepts
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+E → T + E | T
+T → int * T | int | (E)
+•Given input string: int * int + int
+int * int + int
+int * T + int 
+CMPSC 461 –Programming Language Concepts
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+E → T + E | T
+T → int * T | int | (E)
+•Given input string: int * int + int
+int * int + int
+int * T + int
+T + int 
+CMPSC 461 –Programming Language Concepts
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+E → T + E | T
+T → int * T | int | (E)
+•Given input string: int * int + int
+int * int + int
+int * T + int
+T + int
+T + T 
+CMPSC 461 –Programming Language Concepts
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+E → T + E | T
+T → int * T | int | (E)
+•Given input string: int * int + int
+int * int + int
+int * T + int
+T + int
+T + T
+T + E
+CMPSC 461 –Programming Language Concepts
+
+Bottom-up Parsing (Example)
+•Say, we have grammar
+E → T + E | T
+T → int * T | int | (E)
+•Given input string: int * int + int
+int * int + int
+int * T + int
+T + int
+T + T
+T + E
+E
+CMPSC 461 –Programming Language Concepts
+
+Bottom-up Parsing (Exercise)
+•Say, we have grammar
+Integer → Digit | Integer Digit
+Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+•Given input string: 24567
+CMPSC 461 –Programming Language Concepts
+
+Reading and Exercises
+Reading
+•Chapter: 2.2 (Michael Scott Book)
+Exercises
+•Exercises: 2.9 and 2.10 (Michael Scott Book)
+CMPSC 461 –Programming Language Concepts

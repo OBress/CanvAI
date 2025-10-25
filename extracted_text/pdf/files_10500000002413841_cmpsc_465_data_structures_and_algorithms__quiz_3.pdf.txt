@@ -1,0 +1,52 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 3
+Lecture Section: Monday, Sep 22, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) In a min-heap , what is the relationship
+between the value of a parent node and its chil-
+dren?
+(a) The parent node is always greater than its
+children.
+(b) The parent node is always greater than or
+equal to its children.
+(c) The parent node is always smaller than or
+equal to its children.
+(d) There is no specific relationship.
+Answer
+2.(2 pts.) Performing an IncreaseKey operation on
+the root of a max-heap can violate the heap prop-
+erty, which requires a HeapifyDown operation to
+restore.
+(a) True
+(b) False
+Answer
+3.(2 pts.) Consider a max-heap stored in an ar-
+rayA[1..7] = [ 7,6,4,1,5,2,3]. After performing
+the following two operations in sequence, what is
+the resulting heap?
+• IncreaseKey(6, 17)
+• Insert(12)(a)[7,6,4,1,5,17,3]
+(b)[17,7,12,4,1,5,2,3]
+(c)[17,12,7,6,5,4,3,1]
+(d)[17,12,7,5,6,4,3,1]
+Answer
+4.(2 pts.) What is the minimum number of nodes
+abinary heap can have, given that its height is h?
+(a) 2h−1
+(b) 2h−1
+(c) 2h
+(d) 2h−1+1
+Answer
+5.(2 pts.) A programmer implemented the Heap-
+Sort algorithm discussed in lecture, but acciden-
+tally used a min-heap instead of a max-heap.
+Which of the following is the most likely outcome?
+(a) The algorithm will fail to sort the array.
+(b) It will sort the array in ascending order, the
+same as with a max-heap.
+(c) It will sort the array in descending order, the
+opposite as with a max-heap.
+(d) It will produce a correct sort, but with higher
+time complexity.
+Answer
+CMPSC 465, Fall 2025, Quiz 3 1

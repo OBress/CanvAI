@@ -1,0 +1,1737 @@
+CMPSC 465: LECTURE XVI
+Revisit Dijkstra's Algorithm
+Ke Chen
+October 06, 2025
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra is weighted BFS
+BFS Dijkstra
+WhatVisit the unvisited node with
+the smallest number of links
+fromsAdd the unvisited node with
+the shortest distance from s
+toR
+WhyWith more iterations, the
+number of links from scan
+only increaseWith more iterations,
+the shortest distance
+from scan only increase
+(positive edge weights!)
+HowUse queue (FIFO, earlier in
+queue, fewer links needed)Use priority queue
+1 / 6
+
+Dijkstra with priority queue
+Dijkstra( G= (V; E; ` ),s)
+//dist stores distances from s
+//prev can be used to reconstruct paths
+foreach v2Vdo dist[v] =1,prev[v] =null
+dist[s] = 0 , Insert( Q,fdist[s]; sg)//Qis a priority queue
+while Qis not empty do
+v=GetMin( Q), Delete( Q, 0)
+foreach (v; w)2Edo
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+prev[w] =v
+//pos[w]returns the index of winQ
+ifwinQthen DecreaseKey( Q,pos[w],dist[w])
+else Insert( Q,fdist[w]; wg)Time complexity? Calls at mostjVjInsert/Delete, and at most
+jEjDecreaseKey, with a binary min-heap, O((jVj+jEj) logjVj).
+2 / 6
+
+Dijkstra with priority queue
+Dijkstra( G= (V; E; ` ),s)
+//dist stores distances from s
+//prev can be used to reconstruct paths
+foreach v2Vdo dist[v] =1,prev[v] =null
+dist[s] = 0 , Insert( Q,fdist[s]; sg)//Qis a priority queue
+while Qis not empty do
+v=GetMin( Q), Delete( Q, 0)
+foreach (v; w)2Edo
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+prev[w] =v
+//pos[w]returns the index of winQ
+ifwinQthen DecreaseKey( Q,pos[w],dist[w])
+else Insert( Q,fdist[w]; wg)
+Time complexity?Calls at mostjVjInsert/Delete, and at most
+jEjDecreaseKey, with a binary min-heap, O((jVj+jEj) logjVj).
+2 / 6
+
+Dijkstra with priority queue
+Dijkstra( G= (V; E; ` ),s)
+//dist stores distances from s
+//prev can be used to reconstruct paths
+foreach v2Vdo dist[v] =1,prev[v] =null
+dist[s] = 0 , Insert( Q,fdist[s]; sg)//Qis a priority queue
+while Qis not empty do
+v=GetMin( Q), Delete( Q, 0)
+foreach (v; w)2Edo
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+prev[w] =v
+//pos[w]returns the index of winQ
+ifwinQthen DecreaseKey( Q,pos[w],dist[w])
+else Insert( Q,fdist[w]; wg)
+Time complexity? Calls at mostjVjInsert/Delete, and at most
+jEjDecreaseKey, with a binary min-heap, O((jVj+jEj) logjVj).
+2 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 1
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10
+Q:0S4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10S
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10S
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10S4
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10S4
+Q:0S
+4B8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10S4
+8
+Q:0S
+4B8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 10S4
+8
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84
+B
+Q:0S
+4B
+8H
+8H12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84
+B12
+Q:0S
+4B
+8H
+8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84
+B12
+Q:0S
+4B
+8H
+8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8H
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8H
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8H
+9
+Q:0S
+4B
+8H8H
+12C
+12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8H
+9
+Q:0S
+4B
+8H8H
+12C
+12C9G
+9G
+12C15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8H
+915
+Q:0S
+4B
+8H8H
+12C12C
+9G
+9G
+12C
+15I15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9G
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9G
+11
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9G
+11
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I11F
+11F
+12C25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9G
+11
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I11F
+11F
+12C25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 1111F
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 1111F
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 1111F25
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I11F11F
+12C
+25D21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 1111F25
+21
+Q:0S
+4B
+8H8H
+12C
+12C9G9G
+12C
+15I
+15I11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D21E
+15I
+21E19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C19
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D21E
+15I
+21E19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C19
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D21E
+15I
+21E19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C19
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E
+15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C19
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E
+15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C19
+14
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E
+15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112
+C19
+14
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+1414
+I
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E19D14I
+19D21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+1414
+I
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E19D14I
+19D21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+1414
+I
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E19D14I
+19D21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+141419
+D
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+141419
+D
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+141419
+D
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+141419
+21
+E
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+141419
+21
+E
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+One more example
+G:B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+61 1 1
+1 1
+1
+1 1 104
+84 12
+8 915
+9 111125
+2112 19
+141419
+21
+Q:0S
+4B
+8H8H
+12C12C
+9G9G
+12C
+15I
+15I
+11F11F
+12C
+25D
+21E15I
+21E
+19D14I
+19D
+21E
+[empty]
+3 / 6
+
+Dijkstra with priority queue
+Time complexity?
+ICalls at mostjVjInsert and Delete, and at most jEj
+DecreaseKey, with a binary min-heap, O((jVj+jEj) logjVj).Can we do better?
+IWith more fancy heaps ( Fibonacci Heaps ), we can achieve
+O(jVjlogjVj+jEj).
+IA breakthrough this year by Duan et al. won the best paper
+award at STOC 2025.
+4 / 6
+
+Dijkstra with priority queue
+Time complexity?
+ICalls at mostjVjInsert and Delete, and at most jEj
+DecreaseKey, with a binary min-heap, O((jVj+jEj) logjVj).
+Can we do better?
+IWith more fancy heaps ( Fibonacci Heaps ), we can achieve
+O(jVjlogjVj+jEj).IA breakthrough this year by Duan et al. won the best paper
+award at STOC 2025.
+4 / 6
+
+Dijkstra with priority queue
+Time complexity?
+ICalls at mostjVjInsert and Delete, and at most jEj
+DecreaseKey, with a binary min-heap, O((jVj+jEj) logjVj).
+Can we do better?
+IWith more fancy heaps ( Fibonacci Heaps ), we can achieve
+O(jVjlogjVj+jEj).
+IA breakthrough this year by Duan et al. won the best paper
+award at STOC 2025.
+4 / 6
+
+A third interpretation of Dijkstra
+IIn Dijkstra, we maintain an array of upper bounds (overestimates)
+of distances.IThe bounds are tight for all vertices in Rand the smallest one not
+inR.
+IThe only way an entry in dist[]is reduced is by the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[w] +`(v; w)then
+dist[w] =dist[w] +`(v; w)
+IDijkstra's algorithm can be viewed as a clever sequence of Update
+operations.
+5 / 6
+
+A third interpretation of Dijkstra
+IIn Dijkstra, we maintain an array of upper bounds (overestimates)
+of distances.
+IThe bounds are tight for all vertices in Rand the smallest one not
+inR.IThe only way an entry in dist[]is reduced is by the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[w] +`(v; w)then
+dist[w] =dist[w] +`(v; w)
+IDijkstra's algorithm can be viewed as a clever sequence of Update
+operations.
+5 / 6
+
+A third interpretation of Dijkstra
+IIn Dijkstra, we maintain an array of upper bounds (overestimates)
+of distances.
+IThe bounds are tight for all vertices in Rand the smallest one not
+inR.
+IThe only way an entry in dist[]is reduced is by the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[w] +`(v; w)then
+dist[w] =dist[w] +`(v; w)IDijkstra's algorithm can be viewed as a clever sequence of Update
+operations.
+5 / 6
+
+A third interpretation of Dijkstra
+IIn Dijkstra, we maintain an array of upper bounds (overestimates)
+of distances.
+IThe bounds are tight for all vertices in Rand the smallest one not
+inR.
+IThe only way an entry in dist[]is reduced is by the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[w] +`(v; w)then
+dist[w] =dist[w] +`(v; w)
+IDijkstra's algorithm can be viewed as a clever sequence of Update
+operations.
+5 / 6
+
+A third interpretation of Dijkstra
+B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+64 12 19
+21 14
+0
+8 9 11
+(S; B) (S; H) (B; C) (H; G ) (G; F) (F; E) (C; D) (C; I)IThe computation is correct for a node as long as the sequence
+includes all edges on its shortest path in order .
+INote that having additional Update calls doesn't hurt {
+Update is safe.
+6 / 6
+
+A third interpretation of Dijkstra
+B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+64 12 19
+21 14
+0
+8 9 11
+(S; B) (S; H) (B; C) (H; G ) (G; F) (F; E) (C; D) (C; I)
+IThe computation is correct for a node as long as the sequence
+includes all edges on its shortest path in order .INote that having additional Update calls doesn't hurt {
+Update is safe.
+6 / 6
+
+A third interpretation of Dijkstra
+B C D
+S I E
+H G F48 7
+9
+10
+2 1811
+72
+414
+64 12 19
+21 14
+0
+8 9 11
+(S; B) (S; H) (B; C) (H; G ) (G; F) (F; E) (C; D) (C; I)
+IThe computation is correct for a node as long as the sequence
+includes all edges on its shortest path in order .
+INote that having additional Update calls doesn't hurt {
+Update is safe.
+6 / 6

@@ -1,0 +1,30 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 2
+1. Set Identities: Use set identities to show that the following statements are true:
+(i)(A−B) =A∪B
+(ii)(A∪B)∩C∪¯B=B∩C.
+2. Propositions: Determine if the following sentences are propositions. If the sentence is a proposition,
+determine its truth value.
+(i) There are a finite number of even integers.
+(ii) If xis an integer number, x+1 is odd.
+(iii) x=x
+(iv) For all integer values of x, is 2x+1 always odd?
+3. Truth Table: Given the logical expression ¬(p∧q)⊕[(q↔p)∧(¬q→(p∧q))], construct a truth
+table to determine whether the expression is a tautology, contradiction or contingency.
+4. Converse, Inverse and Contrapositive: Find the converse, inverse and contrapositive of the follow-
+ing statement.
+If a car is fuel-efficient, then it is both economical and environmentally friendly.
+5. Propositional Logic:
+Let p be the proposition ”Birds are reptiles.”,
+q be the proposition ”All rivers flow uphill.”,
+r be ”Squares have four sides,” and
+s be ”Not all reptiles lay eggs.”
+Express the sentence ”If all rivers flow uphill and not all reptiles lay eggs, then birds are reptiles or
+squares do not have four sides.” using compound logic.
+6. Translation of Sentences: Translate the following English statements using propositional logic
+1. I will not pass this class unless I go to class every day and do all of the homework exercises.
+2. Eating a balanced diet and exercising regularly is necessary for maintaining good health.
+3. Reading books or attending seminars is sufficient for gaining knowledge.
+4. Being a member of the club and having attended at least three meetings is necessary and suffi-
+cient for obtaining voting rights.
+CMPSC 360, Fall 2024, Worksheet 2 1

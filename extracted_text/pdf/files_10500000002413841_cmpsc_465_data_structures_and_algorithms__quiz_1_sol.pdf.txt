@@ -1,0 +1,68 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 1
+Lecture Section: Monday, Sep 08, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) While performing InsertionSort on the
+array{8, 2, 6, 2, 3, 1 }, which of the following is
+NOT a transition state of the array:
+(a) 2 6 8 2 3 1
+(b) 2 2 3 6 8 1
+(c) 2 2 8 6 3 1
+(d) 2 8 6 2 3 1
+(e) None of the above
+Answer: (c) For an input array A[1..n], Insertion-
+Sort runs from index k=1 tok=nand ensures
+that after the k-th iteration the first kelements are
+sorted.
+2.(2 pts.) When analyzing an algorithm’s running
+time, we use big-O to denote its worst-case perfor-
+mance and use big-Omega to denote its best-case
+performance.
+(a) True
+(b) False
+Answer: False Big-O and big-Omega are used to
+describe upper and lower bounds, respectively, on
+the growth rate of functions. They are not inher-
+ently tied to worst-case or best-case performance.
+(Though in practice, algorithm analysis typically fo-
+cuses on worst-case or average-case performance, and
+best-case performance is rarely considered.)
+3.(2 pts.) Let f(n) =10n2andg(n) =n3+5n.
+Which of the following is correct?
+I.f(n) =O(g(n))
+II.g(n) =O(f(n))
+(a) I is correct
+(b) II is correct
+(c) Both I and II are correctAnswer: (a) The (growth rate of the) cubic func-
+tiongis not upper bounded by the quadratic func-
+tionf.
+4.(2 pts.) In order to show 2 (n+1)2=Ω(n2)by
+definition, which of the following choices of cand
+n0is NOT valid?
+(a)c=1.11 and n0=111
+(b)c=2.42 and n0=10
+(c)c=0.5 and n0=16
+(d)c=1 and n0=1
+(e)c=2 and n0=3
+Answer: (b) By definition of Ω, we need to show
+that there exist constants c,n0>0 such that 2 (n+
+1)2≥c·n2for all n≥n0. But 2 (n+1)2≥2.42n2
+only holds for small n(≤10).
+5.(2 pts.) Which of the following statement re-
+garding MergeSort is correct?
+(a) MergeSort always divides the input array into
+two equal halves
+(b) MergeSort does not allow duplicate elements
+in the input
+(c) MergeSort always runs in O(nlogn)time
+even if the input array is split arbitrarily at
+each step
+(d) MergeSort is a divide-and-conquer algorithm
+where all the sorting happens at the merge
+step
+(e) None of the above
+Answer: (d) (a) the two halves cannot be equal if
+the input has an odd length. (b) duplicates are al-
+lowed. (c) it becomes a quadratic time algorithm if
+we only split out a single element at each step.
+CMPSC 465, Fall 2025, Quiz 1 1

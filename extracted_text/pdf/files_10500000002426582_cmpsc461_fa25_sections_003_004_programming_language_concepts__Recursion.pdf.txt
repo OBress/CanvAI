@@ -1,0 +1,176 @@
+Recursion
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Activation records support 
+recursive functions
+•Why do recursive functions require that local variables be dynamically 
+allocated?
+•we do not know until run-time how deep the recursion will go, thus we cannot know 
+how many copies we will need
+•if the language is not recursive, activation records can be statically allocated
+•but this may waste memory, because some functions may never be called
+CMPSC 461 –Programming Language Concepts
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(3);
+}
+CMPSC 461 –Programming Language ConceptsLocalReturn (to main)Dynamic linkParameterFunctional valueReturn (to factorial)Dynamic linkParameterFunctional valueReturn (to factorial)Dynamic linkParameterFunctional value
+valuenn
+3n
+21
+ARI for mainFirst ARI
+for  factorialSecond ARI
+for  factorialThird ARI
+for  factorial
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(3);
+}
+CMPSC 461 –Programming Language ConceptsStackmainfact(3) = 3*fact(2)
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(3);
+}
+CMPSC 461 –Programming Language ConceptsStackmainfact(3) = 3*fact(2)fact(2) = 2*fact(1)
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(3);
+}
+CMPSC 461 –Programming Language ConceptsStackmainfact(3) = 3*fact(2)fact(2) = 2*fact(1)fact(1) =1
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(3);
+}
+CMPSC 461 –Programming Language ConceptsStackmainfact(3) = 3*fact(2)fact(2) = 2*1
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(3);
+}
+CMPSC 461 –Programming Language ConceptsStackmainfact(3) = 3*2
+
+Recursion Example
+intfact (int n) {
+// enter function
+if (n <= 1)
+return 1;
+else return (n * fact(n-1));
+// exit function
+}
+void main() {
+int value;
+value = fact(10);
+}
+CMPSC 461 –Programming Language ConceptsStackmainfact(7) = 7*fact(6)fact(6) = 6*fact(5)
+fact(10) = 10*fact(9)fact(9) = 9*fact(8)fact(8) = 8*fact(7)..
+..
+..
+Stack 
+Overflow
+
+Tail-Recursive Functions
+CMPSC 461 –Programming Language Concepts•A different implement of fact:
+int fact(int n, int acc ) { 
+if ( n <= 1 ) return acc ; 
+else return fact(n-1, acc*n); 
+}
+•Function f makes a tail callto function g if the call is the last thing in function 
+f; the return value of calling g is return value of f
+
+Stack of ARs
+CMPSC 461 –Programming Language Conceptsint fact(int n, int acc ) { 
+if ( n <= 1 ) return acc ; 
+else return fact(n-1, acc*n); 
+}
+•Can we destroy the frame of fact(3) before 
+going into fact(2)?Para. n = 3
+Previous fp
+Return AddrFrame 
+of fact(3)Para. acc= 1Previous fp
+Return AddrFrame 
+of fact(2)Para. acc = 3Para. n = 2
+value Frame 
+of main
+
+A Different Implementation
+CMPSC 461 –Programming Language Conceptsint fact(int n, int acc ) { 
+if ( n <= 1 ) return acc ; 
+else return fact(n-1, acc*n); 
+}
+•The compiler is able touse jump statements instead of 
+method calls. This means that calls to itself in the 
+recursion do not add to the call stack.Previous fp
+Ret of fact(3)Frame 
+of fact(2)Para. acc = 3Para. n = 2
+value Frame 
+of main
+
+Tail-Recursive Functions
+CMPSC 461 –Programming Language Concepts• Tail-recursive functions are equivalent to loops
+int fact(int n, int prev ) { 
+if ( n <= 1 ) return prev ; 
+else return fact(n-1, prev*n); 
+}
+int fact(int n, int prev ) { 
+while (true) {
+if ( n <= 1 ) return prev ; 
+else {prev = prev*n; n--;); 
+}}
+
+Top Hat
+CMPSC 461 –Programming Language Concepts

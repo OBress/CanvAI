@@ -1,0 +1,37 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 1
+1. Venn Diagrams: Consider three sets A, B, and C. Based on the questions below either draw a Venn
+diagram representing the set operation or name the set operation based on the Venn diagram.
+1.(A−B)∩C
+2.
+2. Roster Method: Describe the sets given below using the Roster method.
+(i) The set of all even prime numbers.
+(ii) The set of all real-valued solutions for the equation x5−x4+x−1=0.
+(iii) The set of all letters in the word ”MATHEMATICS” that are consonants.
+(iv) The set of all integers xsuch that xis a perfect square between 10 and 50.
+3. Set Builder method: Describe the sets given below using the Set Builder method.
+(i){−√
+3,√
+3}
+(ii){2,4,8,16,32,64, . . .}
+(iii){. . . ,−11,−6,−1,4,9,14,19,24,29, . . .}
+(iv){1,3,6,10,15, . . .}
+(v){. . . ,1
+8,1
+4,1
+2,1,2,4,8, . . .}
+4. Power set: Write the power set of each of the following sets in roster form:
+(i){1,(0,3),{1}}
+(ii){#,{n,m},∅}
+Answer:
+5. Cartesian Products:
+CMPSC 360, Fall 2024, Worksheet 1 1
+
+1. Suppose A={0,1}andB={1,2}. Find out (℘(A)∩℘(B))×(℘(A)−℘(B)).
+2. (i) How many elements are in {}×{ 1,2}?
+(ii) Find out {/ 0}×{ 0,/ 0}×{ 0,1}
+6. Sets Identity Laws: Use set identities for the following subproblems. Let A,B, and Cbe sets:
+(i) Show that (A−B)−C=A−(B∪C)
+(ii) Show that (B−A)∪(C−A) = ( B∪C)−A
+(iii) Show that A−(B∪C) = ( A−B)∩(A−C)
+CMPSC 360, Fall 2024, Worksheet 1 2

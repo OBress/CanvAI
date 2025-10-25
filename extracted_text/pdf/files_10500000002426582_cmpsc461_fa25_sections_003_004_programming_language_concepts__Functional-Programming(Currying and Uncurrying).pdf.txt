@@ -1,0 +1,56 @@
+Functional Programming 
+(Currying and Uncurrying )
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Multi -Arguments Functions
+CMPSC 461 –Programming Language Concepts
+
+Multi -Arguments Functions
+•Add 2 to each element in a list?
+•map f l:applies function f to each element of list
+CMPSC 461 –Programming Language Concepts
+
+
+Multi -Arguments Functions
+•Add 2 to each element in a list?
+•map f l:applies function f to each element of list
+CMPSC 461 –Programming Language Concepts
+
+
+Currying: Every function is treated 
+as taking at most one parameter
+CMPSC 461 –Programming Language Concepts
+
+
+Uncurried VS Curried
+CMPSC 461 –Programming Language Concepts
+
+
+Currying
+CMPSC 461 –Programming Language Concepts
+Haskell B. Curry
+Penn State 1929 -1966Outside of McAllister Building
+
+Currying
+In terms of lambda calculus, the curried function of 
+λx1x2…xn.eis  λx1. (λx2 .(…(λ xn.e)…))
+CMPSC 461 –Programming Language Concepts
+
+
+Partial Evaluation
+A function is evaluated with one or more of the leftmost actual parameters
+((curry2 add) 2) is a partial evaluation of add
+We can think it as a temporary result, in the form of a function
+CMPSC 461 –Programming Language Concepts
+
+Partial Evaluation
+A function is evaluated with one or more of the leftmost actual parameters
+CMPSC 461 –Programming Language Concepts
+
+
+Uncurrying
+In terms of lambda calculus, the uncurried function of 
+λx1. (λx2 .(…(λ xn.e)…)) isλx1x2…xn.e
+CMPSC 461 –Programming Language Concepts

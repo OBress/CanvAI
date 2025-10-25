@@ -1,0 +1,176 @@
+CMPEN362 — Practice Midterm Exam
+Name: (all capital letters)
+Student email:
+Section: (circle one) Section 1 Section 2
+P1 /10
+P2 /10
+P3 /10
+Total /30
+Instructions: Justify your answers. Answer in the space
+allotted. Avoid writing too close to the edge of pages.
+Do NOT write answers elsewhere (writing not included in scanned
+exam cannot be graded).
+1
+
+Problem 1
+Check all the correct answers. [1 pt per question]
+1. From a system view, the Internet consists of a network of interconnected
+ISP networks and:
+□hosts □packet switches □communication links
+□protocols □programming interfaces □Internet standards
+2. In terms of whether the connection between hosts and the access router
+is shared or dedicated:
+In DSL network, it is □shared □dedicated
+In cellular network, it is □shared □dedicated
+3. The two key network-core functions are
+□circuit switching and packet switching □storing and forwarding
+□forwarding and routing □routing and transmission control
+4. The four sources of packet delay at a single hop include processing
+delay, transmission delay, and
+□switching delay □propagation delay □table lookup delay
+□queueing delay □decoding/coding delay
+5. The three tiers of Internet core are: Tier-1 ISPs/large content provider
+networks,
+□national ISPs □regional ISPs
+□home access network □access ISPs
+6. T (True) or F (False): Client process is a process running on a client
+host, and server process is a process running on a server host.
+□T □F
+7. T or F: Any single-bit error can be detected by checksum, but a multi-
+bit error may not.
+□T □F
+8. A UDP socket is uniquely identified by
+□source IP address and source port number
+□destination IP address and destination port number
+□source and destination IP addresses, and source and destination port
+numbers
+2
+
+9. What are the reasons for an application to prefer UDP over TCP?
+□no connection establishment delay
+□no throttling due to congestion control
+□smaller header
+□reliable delivery
+10. Fill in blanks: Suppose host A successfully sends a TCP segment to
+host B with sequence number 22, acknowledgement number 89, and a
+payload of 120 bytes. The return segment from B to A will have se-
+quence number and acknowledgement number .
+3
+
+Problem 2
+Switch 1 Switch 2
+Source DestinationR1bps
+d1secR2bps
+d2secR3bps
+d3sec
+Figure 1: Problem 2.a illustration.
+a) Consider a source-destination pair connected by 2 packet switches via 3
+links as illustrated in Fig. 1. Suppose link i(i= 1,2,3) has a bandwidth
+ofRibps and a propagation delay of diseconds. Ignore queuing and
+processing delays.
+(i) How long does it take to move an M-bit message from source to
+destination without message segmentation? [1 pt]
+(ii) Suppose that the message is segmented into Ppackets of equal
+length and Ri≡R(i= 1,2,3). How long does it take for the
+first packet to arrive at the destination? [1 pt] How long does it
+take for all the packets to arrive at the destination? [1 pt]
+(iii) Now suppose R1> R 3> R 2. Repeat the calculation in b). [2 pt]
+4
+
+origin
+serverspublic
+Internet
+institutional network1 Gbps LANRcMbps 
+access link
+Router2
+Router1 RsMbps 
+access link
+cache1 Gbps LANRouter3 Router4
+Content 
+provider
+...other
+hostsFigure 2: Problem 2.b illustration.
+b) Consider hosts in an institutional network accessing web content as in
+Fig. 2. Suppose each object is 80K bits, hosts in the institutional network
+generate 18 requests/sec, and hosts from other parts of the Internet gen-
+erate 100 requests/sec. Suppose that the total delay for Router2 to send
+a request to Router3 and Router3 to send the response back to Router2
+is 2 seconds. Ignore propagation delays for access and LAN links. Let
+Rc= 1.54 Mbps and Rs= 20 Mbps.
+(i) Find the total delay for obtaining one object from the origin server
+to a host in the institutional network. [2 pt]
+(ii) Now deploy a web cache in the institutional network with hit rate
+0.2. What is the average object downloading delay for hosts in the
+institutional network? [3 pt]
+5
+
+Problem 3
+Hosts A, B, and C want to send segments to Host S. Each of A, B, and
+C is connected to S via a channel that can lose/corrupt (but not reorder)
+segments. Design a stop-and-wait transport protocol to make sure that S’s
+application layer receives segments in the order of: A, B, C, A, B, C...
+S A
+C
+B
+Figure 3: Problem 4 illustration.
+You can use the following procedure calls:
+–rdtsend(data) : called by upper layer to send data in ‘data’;
+–rdtrcv(rcvpkt) : called by lower layer after receiving packet ‘rcvpkt’;
+–from host(rcvpkt, hostid) : true if packet ‘rcvpkt’ is from host ‘hostid’;
+–hasseq(rcvpkt, seqnum) : true if packet ‘rcvpkt’ has sequence number
+‘seqnum’;
+–corrupt(rcvpkt) : true if packet ‘rcvpkt’ is corrupted;
+–udtsend(sndpkt, hostid) : call lower layer to send packet ‘sndpkt’ to
+host ‘hostid’;
+–extract(rcvpkt, data) : extract payload of packet ‘rcvpkt’ into data
+structure ‘data’;
+–deliver(data) : call upper layer to deliver data stored in ‘data’;
+–make pkt(seqnum, data) ,make pkt(seqnum, ACK) : return a data or ac-
+knowledgement packet with sequence number ‘seqnum’;
+–start timer : start timer;
+–stop timer : stop timer;
+–timeout : called when timer runs out.
+In addition, use “!” for negation, “&&” for logical AND, and “ ||” for logical
+OR.
+6
+
+a) For the FSM at the receiver S as shown in Fig. 4, give the content of
+states 4, 5, and 6 following the states given in the first row, and describe
+the meaning of each state. [2 pt]
+State 
+4Wait 
+for 0 
+from BWait 
+for 0 
+from A
+State 
+5(1)
+(2)(3)(4) (5)
+(9)Wait 
+for 0 
+from C(7) (8)
+(6)
+State 
+6 (10)
+(11)(12)
+(13) (14)(15)
+(16)(17)(18)
+Figure 4: Problem 4: receiver FSM.
+b) Complete the event-action list for the following transition links. [4 pt]
+(1) rdtrcv(rcvpkt) && !from host(rcvpkt, A)
+Λ
+(2) rdtrcv(rcvpkt) && from host(rcvpkt, A) &&
+(corrupt(rcvpkt) ||hasseq(rcvpkt, 1))
+(3) rdtrcv(rcvpkt) && from host(rcvpkt, A) &&
+!corrupt(rcvpkt) && hasseq(rcvpkt, 0)
+7
+
+c) Can we use the sender FSM of one of the protocols learned in class for
+A? If so, give the protocol name and its states. [4 pt]
+8
+
+Scratch paper (do not write your answers here)
+9
+
+Scratch paper (do not write your answers here)
+10

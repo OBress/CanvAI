@@ -1,0 +1,1752 @@
+Chapter 6: Link layer and LANs
+
+our goals: 
+understand principles behind link layer services:
+error detection, correction
+sharing a broadcast channel: multiple access
+link layer addressing
+local area networks: Ethernet, VLANs
+instantiation, implementation of various link layer technologies
+
+6-1
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-2
+
+Link Layer and LANs
+
+Link layer: introduction
+
+terminology:
+hosts and routers: nodes
+communication channels between adjacent nodes: links
+
+
+
+data-link layer’s responsibility is to 
+transfer datagram from one node to physically adjacent node 
+
+6-3
+
+Link Layer and LANs
+
+link layer’s communicating entity: adaptor
+
+Link layer services
+
+link access: 
+medium access control (MAC) if shared medium
+
+error detection/correction:
+detection: receiver detects presence of errors
+correction: receiver localizes errors & fixes them
+
+reliable delivery between adjacent nodes (optional):
+seldomly used on low bit-error link (fiber, some twisted pair)
+commonly used on high bit-error link (wireless)
+Q: why both link-level and end-end reliability?
+
+
+6-4
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-5
+
+Link Layer and LANs
+
+Error detection
+
+EDC= Error Detection and Correction bits
+D     = Data protected by error checking
+f(.)   = EDC code 
+
+
+otherwise
+
+6-6
+
+Link Layer and LANs
+
+f(D)
+
+f(D’) = EDC’?
+
+drop
+
+Parity checking
+
+1-D parity check: 
+detect single bit errors
+
+2-D parity check:
+ detect and correct single bit errors
+
+0
+
+0
+
+6-7
+
+Link Layer and LANs
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+odd parity check: total #1’s is odd
+even party check: total #1’s is even
+
+Internet checksum (review)
+
+sender:
+treat segment contents as sequence of 16-bit integers X1, X2,...
+checksum: X1+X2+... (with wraparound), then take the complement sum
+sender puts checksum value into UDP/TCP checksum field
+
+
+
+receiver:
+compute checksum of received segment
+check if computed checksum equals checksum field value:
+NO - error detected
+YES - no error detected
+
+goal: detect single bit errors & most multiple bit errors
+some multiple bit errors are undetectable
+
+
+6-8
+
+Link Layer and LANs
+
+Cyclic redundancy check (CRC)
+
+view data bits, D, as a binary number
+choose r+1 bit pattern (generator), G 
+goal: choose r CRC bits, R, such that
+ <D,R> exactly divisible by G (modulo 2) 
+receiver knows G, divides <D’,R’> by G.  If non-zero remainder: error detected!
+can detect all odd number errors & burst errors of < r+1 bits
+burst error ≥ r+1 bits can be detected with prob. 1-0.5r
+widely used in practice (Ethernet, 802.11 WiFi, ATM)
+
+6-9
+
+Link Layer and LANs
+
+CRC example
+
+want:
+D.2r XOR R = nG
+equivalently:
+D.2r = nG XOR R 
+equivalently:  
+    if we divide D.2r by G, want remainder R to satisfy:
+
+R = remainder[           ]
+
+D.2r
+G
+
+6-10
+
+Link Layer and LANs
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+no borrow!
+
+Review
+
+Link layer overview:
+Link layer services
+What are the communication endpoints at link layer?
+Error detection codes:
+Parity check (1D, 2D)
+Checksum
+CRC
+
+Data Link Layer
+
+5-11
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-12
+
+Link Layer and LANs
+
+Multiple access links, protocols
+
+two types of “links”:
+point-to-point
+PPP for dial-up access
+point-to-point link between Ethernet switch, host
+broadcast (shared wire or medium)
+old-fashioned Ethernet
+upstream HFC
+802.11 wireless LAN
+
+
+shared wire (e.g., 
+cabled Ethernet)
+
+shared RF
+ (e.g., 802.11 WiFi)
+
+shared RF
+(satellite) 
+
+humans at a
+cocktail party 
+(shared air, acoustical)
+
+6-13
+
+Link Layer and LANs
+
+coordinated by MAC protocols
+
+MAC protocols: taxonomy
+
+three broad classes:
+channel partitioning
+divide channel into smaller “pieces” (time slots, frequency, code)
+allocate piece to node for exclusive use
+random access
+channel not divided, allow collisions
+“recover” from collisions
+“taking turns”
+nodes take turns, but nodes with more to send can take longer turns
+
+6-14
+
+Link Layer and LANs
+
+Channel partitioning MAC protocols: TDMA
+
+TDMA: time division multiple access 
+access to channel in "rounds" 
+each node gets a fixed slot (length = packet transmission time) in each round 
+unused slots go idle 
+
+example: 6-node LAN
+
+1
+
+3
+
+4
+
+1
+
+3
+
+4
+
+6-slot
+round
+
+6-slot
+round
+
+6-15
+
+Link Layer and LANs
+
+FDMA: frequency division multiple access 
+channel spectrum divided into frequency bands
+each node assigned fixed frequency band
+unused frequency bands go idle 
+
+example: 6-node LAN
+
+frequency bands
+
+time
+
+FDM cable
+
+Channel partitioning MAC protocols: FDMA
+
+6-16
+
+Link Layer and LANs
+
+Random access protocols
+
+node sends packets probabilistically
+fully decentralized (no a priori coordination among nodes)
+two or more transmitting nodes ➜ “collision”
+random access MAC protocol specifies: 
+when to transmit
+how to recover from collisions
+examples:
+slotted ALOHA
+ALOHA
+CSMA, CSMA/CD, CSMA/CA
+
+6-17
+
+Link Layer and LANs
+
+Slotted ALOHA
+
+assumptions:
+all frames same size
+time divided into equal size slots (time to transmit 1 frame)
+
+operation:
+when node obtains fresh frame, transmits in next slot
+if no collision: node can send new frame in next slot
+if collision: node retransmits frame in each subsequent slot with prob. p until success
+
+6-18
+
+Link Layer and LANs
+
+1970: ALOHAnet satellite network in Hawaii (“Additive Links On-line Hawaii Area”)
+
+Slotted ALOHA
+
+6-19
+
+Link Layer and LANs
+
+efficiency: long-term fraction of successful slots (assuming nodes all with infinitely many frames to send)
+
+Suppose: N nodes, each transmits with prob. p
+
+Q1: Prob. that a given node has success = p(1-p)N-1
+
+Q2: Prob. that any node has a success (efficiency) = Np(1-p)N-1
+
+Q3: The p* that maximizes efficiency = 1/N
+
+Q4: Taking limit of the max efficiency as N goes to infinity  = 1/e 
+
+Pure (unslotted) ALOHA
+
+unslotted ALOHA: simpler, no synchronization
+collision probability:
+frame sent at [t-1,t] collides with frames sent at t-1 and t
+
+6-20
+
+Link Layer and LANs
+
+Q1: P(success by node i) = P(node i transmits).P(no other transmits in [t-1,t+1]
+                               = p . (1-p)2(N-1)                                                          
+Q2: P(success by any node) = N .  p . (1-p)2(N-1)
+Q3: optimum p* = 1/(2N-1) 
+Q4: limit when N → ∞: 1/(2e) = 0.18 
+
+even worse!
+
+efficiency
+
+Review
+
+Multiple access protocols
+What are the 3 broad classes of multiple access protocols? 
+What do they control?
+Channel partitioning protocols: TDMA, FDMA
+Random access protocols: pure/slotted ALOHA
+
+
+6-21
+
+Link Layer and LANs
+
+CSMA (carrier sense multiple access)
+
+CSMA: “listen before transmit”
+if channel sensed idle: transmit entire frame
+if channel sensed busy, defer transmission 
+Q: is CSMA collision-free?
+
+6-22
+
+Link Layer and LANs
+
+CSMA collisions
+
+collisions can still occur: propagation delay means  two nodes may not hear each other’s transmission
+collision: entire packet transmission time wasted
+distance & propagation delay play role in determining collision probability
+
+
+6-23
+
+Link Layer and LANs
+
+CSMA/CD (collision detection)
+
+CSMA/CD: carrier sensing, deferral as in CSMA
+If collisions detected, abort transmission 
+collision detection: 
+measure signal strengths, compare transmitted and received signals
+
+6-24
+
+Link Layer and LANs
+
+Ethernet CSMA/CD algorithm
+
+NIC receives datagram from network layer, creates frame.
+
+2. If NIC senses channel idle, starts frame transmission. If NIC senses channel busy, waits until channel idle, then transmits.
+
+3. If NIC transmits entire frame without detecting another transmission, NIC is done with frame!
+
+4. If NIC detects another transmission while transmitting,  aborts and sends jam signal.
+
+
+
+6-25
+
+Link Layer and LANs
+
+5.  After aborting, NIC enters binary (exponential) backoff: 
+After mth collision, NIC chooses K at random from {0,1,2, …, 2m-1}. NIC waits K· (512 bit time), returns to Step 2.
+
+“Taking turns” MAC protocols
+
+channel partitioning MAC protocols:
+share channel efficiently and fairly at high load
+inefficient at low load: delay in channel access, 1/N bandwidth allocated even if only 1 active node! 
+random access MAC protocols
+efficient at low load: single node can fully utilize channel
+high load: collision overhead
+“taking turns” protocols
+look for best of both worlds!
+
+6-26
+
+Link Layer and LANs
+
+polling: 
+master node “invites” slave nodes to transmit in turn
+typically used with “dumb” slave devices
+concerns:
+polling overhead 
+latency
+single point of failure (master)
+Example: Bluetooth protocol
+
+master
+
+slaves
+
+“Taking turns” MAC protocols
+
+6-27
+
+Link Layer and LANs
+
+token passing:
+control token passed from one node to next sequentially.
+token frame
+concerns:
+token overhead 
+latency
+single point of failure (token)
+Example: FDDI (fiber distributed data interface), token ring protocol
+ 
+
+T
+
+data
+
+(nothing
+to send)
+
+T
+
+“Taking turns” MAC protocols
+
+6-28
+
+Link Layer and LANs
+
+ Summary of MAC protocols
+
+channel partitioning, by time, frequency or code
+Time Division, Frequency Division
+random access (dynamic), 
+ALOHA, S-ALOHA, CSMA, CSMA/CD
+CSMA/CD used in Ethernet
+CSMA/CA used in 802.11
+taking turns
+polling from central site, token passing
+Bluetooth, FDDI,  token ring 
+
+6-29
+
+Link Layer and LANs
+
+Review
+
+Multiple access protocols
+What are the 3 broad classes of multiple access protocols? 
+What do they control?
+Channel partitioning protocols: TDMA, FDMA
+Random access protocols: pure/slotted ALOHA, CSMA, CSMA/CD
+Taking-turns protocols: polling, token passing
+
+
+
+6-30
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-31
+
+Link Layer and LANs
+
+MAC addresses 
+
+IP address: 32-bit (v4) or 128-bit (v6)
+network-layer address for interface
+used for layer 3 (network layer) forwarding
+MAC (or physical) address: 
+function: used “locally” to get frame from one interface to another interface within the same subnet
+48 bit MAC address (for most LANs) burned in NIC ROM
+e.g.: 1A-2F-BB-76-09-AD
+
+
+hexadecimal (base 16) notation
+(each “numeral” represents 4 bits)
+
+6-32
+
+Link Layer and LANs
+
+MAC addresses (more)
+
+MAC address allocation administered by IEEE
+manufacturer buys portion of MAC address space (to assure uniqueness)
+analogy:
+MAC address: like Social Security Number
+IP address: like postal address
+MAC flat address  ➜ portability 
+IP hierarchical address ➜ not portable
+ address depends on subnet to which node is attached
+
+
+6-33
+
+Link Layer and LANs
+
+ARP: address resolution protocol
+
+ARP table: each IP node (host, router) on LAN has table
+IP/MAC address mappings for some LAN nodes:
+          < IP address; MAC address; TTL>
+TTL (Time To Live): time after which address mapping will be forgotten (typically 20 min)
+
+1A-2F-BB-76-09-AD
+
+58-23-D7-FA-20-B0
+
+0C-C4-11-6F-E3-98
+
+71-65-F7-2B-08-53
+
+   LAN
+
+137.196.7.23
+
+137.196.7.78
+
+137.196.7.14
+
+137.196.7.88
+
+6-34
+
+Link Layer and LANs
+
+A
+
+C
+
+B
+
+D
+
+ARP protocol: same LAN
+
+A wants to send datagram to B
+B’s MAC address not in A’s ARP table.
+A broadcasts ARP query, containing B's IP address 
+destination MAC address = FF-FF-FF-FF-FF-FF
+all nodes on LAN receive ARP query 
+B receives ARP packet, replies to A with B's MAC address
+frame sent to A’s MAC address (unicast)
+
+
+ARP is “plug-and-play”:
+nodes create their ARP tables without intervention from net administrator
+
+6-35
+
+Link Layer and LANs
+
+1A-2F-BB-76-09-AD
+
+58-23-D7-FA-20-B0
+
+0C-C4-11-6F-E3-98
+
+71-65-F7-2B-08-53
+
+   LAN
+
+137.196.7.23
+
+137.196.7.78
+
+137.196.7.14
+
+137.196.7.88
+
+A
+
+C
+
+B
+
+D
+
+walkthrough: send datagram from A to B via R
+focus on addressing – at IP (datagram) and MAC layer (frame)
+assume A knows B’s IP address (how?)
+assume A knows IP address of first hop router, R (how?)
+assume A knows R’s MAC address (how?)
+
+Addressing: routing to another LAN
+
+6-36
+
+Link Layer and LANs
+
+Addressing: routing to another LAN
+
+A creates IP datagram with IP source A, destination B 
+
+A creates link-layer frame with R's MAC address as destination address, frame contains A-to-B IP datagram
+
+6-37
+
+Link Layer and LANs
+
+Addressing: routing to another LAN
+
+frame sent from A to R
+
+frame received at R, datagram removed, passed up to IP
+
+6-38
+
+Link Layer and LANs
+
+Addressing: routing to another LAN
+
+R forwards datagram with IP source A, destination B 
+
+R creates link-layer frame with B's MAC address as destination address, frame contains A-to-B IP datagram
+
+6-39
+
+Link Layer and LANs
+
+Addressing: routing to another LAN
+
+R forwards datagram with IP source A, destination B 
+
+R creates link-layer frame with B's MAC address as destination address, frame contains A-to-B IP datagram
+
+6-40
+
+Link Layer and LANs
+
+Review
+
+Link layer addressing:
+What is MAC address associated with? How is it different from IP address?
+ARP (address resolution protocol): What is it used for? How does it work?
+
+
+6-41
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-42
+
+Link Layer and LANs
+
+Ethernet: physical topology
+
+bus: popular through mid 90s
+all nodes in same collision domain (can collide with each other)
+star: prevails today
+active switch in center
+each “spoke” runs a (separate) Ethernet protocol (nodes do not collide with each other)
+
+switch
+
+bus: coaxial cable
+
+star
+
+6-43
+
+Link Layer and LANs
+
+Ethernet frame structure
+
+sending adapter encapsulates IP datagram (or other network layer protocol packet) in Ethernet frame
+
+
+
+preamble: 
+7 bytes with pattern 10101010 followed by one byte with pattern 10101011
+“self-synchronized”: preamble used to synchronize receiver & sender clocks
+
+6-44
+
+Link Layer and LANs
+
+Ethernet frame structure (more)
+
+addresses: source & destination MAC addresses
+if adapter receives frame with matching destination address, or with broadcast address (e.g. ARP query), it passes data to network layer protocol
+otherwise, adapter discards frame
+type: indicates higher layer protocol (mostly IP but others possible, e.g., Novell IPX, AppleTalk)
+EtherType values
+CRC: cyclic redundancy check at receiver
+error detected: frame is dropped
+
+6-45
+
+Link Layer and LANs
+
+Switch table
+
+Q: how does switch know A’ reachable via interface 4, B’ reachable via interface 5?
+
+A:  each switch has a switch table, each entry:
+(destination MAC address, output interface, time stamp)
+looks like a routing table, but configured differently
+
+6-46
+
+Link Layer and LANs
+
+Switch: self-learning
+
+switch learns which hosts can be reached through which interfaces
+when frame received, switch records sender/location pair in switch table
+
+Switch table 
+(initially empty)
+
+6-47
+
+Link Layer and LANs
+
+Switch: frame filtering/forwarding
+
+when  frame received at switch:
+1. record incoming link, MAC address of sending host
+2. index switch table using MAC destination address
+3. if entry found for destination  then {
+           if destination on segment from which frame arrived        then drop frame
+           else forward frame on interface indicated by entry
+       }   
+      else flood  /* forward on all interfaces except arriving
+                          interface */
+  
+
+6-48
+
+Link Layer and LANs
+
+Self-learning, forwarding: example
+
+switch table 
+(initially empty)
+
+frame destination, A’, location unknown:
+
+flood
+
+destination A location known:
+
+            selectively send 
+on just one link
+
+6-49
+
+Link Layer and LANs
+
+Switches vs. routers
+
+both are store-and-forward: 
+routers: network-layer devices (examine network-layer headers)
+switches: link-layer devices (examine link-layer headers)
+
+both look up tables:
+routers: compute tables using routing algorithms
+switches: learn forwarding actions using self-learning
+
+application
+transport
+network
+link
+physical
+
+switch
+
+application
+transport
+network
+link
+physical
+
+6-50
+
+Link Layer and LANs
+
+Review
+
+Ethernet: 
+What is the benefit of using switch instead of bus/hub?
+How is switch table configured?
+What are the similarities and differences between switch and router?
+
+
+Data Link Layer
+
+5-51
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-52
+
+Link Layer and LANs
+
+VLANs: motivation
+
+consider:
+CS user moves office to EE, but wants connect to CS switch?
+single broadcast domain:
+all layer-2 broadcast traffic (ARP, DHCP, unknown location of destination MAC address) must cross entire LAN 
+security/privacy, efficiency issues
+
+
+Computer 
+Science
+
+Electrical
+Engineering
+
+Computer
+Engineering
+
+6-53
+
+Link Layer and LANs
+
+VLANs
+
+port-based VLAN: switch ports grouped (by switch management software) so that single physical switch ……
+
+
+switch(es) supporting VLAN capabilities can be configured to define multiple virtual LANS over single physical LAN infrastructure.
+
+Virtual Local 
+Area Network
+
+1
+
+8
+
+9
+
+16
+
+10
+
+2
+
+7
+
+…
+
+Electrical Engineering
+(VLAN ports 1-8)
+
+Computer Science
+(VLAN ports 9-15)
+
+15
+
+…
+
+6-54
+
+Link Layer and LANs
+
+Benefits of VLAN
+
+1
+
+8
+
+9
+
+16
+
+10
+
+2
+
+7
+
+…
+
+Electrical Engineering
+(VLAN ports 1-8)
+
+Computer Science
+(VLAN ports 9-15)
+
+15
+
+…
+
+traffic isolation: frames to/from ports 1-8 can only reach ports 1-8
+can also define VLAN based on MAC addresses of endpoints, rather than switch port
+
+dynamic membership: ports can be dynamically assigned among VLANs
+
+router
+
+6-55
+
+Link Layer and LANs
+
+VLANS spanning multiple switches
+
+trunk port: carries frames between VLANS defined over multiple physical switches
+frames forwarded within VLAN between switches can’t be vanilla Ethernet frames (must carry VLAN ID info)
+802.1Q protocol adds/removed additional header fields for frames forwarded between trunk ports
+
+1
+
+8
+
+9
+
+10
+
+2
+
+7
+
+…
+
+Electrical Engineering
+(VLAN ports 1-8)
+
+Computer Science
+(VLAN ports 9-15)
+
+15
+
+…
+
+2
+
+7
+
+3
+
+Ports 2,3,5 belong to EE VLAN
+Ports 4,6,7,8 belong to CS VLAN
+
+5
+
+4
+
+6
+
+8
+
+6-56
+
+Link Layer and LANs
+
+type
+
+2-byte Tag Protocol Identifier
+                        (value: 81-00) 
+
+Tag Control Information (3 bit priority field like IP TOS ,
+1 bit Canonical Format Indicator, 12 bit VLAN ID field) 
+
+Recomputed 
+CRC 
+
+802.1Q VLAN frame format
+
+Ethernet frame
+(802.3)
+
+802.1Q frame
+
+dest.
+address
+
+source
+address
+
+data (payload)
+
+CRC
+
+preamble
+
+data (payload)
+
+CRC
+
+type
+
+6-57
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-58
+
+Link Layer and LANs
+
+MultiProtocol Label Switching (MPLS)
+
+initial goal: high-speed IP forwarding using fixed length label (instead of IP prefix) 
+fast lookup using fixed length identifier (rather than longest prefix matching)
+borrowing ideas from Virtual Circuit (VC) approach
+
+
+PPP or Ethernet 
+header
+
+IP header
+
+remainder of link-layer frame
+
+MPLS header
+
+label
+
+Exp
+
+S
+
+TTL
+
+20
+
+3
+
+1
+
+5
+
+6-59
+
+Link Layer and LANs
+
+1
+
+MPLS-capable routers
+
+a.k.a. label-switched router
+forward packets to outgoing interface based only on label value (don’t inspect IP address)
+MPLS forwarding table distinct from IP forwarding tables
+flexibility:  MPLS forwarding decisions can differ from those of IP
+use destination and source addresses to route flows to same destination differently (traffic engineering)
+re-route flows quickly if link fails: pre-computed backup paths (useful for VoIP)
+
+
+6-60
+
+Link Layer and LANs
+
+2
+
+R2
+
+D
+
+R3
+
+R5
+
+A
+
+R6
+
+MPLS versus IP paths
+
+IP router
+
+IP routing: path to destination determined by destination address alone
+
+R4
+
+6-61
+
+Link Layer and LANs
+
+R2
+
+D
+
+R3
+
+R4
+
+R5
+
+A
+
+R6
+
+MPLS versus IP paths
+
+IP-only
+router
+
+IP routing: path to destination determined by destination address alone
+
+MPLS and 
+IP router
+
+MPLS routing: path to destination can be based on source and destination address
+fast reroute: precompute backup routes in case of link failure
+
+entry router (R4)  can use different MPLS routes to A based on source address
+
+6-62
+
+Link Layer and LANs
+
+MPLS signaling
+
+modify OSPF, IS-IS link-state flooding protocols to carry info used by MPLS routing, 
+e.g., link bandwidth, amount of “reserved” link bandwidth
+
+D
+
+R4
+
+R5
+
+A
+
+R6
+
+entry MPLS router uses RSVP-TE (resource reservation protocol – traffic engineering) signaling protocol to set up MPLS forwarding at downstream routers
+
+6-63
+
+Link Layer and LANs
+
+Both generalize IP-based forwarding
+Different approaches:
+MPLS: extend packet header, simplify lookup, incompatible with non-MPLS-capable routers
+SDN: same packet header, generalize lookup, compatible with non-SDN-enabled switches
+
+
+Data Link Layer
+
+5-64
+
+MPLS versus SDN
+
+Chapter 6: Summary
+
+principles behind data link layer services:
+error detection, correction
+sharing a broadcast channel: multiple access
+link layer addressing
+link-layer technologies in practice
+Ethernet
+switched LANS, VLANs
+virtualized networks as a link layer: MPLS
+synthesis: a day in the life of a web request
+
+
+6-65
+
+Link Layer and LANs
+
+SKIPPED SLIDES
+
+Data Link Layer
+
+5-66
+
+error detection: 
+errors caused by signal attenuation, noise. 
+receiver detects presence of errors: 
+signals sender for retransmission or drops frame 
+error correction: 
+receiver identifies and corrects bit error(s) without resorting to retransmission
+half-duplex and full-duplex
+with half duplex, nodes at both ends of link can transmit, but not at same time
+
+Link layer services (more)
+
+6-67
+
+Link Layer and LANs
+
+Where is the link layer implemented?
+
+in every host, router, switch
+link layer implemented in “adaptor” (aka network interface card NIC) or on a chip
+Ethernet card, 802.11 card; Ethernet chipset
+implements link, physical layer
+attaches into host’s system buses
+combination of hardware, software, firmware
+
+
+controller
+
+physical
+transmission
+
+cpu
+
+memory
+
+host 
+bus 
+(e.g., PCI)
+
+network interface card
+
+6-68
+
+Link Layer and LANs
+
+Multiple access protocols
+
+single shared broadcast channel 
+two or more simultaneous transmissions by nodes: interference 
+collision if node receives two or more signals at the same time
+
+multiple access protocol
+distributed algorithm that determines how nodes share channel, i.e., determine when node can transmit
+communication about channel sharing must use channel itself! 
+no out-of-band channel for coordination
+
+6-69
+
+Link Layer and LANs
+
+An ideal multiple access protocol
+
+given: broadcast channel of rate R bps
+desiderata:
+1. when one node wants to transmit, it can send at rate R.
+2. when M nodes want to transmit, each can send at average rate R/M
+3. fully decentralized:
+no special node to coordinate transmissions
+no synchronization of clocks, slots
+4. simple
+
+6-70
+
+Link Layer and LANs
+
+CSMA/CD efficiency
+
+tprop = max prop delay between 2 nodes in LAN
+ttrans = time to transmit max-size frame
+
+
+
+efficiency goes to 1 
+as tprop goes to 0
+as ttrans goes to infinity
+better performance than ALOHA, and simple, cheap, decentralized!
+
+6-71
+
+Link Layer and LANs
+
+Derivation skipped
+
+MAC addresses and ARP
+
+each adapter on LAN has unique MAC address
+
+adapter
+
+1A-2F-BB-76-09-AD
+
+58-23-D7-FA-20-B0
+
+0C-C4-11-6F-E3-98
+
+71-65-F7-2B-08-53
+
+   LAN
+(wired or
+wireless)
+
+6-72
+
+Link Layer and LANs
+
+Ethernet
+
+“dominant” wired LAN technology: 
+single chip, multiple speeds (e.g., Broadcom  BCM5761)
+first widely used LAN technology
+simple, cheap
+kept up with speed race: 10 Mbps – 10 Gbps 
+
+
+Metcalfe’s Ethernet sketch
+
+6-73
+
+Link Layer and LANs
+
+Ethernet: unreliable, connectionless
+
+connectionless: no handshaking between sending and receiving NICs 
+unreliable: receiving NIC doesn't send acks or nacks to sending NIC
+data in dropped frames recovered only if initial sender uses higher layer rdt (e.g., TCP), otherwise dropped data lost
+Ethernet’s MAC protocol: unslotted CSMA/CD with binary backoff
+
+6-74
+
+Link Layer and LANs
+
+Ethernet switch
+
+link-layer packet switch
+store, forward Ethernet frames
+examine incoming frame’s MAC address, selectively forward  frame to one-or-more outgoing links; when frame is to be forwarded on segment, uses CSMA/CD to access segment
+transparent
+hosts are unaware of presence of switches
+plug-and-play, self-learning
+switches do not need to be configured
+
+
+6-75
+
+Link Layer and LANs
+
+Switch: multiple simultaneous transmissions
+
+hosts have dedicated, direct connection to switch
+switches buffer packets
+Ethernet protocol used on each incoming link, but no collisions; full duplex
+each link is its own collision domain
+switching: A-to-A’ and B-to-B’ can transmit simultaneously, without collisions 
+
+6-76
+
+Link Layer and LANs
+
+Interconnecting switches
+
+self-learning switches can be connected together:
+
+Q: sending from A to I - how does S1 know to forward frame destined to I via S4 and S3?
+A: self learning! (works exactly the same as in single-switch case!)
+
+6-77
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+6.4 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-78
+
+Link Layer and LANs
+
+Data center networks 
+
+10’s to 100’s of thousands of hosts, often closely coupled, in close proximity:
+e-business (e.g. Amazon)
+content-servers (e.g., YouTube, Akamai, Apple, Microsoft)
+search engines, data mining (e.g., Google)
+
+
+challenges:
+multiple applications, each serving massive numbers of clients 
+managing/balancing load, avoiding processing, networking, data bottlenecks  
+
+Inside a 40-ft Microsoft container, 
+Chicago data center
+
+6-79
+
+Link Layer and LANs
+
+Server racks
+
+TOR switches
+
+Tier-1 switches
+
+Tier-2 switches
+
+Load 
+balancer
+
+Load 
+balancer
+
+B
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+A
+
+C
+
+Border router
+
+Access router
+
+Data center networks 
+
+load balancer: application-layer routing
+receives external client requests
+directs workload within data center
+returns results to external client (hiding data center internals from client)
+
+6-80
+
+Link Layer and LANs
+
+Internet
+
+Data center networks 
+
+rich interconnection among switches, racks:
+increased throughput between racks (multiple routing paths possible)
+increased reliability via redundancy
+
+
+6-81
+
+Link Layer and LANs
+
+Link layer, LANs: outline
+
+6.1 introduction, services
+6.2 error detection, correction 
+6.3 multiple access protocols
+64 LANs
+addressing, ARP
+Ethernet
+switches
+VLANS
+
+6.5 link virtualization: MPLS
+6.6 data center networking
+6.7 a day in the life of a web request
+
+
+6-82
+
+Link Layer and LANs
+
+Synthesis: a day in the life of a web request
+
+journey down protocol stack complete!
+application, transport, network, link
+putting-it-all-together: synthesis!
+goal: identify, review, understand protocols (at all layers) involved in seemingly simple scenario: requesting www page
+scenario: student attaches laptop to campus network, requests/receives www.google.com 
+
+
+
+6-83
+
+Link Layer and LANs
+
+A day in the life: scenario
+
+Comcast network 
+68.80.0.0/13
+
+Google’s network 
+64.233.160.0/19 
+
+64.233.169.105
+
+web server
+
+DNS server
+
+
+school network 
+68.80.2.0/24
+
+web page
+
+6-84
+
+Link Layer and LANs
+
+A day in the life… connecting to the Internet
+
+connecting laptop needs to get its own IP address, addr of first-hop router, addr of DNS server: use DHCP
+
+DHCP request encapsulated in UDP, encapsulated in IP, encapsulated in 802.3 Ethernet
+
+
+Ethernet frame broadcast (dest: FFFFFFFFFFFF) on LAN, received at router running DHCP server
+
+Ethernet demuxed to IP demuxed, UDP demuxed to DHCP 
+
+6-85
+
+Link Layer and LANs
+
+DHCP server formulates DHCP ACK containing client’s IP address, IP address of first-hop router for client, name & IP address of DNS server
+
+
+encapsulation at DHCP server, frame forwarded (switch learning) through LAN, demultiplexing at client
+
+
+Client now has IP address, knows name & addr of DNS 
+server, IP address of its first-hop router
+
+DHCP client receives DHCP ACK reply
+
+A day in the life… connecting to the Internet
+
+6-86
+
+Link Layer and LANs
+
+A day in the life… ARP (before DNS, before HTTP)
+
+before sending HTTP request, need IP address of www.google.com:  DNS
+
+DNS query created, encapsulated in UDP, encapsulated in IP, encapsulated in Eth.  To send frame to router, need MAC address of router interface: ARP
+
+
+ARP query broadcast, received by router, which replies with ARP reply giving MAC address of router interface
+
+client now knows MAC address of first hop router, so can now send frame containing DNS query 
+
+6-87
+
+Link Layer and LANs
+
+IP datagram containing DNS query forwarded via LAN switch from client to 1st hop router
+
+IP datagram forwarded from campus network into Comcast network, routed (tables created by RIP, OSPF, IS-IS and/or BGP routing protocols) to DNS server
+
+demuxed to DNS server
+DNS server replies to client with IP address of www.google.com 
+
+Comcast network 
+68.80.0.0/13
+
+DNS server
+
+
+A day in the life… using DNS
+
+6-88
+
+Link Layer and LANs
+
+A day in the life…TCP connection carrying HTTP
+
+to send HTTP request, client first opens TCP socket to web server
+
+TCP SYN segment (step 1 in 3-way handshake) inter-domain routed to web server
+
+TCP connection established (for client!)
+
+64.233.169.105
+
+web server
+
+web server responds with TCP SYNACK (step 2 in 3-way handshake)
+
+6-89
+
+Link Layer and LANs
+
+A day in the life… HTTP request/reply 
+
+HTTP request sent into TCP socket
+
+IP datagram containing HTTP request routed to www.google.com
+
+IP datagram containing HTTP reply routed back to client
+
+64.233.169.105
+
+web server
+
+web server responds with HTTP reply (containing web page)
+
+web page finally (!!!) displayed
+
+6-90
+
+Link Layer and LANs

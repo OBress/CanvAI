@@ -1,0 +1,64 @@
+PA2 Loan Account Hierarchy Grading Rubric  
+Remember, the rubric should be used as a guide, but you should still practice good object -oriented 
+programming.  The rubric may not cover all scenarios in which we take off points for bad object -oriented 
+practice.   
+Late policy: 4% per day for a maximum of  40% off  
+• Loan Account Class  
+a. Has the following properties: (-5) 
+o principle - the original amount of the loan.  
+o annualInterestRate - the annual interest rate for the loan. It is not static as each 
+loan can have it s’ own interest rate.  
+o months - the number of months in the term of the loan, i.e., the length of the 
+loan.  
+b. Has the following methods:  
+o a constructor that takes the three properties as  parameters.  (-5) 
+o calculateMonthlyPayment() - takes no parameters and calculates the monthly 
+payment using the same formula as Assignment 1.  (-10) 
+o getters for the three property variables.  (-5) 
+o toString() - displays the information about the principle, annualInterestRa te, and 
+months as shown in the  example  output . (-10) 
+• CarLoan Class  which is a subclass of LoanAccoun t (-5) 
+a. Has the following properties: (-5) 
+o vehicleVIN - the VIN number of the car, as a string.  
+b. Has the following methods:  
+o constructor that accepts the three parameters of the LoanAccount class and the 
+vehicleVIN.  (-5) 
+o toString() - displays the information about the VIN numbe r as shown in the 
+example output . (-5)  
+• PrimaryMortgage Clas s which is a subclass of LoanAccoun t (-5) 
+a. Has the following properties:  (-5) 
+o PMIMonthlyAmount - the amount of the Primary Mortgage Insurance which is 
+required for all mortgages where the down payment is not at least 20% of the 
+home value.  
+o Address - the address of the real estate and is an object of the Address class.  
+ 
+b. Has the following methods:  
+o constructor that accepts the three parameters of the LoanAccount class, the 
+PMIMonthlyAmount, and the Address object containing the address.  (-5) 
+o toString() - displays the information about the PMIMonthlyAmount and 
+Address as shown in the example outpu t. (up t o -10) 
+
+ 
+• UnsecuredLoan Class  which is a subclass of LoanAccoun t (-5) 
+a. Has no additional properties.  
+b. Has the following methods:  
+o constructor that accepts the three parameters of the LoanAccount class.  (-5) 
+o toString() - displays the infor mation that it is an Unsecured Loan as shown in the 
+example output . (up t o -10) 
+• Address Class  
+a. Has the following properties:  (-5) 
+o street - the house number and street part of the address.  
+o city - the city where it is located.  
+o state - the state.  
+o zipcode - and the zipcode.  
+b. Has t he following methods:  
+o constructor which accepts the values for the four properties as parameters.  (-5) 
+o getters for each property.  (-5) 
+o toString() - display the address information as shown in the example below.  (up 
+to -10) 
+ 
+• Main method  
+a. Uses the code in the main method as given in the assignment . (-10) 
+b. Displays the information using $  and % as shown in the output . 
+c. Displays the data with 2 decimal places  for all dollar a mounts  as shown  
+ 

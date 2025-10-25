@@ -1,0 +1,609 @@
+Chapter 5Control Statements: Part 2; Logical Operators
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.1  Introduction
+
+for iteration statement
+do…while iteration statement 
+switch multiple-selection statement
+break statement
+continue statement
+Logical operators
+Control statements summary.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.2  Essentials of Counter-Controlled Iteration
+
+Counter-controlled iteration requires
+a control variable (or loop counter)
+the initial value of the control variable
+the increment by which the control variable is modified each time through the loop (also known as each iteration of the loop)
+the loop-continuation condition that determines if looping should continue.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.2  Essentials of Counter-Controlled Iteration (Cont.)
+
+In Fig. 5.1, the elements of counter-controlled iteration are defined in lines 6, 8 and 10. 
+Line 6 declares the control variable (counter) as an int, reserves space for it in memory and sets its initial value to 1. 
+The loop-continuation condition in the while (line 8) tests whether the value of the control variable is less than or equal to 10 (the final value for which the condition is true). 
+Line 10 increments the control variable by 1 for each iteration of the loop. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement
+
+for iteration statement
+Specifies the counter-controlled-iteration details in a single line of code. 
+Figure 5.2 reimplements the application of Fig. 5.1 using for.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement (Cont.)
+
+When the for statement begins executing, the control variable is declared and initialized.
+Next, the program checks the loop-continuation condition, which is between the two required semicolons. 
+If the condition initially is true, the body statement executes. 
+After executing the loop’s body, the program increments the control variable in the increment expression, which appears to the right of the second semicolon. 
+Then the loop-continuation test is performed again to determine whether the program should continue with the next iteration of the loop. 
+A common logic error with counter-controlled iteration is an off-by-one error.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement (Cont.)
+
+The general format of the for statement is 
+	for (initialization; loopContinuationCondition; increment) {   statement}
+the initialization expression names the loop’s control variable and optionally provides its initial value
+loopContinuationCondition determines whether the loop should continue executing 
+increment modifies the control variable’s value, so that the loop-continuation condition eventually becomes false. 
+The two semicolons in the for header are required.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement (Cont.)
+
+The for statement often can be represented with an equivalent while statement as follows:
+	initialization;
+	while (loopContinuationCondition) {   statement   increment;}
+Typically, for statements are used for counter-controlled iteration and while statements for sentinel-controlled iteration. 
+If the initialization expression in the for header declares the control variable, the control variable can be used only in that for statement. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement (Cont.)
+
+A variable’s scope defines where it can be used in a program. 
+A local variable can be used only in the method that declares it and only from the point of declaration through the end of the method. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement (Cont.)
+
+All three expressions in a for header are optional. 
+If the loopContinuationCondition is omitted, the condition is always true, thus creating an infinite loop. 
+You might omit the initialization expression if the program initializes the control variable before the loop. 
+You might omit the increment if the program calculates it with statements in the loop’s body or if no increment is needed. 
+The increment expression in a for acts as if it were a standalone statement at the end of the for’s body, so 
+	counter = counter + 1counter += 1++countercounter++
+	are equivalent increment expressions in a for statement. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.3  for Iteration Statement (Cont.)
+
+The initialization, loop-continuation condition and increment can contain arithmetic expressions. 
+For example, assume that x = 2 and y = 10. If x and y are not modified in the body of the loop, the statement
+	for (int j = x; j <= 4 * x * y; j += y / x)
+is equivalent to the statement
+	for (int j = 2; j <= 80; j += 5)
+The increment of a for statement may be negative, in which case it’s a decrement, and the loop counts downward. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement
+
+a)Vary the control variable from 1 to 100 in increments of 1.
+	for (int i = 1; i <= 100; i++)
+b)Vary the control variable from 100 to 1 in decrements of 1.
+	for (int i = 100; i >= 1; i--)
+c)Vary the control variable from 7 to 77 in increments of 7.
+	for (int i = 7; i <= 77; i += 7)
+
+
+
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+d)Vary the control variable from 20 to 2 in decrements of 2.
+	for (int i = 20; i >= 2; i -= 2)
+e)Vary the control variable over the values 2, 5, 8, 11, 14, 17, 20.
+	for (int i = 2; i <= 20; i += 3)
+f)Vary the control variable over the values 99, 88, 77, 66, 55, 44, 33, 22, 11, 0.
+	for (int i = 99; i >= 0; i -= 11)
+
+
+
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+The initialization and increment expressions can be comma-separated lists that enable you to use multiple initialization expressions or multiple increment expressions. 
+Although this is discouraged, the body of the for statement of Fig. 5.5 could be merged into the increment portion of the for header by using a comma as follows:
+	for (int number = 2; number <= 20; total += number, number += 2) {   ; // empty statement }
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+Compound interest application
+A person invests $1,000 in a savings account yielding 5% interest. Assuming that all the interest is left on deposit, calculate and print the amount of money in the account at the end of each year for 10 years. Use the following formula to determine the amounts:
+	a = p (1 + r)n
+	where
+	p is the original amount invested (i.e., the principal)r is the annual interest rate (e.g., use 0.05 for 5%)n is the number of yearsa is the amount on deposit at the end of the nth year.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+The solution to this problem (Fig. 5.6) involves a loop that performs the indicated calculation for each of the 10 years the money remains on deposit. 
+Java treats floating-point constants like 1000.0 and 0.05 as type double. 
+Java treats whole-number constants like 7 and -22 as type int. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+In the format specifier %20s, the integer 20 between the % and the conversion character s indicates that the value output should be displayed with a field width of 20—that is, printf displays the value with at least 20 character positions. 
+If the value to be output is less than 20 character positions wide, the value is right justified in the field by default. 
+If the year value to be output were more thanhas more characters than the field width, the field width would be extended to the right to accommodate the entire value. 
+To indicate that values should be output left justified, precede the field width with the minus sign (–) formatting flag (e.g., %-20s).
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+Classes provide methods that perform common tasks on objects. 
+Most methods must be called on a specific object. 
+Someclasses also provide methods that perform common tasks and do not require you to first create objects of those classes. These are called static methods. 
+Java does not include an exponentiation operator—Math class static method pow can be used for raising a value to a power. 
+You can call a static method by specifying the class name followed by a dot (.) and the method name, as in 
+ClassName.methodName(arguments)
+Math.pow(x, y) calculates the value of x raised to the yth power. The method receives two double arguments and returns a double value. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.4  Examples Using the for Statement (Cont.)
+
+In the format specifier %,20.2f, the comma (,) formatting flag indicates that the floating-point value should be output with a grouping separator. 
+Separator is specific to the user’s locale (i.e., country). 
+In the United States, the number will be output using commas to separate every three digits and a decimal point to separate the fractional part of the number, as in 1,234.45. 
+The number 20 in the format specification indicates that the value should be output right justified in a field width of 20 characters. 
+The .2 specifies the formatted number’s precision—in this case, the number is rounded to the nearest hundredth and output with two digits to the right of the decimal point.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.5  do…while Iteration Statement
+
+The do…while iteration statement is similar to the while statement. 
+In the while, the program tests the loop-continuation condition at the beginning of the loop, before executing the loop’s body; if the condition is false, the body never executes. 
+The do…while statement tests the loop-continuation condition after executing the loop’s body; therefore, the body always executes at least once. 
+When a do…while statement terminates, execution continues with the next statement in sequence. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.5  do…while Iteration Statement (Cont.)
+
+Figure 5.8 contains the UML activity diagram for the do…while statement. 
+The diagram makes it clear that the loop-continuation condition is not evaluated until after the loop performs the action state at least once.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement
+
+switch multiple-selection statement performs different actions based on the possible values of a constant integral expression of type byte, short, int or char.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+The end-of-file indicator is a system-dependent keystroke combination which the user enters to indicate that there is no more data to input. 
+On UNIX/Linux/Mac OS X systems, end-of-file is entered by typing the sequence
+<Ctrl> d 
+on a line by itself. This notation means to simultaneously press both the Ctrl key and the d key. 
+On Windows systems, end-of-file can be entered by typing 
+<Ctrl> z 
+On some systems, you must press Enter after typing the end-of-file key sequence. 
+Windows typically displays the characters ^Z on the screen when the end-of-file indicator is typed.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+Scanner method hasNext determine whether there is more data to input. This method returns the boolean value true if there is more data; otherwise, it returns false. 
+As long as the end-of-file indicator has not been typed, method hasNext will return true.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+The switch statement consists of a block that contains a sequence of case labels and an optional default case. 
+The program evaluates the controlling expression in the parentheses following keyword switch. 
+The program compares the controlling expression’s value (which must evaluate to an integral value of type byte, char, short or int, or to a String) with each case label. 
+If a match occurs, the program executes that case’s statements. 
+The break statement causes program control to proceed with the first statement after the switch.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+switch does not provide a mechanism for testing ranges of values—every value must be listed in a separate case label. 
+Note that each case can have multiple statements.
+switch differs from other control statements in that it does not require braces around multiple statements in a case. 
+Without break, the statements for a matching case and subsequent cases execute until a break or the end of the switch is encountered. This is called “falling through.” 
+If no match occurs between the controlling expression’s value and a case label, the default case executes. 
+If no match occurs and there is no default case, program control simply continues with the first statement after the switch.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+Figure 5.10 shows the UML activity diagram for the general switch statement. 
+Most switch statements use a break in each case to terminate the switch statement after processing the case.
+The break statement is not required for the switch’s last case (or the optional default case, when it appears last), because execution continues with the next statement after the switch.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.6  switch Multiple-Selection Statement (Cont.)
+
+When using the switch statement, remember that each case must contain a constant integral expression. 
+An integer constant is simply an integer value. 
+In addition, you can use character constants—specific characters in single quotes, such as 'A', '7' or '$'—which represent the integer values of characters. 
+The expression in each case can also be a constant variable—a variable that contains a value which does not change for the entire program. Such a variable is declared with keyword final. 
+Java has a feature called enum types—enum type constants can also be used in case labels. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.7  Class AutoPolicy Case Study: Strings in switch Statements 
+
+Strings can be used as controlling expressions in switch statements, and String literals can be used in case labels. 
+App requirements:
+You’ve been hired by an auto insurance company that serves these northeast states—Connecticut, Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island and Vermont. The company would like you to create a program that produces a report indicating for each of their auto insurance policies whether the policy is held in a state with “no-fault” auto insurance—Massachusetts, New Jersey, New York and Pennsylvania.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.7  Class AutoPolicy Case Study: Strings in switch Statements (Cont.) 
+
+Class AutoPolicy represents an auto insurance policy. The class contains:
+int instance variable accountNumber to store the policy’s account number
+String instance variable makeAndModel to store the car’s make and model (such as a "Toyota Camry") 
+String instance variable state to store a two-character state abbreviation representing the state in which the policy is held  (e.g., "MA" for Massachusetts)
+a constructor that initializes the class’s instance variables  
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.7  Class AutoPolicy Case Study: Strings in switch Statements (Cont.) 
+
+methods setAccountNumber and getAccountNumber to set and get an AutoPolicy’s accountNumber instance variable
+methods setMakeAndModel and getMakeAndModel to set and get an AutoPolicy’s makeAndModel instance variable
+methods setState and getState to set and get an AutoPolicy’s state instance variable
+method isNoFaultState to return a boolean value indicating whether the policy is held in a no-fault auto insurance state; note the method name—the naming convention for a get method that returns a boolean value is to begin the name with "is" rather than "get" (such a method is commonly called a predicate method).
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.7  Class AutoPolicy Case Study: Strings in switch Statements (Cont.) 
+
+Class AutoPolicyTest (Fig. 5.12) creates two AutoPolicy objects.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.8  break and continue Statements 
+
+The break statement, when executed in a while, for, do…while or switch, causes immediate exit from that statement. 
+Execution continues with the first statement after the control statement. 
+Common uses of the break statement are to escape early from a loop or to skip the remainder of a switch. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.8  break and continue Statements  (Cont.)
+
+The continue statement, when executed in a while, for or do…while, skips the remaining statements in the loop body and proceeds with the next iteration of the loop. 
+In while and do…while statements, the program evaluates the loop-continuation test immediately after the continue statement executes. 
+In a for statement, the increment expression executes, then the program evaluates the loop-continuation test. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators
+
+Java’s logical operators enable you to form more complex conditions by combining simple conditions. 
+The logical operators are 
+&& (conditional AND)
+|| (conditional OR)
+& (boolean logical AND)
+| (boolean logical inclusive OR)
+^ (boolean logical exclusive OR)
+! (logical NOT). 
+[Note: The &, | and ^ operators are also bitwise operators when they are applied to integral operands.]
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+The & (conditional AND) operator ensures that two conditions are both true before choosing a certain path of execution. 
+The table in Fig. 5.15 summarizes the && operator. The table shows all four possible combinations of false and true values for expression1 and expression2. 
+Such tables are called truth tables. Java evaluates to false or true all expressions that include relational operators, equality operators or logical operators.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+The || (conditional OR) operator ensures that either or both of two conditions are true before choosing a certain path of execution. 
+Figure 5.16 is a truth table for operator conditional OR (||).
+Operator && has a higher precedence than operator ||. 
+Both operators associate from left to right.  
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+The parts of an expression containing && or || operators are evaluated only until it’s known whether the condition is true or false. T
+This feature of conditional AND and conditional OR expressions is called short-circuit evaluation.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+The boolean logical AND (&) and boolean logical inclusive OR (|) operators are identical to the && and || operators, except that the & and | operators always evaluate both of their operands (i.e., they do not perform short-circuit evaluation). 
+This is useful if the right operand has a required side effect—a modification of a variable’s value. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+A simple condition containing the boolean logical exclusive OR (^) operator is true if and only if one of its operands is true and the other is false. 
+If both are true or both are false, the entire condition is false. 
+Figure 5.17 is a truth table for the boolean logical exclusive OR operator (^). 
+This operator is guaranteed to evaluate both of its operands.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+The ! (logical NOT, also called logical negation or logical complement) operator “reverses” the meaning of a condition. 
+The logical negation operator is a unary operator that has only one condition as an operand. 
+The logical negation operator is placed before a condition to choose a path of execution if the original condition (without the logical negation operator) is false.
+In most cases, you can avoid using logical negation by expressing the condition differently with an appropriate relational or equality operator. 
+Figure 5.18 is a truth table for the logical negation operator.  
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.9  Logical Operators (Cont.)
+
+Figure 5.19 produces the truth tables discussed in this section.
+The %b format specifier displays the word “true” or the word “false” based on a boolean expression’s value. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.10  Structured Programming Summary
+
+Figure 5.21 uses UML activity diagrams to summarize Java’s control statements. 
+Java includes only single-entry/single-exit control statements—there is only one way to enter and only one way to exit each control statement. 
+Connecting control statements in sequence to form structured programs is simple. The final state of one control statement is connected to the initial state of the next—that is, the control statements are placed one after another in a program in sequence. We call this control-statement stacking. 
+The rules for forming structured programs also allow for control statements to be nested. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.10  Structured Programming Summary (Cont.)
+
+Structured programming promotes simplicity. 
+Bohm and Jacopini: Only three forms of control are needed to implement an algorithm:
+sequence
+selection
+iteration  
+The sequence structure is trivial. Simply list the statements to execute in the order in which they should execute. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.10  Structured Programming Summary (Cont.)
+
+Selection is implemented in one of three ways:
+if statement (single selection)
+if…else statement (double selection)
+switch statement (multiple selection)
+The simple if statement is sufficient to provide any form of selection—everything that can be done with the if…else statement and the switch statement can be implemented by combining if statements.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.10  Structured Programming Summary (Cont.)
+
+Iteration is implemented in one of four ways:
+while statement
+do…while statement
+for statement
+Enhanced for statement
+The while statement is sufficient to provide any form of iteration. Everything that can be done with do…while and for can be done with the while statement.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.10  Structured Programming Summary (Cont.)
+
+Combining these results illustrates that any form of control ever needed in a Java program can be expressed in terms of
+sequence
+if statement (selection)
+while statement (iteration)
+	and that these can be combined in only two ways—stacking and nesting. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+5.11  (Optional) GUI and Graphics Case Study: Drawing Rectangles and Ovals
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

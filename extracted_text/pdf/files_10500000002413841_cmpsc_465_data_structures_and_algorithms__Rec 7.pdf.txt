@@ -1,0 +1,27 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 7
+Monday, Oct 20, 2025
+1. Max Flow Min Cut Consider the following network (Figure 1, the numbers are edge capacities).
+SA
+BC
+DT4
+84
+2 2
+35
+5
+Figure 1: Flow Graph
+(a) Find the maximum flow fand a minimum cut using Ford-Fulkerson algorithm.
+(b) Draw the residual graph Gf(along with its edge capacities). In this residual network, mark the
+vertices reachable from Sand the vertices from which Tis reachable.
+2. Max-Flow Extended Suppose, there are many sources and many sinks, and we wish to maximize the
+total flow from all sources to all sinks. This problem can be solved efficiently. Show this by reducing
+it to the original max-flow problem.
+3. Verifying a max-flow Suppose someone presents you with a solution to a max-flow problem on some
+network. Give a linear time algorithm to determine whether the solution does indeed give a maximum
+flow.
+4. Assigning Projects. A company has nemployees and mprojects. Each employee is qualified to
+work on a subset of the projects, and each project requires exactly one employee. However, each
+employee can be assigned to at most one project. We need to determine whether it is possible to
+assign employees to projects so that every project is staffed, and if so, find such an assignment.
+Reduce this problem to max-flow problem and analyze why it is correct.
+CMPSC 465, Fall 2025, Worksheet 7 1

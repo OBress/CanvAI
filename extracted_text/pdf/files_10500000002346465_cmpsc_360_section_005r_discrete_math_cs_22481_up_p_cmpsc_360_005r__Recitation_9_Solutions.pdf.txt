@@ -1,0 +1,89 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 9 Solutions
+1. Induction: Using induction, prove that ∀n∈N,x2n−y2nis divisible by x+y.
+Answer:
+P(n) =x2n−y2nis divisible by x+y
+Base case: P(1) should be true.
+x2−y2=(x+y)(x−y)
+This is clearly divisible by x+y.
+Hence, P(1)is true.
+We assume P(k)is true.
+P(k) =x2k−y2kis divisible by x+y.
+Letx2k−y2k=t(x+y)for some t∈Z.
+We have to show that P(k+1)is true when P(k)is true.
+P(k+1) =x2(k+1)−y2(k+1)is divisible by x+y.
+Consider from P(k+1)
+x2(k+1)−y2(k+1)=x2k+2−y2k+2
+=x2kx2−y2ky2
+=x2kx2−x2ky2+x2ky2−y2ky2(Adding and subtracting x2ky2)
+=x2k(x2−y2)+y2(x2k−y2k)
+=x2k(x+y)(x−y)+y2t(x+y) (Using the assumption P(k))
+=(x+y)[x2k(x−y)+y2t]
+This is clearly divisible by x+y.
+We showed that P(k+1)is true when P(k)is true.
+Hence, the statement P(n)is proved by induction.
+2. Strong Induction: Use strong induction to prove the following proposition:
+Ifn∈N, then 12 |(n4−n2).
+Answer:
+Strong induction involves assuming each of statements P1,P2,...,Pkis true, and showing that
+this forces Pk+1to be true. In particular, if P1through Pkare true, then certainly Pk−5is true,
+provided that 1 ≤k−5<k. The idea is then to show Pk−5⇒Pk+1instead of Pk⇒Pk+1. For
+this to make sense, our basis step must involve checking that P1,P2,...,P6are all true. Once this
+is established, Pk−5⇒Pk+1will imply that the other Pkare all true. For example, if k = 6, then
+Pk−5⇒Pk+1isP1⇒P7, soP7is true; for k = 7, then Pk−5⇒Pk+1isP2⇒P8, soP8is true.
+Proceed by strong induction on n. First, note that the statement is true for the first six positive
+integers:
+Forn=1, 12 divides 14−12=0.
+CMPSC 360, Fall 2024, Worksheet 9 Solutions 1
+
+Forn=2, 12 divides 24−22=12.
+Forn=3, 12 divides 34−32=72.
+Forn=4, 12 divides 44−42=240.
+Forn=5, 12 divides 54−52=600.
+Forn=6, 12 divides 64−62=1260.
+Next, for k≥6, assume 12 |(n4−n2)for all nsuch that 1 ≤n≤k.
+We must show that P(k+1)is true, that is, 12 |((k+1)4−(k+1)2). Now P(k−5)being true
+means 12 |(k−5)4−(k−5)2. To simplify, define l:=k−5, so 12 |l4−l2, meaning l4−l2=12a,
+for some a∈Z, and k+1=l+6. Then:
+(k+1)4−(k+1)2= (l+6)4−(l+6)2
+=l4+24l3+216l2+864l+1296−(l2+12l+36)
+= (l4−l2)+24l3+216l2+852l+1260
+=12a+24l3+216l2+852l+1260
+=12(a+2l3+18l2+71l+105)
+Because a+2l3+18l2+71l+105∈Z, we get 12 |(k+1)4−(k+1)2.
+3. Strong Induction: Using induction, prove that a rectangular chocolate bar composed of n
+pieces can be split into individual pieces using at most n−1 breaks for all n∈N.
+Answer:
+Suppose that the given theorem is P(n): A chocolate bar composed of npieces requires at most
+n−1 breaks to be split into individual pieces.
+Base Case( n=1):
+A chocolate bar composed of 1 piece cannot be split any further and requires 1 −1=0 breaks.
+Thus, P(1)is true.
+Inductive Hypothesis:
+Suppose that P(1)∧P(2)∧...∧P(k)for some k≥1.
+Inductive Step:
+Consider a chocolate bar with k+1 pieces. Now consider a subdivision such that the chocolate
+bar is broken into two bars of sizes pandqsuch that p+q=k+1.
+According to the inductive hypothesis, these smaller bars require p−1 and q−1 breaks. Thus,
+the total number of breaks is given as:
+No. of breaks = (p−1) + ( q−1) +1 (The extra 1 is because of the initial break to divide the
+bar into smaller bars of sizes pandq)
+No. of breaks = p+q−1=k+1−1=k
+Thus, a bar of size k+1 requires at most kbreaks, which completes the inductive step. There-
+fore∀n∈N,P(n)is true using strong induction.
+CMPSC 360, Fall 2024, Worksheet 9 Solutions 2
+
+4. Number Theory: Solve the following:
+(a) 1810mod 39
+(b) 8176mod 11
+Answer:
+(a) 1810mod 39 =210mod 39 ×910mod 39 =12
+(b) 8176mod 11 =988mod 11 =444mod 11 =311mod 11 =3
+5. Number Theory: Solve the following:
+(a) Convert (354)10to base 8.
+(b) Convert (542)8to base 10.
+Answer:
+(a) 354 =44∗8+2,44=5∗8+4,5=0∗8+5
+∴(354)10= (542)8
+(b)(542)8= (5×82)+(4×81)+(2×80) = ( 354)10
+CMPSC 360, Fall 2024, Worksheet 9 Solutions 3

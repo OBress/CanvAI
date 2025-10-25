@@ -1,0 +1,39 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Quiz 6
+Lecture Section: Monday, Oct 13, 2025
+Student Name: PSU Email ID:
+1.(2 pts.) The Bellman-Ford algorithm can be
+used to find shortest paths in an undirected graph
+with negative edge weights.
+aTrue
+bFalse
+2.(2 pts.) While running Bellman-Ford on a graph
+with no negative cycles, updating every edge |V|2
+times instead of |V|−1 times has no effect on the
+output.
+aTrue
+bFalse
+3.(2 pts.) Which of the following recursions is
+used in Floyd-Warshall? Here, dist k[i,j]is the
+shortest path from vertex ito vertex jusing only
+the first kvertices and ℓ(i,j)is the weight of the
+edge from itoj.
+adist k[i,j] =dist k−1[i,j]+ℓ(k−1,j)
+bdist k[i,j] =dist k[i,k]+dist k[k,j]
+cdist k[i,j] =max(
+dist k−1[i,j],
+dist k−1[i,k]+dist k−1[k,j])
+ddist k[i,j] =min(
+dist k−1[i,j],
+dist k−1[i,k]+dist k−1[k,j])4.(2 pts.) In a valid flow, the total flow out of the
+unique source vertex s(i.e., the value of the flow)
+is greater than the total flow into the unique sink
+vertex t.
+aTrue
+bFalse
+5.(2 pts.) In a network flow, if the capacity of
+an edge is increased, the maximum flow from the
+source to the sink must increase.
+aTrue
+bFalse
+CMPSC 465, Fall 2025, Quiz 6 1

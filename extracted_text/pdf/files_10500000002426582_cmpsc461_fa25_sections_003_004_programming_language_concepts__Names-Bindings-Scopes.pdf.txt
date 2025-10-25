@@ -1,0 +1,644 @@
+Semantic Analysis- Names, Bindings, and Scopes
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Where we are?
+CMPSC 461 –Programming Language Concepts
+
+
+Non-Context-Free Syntax
+•Program that are correct with respect to the language's lexical and context-
+free syntactic rules may still contain other syntactic errors
+•Lexical analysis and context-free syntax analysis are not powerful enough to 
+ensure the correct usage of variables, objects, functions, statements, etc
+•Non-context-free syntactic analysis is known as semantic analysis 
+CMPSC 461 –Programming Language Concepts
+
+Incorrect Programs
+•Example 1: lexical analysis does not distinguish between different variable or 
+function identifiers (it returns the same token for all identifiers) 
+int a; int a;
+a = 1; b = 1; 
+•Example 2 : syntax analysis does not correlate the declarations with the uses 
+of variables in the program: 
+int a; 
+a = 1; b = 1; 
+CMPSC 461 –Programming Language Concepts
+
+Incorrect Programs
+•Example 3: syntax analysis does not correlate the types from the 
+declarations with the uses of variables:
+int a; int a;
+a = 1; a = 1.0; 
+CMPSC 461 –Programming Language Concepts
+
+Goal of Semantic Analysis
+•Semantic analysis ensure that the program satisfies a set of additional rules 
+regarding the usage of programming constructs (variables, objects, 
+expressions, statements)
+•Examples of semantic rules: 
+•Variables must be declared before being used
+•A variable should not be declared multiple times in same scope 
+•In an assignment statement, the variable and the assigned expression must have the 
+same type 
+•The condition of an if-statement must have type Boolean 
+CMPSC 461 –Programming Language Concepts
+
+Names in a Program
+•A mnemonic string in high-level languages 
+•Identifiers in most languages 
+•An abstraction of low-level representation, such as memory address and 
+register
+CMPSC 461 –Programming Language Concepts
+
+Names in a Program
+•The same name in a program may refer to fundamentally different things:
+•This is perfectly legal Java code:
+CMPSC 461 –Programming Language Concepts
+
+
+Names in a Program
+•The same name in a program may refer to fundamentally different things:
+•This is perfectly legal Java code:
+CMPSC 461 –Programming Language Concepts
+
+
+Names in a Program
+•The same name in a program may refer to completely different objects:
+•This is perfectly legal C++ code:
+CMPSC 461 –Programming Language Concepts
+
+
+Names in a Program
+•The same name in a program may refer to completely different objects:
+•This is perfectly legal C++ code:
+CMPSC 461 –Programming Language Concepts
+
+
+Binding
+•An association between two entities, typically between a name and the 
+object it refers to
+•Name and memory location (for a variable)
+•Name and function
+•Name and type
+•Referencing environment : A complete set of bindings active at a certain point 
+in a program
+•Scope of a binding : The region of a program or time interval(s) in the 
+program’s execution during which the binding is active.
+CMPSC 461 –Programming Language Concepts
+
+Binding Times
+•Compile time: 
+•Map high-level language constructs to machine code 
+•Any variable, constant declared either at global scope(outsidethe main() 
+function), staticor as extern variable will occupy memory at compile time. 
+•Link time: 
+•Resolve references between objects in separately compiled module 
+•Load time: 
+•Assign machine addresses to static data 
+•Runtime: 
+•Bind values to variables 
+•Allocate dynamic data and assign it to variables 
+•Allocate local variables on the stack
+CMPSC 461 –Programming Language Concepts
+
+Importance of Binding Times
+•Early binding (compile time, link time, load time): 
+•Faster code 
+•Typical in compiled languages 
+•Late binding (runtime): 
+•Greater flexibility 
+•Typical in interpreted languages 
+CMPSC 461 –Programming Language Concepts
+
+Object and Binding Lifetime
+•Object lifetime: Time between creation and destruction of a dynamically 
+allocated variable in C++ using newand delete.
+•Binding lifetime: Period between the creation and destruction of a binding 
+(name-to-object association)
+•Two common mistakes:
+•Dangling reference : no object for a binding (E.g., a pointer refers to an object that has 
+already been deleted) 
+•Memory leak : No binding for an object (prevents the object from being deallocated)
+CMPSC 461 –Programming Language Concepts
+
+Storage Allocation Mechanism 
+and Object Lifetime
+•An object’s lifetime is tied to the mechanism used to 
+manage the space where the object resides.
+•Static Object
+•Stored at a fixed absolute address
+•Lifetime spans the whole execution of the program 
+•Objects allocated in static data area
+CMPSC 461 –Programming Language Concepts
+Lifetime Object type
+From first function/block 
+execution until program exitsLocal static
+While program runs Global, namespace, class 
+static
+
+Storage Allocation Mechanism 
+and Object Lifetime
+•An object’s lifetime is tied to the mechanism used to 
+manage the space where the object resides.
+•Object on Stack
+•Allocation on the stack in connection with a subroutine call 
+(bound to local variable)
+•Lifetime spans period between invocation and return of the 
+subroutine.
+CMPSC 461 –Programming Language Concepts
+Lifetime Object type
+While function or block is 
+activeLocal
+Same as a local variable Temporary
+
+Storage Allocation Mechanism 
+and Object Lifetime
+•An object’s lifetime is tied to the mechanism used to 
+manage the space where the object resides.
+•Object on Stack
+•Allocation on the stack in connection with a subroutine call 
+(bound to local variable)
+•Lifetime spans period between invocation and return of the 
+subroutine.
+CMPSC 461 –Programming Language ConceptsLifetime Object type
+While function or block is 
+activeLocal
+During expression evaluation Temporaryint main() { 
+int x; 
+p(x); 
+q(x, x); 
+}int p(int p1) { 
+int px;  
+q(p1, px); 
+}int q(int q1, q2) { 
+int qx;
+…
+}
+
+Storage Allocation Mechanism 
+and Object Lifetime
+•An object’s lifetime is tied to the mechanism used to 
+manage the space where the object resides.
+•Object on Heap
+•Allocated on the heap
+•Object created/destroyed at arbitrary times
+•Explicitly by programmer
+•Implicitly by garbage collector
+CMPSC 461 –Programming Language Concepts
+Lifetime Object type
+Arbitrary Heap
+
+
+Storage Allocation Mechanism 
+and Object Lifetime
+•An object’s lifetime is tied to the mechanism used to 
+manage the space where the object resides.
+•Object on Heap
+•Allocated on the heap
+•Object created/destroyed at arbitrary times
+•Explicitly by programmer
+•Implicitly by garbage collector
+CMPSC 461 –Programming Language ConceptsLifetime Object type
+Arbitrary HeapString* x;
+int main() {  
+p(); 
+q(); 
+}int p() { 
+…  
+x = new String[10];
+… 
+}int q() { 
+…
+delete x;
+…
+}
+
+Declarations and Definitions
+•Declarations 
+•Introduce a name; give its type (if in a typed language) 
+•Definitions 
+•Fully define an entity 
+•Specify value for variables, function body for functions 
+•Declaration before use 
+•Makes it possible to write a one-pass compiler 
+•When you call a function, you know its signature 
+•Definition before use 
+•Avoids accessing an undefined variable
+CMPSC 461 –Programming Language Concepts
+
+Scopes
+•Scope: A maximal region of the program where the object is accessed 
+(visible) (e.g., a function body)
+•Lexical (static) scoping: 
+•Binding based on nesting of blocks
+•Can be determined at compile time
+•Dynamic Scoping:
+•Binding depends on flow of execution at runtime
+•Can only be determined at runtime
+•Scopes can be disjoint 
+CMPSC 461 –Programming Language Concepts
+
+Scopes
+•Scope of variables in statement block:
+•Scope of variables in statement block:
+CMPSC 461 –Programming Language Concepts
+
+
+Scopes
+•Scope of labels
+CMPSC 461 –Programming Language Concepts
+
+
+Scope different from Lifetime
+•C static local variables
+void foo(void) { 
+static int first=1; /* first is true */ 
+if (first) { 
+first = 0; ... 
+} else { ... } 
+} 
+first’s scope is the function and lifetime is the whole program execution time
+•A Java static field
+•Scope: the class that contains the field
+•allocated even without any object with that class
+CMPSC 461 –Programming Language Concepts
+
+Scopes
+•Defining scope : The scope in which a name is defined or declared is called 
+its defining scope 
+•For static scoping, the scope of a name is its defining scope and all nested 
+sub scopes 
+•The introduction of new variables into scope may hide older variables. How 
+do we keep track of what’s visible?
+CMPSC 461 –Programming Language Concepts
+
+Symbol Tables
+•Semantic checks refer to properties of identifiers in the program – their 
+scope or type 
+•Need an environment to store the information about identifiers = symbol 
+table
+•Each entry in the symbol table contains 
+•The name of an identifier 
+•Additional information: its kind, type, if it is constant, ...
+CMPSC 461 –Programming Language Concepts
+
+
+Symbol Tables
+•How to represent scope information in the symbol table? 
+•Idea: 
+•One symbol table for each scope. It is a dictionary or hash map.
+•A symbol table contains the symbols declared in that lexical scope
+•There is a hierarchy of scope in the program 
+•Use a similar hierarchy of symbol table. A symbol table may have a parent
+CMPSC 461 –Programming Language Concepts
+
+Symbol Tables
+CMPSC 461 –Programming Language Concepts
+
+
+Identifiers with Same Name
+•The hierarchical structure of symbol tables automatically solves the problem 
+of resolving name collisions (identifiers with the same name and overlapping 
+scopes) 
+•To find the declaration of an identifier that is active at a program point: 
+•Start from current scope 
+•Go up in the hierarchy until you find an identifier with the same name, or fail
+CMPSC 461 –Programming Language Concepts
+
+Example
+CMPSC 461 –Programming Language Concepts
+
+
+Catching Semantic Errors
+CMPSC 461 –Programming Language Concepts
+
+
+Top Hat
+CMPSC 461 –Programming Language Concepts
+
+Dynamic Scope
+•In lexical scoping , you search in the local function (the function which is 
+running now), then you search in the function (or scope) in which that 
+function was defined, then you search in the function (scope) in which that 
+function was defined, and so forth. Most languages: Ada, C, Pascal 
+CMPSC 461 –Programming Language Concepts
+•However, in dynamic scoping , by contrast, you 
+search in the local function first, then you search in 
+the function that called the local function, then you 
+search in the function that called that function, and 
+so on, up the call stack. Used by some early 
+dialects of Lisp 
+
+Static Scope VS Dynamic Scope
+CMPSC 461 –Programming Language Concepts
+
+
+Dynamic Scoping
+CMPSC 461 –Programming Language Concepts
+(global)
+
+Dynamic Scoping
+CMPSC 461 –Programming Language Concepts
+(global)
+
+Example
+CMPSC 461 –Programming Language Concepts1)What is output if code uses 
+static scoping ?
+2)What is the output if code 
+uses dynamic scoping ?intx = 10;
+intf(){
+returnx;
+}
+intg(){
+intx = 20;
+returnf();
+}
+intmain(){
+printf("%d", g());
+return0;
+}
+
+Static VS Dynamic Scoping
+•Similarity
+•One symbol table per scope
+•Names are resolved from bottom to top in symbol table tree 
+•Difference 
+•Static: the symbol table tree is stable
+•Dynamic: the symbol table tree changes during execution
+CMPSC 461 –Programming Language Concepts
+
+Subroutine as a Parameter
+•If a subroutine is passed as a parameter, how do we resolve names?
+CMPSC 461 –Programming Language Concepts
+
+
+Subroutine as a Parameter
+•If a subroutine is passed as a parameter, how do we resolve names?
+CMPSC 461 –Programming Language Concepts
+What’s the parent of H’s symbol table?
+
+Subroutine as a Parameter
+•What’s the parent of H’s symbol table?
+CMPSC 461 –Programming Language Concepts
+
+
+Shallow Binding
+•Use the environment at call time
+CMPSC 461 –Programming Language Concepts
+
+
+Deep Binding
+•Use the environment when ref. is created
+CMPSC 461 –Programming Language Concepts
+
+
+Implementation of Deep Binding: 
+Function Closures
+CMPSC 461 –Programming Language Concepts
+•A closure is a pair of a function and a referencing environment
+
+Implementation of Deep Binding: 
+Function Closures
+CMPSC 461 –Programming Language Concepts•Closures are necessary to implement deep binding in languages that allow 
+functions to be passed around as function arguments and return values:
+•When the function is invoked, the referencing environment it refers to may no longer 
+exist and thus needs to be preserved explicitly in the closure.
+
+Example
+CMPSC 461 –Programming Language Conceptsintx=5;
+voidf() {
+x =x+50;
+}
+voidg(h) {
+intx=10;
+h();
+print(x);
+}
+voidmain() {
+g(f());
+}1)What is output if code uses 
+deep binding ?
+2)What is the output if code 
+uses shallow binding ?
+
+Deep Binding
+•Dynamic scoping
+•Both shallow and deep binding are implemented
+•Deep binding has a higher cost at run time 
+•Static scoping
+•Shallow binding has never been implemented
+CMPSC 461 –Programming Language Concepts
+
+Top Hat
+CMPSC 461 –Programming Language Concepts
+
+Scope and Stack
+•Each instance of a subroutine has a 
+frame (activation record) at run time
+•Compiler generates code that setup 
+frame, call routine, and destroy frame 
+•Frame pointer (fp): currently active 
+frame 
+•Stack pointer (sp): free space on stack
+CMPSC 461 –Programming Language Concepts
+
+
+Typical Frame Layout
+Temporaries.: register spill area, language-specific 
+exception-handling context, and so on (not covered)
+CMPSC 461 –Programming Language Concepts
+Bookkeeping info.: a reference to the stack frame of the 
+caller (also called the dynamic link ) and so on
+When the frame is active
+
+
+Nested Scopes
+•Languages with nested functions: 
+•How do we access local variables from other 
+frames? 
+•Static Scoping: 
+•Static link: a pointer to the frame of enclosing 
+function 
+•Dynamic Scoping: 
+•Dynamic link: pointer to the previous frame in 
+the current execution
+CMPSC 461 –Programming Language Concepts
+
+
+Static Link and Dynamic Link
+CMPSC 461 –Programming Language Concepts
+
+
+Where is variable a in h?
+CMPSC 461 –Programming Language Concepts
+
+
+Where is variable a in h?
+CMPSC 461 –Programming Language Concepts
+
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language Concepts
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language Concepts
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language Concepts
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language Concepts
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language Concepts
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language ConceptsStatic Structure
+
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language ConceptsStatic Structure
+ MAIN_2 calls BIGSUB calls 
+SUB2 calls SUB3 calls SUB1
+MAIN_2BIGSUBSUB2SUB3SUB1
+Stack
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language ConceptsStatic Structure
+ MAIN_2 calls BIGSUB calls 
+SUB2 calls SUB3 calls SUB1
+MAIN_2BIGSUBSUB2SUB3SUB1Static Links
+Stack
+
+Static & Dynamin Link (Example)
+program MAIN_2;
+procedure BIGSUB;
+procedure SUB1;
+begin … end SUB1;
+procedure SUB2;
+procedure SUB3;
+begin … end SUB3;
+begin … end SUB2;
+begin … end BIGSUB;
+begin … end MAIN_2;
+CMPSC 461 –Programming Language ConceptsStatic Structure
+ MAIN_2 calls BIGSUB calls 
+SUB2 calls SUB3 calls SUB1
+MAIN_2BIGSUBSUB2SUB3SUB1Static LinksDynamic Links
+Stack
+
+Variable and Memory Address
+•How does the compiled code locate a variable used in a function at run 
+time?
+CMPSC 461 –Programming Language Concepts
+
+
+Establishing Addressability
+•How does the compiled code locate a variable used in a function at run 
+time?
+•What is the start address?
+Start address = base address (of a scope) + offset (in the scope)
+•Base Address: fixed throughout the run 
+•Offset: known at compile time (length of each variable is determined by its 
+type)
+CMPSC 461 –Programming Language Concepts
+
+
+Heap-Based Variable
+•Like a normal variable, except that the memory cell stores the address of 
+heap space
+CMPSC 461 –Programming Language Concepts
+
+
+Big Picture: Data Memory Layout
+CMPSC 461 –Programming Language Concepts
+
+
+Reading and Exercises
+Reading
+•Chapter: 3.1, 3.2, 3.3, and 2.3.3 (Michael Scott Book)
+Exercises
+•Exercises: 3.1 - 3.7, 3.11-3.14, 3.18, 3.19 (Michael Scott Book)
+CMPSC 461 –Programming Language Concepts

@@ -1,0 +1,14 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 9
+1. Induction: Using induction, prove that ∀n∈N,x2n−y2nis divisible by x+y.
+2. Strong Induction: Use strong induction to prove the following proposition:
+Ifn∈N, then 12 |(n4−n2).
+3. Strong Induction: Using induction, prove that a rectangular chocolate bar composed of n
+pieces can be split into individual pieces using at most n−1 breaks for all n∈N.
+4. Number Theory: Solve the following:
+(a) 1810mod 39
+(b) 8176mod 11
+5. Number Theory: Solve the following:
+(a) Convert (354)10to base 8.
+(b) Convert (542)8to base 10.
+CMPSC 360, Fall 2024, Worksheet 9 1

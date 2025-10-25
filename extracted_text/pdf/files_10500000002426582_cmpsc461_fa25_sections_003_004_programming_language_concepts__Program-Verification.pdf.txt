@@ -1,0 +1,107 @@
+Program Verification
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Correctness
+CMPSC 461 –Programming Language Concepts
+
+
+Functional Correctness
+CMPSC 461 –Programming Language Concepts
+
+
+Program and Logics
+CMPSC 461 –Programming Language Concepts
+
+
+Program and Logics
+CMPSC 461 –Programming Language Concepts
+
+
+Program and Logics
+CMPSC 461 –Programming Language Concepts
+
+
+Program and Logics
+CMPSC 461 –Programming Language Concepts
+
+
+Informally….
+CMPSC 461 –Programming Language Concepts
+
+
+Formalizing the Reasoning
+CMPSC 461 –Programming Language Concepts
+
+
+Hoare Triple
+CMPSC 461 –Programming Language Concepts
+
+
+Examples
+CMPSC 461 –Programming Language Concepts
+
+
+Overview of Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Assignment Rule (Hoare’s Axiom)
+CMPSC 461 –Programming Language Concepts
+
+
+Composition Rule
+CMPSC 461 –Programming Language Concepts
+
+
+Composition Rule
+CMPSC 461 –Programming Language Concepts
+
+
+Branch Rule
+CMPSC 461 –Programming Language Concepts
+
+
+Computing WP
+CMPSC 461 –Programming Language Concepts
+
+
+Example
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Program Verification
+CMPSC 461 –Programming Language Concepts
+
+
+Total vs. Partial Correctness
+CMPSC 461 –Programming Language Concepts
+
+
+Summary
+CMPSC 461 –Programming Language Concepts

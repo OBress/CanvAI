@@ -1,0 +1,23 @@
+Programming Assignment 1 Loan Acc ount Grading  Rubric  
+ 
+Remember, the rubric should be used as a guide, but you should still practice good object -oriented 
+programming.  The rubric may not cover all scenarios in which we take off points for bad object -oriented 
+practice.   
+Late policy: 4% per day for a maximum of  40% off  
+• Loan Account Class  
+a. Has private static instance variable annu alInt erestRate. ( -5) 
+b. Has private instance variable principle. ( -5) 
+c. Has constructor with one p arameter, principle. ( -5) 
+d. Has calculateMonth lyInterest method with parameter of (numberofPayme nts). ( -10) 
+i. Has proper formula  to calculate pa yment  and return it . (-10) 
+e. Has a static met hod setAnnualInterestRate to set the annual interest rate. ( -10) 
+• Main method  
+a. Creat es two Loan Account objects , loa n1 and loan2  with the proper initial princip le 
+amounts. ( -10) 
+b. Displays the heading lines for each  interest rate properly. ( -5) 
+c. Displays the loan data as columnar output as illustra ted in the output. ( -10) 
+d. Displays the data with 2 decimal places  for all dollar a mounts. ( -5) 
+e. Displays the information at 1% and 5% interest rates. ( -10) 
+f. Displays the payment amounts for 3, 5, and 6 year loans. ( -10) 
+ 
+ 

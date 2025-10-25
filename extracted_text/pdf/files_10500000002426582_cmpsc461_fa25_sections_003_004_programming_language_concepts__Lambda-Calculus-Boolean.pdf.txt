@@ -1,0 +1,49 @@
+λ-Calculus-Boolean
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Bound vs. Free Variables
+CMPSC 461 –Programming Language Concepts
+
+
+Free Variables (Examples)
+CMPSC 461 –Programming Language Concepts•((λ (x) x) y)
+•((λ (x) (x x)) (λ (x) (x x)))
+•((λ (x) (z y)) x)
+
+Useful Rule
+CMPSC 461 –Programming Language Concepts
+
+
+Another Useful Rule
+CMPSC 461 –Programming Language Concepts
+
+
+Evaluation
+CMPSC 461 –Programming Language Concepts
+
+
+Evaluation Order
+CMPSC 461 –Programming Language Concepts
+
+
+-Reduction Example
+CMPSC 461 –Programming Language Concepts•((λ (y)
+((λ (z) (λ (y) (z y) )
+)y))
+(λ (x) x))
+
+-Reduction Example
+CMPSC 461 –Programming Language Concepts•(λ (y) ((λ (z)(λ (y) z)) (λ (x) y) ))
+
+Encoding: Boolean
+CMPSC 461 –Programming Language Concepts
+
+
+Encoding: Boolean
+CMPSC 461 –Programming Language Concepts
+
+
+Encoding: Boolean
+CMPSC 461 –Programming Language Concepts

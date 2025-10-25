@@ -1,0 +1,84 @@
+Course Scheduler Final Project Part 2 Grading Rubric  
+  
+ Late policy of 4% per  day late and using good  object -oriented  coding techniques still apply.    
+Copying  code from the internet does not  count as writing your own code.   Do not do this.   
+The way  to check your code is to use the Course Scheduler Final Project Part 2 test script 
+provided.  The Course Scheduler Final Project Part 2 test script will be used to test your 
+assignment.  
+  
+There are  four functions  to Part 2 of the final project:    
+The Admin functions of: Display Class  List of Students, Drop Student, and Drop Class  and the 
+Student function of: Drop Class  for a student.  
+   
+Database  and project  considerations:   
+• When you  submit  your project, you MUST  submit  both your zippe d project 
+folder and your zipped database folder (your grade will be 0 if you  fail to  submit  your 
+database when you  submit  your code.   We need it to grade your assignment.)    
+• Your project code must be based on the template project provided  for the 
+current semester . If not, your grade will be 0.  
+• If your database does not work with your code, e.g.,  wrong table or column 
+names, your grade will be 0.  
+• Your database should have the username and password of ‘java’ and ‘java’ as per 
+the assignment  and have the proper database name as per the assignment.  Your 
+project must also have the proper name as specified in the assignment.  You should 
+be able to submit  the same database zip file as you did for Part 1, assuming that it is 
+properly named,  and all the tables are empty.  
+• Your database must have the tables defined but the tables must be empty  (-5 for 
+not following these directions)   
+• You should have the following tables in your database  with the  appropriate 
+columns:  semester, courses, classes, students, and schedule.  (-10 for each table)   
+• You should also have the  appropriate primary  keys.    
+• You must  use SQL Prepare Statements ( -10) when modifying  the database.   
+  
+ Functionality:   
+• Correctly display the list of students in a class  showing scheduled students and 
+waitlisted students  (-20)  
+• Correctly drop a class  from the database . 
+o Drop class  from class  table ( -5) 
+o Drop students from schedule table ( -5) 
+o Display all students dropped and whether they were scheduled or 
+waitlisted. ( -10)  
+o Remove the class  from class  comboboxes. ( -5) 
+• Correctly drop a student from the database.  
+o Drop the student from the student table ( -5) 
+o Drop the student from every semester (-5) 
+
+o Drop the student from each class  they are enrolled in.  
+▫ If Scheduled in the class , schedule another student from the 
+waitlist, if there is one. ( -10) 
+▫ If Waitlisted in the class , just drop the student from the class (-5) 
+o Remove student from student comboboxes. ( -5) 
+• Correctly drop a class from the student’s schedule.  
+o If the student is scheduled in the class  
+▫ Remove the class from the student schedule ( -5) 
+▫ Schedule the first waiting student from the waitlist, if there is one. 
+(-5) 
+o If the student is wait listed in the class  
+▫ Remove the class from the student schedule ( -5) 
+ 
+• The priority  order of a course  waitlist must be  maintained  (-5)  
+o It is strongly recommended that you use Timestamp  to keep track of 
+a student’s  position on the waitlist .  
+  
+GUI:   
+• Although the tab layout is recommended, it is not required.   If you designed 
+your  GUI using a different type of layout,  that’s  totally fine  – just make sure you 
+have  all the required pi eces of functionality and show  all the appropriate 
+information.   
+• Users entering data in textfields is only permitted for the Add functions. All other 
+functions must use combo boxes to display data from the database for the User to 
+select. ( -5) 
+• The combo bo xes should be updated automatically when  additional  data is 
+added to the database ( -3)  
+• When a command is performed, the results of that command should be 
+displayed to the user without the user needing to perform any display function  to 
+see what was done.   For example, if you add a  student  to the  database,  you should 
+display the name of the  student that was added . Likewise, after performing a 
+Schedule Course function, you should display whether the student was scheduled  in 
+the course or placed in waitlist s tatus.  (-3) 
+• How you want to display information is up to you, but it must include all 
+necessary information and be readable by the grader.   
+  
+  
+  
+ 

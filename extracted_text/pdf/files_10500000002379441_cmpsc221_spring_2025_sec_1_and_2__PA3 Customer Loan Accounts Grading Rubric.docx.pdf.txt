@@ -1,0 +1,29 @@
+PA3 Customer Loan Accounts  Grading Rubric  
+Remember, the rubric should be used as a guide, but you should still practice good object -oriented 
+programming.  The rubric may not cover all scenarios in which we take off points for bad object -oriented 
+practice.   
+Late policy: 4% per day for a maximum of  40% off  
+• Customer  Class  
+a. Has the following properties: ( -5) 
+o firstName - the customer's first name (String).  
+o lastName - the customer's last name (String).  
+o SSN - the customer's (String).  
+o loanAccounts - an array list of loan accounts  ArrayList< LoanAccount> . 
+b. Has the following methods:  
+o a constructor that accepts firstName, lastName, and SSN as 
+parameters.  (-5) 
+o getters for firstName, lastName, and SSN.  (-3 each)  
+o addLoanAccount(LoanAccount account) - adds a loan to the array list 
+of loans for this customer.  (-10) 
+o printMonthlyReport() - prints a ll the information for all the accounts 
+of this Customer. The output of the printMonthlyReport() method 
+should match the sample output displayed in the examp le output . 
+Loops through loanAccounts ArrayList to use LoanAccount toString() 
+for each LoanAccount. ( -15) 
+ 
+• Main method  
+a. Uses the code in the main method as given in the assignment . (-10) 
+b. Displays the information using $ and % as shown in the output . (-5) 
+c. Displays the data with 2 decimal places for all dollar amounts  as shown . (-5) 
+d. All numbers should match numbers from ex ample output. ( -2 per case)  
+ 

@@ -1,0 +1,362 @@
+CMPSC 461, Fall 2025
+Programming Language Concepts
+Instructor: Dr. Suman Saha
+Conflict Midterm-I Solutions
+October 01, 2025 ||7:00 PM - 9:00 PM
+P# Possible Score
+1 20
+2 15
+3 10
+4 10
+5 10
+6 15
+Bonus 20
+Total 100
+This exam is a closed book and closed notes. You may not use any additional materials during the exam.
+All electronic devices must be put away. You may have nothing on your desk except this exam, and writing
+instruments. Make sure you use a pencil/pen of high contrast and your name, user ID,andstudent ID
+areclearly visible andlegible in the space provided. If you fail to do so Gradescope might not process it
+correctly. Also please don’t forget to mention your user IDoneach page (inthespace provided). If you are
+using the extra sheet or paper to answer your question make sure you mention a note about it under
+that particular question.
+This exam consists of 6 questions + 1 bonus question (in total 7 questions). The bonus question is 20 marks
+making exam total of 100 points (80 points + 20 points for bonus questions).
+How bonus question works: The maximum points you can score in this whole exam is 80 points. If you
+get all the first 6 six questions correct & you will score 80 points out of 100 points, you will be getting 80
+marks (100 %). If you do all 7 questions correctly and score 100 out of 100 marks, you will still be getting
+80 marks (100 %). If the total of your attempt in the whole exam is less than 80 points, for example: say 60
+pts out of 100 pts, your final score is 60 out of 80 (75%).
+Read each question carefully and use your time judiciously. The problems are not ordered by their difficulty.
+Also, the examples provided with the questions (if any) are not exhaustive.
+Please refer to the last page (appendix) to refer to the rules on how to approach and solve problems related
+to first and follow.
+
+User ID (Eg: abc2345):
+Problem 1: Regular Expressions [20pts]
+(a) Construct a regular expression to match a U.S. phone number: [7 pts]
+• It should start with optional country code, Accept either +1or nothing
+• Additionally, the area code (first 3 digits) cannot begin with 0 or 1
+• Phone number is of the format 3 digits - 3 digits - 4 digits
+• Separators are hyphens only
+Valid:
++1-234-567-8901
+234-567-8901
+Invalid:
++1-034-567-8901 – area code begins with 0
+123-4567-8901 – incorrect grouping of digits
+(b) Construct a regular expression over Σ ={0,1}that generates all binary strings that do not contain
+two consecutive 1. [7 pts]
+Valid:
+0
+1010
+01010
+Invalid:
+11– contains consecutive 1s
+1100 – starts with consecutive 1s
+1011 – ends with consecutive 1s
+CMPSC461, Fall-2025 |Conflict Midterm-I 2 /21
+
+User ID (Eg: abc2345):
+(c) Construct a regular expression for floating-point constants of the form: [6 pts]
+• Optional sign (+ or -),
+• One or more digits,
+• Decimal point .,
+• One or more digits.
+Valid:
+3.14
+-0.99
++123.456
+Invalid:
+.5– missing integer part before decimal
+123. – missing digits after decimal
+Solution
+a.(\+1-)?[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}
+b.(0|10) *1?
+c.(\+|-)?[0-9]+\.[0-9]+
+CMPSC461, Fall-2025 |Conflict Midterm-I 3 /21
+
+User ID (Eg: abc2345):
+Problem 2: Finite Automata [15pts]
+1. Design a DFA recognizing the string over the alphabet {1,2}where the string has odd number of 2s
+and all 1s (if any) in the string are followed by 2s. [5 pts]
+For example, accepted strings: 2,222,1222 ,112; rejected strings: ϵ,22,2222 ,21,21122 .
+Draw the graph clearly with states and transitions. Mark the start state and all accepting state(s). No
+explanation required. No transition table required.
+2. Design a NFA recognizing the string over the alphabet {a, b, c}where all bs are in substrings abc.
+[5 pts]
+For example, accepted strings: ϵ,abc,aabc ,abcacc ,abcabc ; rejected strings: abbbc ,abcb,cba.
+Draw the graph clearly with states and transitions. Mark the start state and all accepting state(s). No
+explanation required. No transition table required.
+3. Convert the following NFA transition table into equivalent DFA transition table using subset con-
+struction.
+[5 pts]
+Only DFA transition table is required. No Automata graph required. No explanation required. Also,
+mention the start state and all accepting state(s) in the derived DFA. You can omit the row if no
+transitions going out from the state or it cannot be reached from the start state.
+NFA State x y z
+q0 {q2}{q1, q2} ϕ
+q1 {q0}{q2} ϕ
+q2 ϕ {q1}{q0, q2}
+The start state is q0, and the accepting states are q0andq1.
+Solution
+1. One correct DFA is shown below:
+q0 q1 q2 q311
+2 2
+2 2
+CMPSC461, Fall-2025 |Conflict Midterm-I 4 /21
+
+User ID (Eg: abc2345):
+2. One correct NFA is shown below:
+q0 q1 q2 q3a, c
+a b c
+a, c
+3. The transition table is shown below:
+DFA State x y z
+q0 q2q1q2 ϵ
+q1 q0q2 ϵ
+q2 ϵ q1q0q2
+q0q2 q2q1q2q0q2
+q1q2 q0q1q2q0q2
+The start state is q0, and the accepting states are q0,q1,q0q2, and q1q2.
+CMPSC461, Fall-2025 |Conflict Midterm-I 5 /21
+
+User ID (Eg: abc2345):
+——— Extra page for Q2 ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 6 /21
+
+User ID (Eg: abc2345):
+Problem 3: Grammar I [10pts]
+Consider the grammar:
+1.L={w∈ {x, y}∗|whas at least two xs }. Some valid strings are xx, xyx, yxx, xxyy, etc.
+(a) Provide CFG for the language mentioned above. [4 pts]
+(b) Using grammar generated in part a), provide the left-most derivation for string yxxy. [3 pts]
+2.L={(ab)ncn|n≥1}. Some valid strings in the language are abc, ababcc, abababccc, etc.
+(a) Provide a CFG for the language. [3 pts]
+Solution
+1. (a)
+S→AxAxA
+A→xA|yA|ϵ
+(b)S⇒AxAxA ⇒yAxAxA ⇒yϵxAxA ⇒yxAxA ⇒yxϵxA ⇒yxxA ⇒yxxyA ⇒
+yxxyϵ =yxxy
+2.
+S→abSc|abc
+CMPSC461, Fall-2025 |Conflict Midterm-I 7 /21
+
+User ID (Eg: abc2345):
+Problem 4: Grammar II [10pts]
+Convert each of the following regular expressions into an equivalent CFG using BNF notation. Your gram-
+mar should be unambiguous and use a minimal number of production rules. To abbreviate ranges of con-
+secutive characters, you can use the syntax a| ··· | z.
+1.[2-9][0-9][0-9]-([2-9][0-9][0-9]-)?[0-9] {4} [5 pts]
+Matches strings like 200-1234 and800-555-0000 and999-999-9999 but not 199-9999
+or123-456-789-0000 or200-100-1234
+2.(0|[1-9][0-9] *)(\.[0-9] *[1-9])?e(0|[1-9][0-9] *) [5 pts]
+Matches strings like 0e0 and14.5e-5 and1.234e10 but not 01e0 or1e01 or1.2000e3
+Solution
+1.S→D1D0D0−N0D0D0D0D0
+N0→D1D0D0− |ϵ
+D0→0| ··· | 9
+D1→2| ··· | 9
+2.S→N0N1eN0
+N0→0|D1Dn
+N1→.DnD1|ϵ
+Dn→D0Dn|ϵ
+D0→0| ··· | 9
+D1→1| ··· | 9
+CMPSC461, Fall-2025 |Conflict Midterm-I 8 /21
+
+User ID (Eg: abc2345):
+——— Extra page for Q4 ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 9 /21
+
+User ID (Eg: abc2345):
+Problem 5: Name, Scope, and Binding I [10pts]
+Consider the following pseudo-code:
+int z = 99;
+void reporter() {
+print(z);
+}
+void recur( int n) {
+if(n > 0) {
+int z = n *5;
+recur(n - 1);
+}
+if(n == 2) {
+reporter();
+}
+}
+void main() {
+recur(3);
+print(z);
+}
+(a) Draw a diagram of the runtime stack at the exact moment the reporter() function is called. For
+each activation frame, clearly label its static link anddynamic link . [4 pts]
+(b) What is the complete output of this program, assuming the language uses: [6 pts]
+i. Static scoping?
+ii. Dynamic scoping?
+Solution
+(a)Runtime Stack at reporter() call
+reporter()
+recur(2)
+local z=10
+recur(3)
+local z=15
+Main()Static Links
+Dynamic Links
+CMPSC461, Fall-2025 |Conflict Midterm-I 10 /21
+
+User ID (Eg: abc2345):
+(b)Program Outputs
+i. Static scoping: 99 99
+ii. Dynamic scoping: 10 99
+CMPSC461, Fall-2025 |Conflict Midterm-I 11 /21
+
+User ID (Eg: abc2345):
+——— Extra page for Q5 ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 12 /21
+
+User ID (Eg: abc2345):
+Problem 6: Name, Scope and Binding II [15pts]
+Consider the following pseudo-code, assuming dynamic scoping rules:
+1typedef void (*FuncPtr)();
+2
+3void action() {
+4 print(y);
+5}
+6
+7FuncPtr maker( int n) {
+8 int y = n *5;
+9 return action;
+10}
+11
+12void driver(FuncPtr F) {
+13 int y = 99;
+14 F();
+15}
+16
+17void main() {
+18 FuncPtr f = maker(7);
+19 driver(f);
+20}
+(A) Draw the symbol tables for the scopes global ,action ,maker , anddriver . [5 pts]
+(B)What is the output with shallow binding ? Justify via the call chain. [5 pts]
+(C) What is the output with deep binding ? Explain how a closure preserves the captured environment.
+[5 pts]
+Solution
+(A) Symbol Tables
+global
+name kind
+action func
+maker func
+driver func
+main funcaction
+name kind
+maker
+name kind
+n para
+y iddriver
+name kind
+F para
+(func)
+y id
+CMPSC461, Fall-2025 |Conflict Midterm-I 13 /21
+
+User ID (Eg: abc2345):
+(B) Shallow binding output: 99.
+Explanation: Shallow binding resolves variables from the call site . The function ‘action‘ is called
+from within ‘driver‘. The call stack is ‘main - >driver - >action‘. The search for ‘y‘ checks ‘action‘
+(none), and then its caller, ‘driver‘, where it finds the local ‘y = 99‘.
+(C) Deep binding output: 35.
+Explanation: Deep binding uses a closure to capture the environment where the function reference
+wascreated . The reference to ‘action‘ is created when ‘maker(7)‘ is called. At this point, a closure
+is formed, bundling ‘action‘ with the environment of ‘maker‘, where ‘y = 7 * 5 = 35‘. Even though
+‘action‘ is called later from inside ‘driver‘, it uses this preserved environment from its closure to find
+‘y‘, printing ‘35‘.
+CMPSC461, Fall-2025 |Conflict Midterm-I 14 /21
+
+User ID (Eg: abc2345):
+——— Extra page for Q6 ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 15 /21
+
+User ID (Eg: abc2345):
+Problem 7: Bonus [20pts]
+1. Consider the grammar:
+S→A C
+A→a|ϵ
+C→c C|d
+(a) Compute the FIRST andFOLLOW sets for S, A, C . [5 pts]
+(b) Construct the LL(1) parsing table and state whether the grammar is LL(1). [7 pts]
+2. In Python, functions are declared using the def keyword, a function name, and a pair of parentheses
+containing a parameter list . This list contains zero or more variable names followed by zero or more
+variables with default values. This parameter list can be expressed using the following CFG: [8 pts]
+S→X, Y|X|Y|ϵ
+X→X, X| ⟨var⟩
+Y→Y, Y| ⟨var⟩=⟨expr⟩
+This grammar matches inputs like var 1, var 2=expr2but rejects inputs like var 1=expr1, var 2.
+Show that the grammar is ambiguous using right-most derivation and the smallest possible example.
+Make sure to clearly indicate which rule is being applied at each step.
+Solution
+1. (a) FIRST sets: FIRST (A) ={a, ϵ},FIRST (C) ={c, d},FIRST (S) ={a, c, d}.
+FOLLOW sets: FOLLOW (S) ={$},FOLLOW (A) ={c, d},FOLLOW (C) ={$}.
+(b) Parsing table:
+Non-terminal a c d $
+S S→AC S→AC S→AC
+A A→a A→ϵ A→ϵ
+C C→cC C→d
+No conflicts ⇒Grammar is LL(1).
+CMPSC461, Fall-2025 |Conflict Midterm-I 16 /21
+
+User ID (Eg: abc2345):
+2. The grammar is ambiguous for three or more parameters of a single kind. ⟨var⟩,⟨var⟩,⟨var⟩and
+⟨var⟩=⟨expr⟩,⟨var⟩=⟨expr⟩,⟨var⟩=⟨expr⟩are functionally equivalent, so only the former is
+shown below:
+S S→X
+X X→X, X
+X, X X→X, X
+X, X, X X→ ⟨var⟩
+⟨var⟩, X, X X→ ⟨var⟩
+⟨var⟩,⟨var⟩, X X→ ⟨var⟩
+(a) First DerivationS S→X
+X X→X, X
+X, X X→ ⟨var⟩
+⟨var⟩, X X→X, X
+⟨var⟩, X, X X→ ⟨var⟩
+⟨var⟩,⟨var⟩, X X→ ⟨var⟩
+(b) Second Derivation
+CMPSC461, Fall-2025 |Conflict Midterm-I 17 /21
+
+User ID (Eg: abc2345):
+——— Extra page for Q7 ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 18 /21
+
+User ID (Eg: abc2345):
+——— Extra page if needed. ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 19 /21
+
+User ID (Eg: abc2345):
+——— Extra page if needed. ———
+CMPSC461, Fall-2025 |Conflict Midterm-I 20 /21
+
+User ID (Eg: abc2345):
+Appendix
+First(C)
+FIRST(C) for a grammar symbol C is the set of terminals that begin the strings derivable from C. Formally,
+it is defined as:
+First(C) ={t|C→∗tα} ∪ {ε|C→∗ε}
+Follow(C)
+Follow(C) is defined to be the set of terminals that can appear immediately to the right of Non-Terminal C
+in some sentential form.
+Rules:
+• If C is the start symbol, then $ ∈Follow(C).
+• IfC→AB, then First (B)⊆Follow (A)and Follow (C)⊆Follow (B).
+• Also, if B→∗ε, then Follow (C)⊆Follow (A).
+Constructing LL(1) Parsing Table
+Construct a parsing table Tfor CFG Gusing the following procedure:
+For each production A→αinGdo:
+1. For each terminal t∈First(α)do
+•T[A, t] =α
+2. If ε∈First(α), for each t∈Follow (A)do
+•T[A, t] =α
+3. If ε∈First(α)and $∈Follow (A)do
+•T[A,$] =α
+CMPSC461, Fall-2025 |Conflict Midterm-I 21 /21
