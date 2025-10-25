@@ -390,11 +390,11 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
             </button>
             <button
               type="button"
-              onClick={onMinimize}
-              aria-label="Minimize window"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[rgba(40,39,45,0.6)] text-base font-semibold text-slate-300 transition hover:border-[rgba(0,173,181,0.5)] hover:text-[rgba(0,173,181,0.95)]"
+              onClick={onClose}
+              aria-label="Close window"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-[rgba(40,39,45,0.6)] text-base font-semibold text-slate-400 transition hover:border-red-400 hover:text-red-300"
             >
-              -
+              X
             </button>
           </div>
         </div>
