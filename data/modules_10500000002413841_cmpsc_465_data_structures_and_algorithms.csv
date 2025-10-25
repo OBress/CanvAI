@@ -1,0 +1,2 @@
+id,name,completed_at,items_count,items_url,position,prerequisite_module_ids,publish_final_grade,require_sequential_progress,requirement_type,state,unlock_at
+10500000005764190,Academic Integrity in EECS,2025-08-26T15:51:35Z,6,https://canvas.instructure.com/api/v1/courses/1050~2413841/modules/1050~5764190/items,1,[],False,False,all,completed,
