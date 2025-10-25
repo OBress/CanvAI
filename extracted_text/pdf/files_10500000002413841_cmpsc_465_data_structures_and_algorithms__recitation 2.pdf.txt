@@ -1,0 +1,30 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 2
+Monday, Sep 15, 2025
+1. k-th Smallest. Given two sorted arrays AandBof size mandnrespectively, and an integer k, 1≤
+k≤m+n, design an algorithm to find the k-th smallest number in AandB. Describe your algorithm
+and analyze the running time of your algorithm. Your algorithm should run in O(log(m+n))time.
+2. Matrices. Ais an n×nmatrix containing integers. For simplicity, you may assume nis a power of
+2. Design a divide-and-conquer algorithm to find the maximum element of A. Write the recurrence
+relation for the time complexity and report its runtime in Θnotation. What do you observe?
+3. Selection. Consider the selection algorithm in which the input elements are divided into groups of 7.
+Write the recurrence to describe the worst-case running time of the algorithm and find the solution of
+the recurrence.
+4. Selection. Suppose you have a black box algorithm A1 that finds the ⌊n/10⌋-th smallest of nelements
+(for any given n). Show that you can find the median of nelements by making O(1)calls to A1 and
+using no other pairwise element-comparisons.
+5. Merge. A k-way merge operation. Suppose you have ksorted arrays, each with nelements, and you
+want to combine them into a single sorted array of knelements.
+a) Here’s one strategy: Using the merge procedure, merge the first two arrays, then merge in the
+third, then merge in the fourth, and so on. What is the time complexity of this algorithm, in
+terms of kandn?
+b) Give a more efficient solution to this problem, using divide-and-conquer.
+6. Array Rotations. Consider a rotation operation that takes an array and moves its last element to the
+beginning. After nrotations, an array [a0,a1,a2...am−1]of size mwhere 0 <n≤m, will become:
+[am−n,am−n+1,..., am−2,am−1,a0,a1,...am−n−1]
+Notice how am−1is adjacent to a0in the middle of the new array. For example, two rotations on the
+array [1,2,3,4,5]will yield [4,5,1,2,3].
+You are given a list of unique integers nums , which was previously sorted in ascending order, but has
+now been rotated an unknown number of times. Find the number of rotations in O(logn)time. (Hint:
+consider Binary Search.)
+CMPSC 465, Fall 2025, Worksheet 2 1

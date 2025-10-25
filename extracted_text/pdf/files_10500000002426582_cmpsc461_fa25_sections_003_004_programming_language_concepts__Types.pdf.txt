@@ -1,0 +1,239 @@
+Types
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Basic Types
+•Types that are not defined on top of other types
+•Examples: int, float, bool, char
+•Composite types: struct types; arrays; pointer types; function types …
+CMPSC 461 –Programming Language Concepts
+
+Memory units for storing types
+•Terminology in use with current 32-bit computers:
+•Nibble: 4 bits (a hex digit)
+•Byte: 8 bits
+•Half-word: 16 bits
+•Word: 32 bits
+•Double word: 64 bits
+•Quad word: 128 bits
+CMPSC 461 –Programming Language Concepts
+
+Integer types
+•In most languages, integer types are finite in size.
+•For example, Java
+•byte: 8-bits; short: half-word; int: a word; long: a double word
+•So, a + bmay overflow the finite range.
+•E.g., (2^32 -1) + 1 -> 0
+• There’s also a difference between signed and unsigned representations
+CMPSC 461 –Programming Language Concepts
+
+Floating point types
+•Model real numbers, but only as approximations
+•Single precision (float): 32 bits, double precision (double): 64 bits
+•IEEE Standard 754 Floating Point Numbers are represented using three 
+components
+•The sign of Mantissa
+•Exponent
+•Mantissa
+CMPSC 461 –Programming Language Concepts
+
+
+Boolean and Character (omit)
+•Boolean: true, false
+•Could be implemented as bits, but often as bytes
+•Advantage: increase readability
+•Character
+•Stored as numeric codings(e.g., ASCII, ISO 8859-1, Unicode: Java, JavaScript, C#)
+•UTF-8, UTF-16, UTF-32
+CMPSC 461 –Programming Language Concepts
+
+Enumeration types
+•Enumeration (C/C++):
+• enum day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
+• enum day myDay = Wednesday;
+•In C/C++ the above values of this type are 0, ..., 6.
+•More powerful in Java:
+enum day {Monday, …, Sunday};
+for (day d : day.values())
+Sytem.out.println(d);
+CMPSC 461 –Programming Language Concepts
+
+Records and Structure
+•Usually laid out contiguously
+•Possible holes for alignment
+•Compilers may re-arrange field to minimize holes
+CMPSC 461 –Programming Language Concepts
+
+
+Records and Structure
+CMPSC 461 –Programming Language Concepts
+
+
+Records and Structure
+CMPSC 461 –Programming Language Concepts
+
+
+Union Types
+CMPSC 461 –Programming Language Concepts
+
+
+Union Types
+CMPSC 461 –Programming Language Concepts
+
+
+Discriminated Union Types
+CMPSC 461 –Programming Language Concepts
+
+
+Sum Types
+CMPSC 461 –Programming Language Concepts
+
+
+Sum Types are General
+CMPSC 461 –Programming Language Concepts
+
+
+Sum Types and Product Types
+CMPSC 461 –Programming Language Concepts
+
+
+Array
+Lifetime and array size
+•Global lifetime, static shape
+•Local lifetime, static shape
+•Local lifetime, Dynamic shape
+CMPSC 461 –Programming Language Concepts
+
+
+C Array
+•Static/Stack/Heap allocated
+•Size statically/dynamically determined
+•Array bounds not checked (buffer overflow)
+CMPSC 461 –Programming Language Concepts
+
+Java Array
+•Heap allocated
+•Size dynamically determined
+•Array size is part of stored data (Dope Vector)
+•Array bounds checked
+CMPSC 461 –Programming Language Concepts
+
+Dope Vectors
+CMPSC 461 –Programming Language Concepts
+
+Address Calculation 
+(one dimension Array)
+CMPSC 461 –Programming Language ConceptsAddress of A[3] = B + W * (i–LB)
+= 1100 + 4 * (3 –0) = 1112 
+
+
+Memory Layout
+CMPSC 461 –Programming Language Concepts
+
+
+Address Calculation (Row Major)
+CMPSC 461 –Programming Language Concepts
+
+
+Address Calculation (Column Major)
+CMPSC 461 –Programming Language Concepts
+
+
+Memory Layout
+CMPSC 461 –Programming Language Concepts
+
+
+Pointers
+What are they?
+•A set memory addresses and operations on them
+•Values: legal addresses, and a special value, nil
+CMPSC 461 –Programming Language Concepts
+
+
+Pointers
+Operations: assignment, dereferencing, arithmetic
+Uses
+•Indirect addressing (access arbitrary address)
+•Manage dynamic storage (heap)
+CMPSC 461 –Programming Language Concepts
+
+
+Pointers vs. References
+•Pointers: int *p;
+•References: int &p;
+Value Model vs. Reference Model: A = B 
+•Value model: the value of B is copied to A 
+•Reference model: A is an alias of B (same memory) 
+•Java: primitive types follow value model; objects follow reference model
+CMPSC 461 –Programming Language Concepts
+
+References
+•Restricted pointers: cannot be used as value or operated in any way 
+•Not directly visible to the programmer No explicit data type 
+double r=2.3; 
+double& s=r; //s is an alias of r (share memory) 
+double *p = &r; //p has value: address of r 
+s += 1; *p += 1;
+CMPSC 461 –Programming Language Concepts
+
+References
+Uses
+•Indirect addressing (access arbitrary address)
+•Manage dynamic storage (heap)
+Alias of existing variable
+CMPSC 461 –Programming Language Concepts
+
+The Nil Pointer Problem
+“I call it my billion-dollar mistake. It was the invention of the null reference in 
+1965. ... This has led to innumerable errors, vulnerabilities, and system 
+crashes, which have probably caused a billion dollars of pain and damage in 
+the last forty years.” 
+C.A.R. Hoare, 2009 
+How to avoid it?
+CMPSC 461 –Programming Language Concepts
+
+String
+•Now so fundamental, directly supported.
+•In C, a string is a 1D array with the string value terminated by a NUL 
+character (value = 0).
+•In Java, Perl, Python, a string variable can hold an unbounded number of 
+characters
+•Libraries of string operations and functions.
+CMPSC 461 –Programming Language Concepts
+
+Function Type
+•Pascal example:
+• function newton(a, b: real; function f: real): real;
+•Know that freturns a real value, but the arguments to fare unspecified.
+•Strongly typed functional language
+•Functions are first class
+•Accepts functions as arguments and return functions as results
+CMPSC 461 –Programming Language Concepts
+
+Function Type
+•ML: T1 -> T2
+•-> is right-associative
+•T1 -> T2 -> T3 is the same as T1 -> (T2 -> T3)
+•Examples:
+•int -> int -> int
+•int -> (int -> int) -> int
+•(int -> int) -> (int -> int)
+CMPSC 461 –Programming Language Concepts
+
+Subtypes
+•S is a subtype of T if S extends or implements T
+•A subtype is a type that has certain constraints placed on its values or operations.
+CMPSC 461 –Programming Language Concepts
+
+Type Conversions
+•A type conversion is usually done by a conversion function
+•e.g., 3 + 5.0; 3 + “hello”
+•A widening conversion if the result type permits more bits
+•E.g., in C, byte b = 23; int i = (int) b;
+•A type conversion is a narrowing conversion if the result type permits fewer 
+bits, thus potentially losing information.
+•in C, int i = 1911; byte b = (byte) i;
+•implicitnarrowing conversions may be harmful
+•Why?
+CMPSC 461 –Programming Language Concepts

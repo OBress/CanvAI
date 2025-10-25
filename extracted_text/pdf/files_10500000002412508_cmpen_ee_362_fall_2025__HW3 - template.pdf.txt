@@ -1,0 +1,154 @@
+CMPEN/EE 362 - HW3  
+Student Name: _________________________  
+Problem 1  
+Suppose web clients with IP addresses A and B are connecting to a web server with IP address S. Client A 
+opens one connection listened to by process P1 on port a. Client B opens two connections listened to by 
+processes P3 and P4, respectively, on ports b1 and b2, respectively. The server runs a single process P2 
+listening on port s.  
+ 
+a) Use the following table to give the header fields of packets between the nodes.  
+ Source IP  Destination IP  source port#  destination port#  
+P1→P2     
+P3→P2     
+P4→P2     
+P2→P4     
+ 
+b) Can port a be the same as port b1?  
+c) Can port b2 be the same as port b1?  
+d) How many sockets the server needs to create? Of what type?  
+  
+P1P2
+P3 P4
+IP: AIP: S
+IP: BPort: b2Port: s
+Port: b1 Port: a
+
+Problem 2  
+Lookup the 8 -bit ASCII codes for “Hello world!” . 
+a) Compute the checksum.  
+b) Is it possible that a 1 -bit error is undetected?  
+c) Is it possible that a 2 -bit error is undetected? If so, give an example.  
+  
+
+Problem 3  
+Consider rdt2.1. What  will happen if the receiver always responds NAK as long as the received packet is 
+not the expected packet, i.e., it responds NAK if the received packet is corrupted or has the wrong 
+sequence number ( i.e., has_seq0 in “Wait for 1 from below” or has_seq1 in “Wait for 0 from below”)? 
+Explain.  
+  
+
+Problem 4  
+Complete the FSM for receiv er C in the m ulti-to-one rdt by giving the event -action list for each of the 
+remaining edges (edges (7) -(12)) . 
+  
+
+Problem 5  
+Complete the FSM for sender A in the one -to-multi rdt by giving the event -action list for each of the 
+remaining edges (edges (9) -(20)) . 
+  
+
+Problem 6  
+Hosts A and B has established a TCP connection, and Host B has received from A all bytes up to byte 200  
+(inclusive) . Suppose Host A sends three segments to Host B, containing 100, 60, 120 bytes of data, 
+respectively. Assume that out -of-order packets are buffered by the receiver. Give the sequence number 
+of each segment  sent by A  and the acknowledgement number of each segment  received by A,  in each of 
+the following scenarios:  
+a) All transmissions are in -order and successful . 
+ 
+b) The first segment sent by A is lost.  
+  
+c) The first acknowledgement sent by B is lost.  Ack
+AckPkt1
+Pkt3Pkt2 AckHost A Host B
+Timeout 
+interval
+(a) successful
+Pkt1
+AckAck
+AckPkt1
+Pkt3Pkt2Host A Host B
+Timeout 
+interval
+(b) lost packet
+
+ 
+d) The second segment sent by A arrives after the third segment.  
+ 
+  Pkt1
+AckAck
+AckPkt1
+Pkt3Pkt2Host A Host B
+Timeout 
+interval
+(c) lost ACK
+Timeout 
+intervalAck
+Ack
+AckPkt1
+Pkt3Pkt2Host A Host B
+(d) out -of-order packetTimeout 
+interval
+
+Problem 7  
+Suppose that initially, EstimatedRTT=80 ms, and DevRTT=20 ms. Let α =0.12 and β =0.23. Given five 
+measurements of SampleRTT: 70 ms, 110 ms, 102 ms, 90 ms, and 115 ms,  
+a) Compute the value of EstimatedRTT after each measurement;  
+b) Compute the corresponding value of DevRTT;  
+c) Compute the corresponding value of TimeoutInterval.  
+  
+
+Problem 8  
+Suppose Host A sends 6 consecutive segments to Host B using a window size of 6. Suppose the 1st 
+segment is lost (when transmitted for the first time) and there is no further loss. Suppose that the 
+sequence number starts from 1 and increments by 1 per segment (each segment has 1 byte in payload). 
+Further suppose that under Go -Back -N (GBN) or Selectiv e-Repeat (SR) protocol, the acknowledgement 
+number is the sequence number of the segment it acknowledges (initially 0), and under TCP, the 
+acknowledgement number  is the sequence number of the next segment it expects (initially 1). In the 
+case of TCP, suppose that the sender uses fast retransmission, the receiver buffers out -of-order 
+segments, and the sender finishes transmitting the 6th segment before receiving any ACK.  
+a) Under each of GBN, SR, and TCP: How many segments will Host A send in total? How many ACKs will Host B send in total?  
+b) Give the sequence number of each segment sent by A, and the acknowledgement number of 
+each ACK sent by B, under each protocol.  
+c) Suppose that the timeout values of all three protocols are longer than the time to send 6 
+segments and receive their ACKs (if not lost). Which protocol delivers all the segments fastest? 
+Why?  
+ 
+  
+
+Problem 9 (optional , not graded )  
+Assume TCP Reno is used, and the congestion window exhibits the following evolution. Answer the 
+following questions, each with a short explanation of your answer.  
+ 
+a) Identify the intervals of time when TCP slow start is operating.  
+b) Identify the intervals of time when TCP congestion avoidance is operating.  
+c) After the 16th transmission round, is segment loss detected by a triple duplicate ACK or by a 
+timeout?  
+d) After the 22nd transmission round, is segment loss detected by a triple duplicate ACK or by a 
+timeout?  
+e) What is the initial value of ssthresh at the first transmission round?  
+f) What is the value of ssthresh at the 18th transmission round?  
+g) What is the value of ssthresh at the 24th transmission round?  
+h) During what transmission round is the 70th segment sent?  
+i) Assuming that the first three ACKs received in  the 26th round are all  duplicate ACK s, what will be 
+the values of the congestion window size and of ssthresh  upon receiving the third duplicate 
+ACK? 
+j) Suppose TCP Tahoe is used (instead of TCP Reno), and assume that a triple duplicate ACK  is 
+received at the 16th round. What are the ssthresh and the congestion window size at the 19th 
+round?  
+k) Again suppose TCP Tahoe is used, and there is a timeout event at the 22nd round. How many 
+packets have been sent out from 17th round till 22nd round (inclusive)?  
+ 
+  
+
+Problem 10  (optional , not graded ) 
+Suppose that the congestion window of a TCP connection starts from W/2 bytes, grows as  specified  in 
+the congestion avoidance state until reaching W bytes, and then resets to W/2 bytes upon detecting a 
+lost segment . Assume each segment contains MSS bytes of data, and each round  takes RTT seconds.  
+Assume W/(2MSS) is an integer.   
+a) Give the number of rounds it takes for the window to grow from W/2 to W.  
+b) Give the total number of bytes transmitted in a period, i.e., the period from the time the 
+window is W/2 to just before the next time it becomes W/2 again.  
+c) Give the loss rate  L (fraction of lost segments in the long run).  
+d) Show that for W  >> MSS (>>: much larger than), the average throughput is approximately  
+1.22 ∙𝑀𝑀𝑀𝑀𝑀𝑀
+𝑅𝑅𝑅𝑅𝑅𝑅∙√𝐿𝐿 

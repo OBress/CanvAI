@@ -1,0 +1,51 @@
+Review (Midterm- 1)
+Professor: Suman Saha
+CMPSC 461 – Programming Language Concepts
+
+
+Midterm -1
+Date and Time: 
+29th September at8:10 PM – 10:00 PM.
+Duration: 1 Hour 50 Minutes
+Location:
+•Deike  022: Students whose last names begin with 'A' to 'D’
+•Forum 105: Students whose last names begin with 'E' to 'O’
+•Forum 108: Students whose last names begin with 'P' to 'Z’
+Arrive on time (ideally 10 minutes early)
+CMPSC 461 – Programming Language Concepts
+
+Exam Format
+•The exam consists of 7 questions, with a total of 20 marks considered 
+towards bonus points making it a total of 100 points. 
+•How bonus points work: 
+•The maximum points you can earn is 80 points. 
+•If you get all seven questions correct, you will still get 80 points. 
+•If you get less than 80 points in the whole exam, you can get up to 20 points from the 
+bonus to reach 80 points.
+CMPSC 461 – Programming Language Concepts
+
+Lexical Analysis
+•Create Regular Expression
+•Write down the set of strings recognized by the given regular expression
+•Design NFA and DFA for given set of strings
+•Convert Regular expression to DFA/NFA
+CMPSC 461 – Programming Language Concepts
+
+Syntax Analysis
+•Constructing Grammar (Context -free, BNF, EBNF)
+•Leftmost and Right most derivation
+•Top-down and Bottom- up parsing
+•Ambiguous Grammar
+•Convert Ambiguous to Unambiguous grammar 
+•Abstract Syntax Tree
+•First, Follow, and Parsing Table
+CMPSC 461 – Programming Language Concepts
+
+Name, Scope and Bindings
+CMPSC 461 – Programming Language Concepts•Lifetime, Scope and binding of variable
+•Understanding Stack(including call stacks), Heap and Static Data 
+Segments
+•Static and dynamic scope
+•Constructing Symbol tables
+•Shallow and Deep binding
+•Static and dynamic link with call stacks

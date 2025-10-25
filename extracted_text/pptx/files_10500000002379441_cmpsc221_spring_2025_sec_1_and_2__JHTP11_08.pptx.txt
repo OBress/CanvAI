@@ -1,0 +1,565 @@
+Chapter 8Classes and Objects: A Deeper Look
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.1  Introduction 
+
+Deeper look at building classes, controlling access to members of a class and creating constructors. 
+Show how to throw an exception to indicate that a problem has occurred.
+Composition—a capability that allows a class to have references to objects of other classes as members. 
+More details on enum types. 
+Discuss static class members and final instance variables in detail. 
+Show how to organize classes in packages to help manage large applications and promote reuse.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.2  Time Class Case Study
+
+Class Time1 represents the time of day. 
+private int instance variables hour, minute and second represent the time in universal-time format (24-hour clock format in which hours are in the range 0–23, and minutes and seconds are each in the range 0–59). 
+public methods setTime, toUniversalString and toString. 
+Clled the public services or the public interface that the class provides to its clients. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.2  Time Class Case Study (Cont.)
+
+Class Time1 does not declare a constructor, so the compiler supplies a default constructor. 
+Each instance variable implicitly receives the default int value. 
+Instance variables also can be initialized when they are declared in the class body, using the same initialization syntax as with a local variable. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.2  Time Class Case Study (Cont.)
+
+Method setTime and Throwing Exceptions
+Method setTime declares three int parameters and uses them to set the time. 
+Lines 13–14 test each argument to determine whether the value is outside the proper range. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.2  Time Class Case Study (Cont.)
+
+Method setTime and Throwing Exceptions (cont.)
+For incorrect values, setTime throws an exception of type IllegalArgumentException
+Notifies the client code that an invalid argument was passed to the method. 
+Can use try...catch to catch exceptions and attempt to recover from them. 
+The class instance creation expression in the throw statement creates a new object of type IllegalArgumentException. In this case, we call the constructor that allows us to specify a custom error message. 
+After the exception object is created, the throw statement immediately terminates method setTime and the exception is returned to the calling method that attempted to set the time.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.2  Time Class Case Study (Cont.)
+
+Software Engineering of the Time1 Class Declaration
+The instance variables hour, minute and second are each declared private. 
+The actual data representation used within the class is of no concern to the class’s clients. 
+Reasonable for Time1 to represent the time internally as the number of seconds since midnight or the number of minutes and seconds since midnight. 
+Clients could use the same public methods and get the same results without being aware of this. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.2  Time Class Case Study (Cont.)
+
+Java SE 8—Date/Time API
+Rather than building your own date and time classes, you’ll typically reuse the ones provided by the Java API. 
+Java SE 8 introduces a new Date/Time API—defined by the classes in the package java.time—applications built with Java SE 8 should use the Date/Time API’s capabilities, rather than those in earlier Java versions. 
+fixes various issues with the older classes and provides more robust, easier-to-use capabilities for manipulating dates, times, time zones, calendars and more. 
+We use some Date/Time API features in Chapter 23. 
+Learn more about the Date/Time API’s classes at:
+download.java.net/jdk8/docs/api/java/time/package-summary.html
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.3  Controlling Access to Members 
+
+Access modifiers public and private control access to a class’s variables and methods. 
+Chapter 9 introduces access modifier protected. 
+public methods present to the class’s clients a view of the services the class provides (the class’s public interface). 
+Clients need not be concerned with how the class accomplishes its tasks. 
+For this reason, the class’s private variables and private methods (i.e., its implementation details) are not accessible to its clients. 
+private class members are not accessible outside the class. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.4  Referring to the Current Object’s Members with the this Reference
+
+Every object can access a reference to itself with keyword this.
+When a an instance method is called for a particular object, the method’s body implicitly uses keyword this to refer to the object’s instance variables and other methods. 
+Enables the class’s code to know which object should be manipulated. 
+Can also use keyword this explicitly in an instance method’s body. 
+Can use the this reference implicitly and explicitly.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.4  Referring to the Current Object’s Members with the this Reference (Cont.)
+
+When you compile a .java file containing more than one class, the compiler produces a separate class file with the .class extension for every compiled class. 
+When one source-code (.java) file contains multiple class declarations, the compiler places both class files for those classes in the same directory. 
+A source-code file can contain only one public class—otherwise, a compilation error occurs. 
+Non-public classes can be used only by other classes in the same package. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.4  Referring to the Current Object’s Members with the this Reference (Cont.)
+
+SimpleTime declares three private instance variables—hour, minute and second. 
+If parameter names for the constructor that are identical to the class’s instance-variable names. 
+We use the this reference to refer to the instance variables.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.5  Time Class Case Study: Overloaded Constructors 
+
+Overloaded constructors enable objects of a class to be initialized in different ways. 
+To overload constructors, simply provide multiple constructor declarations with different signatures. 
+Recall that the compiler differentiates signatures by the number of parameters, the types of the parameters and the order of the parameter types in each signature.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.5  Time Class Case Study: Overloaded Constructors (Cont.)
+
+Class Time2 (Fig. 8.5) contains five overloaded constructors that provide convenient ways to initialize objects. 
+The compiler invokes the appropriate constructor by matching the number, types and order of the types of the arguments specified in the constructor call with the number, types and order of the types of the parameters specified in each constructor declaration. 
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.5  Time Class Case Study: Overloaded Constructors (Cont.)
+
+Using this as shown here is a popular way to reuse initialization code provided by another of the class’s constructors 
+A constructor that calls another constructor in this manner is known as a delegating constructor
+Makes the class easier to maintain and modify
+If we need to change how objects of class Time2 are initialized, only the constructor that the class’s other constructors call will need to be modified
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.5  Time Class Case Study: Overloaded Constructors (Cont.)
+
+A program can declare a so-called no-argument constructor that is invoked without arguments. 
+Such a constructor simply initializes the object as specified in the constructor’s body. 
+Using this in method-call syntax as the first statement in a constructor’s body invokes another constructor of the same class.
+Popular way to reuse initialization code provided by another of the class’s constructors rather than defining similar code in the no-argument constructor’s body. 
+Once you declare any constructors in a class, the compiler will not provide a default constructor.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.5  Time Class Case Study: Overloaded Constructors (Cont.)
+
+Notes Regarding Class Time2’s set and get Methods and Constructors
+Methods can access a class’s private data directly without calling the get methods. 
+However, consider changing the representation of the time from three int values (requiring 12 bytes of memory) to a single int value representing the total number of seconds that have elapsed since midnight (requiring only four bytes of memory). 
+If we made such a change, only the bodies of the methods that access the private data directly would need to change—in particular, the three-argument constructor, the setTime method and the individual set and get methods for the hour, minute and second. 
+There would be no need to modify the bodies of methods toUniversalString or toString because they do not access the data directly. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.5  Time Class Case Study: Overloaded Constructors (Cont.)
+
+Designing the class in this manner reduces the likelihood of programming errors when altering the class’s implementation. 
+Similarly, each Time2 constructor could be written to include a copy of the appropriate statements from the three-argument constructor. 
+Doing so may be slightly more efficient, because the extra constructor calls are eliminated. 
+But, duplicating statements makes changing the class’s internal data representation more difficult. 
+Having the Time2 constructors call the constructor with three arguments requires any changes to the implementation of the three-argument constructor be made only once. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.6  Default and No-Argument Constructors
+
+Every class must have at least one constructor. 
+If you do not provide any constructors in a class’s declaration, the compiler creates a default constructor that takes no arguments when it’s invoked. 
+The default constructor initializes the instance variables to the initial values specified in their declarations or to their default values (zero for primitive numeric types, false for boolean values and null for references). 
+Recall that if your class declares constructors, the compiler will not create a default constructor. 
+In this case, you must declare a no-argument constructor if default initialization is required. 
+Like a default constructor, a no-argument constructor is invoked with empty parentheses. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.7  Notes on Set and Get Methods
+
+Set methods are also commonly called mutator methods, because they typically change an object’s state—i.e., modify the values of instance variables. 
+Get methods are also commonly called accessor methods or query methods. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.7  Notes on Set and Get Methods (Cont.)
+
+It would seem that providing set and get capabilities is essentially the same as making a class’s instance variables public. 
+A public instance variable can be read or written by any method that has a reference to an object that contains that variable. 
+If an instance variable is declared private, a public get method certainly allows other methods to access it, but the get method can control how the client can access it. 
+A public set method can—and should—carefully scrutinize at-tempts to modify the variable’s value to ensure valid values. 
+Although set and get methods provide access to private data, it is restricted by the implementation of the methods. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.7  Notes on Set and Get Methods (Cont.)
+
+Validity Checking in Set Methods
+The benefits of data integrity do not follow automatically simply because instance variables are declared private—you must provide validity checking. 
+Predicate Methods
+Another common use for accessor methods is to test whether a condition is true or false—such methods are often called predicate methods. 
+Example: ArrayList’s isEmpty method, which returns true if the ArrayList is empty and false otherwise. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.8  Composition
+
+A class can have references to objects of other classes as members. 
+This is called composition and is sometimes referred to as a has-a relationship. 
+Example: An AlarmClock object needs to know the current time and the time when it’s supposed to sound its alarm, so it’s reasonable to include two references to Time objects in an AlarmClock object. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.9  enum Types
+
+The basic enum type defines a set of constants represented as unique identifiers. 
+Like classes, all enum types are reference types. 
+An enum type is declared with an enum declaration, which is a comma-separated list of enum constants
+The declaration may optionally include other components of traditional classes, such as constructors, fields and methods. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.9  Enum Types (Cont.)
+
+Each enum declaration declares an enum class with the following restrictions:
+enum constants are implicitly final.
+enum constants are implicitly static.
+Any attempt to create an object of an enum type with operator new results in a compilation error. 
+enum constants can be used anywhere constants can be used, such as in the case labels of switch statements and to control enhanced for statements. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.9  Enum Types (Cont.)
+
+enum declarations contain two parts—the enum constants and the other members of the enum type. 
+An enum constructor can specify any number of parameters and can be overloaded. 
+For every enum, the compiler generates the static method values that returns an array of the enum’s constants.
+When an enum constant is converted to a String, the constant’s identifier is used as the String representation. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.9   Enum Types (Cont.)
+
+Use the static method range of class EnumSet (declared in package java.util) to access a range of an enum’s constants. 
+Method range takes two parameters—the first and the last enum constants in the range
+Returns an EnumSet that contains all the constants between these two constants, inclusive. 
+The enhanced for statement can be used with an EnumSet just as it can with an array. 
+Class EnumSet provides several other static methods. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.10  Garbage Collection
+
+Every object uses system resources, such as memory. 
+Need a disciplined way to give resources back to the system when they’re no longer needed; otherwise, “resource leaks” might occur. 
+The JVM performs automatic garbage collection to reclaim the memory occupied by objects that are no longer used. 
+When there are no more references to an object, the object is eligible to be collected. 
+Collection typically occurs when the JVM executes its garbage collector, which may not happen for a while, or even at all before a program terminates.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.10  Garbage Collection (Cont.)
+
+So, memory leaks that are common in other languages like C and C++ (because memory is not automatically reclaimed in those languages) are less likely in Java, but some can still happen in subtle ways. 
+Resource leaks other than memory leaks can also occur. 
+An app may open a file on disk to modify its contents. 
+If the app does not close the file, it must terminate before any other app can use the file.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.10  Garbage Collection (Cont.)
+
+A Note about Class Object’s finalize Method
+Every class in Java has the methods of class Object (package java.lang), one of which is method finalize. 
+You should never use method finalize, because it can cause many problems and there’s uncertainty as to whether it will ever get called before a program terminates. 
+The original intent of finalize was to allow the garbage collector to perform termination housekeeping on an object just before reclaiming the object’s memory. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.10  Garbage Collection (Cont.)
+
+Now, it’s considered better practice for any class that uses system resources—such as files on disk—to provide a method that programmers can call to release resources when they’re no longer needed in a program. 
+AutoClosable objects reduce the likelihood of resource leaks when you use them with the try-with-resources statement. 
+As its name implies, an AutoClosable object is closed automatically, once a try-with-resources statement finishes using the object. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.11  static Class Members
+
+In certain cases, only one copy of a particular variable should be shared by all objects of a class. 
+A static field—called a class variable—is used in such cases. 
+A static variable represents classwide information—all objects of the class share the same piece of data. 
+The declaration of a static variable begins with the keyword static.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.11  static Class Members (Cont.)
+
+Static variables have class scope—they can be used in all of the class’s methods. 
+Can access a class’s public static members through a reference to any object of the class, or by qualifying the member name with the class name and a dot (.), as in Math.random(). 
+private static class members can be accessed by client code only through methods of the class. 
+static class members are available as soon as the class is loaded into memory at execution time. 
+To access a public static member when no objects of the class exist (and even when they do), prefix the class name and a dot (.) to the static member, as in Math.PI. 
+To access a private static member when no objects of the class exist, provide a public static method and call it by qualifying its name with the class name and a dot.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.11  static Class Members (Cont.)
+
+A static method cannot access a class’s instance variables and instance methods, because a static method can be called even when no objects of the class have been instantiated. 
+For the same reason, the this reference cannot be used in a static method. 
+The this reference must refer to a specific object of the class, and when a static method is called, there might not be any objects of its class in memory.  
+If a static variable is not initialized, the compiler assigns it a default value—in this case 0, the default value for type int. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.11  static Class Members (Cont.)
+
+String objects in Java are immutable—they cannot be modified after they are created. 
+Therefore, it’s safe to have many references to one String object. 
+This is not normally the case for objects of most other classes in Java. 
+If String objects are immutable, you might wonder why are we able to use operators + and += to concatenate String objects. 
+String-concatenation actually results in a new String object containing the concatenated values—the original String objects are not modified. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.11  static Class Members (Cont.)
+
+In a typical app, the garbage collector might eventually reclaim the memory for any objects that are eligible for collection. 
+The JVM does not guarantee when, or even whether, the garbage collector will execute. 
+When the garbage collector does execute, it’s possible that no objects or only a subset of the eligible objects will be collected. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.12  static Import
+
+A static import declaration enables you to import the static members of a class or interface so you can access them via their unqualified names in your class—that is, the class name and a dot (.) are not required when using an imported static member. 
+Two forms
+One that imports a particular static member (which is known as single static import) 
+One that imports all static members of a class (which is known as static import on demand)
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.12  static Import (Cont.)
+
+The following syntax imports a particular static member:
+	import static packageName.ClassName.staticMemberName; 
+where packageName is the package of the class, ClassName is the name of the class and staticMemberName is the name of the static field or method. 
+The following syntax imports all static members of a class:
+	import static packageName.ClassName.*;
+packageName is the package of the class and ClassName is the name of the class.
+* indicates that all static members of the specified class should be available for use in the class(es) declared in the file. 
+static import declarations import only static class members. 
+Regular import statements should be used to specify the classes used in a program.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.13  final Instance Variables
+
+The principle of least privilege is fundamental to good software engineering. 
+Code should be granted only the amount of privilege and access that it needs to accomplish its designated task, but no more. 
+Makes your programs more robust by preventing code from accidentally (or maliciously) modifying variable values and calling methods that should not be accessible. 
+Keyword final specifies that a variable is not modifiable (i.e., it’s a constant) and any attempt to modify it is an error. 
+	private final int INCREMENT;
+Declares a final (constant) instance variable INCREMENT of type int. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.13  final Instance Variables (cont.)
+
+final variables can be initialized when they are declared or by each of the class’s constructors so that each object of the class has a different value.
+If a class provides multiple constructors, every one would be required to initialize each final variable. 
+A final variable cannot be modified by assignment after it’s initialized. 
+If a final variable is not initialized, a compilation error occurs. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.14  Package Access
+
+If no access modifier is specified for a method or variable when it’s declared in a class, the method or variable is considered to have package access. 
+In a program uses multiple classes from the same package, these classes can access each other’s package-access members directly through references to objects of the appropriate classes, or in the case of static members through the class name. 
+Package access is rarely used.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.15  Using BigDecimal for Precise Monetary Calculations
+
+In earlier chapters, we demonstrated monetary calculations using values of type double. 
+some double values are represented approximately. 
+Any application that requires precise floating-point calculations—such as those in financial applications—should instead use class BigDecimal (from package java.math). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.15  Using BigDecimal for Precise Monetary Calculations (Cont.)
+
+Interest Calculations Using BigDecimal 
+Figure 8.16 reimplements the interest calculation example of Fig. 5.6 using objects of class BigDecimal to perform the calculations. 
+We also introduce class NumberFormat (package java.text) for formatting numeric values as locale-specific Strings—for example, in the U.S. locale, the value 1234.56, would be formatted as "1,234.56", whereas in many European locales it would be formatted as "1.234,56". 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.15  Using BigDecimal for Precise Monetary Calculations (Cont.)
+
+Rounding BigDecimal Values
+In addition to precise calculations, BigDecimal also gives you control over how values are rounded—by default all calculations are exact and no rounding occurs. 
+If you do not specify how to round BigDecimal values and a given value cannot be represented exactly—such as the result of 1 divided by 3, which is 0.3333333…—an ArithmeticException occurs. 
+You can specify the rounding mode for BigDecimal by supplying a MathContext object (package java.math) to class BigDecimal’s constructor when you create a BigDecimal. You may also provide a MathContext to various BigDecimal methods that perform calculations. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.15  Using BigDecimal for Precise Monetary Calculations (Cont.)
+
+Class MathContext contains several pre-configured MathContext objects that you can learn about at 
+http://docs.oracle.com/javase/7/docs/api/java/math/MathContext.html
+By default, each pre-configured MathContext uses so called “bankers rounding” as explained for the RoundingMode constant HALF_EVEN at:
+http://docs.oracle.com/javase/7/docs/api/java/math/RoundingMode.html#HALF_EVEN
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+8.15  Using BigDecimal for Precise Monetary Calculations (Cont.)
+
+Scaling BigDecimal Values
+A BigDecimal’s scale is the number of digits to the right of its decimal point. If you need a BigDecimal rounded to a specific digit, you can call BigDecimal method setScale. 
+For example, the following expression returns a BigDecimal with two digits to the right of the decimal point and using bankers rounding:  
+amount.setScale(2, RoundingMode.HALF_EVEN)
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

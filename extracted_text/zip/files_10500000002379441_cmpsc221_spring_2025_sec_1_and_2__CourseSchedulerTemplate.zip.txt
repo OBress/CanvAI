@@ -1,0 +1,219 @@
+-- failed build.xml: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build.xml' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed manifest.mf: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\manifest.mf' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed built-jar.properties: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\built-jar.properties' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed .netbeans_automatic_build: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\.netbeans_automatic_build' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed .netbeans_update_resources: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\.netbeans_update_resources' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed DBConnection.class: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\DBConnection.class' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed MainFrame$1.class: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\MainFrame$1.class' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed MainFrame$2.class: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\MainFrame$2.class' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed MainFrame.class: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\MainFrame.class' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed MainFrame.form: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\MainFrame.form' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed SemesterQueries.class: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\build\\classes\\SemesterQueries.class' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed build-impl.xml: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\nbproject\\build-impl.xml' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed genfiles.properties: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\nbproject\\genfiles.properties' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed project.properties: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\nbproject\\project.properties' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed project.xml: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\nbproject\\project.xml' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed private.properties: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\nbproject\\private\\private.properties' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed DBConnection.java: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\src\\DBConnection.java' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed MainFrame.form: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\src\\MainFrame.form' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed MainFrame.java: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\src\\MainFrame.java' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'
+
+-- failed SemesterQueries.java: Traceback (most recent call last):
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 135, in process_file
+    ok, msg = process_file(p, out_root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\andy\Videos\hackpsu_fa25\scripts\extract_text_from_downloads.py", line 101, in process_file
+    rel = path.relative_to(DOWNLOADS)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andy\anaconda3\Lib\pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\andy\\AppData\\Local\\Temp\\tmp7iehcso2\\CourseSchedulerTemplate\\src\\SemesterQueries.java' is not in the subpath of 'C:\\Users\\andy\\Videos\\hackpsu_fa25\\downloads'

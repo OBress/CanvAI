@@ -1,0 +1,2032 @@
+CMPSC 465: LECTURE XVII
+Shortest Path with Negative Weights
+Ke Chen
+October 08, 2025
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.IWhat happens if there are negative edges?
+IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2SFixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2SFixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2S3Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2S3Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2S3
+4Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -2S3
+4Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -23
+4A3Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A
+B0 1
+13
+4 -23
+4A3 Fixed at an incorrect value!
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?
+IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A B T
+C3 2 4
+2 -5INote that in directed graphs, negative edges 6=negative cycles;
+however, in undirected graphs, a negative edge =a negative cycle.
+(Why?)
+1 / 9
+
+Negative edge weights
+IRecall that the correctness of Dijkstra's algorithm relies on all
+edge weights being nonnegative.
+IWhat happens if there are negative edges?
+IEven worse, if there are negative cycles , the \shortest
+distance" is not well-dened.
+S A B T
+C3 2 4
+2 -5
+INote that in directed graphs, negative edges 6=negative cycles;
+however, in undirected graphs, a negative edge =a negative cycle.
+(Why?)
+1 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path.Remains valid with negative edges.
+IHaving additional Update calls doesn't hurt.
+IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights.It may fail with negative
+edges.
+S A
+B3
+4 -2
+2 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path.Remains valid with negative edges.
+IHaving additional Update calls doesn't hurt.
+IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights.It may fail with negative
+edges.
+S A
+B3
+4 -2
+2 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path. Remains valid with negative edges.IHaving additional Update calls doesn't hurt.
+IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights.It may fail with negative
+edges.
+S A
+B3
+4 -2
+2 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path. Remains valid with negative edges.IHaving additional Update calls doesn't hurt.
+IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights.It may fail with negative
+edges.
+S A
+B3
+4 -2
+2 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path. Remains valid with negative edges.
+IHaving additional Update calls doesn't hurt.IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights.It may fail with negative
+edges.
+S A
+B3
+4 -2
+2 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path. Remains valid with negative edges.
+IHaving additional Update calls doesn't hurt.
+IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights.It may fail with negative
+edges.
+S A
+B3
+4 -2
+2 / 9
+
+Update is ne with negative edges
+Recall the Update operation:
+Update( (v; w)2E)
+ifdist[w]>dist[v] +`(v; w)then
+dist[w] =dist[v] +`(v; w)
+IThe shortest distance from Sto any node can be correctly
+computed by a sequence of Update calls along a shortest
+path. Remains valid with negative edges.
+IHaving additional Update calls doesn't hurt.
+IDijkstra applies a smart sequence of only O(jEj)Update
+calls that's guaranteed to include the required sequence for
+each node if no negative weights. It may fail with negative
+edges.S A
+B3
+4 -2
+2 / 9
+
+One sequence to rule them all
+Can we nd a sequence of Update calls that always work?Yes! The following sequence contains ALL possible sequences of
+Update calls of length at most jVj 1:
+edge1
+edge2
+edge3
+edgejEj
+
+edge1
+edge2
+edge3
+edgejEj
+
+edge1
+edge2
+edge3
+edgejEj
+
+edge1
+edge2
+edge3
+edgejEj
+
+9
+>>>>>>>>>>>>>>>>>>>>=
+>>>>>>>>>>>>>>>>>>>>;
+jVj 1 times
+
+3 / 9
+
+One sequence to rule them all
+Can we nd a sequence of Update calls that always work?
+Yes! The following sequence contains ALL possible sequences of
+Update calls of length at most jVj 1:
+edge1
+edge2
+edge3
+edgejEj
+
+edge1
+edge2
+edge3
+edgejEj
+
+edge1
+edge2
+edge3
+edgejEj
+
+edge1
+edge2
+edge3
+edgejEj
+
+9
+>>>>>>>>>>>>>>>>>>>>=
+>>>>>>>>>>>>>>>>>>>>;
+jVj 1 times
+
+3 / 9
+
+One sequence to rule them all
+Idea Call Update on each edge, and repeat jVj 1times.
+IWhyjVj 1?A shortest path contains at most jVj 1edges.
+IThe order of edges doesn't matter.
+Example
+S A
+B C3
+4
+5
+-21-1
+(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)
+4 / 9
+
+One sequence to rule them all
+Idea Call Update on each edge, and repeat jVj 1times.
+IWhyjVj 1?A shortest path contains at most jVj 1edges.IThe order of edges doesn't matter.
+Example
+S A
+B C3
+4
+5
+-21-1
+(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)
+4 / 9
+
+One sequence to rule them all
+Idea Call Update on each edge, and repeat jVj 1times.
+IWhyjVj 1?A shortest path contains at most jVj 1edges.
+IThe order of edges doesn't matter.Example
+S A
+B C3
+4
+5
+-21-1
+(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)
+4 / 9
+
+One sequence to rule them all
+Idea Call Update on each edge, and repeat jVj 1times.
+IWhyjVj 1?A shortest path contains at most jVj 1edges.
+IThe order of edges doesn't matter.
+Example
+S A
+B C3
+4
+5
+-21-1
+(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)
+4 / 9
+
+One sequence to rule them all
+Idea Call Update on each edge, and repeat jVj 1times.
+IWhyjVj 1?A shortest path contains at most jVj 1edges.
+IThe order of edges doesn't matter.
+Example
+S A
+B C3
+4
+5
+-21-1
+(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)
+4 / 9
+
+One sequence to rule them all
+Idea Call Update on each edge, and repeat jVj 1times.
+IWhyjVj 1?A shortest path contains at most jVj 1edges.
+IThe order of edges doesn't matter.
+Example
+S A
+B C3
+4
+5
+-21-1
+(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B)(S; A)(B; A)(C; A)(S; C)(B; C)(S; B) (S; B)
+(B; C)
+(C; A)
+4 / 9
+
+Bellman-Ford algorithm
+Input: Graph G= (V; E; ` ), starting vertex s
+Output: Shortest path from sto any other vertex
+Bellman-Ford( G,s)
+//dist stores distances from s
+foreach v2Vdo
+dist[v] =1
+dist[s] = 0
+repeatjVj 1times do
+foreach e2Edo
+Update( e)Time complexity? O(jVjjEj)
+Can we do better?
+5 / 9
+
+Bellman-Ford algorithm
+Input: Graph G= (V; E; ` ), starting vertex s
+Output: Shortest path from sto any other vertex
+Bellman-Ford( G,s)
+//dist stores distances from s
+foreach v2Vdo
+dist[v] =1
+dist[s] = 0
+repeatjVj 1times do
+foreach e2Edo
+Update( e)
+Time complexity?O(jVjjEj)
+Can we do better?
+5 / 9
+
+Bellman-Ford algorithm
+Input: Graph G= (V; E; ` ), starting vertex s
+Output: Shortest path from sto any other vertex
+Bellman-Ford( G,s)
+//dist stores distances from s
+foreach v2Vdo
+dist[v] =1
+dist[s] = 0
+repeatjVj 1times do
+foreach e2Edo
+Update( e)
+Time complexity? O(jVjjEj)Can we do better?
+5 / 9
+
+Bellman-Ford algorithm
+Input: Graph G= (V; E; ` ), starting vertex s
+Output: Shortest path from sto any other vertex
+Bellman-Ford( G,s)
+//dist stores distances from s
+foreach v2Vdo
+dist[v] =1
+dist[s] = 0
+repeatjVj 1times do
+foreach e2Edo
+Update( e)
+Time complexity? O(jVjjEj)
+Can we do better?
+5 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 1111
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+8
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+8
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+8
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+8
+12
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+8
+12
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 111110
+8
+1210
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+14
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+14
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+14
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+14
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+149
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+149
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+149
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+1495
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+1495
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+1495
+7
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+1495
+7
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+12102
+11
+1495
+75
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+753
+6
+9
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Consider the following example:
+Assume we Update edges in the order (S; A),(B; A),(B; C),(C; D),
+(D; E ),(F; E),(G; F),(S; G),(F; A),(A; E),(E; B)
+A S
+G
+F
+E DCBRound:
+21
+1
+3
+-1-2
+-1-4
+18100 1
+1
+1
+1 11110
+8
+1210
+11
+1495
+75
+6
+94
+6 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?IShouldn't be any Update in the last round...unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?IShouldn't be any Update in the last round...unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?IShouldn't be any Update in the last round...unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.What happens if we run jVjiterations?IShouldn't be any Update in the last round...unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?IShouldn't be any Update in the last round...unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?
+IShouldn't be any Update in the last round...unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?
+IShouldn't be any Update in the last round... unless there are
+negative cycles!IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+Bellman-Ford algorithm
+Can we do better?
+ICan stop earlier if no Update happened in the previous iteration.
+ICan skip edges from a node whose dist was not Updated in the
+previous iteration.
+IWorst-case remains O(jVjjEj).
+IJT Fineman improved it to ~O
+jVj8
+9jEj
+in STOC 2024.
+What happens if we run jVjiterations?
+IShouldn't be any Update in the last round... unless there are
+negative cycles!
+IThis can be used to detect negative cycles in a graph.
+7 / 9
+
+All pairs shortest path
+What if we need pairwise shortest paths, not just from s?IWe can run Bellman-Ford starting from each vertex. The
+running time isO 
+jVj2jEj
+, which can be O 
+jVj4
+if the
+graph is dense.
+Can we do better?
+8 / 9
+
+All pairs shortest path
+What if we need pairwise shortest paths, not just from s?
+IWe can run Bellman-Ford starting from each vertex. The
+running time isO 
+jVj2jEj
+, which can be O 
+jVj4
+if the
+graph is dense.
+Can we do better?
+8 / 9
+
+All pairs shortest path
+What if we need pairwise shortest paths, not just from s?
+IWe can run Bellman-Ford starting from each vertex. The
+running time is O 
+jVj2jEj
+, which can be O 
+jVj4
+if the
+graph is dense.Can we do better?
+8 / 9
+
+All pairs shortest path
+What if we need pairwise shortest paths, not just from s?
+IWe can run Bellman-Ford starting from each vertex. The
+running time is O 
+jVj2jEj
+, which can be O 
+jVj4
+if the
+graph is dense.
+Can we do better?
+8 / 9
+
+All pairs shortest path
+ITo store pairwise shortest distances, we need to upgrade our
+dist[]array to a dist[;]matrix .IInitially, dist[a; b] =(
+`(a; b)if(a; b)2Eis an edge
+1 otherwise.
+IFor simplicity, assume vertices are labeled by f1;2; : : : ; ng.
+IRepeating Bellman-Ford lls dist row by row , rst compute
+all correct values for dist[1;], then for dist[2;], ..., each row
+takes O(jVjjEj)time.
+ICan we use information from other rows to speed things up?
+9 / 9
+
+All pairs shortest path
+ITo store pairwise shortest distances, we need to upgrade our
+dist[]array to a dist[;]matrix .
+IInitially, dist[a; b] =(
+`(a; b)if(a; b)2Eis an edge
+1 otherwise.IFor simplicity, assume vertices are labeled by f1;2; : : : ; ng.
+IRepeating Bellman-Ford lls dist row by row , rst compute
+all correct values for dist[1;], then for dist[2;], ..., each row
+takes O(jVjjEj)time.
+ICan we use information from other rows to speed things up?
+9 / 9
+
+All pairs shortest path
+ITo store pairwise shortest distances, we need to upgrade our
+dist[]array to a dist[;]matrix .
+IInitially, dist[a; b] =(
+`(a; b)if(a; b)2Eis an edge
+1 otherwise.
+IFor simplicity, assume vertices are labeled by f1;2; : : : ; ng.IRepeating Bellman-Ford lls dist row by row , rst compute
+all correct values for dist[1;], then for dist[2;], ..., each row
+takes O(jVjjEj)time.
+ICan we use information from other rows to speed things up?
+9 / 9
+
+All pairs shortest path
+ITo store pairwise shortest distances, we need to upgrade our
+dist[]array to a dist[;]matrix .
+IInitially, dist[a; b] =(
+`(a; b)if(a; b)2Eis an edge
+1 otherwise.
+IFor simplicity, assume vertices are labeled by f1;2; : : : ; ng.
+IRepeating Bellman-Ford lls dist row by row , rst compute
+all correct values for dist[1;], then for dist[2;], ..., each row
+takes O(jVjjEj)time.ICan we use information from other rows to speed things up?
+9 / 9
+
+All pairs shortest path
+ITo store pairwise shortest distances, we need to upgrade our
+dist[]array to a dist[;]matrix .
+IInitially, dist[a; b] =(
+`(a; b)if(a; b)2Eis an edge
+1 otherwise.
+IFor simplicity, assume vertices are labeled by f1;2; : : : ; ng.
+IRepeating Bellman-Ford lls dist row by row , rst compute
+all correct values for dist[1;], then for dist[2;], ..., each row
+takes O(jVjjEj)time.
+ICan we use information from other rows to speed things up?
+9 / 9

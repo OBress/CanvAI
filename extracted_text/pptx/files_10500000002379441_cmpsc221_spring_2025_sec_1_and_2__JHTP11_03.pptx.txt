@@ -1,0 +1,398 @@
+Chapter 3Introduction to Classes, Objects,Methods and Strings
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2  Instance Variables, set Methods and get Methods
+
+Each class you create becomes a new type that can be used to declare variables and create objects. 
+You can declare new classes as needed; this is one reason Java is known as an extensible language. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+Class Declaration
+Each class declaration that begins with the access modifier public must be stored in a file that has the same name as the class and ends with the .java filename extension.
+Every class declaration contains keyword class followed immediately by the class’s name.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+Identifiers and Camel Case Naming
+Class, method and variable names are identifiers. 
+By convention all use camel case names. 
+Class names begin with an uppercase letter, and method and variable names begin with a lowercase letter. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+Instance Variable name
+An object has attributes that are implemented as instance variables and carried with it throughout its lifetime. 
+Instance variables exist before methods are called on an object, while the methods are executing and after the methods complete execution. 
+A class normally contains one or more methods that manipulate the instance variables that belong to particular objects of the class. 
+Instance variables are declared inside a class declaration but outside the bodies of the class’s method declarations. 
+Each object (instance) of the class has its own copy of each of the class’s instance variables.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+Access Modifiers public and private
+Most instance-variable declarations are preceded with the keyword private, which is an access modifier. 
+Variables or methods declared with access modifier private are accessible only to methods of the class in which they’re declared. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.1.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+setName Method of Class Account
+Parameters are declared in a comma-separated parameter list, which is located inside the parentheses that follow the method name in the method declaration. 
+Multiple parameters are separated by commas. 
+Each parameter must specify a type followed by a variable name. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.1.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+Parameters Are Local Variables
+Variables declared in the body of a particular method are local variables and can be used only in that method. 
+When a method terminates, the values of its local variables are lost. 
+A method’s parameters are local variables of the method.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.1.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+setName Method Body
+Every method’s body is delimited by left and right braces ({ and }). 
+Each method’s body contains one or more statements that perform the method’s task(s).
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+getName Method of Class Account
+The method’s return type specifies the type of data returned to a method’s caller. 
+Keyword void indicates that a method will perform a task but will not return any information. 
+Empty parentheses following a method name indicate that the method does not require any parameters to perform its task. 
+When a method that specifies a return type other than void is called and completes its task, the method must return a result to its calling method. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.1 Account Class with an Instance Variable, a set Method and a get Method (Cont.)
+
+The return statement passes a value from a called method back to its caller. 
+Classes often provide public methods to allow the class’s clients to set or get private instance variables. 
+The names of these methods need not begin with set or get, but this naming convention is recommended. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.2 AccountTest Class That Creates and Uses an Object of Class Account
+
+Driver Class AccountTest
+A class that creates an object of another class, then calls the object’s methods, is a driver class.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.2 AccountTest Class That Creates and Uses an Object of Class Account (Cont.)
+
+Scanner Object for Receiving Input from the User
+Scanner method nextLine reads characters until a newline character is encountered, then returns the characters as a String. 
+Scanner method next reads characters until any white-space character is encountered, then returns the characters as a String. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.2 AccountTest Class That Creates and Uses an Object of Class Account (Cont.)
+
+Instantiating an Object—Keyword new and Constructors
+A class instance creation expression begins with keyword new and creates a new object. 
+A constructor is similar to a method but is called implicitly by the new operator to initialize an object’s instance variables at the time the object is created. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.2 AccountTest Class That Creates and Uses an Object of Class Account (Cont.)
+
+Calling Class Account’s getName Method
+To call a method of an object, follow the object name with a dot separator, the method name and a set of parentheses containing the method’s arguments.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.2 AccountTest Class That Creates and Uses an Object of Class Account (Cont.)
+
+null—the Default Initial Value for String Variables
+Local variables are not automatically initialized. 
+Every instance variable has a default initial value—a value provided by Java when you do not specify the instance variable’s initial value. 
+The default value for an instance variable of type String is null. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.2 AccountTest Class That Creates and Uses an Object of Class Account (Cont.)
+
+Calling Class Account’s setName Method
+A method call supplies values—known as arguments—for each of the method’s parameters. 
+Each argument’s value is assigned to the corresponding parameter in the method header.
+The number of arguments in a method call must match the number of parameters in the method declaration’s parameter list. 
+The argument types in the method call must be consistent with the types of the corresponding parameters in the method’s declaration. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.3 Compiling and Executing an App with Multiple Classes
+
+The javac command can compile multiple classes at once. 
+Simply list the source-code filenames after the command with each filename separated by a space from the next. 
+If the directory containing the app includes only one app’s files, you can compile all of its classes with the command javac *.java. 
+The asterisk (*) in *.java indicates that all files in the current directory ending with the filename extension “.java” should be compiled. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.4 Account UML Class Diagram
+
+Top Compartment
+In the UML, each class is modeled in a class diagram as a rectangle with three compartments. The top one contains the class’s name centered horizontally in boldface. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.4 Account UML Class Diagram
+
+Middle Compartment
+The middle compartment contains the class’s attributes, which correspond to instance variables in Java. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.4 Account UML Class Diagram
+
+Bottom Compartment
+The bottom compartment contains the class’s operations, which correspond to methods and constructors in Java. 
+The UML represents instance variables as an attribute name, followed by a colon and the type. 
+Private attributes are preceded by a minus sign (–) in the UML.
+The UML models operations by listing the operation name followed by a set of parentheses. 
+A plus sign (+) in front of the operation name indicates that the operation is a public one in the UML (i.e., a public method in Java). 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.4 Account UML Class Diagram
+
+Return Types
+The UML indicates an operation’s return type by placing a colon and the return type after the parentheses following the operation name. 
+UML class diagrams do not specify return types for operations that do not return values.
+Declaring instance variables private is known as data hiding or information hiding. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.4 Account UML Class Diagram
+
+Parameters
+The UML models a parameter of an operation by listing the parameter name, followed by a colon and the parameter type between the parentheses after the operation name
+
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.5  Additional Notes on Class AccountTest
+
+static Method main
+You must call most methods other than main explicitly to tell them to perform their tasks.
+A key part of enabling the JVM to locate and call method main to begin the app’s execution is the static keyword, which indicates that main is a static method that can be called without first creating an object of the class in which the method is declared.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.5 Additional Notes on Class AccountTest (Cont.)
+
+Notes on import Declarations
+Most classes you’ll use in Java programs must be imported explicitly. 
+There’s a special relationship between classes that are compiled in the same directory. 
+By default, such classes are considered to be in the same package—known as the default package. 
+Classes in the same package are implicitly imported into the source-code files of other classes in that package. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.5 Additional Notes on Class AccountTest (Cont.)
+
+An import declaration is not required when one class in a package uses another in the same package. 
+An import- declaration is not required if you always refer to a class with its fully qualified class name, which includes its package name and class name.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.6 Software Engineering with private Instance Variables and public set and get Methods
+
+Declaring instance variables private is known as data hiding or information hiding.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.2.6 Software Engineering with private Instance Variables and public set and get Methods
+
+3.3  Account Class: Initializing Objects with Constructors
+
+Each class you declare can optionally provide a constructor with parameters that can be used to initialize an object of a class when the object is created. 
+Java requires a constructor call for every object that’s created. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.3.1  Declaring an Account Constructor for Custom Object Initialization
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.3.2  Class AccountTest: Initializing Account Objects When They’re Created
+
+Constructors Cannot Return Values
+Constructors can specify parameters but not return types.
+Default Constructor
+If a class does not define constructors, the compiler provides a default constructor with no parameters, and the class’s instance variables are initialized to their default values. 
+There’s No Default Constructor in a Class That Declares a Constructor
+If you declare a constructor for a class, the compiler will not create a default constructor for that class.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.3.2  Class AccountTest: Initializing Account Objects When They’re Created (Cont.)
+
+Adding the Contructor to Class Account’s UML Class Diagram
+The UML models constructors in the third compartment of a class diagram. 
+To distinguish a constructor from a class’s operations, the UML places the word “constructor” between guillemets (« and ») before the constructor’s name.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.4  Account Class with a Balance; Floating-Point Numbers
+
+A floating-point number is a number with a decimal point. 
+Java provides two primitive types for storing floating-point numbers in memory—float and double. 
+Variables of type float represent single-precision floating-point numbers and have seven significant digits. 
+Variables of type double represent double-precision floating-point numbers. 
+These require twice as much memory as float variables and provide 15 significant digits—approximately double the precision of float variables. 
+Floating-point literals are of type double by default. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.4.2  AccountTest Class to Use Class Account
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.4.2  AccountTest Class to Use Class Account (Cont.)
+
+Scanner method nextDouble returns a double value. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.4.2  AccountTest Class to Use Class Account (Cont.)
+
+Formatting Floating-Point Numbers for Display
+The format specifier %f is used to output values of type float or double. 
+The format specifier %.2f specifies that two digits of precision should be output to the right of the decimal point in the floating-point number.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.4.2  AccountTest Class to Use Class Account (Cont.)
+
+The default value for an instance variable of type double is 0.0, and the default value for an instance variable of type int is 0.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+3.5  Primitive Types vs. Reference Types
+
+Types in Java are divided into two categories—primitive types and reference types. 
+The primitive types are boolean, byte, char, short, int, long, float and double. 
+All other types are reference types, so classes, which specify the types of objects, are reference types. 
+A primitive-type variable can store exactly one value of its declared type at a time. 
+Primitive-type instance variables are initialized by default. 
+Variables of types byte, char, short, int, long, float and double are initialized to 0. 
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.5 Primitive Types vs. Reference Types (Cont.)
+
+Variables of type boolean are initialized to false. 
+Reference-type variables (called references) store the location of an object in the computer’s memory. 
+Such variables refer to objects in the program. 
+The object that’s referenced may contain many instance variables and methods. 
+Reference-type instance variables are initialized by default to the value null.
+A reference to an object is required to invoke an object’s methods. 
+A primitive-type variable does not refer to an object and therefore cannot be used to invoke a method.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2015 by Pearson Education, Inc. All Rights Reserved.
+
+3.6  (Optional) GUI and Graphics Case Study: Using Dialog Boxes
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.

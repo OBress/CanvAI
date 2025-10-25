@@ -1,0 +1,21 @@
+program            ::= statement*
+statement          ::= assign_stmt | if_stmt | for_stmt | print_stmt
+assign_stmt        ::= IDENTIFIER '=' expression
+if_stmt            ::= 'if' boolean_expression ':' block ('else' ':' block)?
+for_stmt           ::= 'for' IDENTIFIER '=' expression 'to' expression ':' block
+print_stmt         ::= 'print' '(' arg_list? ')'
+block              ::= statement*
+arg_list           ::= expression (',' expression)*
+
+boolean_expression ::= boolean_term ('or' boolean_term)*
+boolean_term       ::= boolean_factor ('and' boolean_factor)*
+boolean_factor     ::= 'not' boolean_factor | comparison
+comparison         ::= expression (('==' | '!=' | '<' | '>') expression)*
+
+expression         ::= term (('+' | '-') term)*
+term               ::= factor (('*' | '/' | '%') factor)*
+factor             ::= ('+' | '-') factor | primary
+primary            ::= NUMBER | IDENTIFIER | '(' boolean_expression ')'
+
+IDENTIFIER         ::= [a-zA-Z_][a-zA-Z0-9_]*
+NUMBER             ::= [0-9]+

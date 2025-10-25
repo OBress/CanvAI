@@ -1,0 +1,74 @@
+Type Inference
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Introduction
+•So far when we studied typing, we always assumed that the programmer 
+annotated some types
+•Example: We gave types to lambda variables
+•But annotating types can be cumbersome.
+•Goal of type inference : Automatically deduce the most general type for each 
+expression
+•Two key points:
+•Automatically inferring types: This means the programmer has to write no types, but 
+still gets all the benefit from static typing
+•Inferring the most general type: This means we want to infer polymorphic types 
+whenever possible
+CMPSC 461 –Programming Language Concepts
+
+Examples
+•Do we actually need these type annotation to infer the type of programs?
+•Consider the following examples:
+•let f1= λx. x+2
+•type of f1must be Int Int
+•let f2= λx. λy. x + y
+•type of f2must be Int IntInt
+•let f3= λx. λy. x + 1
+•type of f3must be ∀α. Int αInt
+•let f4= λg. (g 0)
+•type of f4is ∀α. (Int α)α
+CMPSC 461 –Programming Language Concepts
+
+Type Inference Overview
+•Goal is to develop an algorithm that can compute the most general type for 
+any expression without any type annotation.
+•Big Idea: Replace the concrete type Intannotation with a type variable and 
+collect all constraints on this type variable.
+•Specifically, pretend that the type of the argument is just some type variable 
+called a
+CMPSC 461 –Programming Language Concepts
+
+Example
+•Type derivation tree for λx:int. x+2
+•Type derivation tree for the same expression using type variable a
+CMPSC 461 –Programming Language Concepts
+
+Generalizing Typing Rules
+•The base case stay unchanged:
+•Plusoperator
+CMPSC 461 –Programming Language Concepts
+
+
+Generalizing Typing Rules
+•Concatenation:
+•Andoperator
+CMPSC 461 –Programming Language Concepts
+
+
+Generalizing Typing Rules
+•Abstraction:
+•Application
+CMPSC 461 –Programming Language Concepts
+
+
+Top Hat
+CMPSC 461 –Programming Language Concepts
+
+Example-1
+•(((λx.λy.x)2)true)
+CMPSC 461 –Programming Language Concepts
+
+Example-2
+•"duck" + 7
+CMPSC 461 –Programming Language Concepts

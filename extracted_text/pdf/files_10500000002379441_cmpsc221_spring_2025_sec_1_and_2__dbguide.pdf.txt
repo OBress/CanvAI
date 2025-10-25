@@ -1,0 +1,21 @@
+Step 1:
+Download JDK-8u111 on your laptop:
+for MAC: 
+https://pennstateoffice365-my.sharepoint.com/:u:/g/personal/oza5_psu_edu/
+EbJoztJHGjZNiMBEvYkFS8cBUVdd3Yv2tpdPq_-EtajGhA?e=yYfFYc
+for PC:
+https://pennstateoffice365-my.sharepoint.com/:u:/g/personal/oza5_psu_edu/
+ETm2lxXp1sFEvCz6KQc8GG8BsnLdEmmQp4uq6n8aywnWoQ?e=wEqz5O
+Step 2:
+Once downloaded note the installation directory:
+A) default for windows-  C:\Program Files\Java\jdk1.6.0_02
+B) default for mac - /usr/jdk/jdk1.6.0_02.
+Step 3:
+Go on your desktop and create a new folder with any name of your choice
+Now open net-beans→services
+right-click on java-db
+go to properties and set paths as shown below:
+Java DB installation: C:\Program Files\Java\jdk1.8.111\db
+Database location: C:\Desktop\newfolder
+An image is also provided below
+

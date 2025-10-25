@@ -1,0 +1,3030 @@
+Application Layer
+
+2-1
+
+Chapter 2: application layer
+
+our goals: 
+conceptual, implementation aspects of network application protocols
+transport-layer service models
+client-server paradigm
+peer-to-peer paradigm
+content distribution networks
+
+learn about protocols by examining popular application-level protocols
+HTTP
+FTP
+SMTP / POP3 / IMAP
+DNS
+creating network applications
+socket API
+
+Application Layer
+
+2-2
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks
+2.7 socket programming with UDP and TCP
+
+Application Layer
+
+2-3
+
+Creating a network app
+
+Applications run on hosts
+write programs that:
+run on (different) hosts
+e.g., web server software communicates with browser software
+no need to program network-core devices
+network-core devices do not run user applications 
+allows for rapid app development, propagation
+
+
+Application Layer
+
+2-4
+
+Application architectures
+
+possible structure of applications:
+client-server
+server: always-on host, permanent IP address
+client: intermittently connected host, dynamic IP address
+clients do not directly communicate
+
+peer-to-peer (P2P)
+no always-on server, arbitrary hosts directly communicate
+
+
+key distinction from client-server architecture
+
+
+Application Layer
+
+2-5
+
+Processes communicating
+
+process: running instance of a program 
+communicating entities at application layer are processes
+processes in different hosts communicate by exchanging messages
+
+client process: process that initiates communication
+server process: process that waits to be contacted
+
+
+applications with P2P architectures have client processes & server processes
+
+clients, servers
+
+Q: T or F? A process running on a server host must be a server process. A process running on a user host must be a client process. 
+
+Application Layer
+
+2-6
+
+Sockets
+
+process sends/receives messages to/from its socket
+socket analogous to door
+sending process shoves message out door
+sending process relies on transport infrastructure on other side of door to deliver message to socket at receiving process
+
+Internet
+
+controlled
+by OS
+
+
+controlled by
+app developer
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+process
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+process
+
+socket
+
+Application Layer
+
+2-7
+
+Addressing processes (sockets)
+
+to receive messages, process  must have identifier
+host device has unique 32-bit IP address
+Q: does  IP address of host on which process runs suffice for identifying the process?
+
+identifier includes both IP address and port numbers associated with process on host.
+example port numbers:
+HTTP server: 80
+mail server: 25
+to send HTTP message to gaia.cs.umass.edu web server:
+IP address: 128.119.245.12
+port number: 80
+two ways to specify the identifier in socket programming (more later…)
+
+A: no, many processes can be running on same host
+
+Application Layer
+
+2-8
+
+Internet transport protocols services
+
+TCP service (via TCP socket):
+reliable data transfer between sending and receiving process
+connection-oriented: setup required between client and server processes
+flow control: sender won’t overwhelm receiver 
+congestion control: throttle sender when network overloaded
+
+
+UDP service (via UDP socket):
+unreliable data transfer between sending and receiving process
+connectionless: no setup required between client and server processes
+
+Note: Neither provide guarantee on timing, throughput, or security
+
+more on UDP vs. TCP later ... (chapter 3)
+
+Application Layer
+
+2-9
+
+Internet apps:  application, transport protocols
+
+application
+
+e-mail
+remote terminal access
+Web 
+file transfer
+instant messaging
+streaming multimedia
+Internet telephony
+
+DNS
+
+
+application
+layer protocol
+
+SMTP [RFC 2821]
+Telnet [RFC 854]
+HTTP [RFC 2616]
+FTP [RFC 959]
+XMPP [RFC6120,6121]
+RTP [RFC 1889]
+SIP, RTP, proprietary
+(e.g., Skype)
+DNS
+
+underlying
+transport protocol
+
+TCP
+TCP
+TCP
+TCP
+TCP
+TCP or UDP
+TCP or UDP
+
+TCP or UDP
+
+Review
+
+Network applications
+key distinction between client-server architecture and P2P architecture
+what is client/server process
+Applications & transport services
+services provided by TCP/UDP/neither
+
+Application Layer
+
+2-10
+
+Application Layer
+
+2-11
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks
+2.7 socket programming with UDP and TCP
+
+Application Layer
+
+2-12
+
+Web and HTTP
+
+web page consists of objects
+object can be HTML file, JPEG image, Java applet, audio file,…
+web page consists of base HTML-file which includes several referenced objects
+each object is addressed by a URL (uniform resource locator), e.g.,
+
+
+Application Layer
+
+2-13
+
+HTTP overview
+
+HTTP: hypertext transfer protocol
+runs over TCP
+client/server model
+client: browser that requests, receives, and displays Web objects 
+server: Web server sends objects in response to requests
+ “stateless”: server does not maintain information
+
+
+PC running
+Firefox browser
+
+server 
+running
+Apache Web
+server
+
+iPhone running
+Safari browser
+
+Application Layer
+
+2-14
+
+HTTP connections
+
+non-persistent HTTP
+at most one object sent over TCP connection
+connection then closed
+downloading multiple objects required multiple connections
+
+
+persistent HTTP
+multiple objects can be sent over single TCP connection between client, server
+
+
+Application Layer
+
+2-15
+
+Non-persistent HTTP
+
+suppose user enters URL:
+
+1a. HTTP client initiates TCP connection to HTTP server (process) at www.someSchool.edu on port 80
+
+2. HTTP client sends HTTP request message (containing URL) into TCP connection socket. Message indicates that client wants object someDepartment/home.index
+
+1b. HTTP server at host www.someSchool.edu waiting for TCP connection at port 80.  “accepts” connection, notifying client
+
+3. HTTP server receives request message, forms response message containing requested object, and sends message into its socket
+
+time
+
+(contains text, 
+references to 10 
+jpeg images)
+
+www.someSchool.edu/someDepartment/home.index
+
+Application Layer
+
+2-16
+
+Non-persistent HTTP (cont.)
+
+5. HTTP client receives response message containing html file, displays html.  Parsing html file, finds 10 referenced jpeg  objects
+
+6. Steps 1-5 repeated for each of 10 jpeg objects
+
+4. HTTP server closes TCP connection. 
+
+time
+
+Application Layer
+
+2-17
+
+Non-persistent HTTP: response time
+
+time to 
+transmit 
+obj1
+
+initiate TCP
+connection
+
+RTT
+
+request
+obj1
+
+RTT
+
+time
+
+time
+
+time to 
+transmit 
+obj2
+
+receive obj1
+initiate TCP
+connection
+
+RTT
+
+request
+obj2
+
+RTT
+
+receive obj2
+
+Application Layer
+
+2-18
+
+Persistent HTTP
+
+suppose user enters URL:
+
+1a. HTTP client initiates TCP connection to HTTP server (process) at www.someSchool.edu on port 80
+
+2. HTTP client sends HTTP request message (containing URL) into TCP connection socket. Message indicates that client wants object someDepartment/home.index
+
+1b. HTTP server at host www.someSchool.edu waiting for TCP connection at port 80.  “accepts” connection, notifying client
+
+3. HTTP server receives request message, forms response message containing requested object, and sends message into its socket
+
+time
+
+(contains text, 
+references to 10 
+jpeg images)
+
+www.someSchool.edu/someDepartment/home.index
+
+Application Layer
+
+2-19
+
+Persistent HTTP (cont.)
+
+4. HTTP client receives response message containing html file, displays html.  Parsing html file, finds 10 referenced jpeg  objects
+
+5. Steps 2-4 repeated for each of the 10 jpeg objects
+
+4. HTTP server closes TCP connection. 
+
+time
+
+Application Layer
+
+2-20
+
+Persistent HTTP
+
+persistent  HTTP:
+First object (base HTML): 2RTT + transmission time 
+Subsequent object: 1RTT + transmission time
+
+time to 
+transmit 
+file
+
+initiate TCP
+connection
+
+RTT
+
+request
+object 1
+
+RTT
+
+object 1
+received,
+request object 2
+
+time
+
+time
+
+time to 
+transmit 
+file
+
+RTT
+
+object 2
+received
+
+Additional boosts: parallelization
+
+Application Layer
+
+2-21
+
+To obtain a Web page with a small HTML referring to 10 objects, each of size S bits, over a path with e2e throughput R bps: 
+Non-persistent HTTP:
+2RTT + 10*(2RTT + S/R)
+Non-persistent HTTP with up to 5 parallel connections:
+2RTT + 2*(2RTT + S/R)
+Persistent HTTP without pipelining:
+2RTT + 10*(RTT + S/R)
+Persistent HTTP with pipelining:
+2RTT + RTT + 10*S/R
+
+
+Application Layer
+
+2-22
+
+Exercise: HTTP response time
+
+Q: Is persistent HTTP always faster than non-persistent HTTP?
+
+HTTP basics:
+Stateless, over TCP, client-server architecture
+Persistent vs. non-persistent HTTP:
+Key difference 
+Calculation of response time
+
+
+Application Layer
+
+2-23
+
+Review
+
+Application Layer
+
+2-24
+
+HTTP message: general format
+
+request
+line
+
+header
+lines
+
+body
+
+method
+
+sp
+
+sp
+
+cr
+
+lf
+
+version
+
+URL
+
+entity body
+
+Request message
+
+Response message
+
+status
+line
+
+version
+
+sp
+
+sp
+
+cr
+
+lf
+
+status
+
+code
+
+header lines
+
+body
+
+Application Layer
+
+2-25
+
+HTTP request message
+
+HTTP request message:
+ASCII (human-readable format)
+
+request line
+(GET, POST, 
+HEAD commands)
+
+header
+ lines
+
+carriage return, 
+line feed at start
+of line indicates
+end of header lines
+
+GET /index.html HTTP/1.1\r\n
+Host: www-net.cs.umass.edu\r\n
+User-Agent: Firefox/3.6.10\r\n
+Accept: text/html,application/xhtml+xml\r\n
+Accept-Language: en-us,en;q=0.5\r\n
+Accept-Encoding: gzip,deflate\r\n
+Accept-Charset: ISO-8859-1,utf-8;q=0.7\r\n
+Keep-Alive: 115\r\n
+Connection: keep-alive\r\n
+\r\n
+
+carriage return character
+
+line-feed character
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+What is the URL?
+What version of HTTP?
+Persistent or non-persistent?
+What type of browser?
+IP address of the host?
+
+Application Layer
+
+2-26
+
+Method types
+
+HTTP/1.0:
+GET
+POST
+HEAD
+asks server to leave requested object out of response
+
+HTTP/1.1:
+GET, POST, HEAD
+PUT
+uploads file in entity body to path specified in URL field
+DELETE
+deletes file specified in the URL field
+
+HTTP/2: different message format (split into smaller messages, encoded in binary format), add “Server Push” method
+HTTP/3: similar semantic, but running over QUIC (a reliable data transfer protocol running over UDP)
+
+*Full specification: RFC 2068: Hypertext Transfer Protocol -- HTTP/1.1 (rfc-editor.org)
+
+Application Layer
+
+2-27
+
+Method types
+
+HTTP/1.0:
+GET, HEAD
+POST
+
+
+HTTP/1.1:
+GET, POST, HEAD
+PUT
+
+POST /submit-form HTTP/1.1
+Host: www.example.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 27
+Connection: keep-alive
+
+name=He+Ting&role=Professor
+
+PUT /users/123 HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+Content-Length: 55
+Connection: keep-alive
+
+{
+  "name": "He Ting",
+  "role": "Professor",
+  "active": true
+}
+
+Application Layer
+
+2-28
+
+HTTP response message
+
+status line
+(protocol
+status code
+status phrase)
+
+header
+ lines
+
+data, e.g., 
+requested
+HTML file
+
+HTTP/1.1 200 OK\r\n
+Date: Sun, 26 Sep 2010 20:09:20 GMT\r\n
+Server: Apache/2.0.52 (CentOS)\r\n
+Last-Modified: Tue, 30 Oct 2007 17:00:02 GMT\r\n
+ETag: "17dc6-a5c-bf716880"\r\n
+Accept-Ranges: bytes\r\n
+Content-Length: 2652\r\n
+Keep-Alive: timeout=10, max=100\r\n
+Connection: Keep-Alive\r\n
+Content-Type: text/html; charset=ISO-8859-1\r\n
+\r\n
+<html>... 
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+Successful? What time is the reply?
+Last modified time?
+Object size (in bytes)?
+First byte of the returned obj?
+Persistent or non-persistent?
+
+Application Layer
+
+2-29
+
+HTTP response status codes
+
+200 OK
+request succeeded, requested object later in this msg
+301 Moved Permanently
+requested object moved, new location specified later in this msg (Location:)
+400 Bad Request
+request msg not understood by server
+404 Not Found
+requested document not found on this server
+505 HTTP Version Not Supported
+
+status code appears in 1st line in server-to-client response message.
+some sample codes:
+
+Application Layer
+
+2-30
+
+Trying out HTTP (client side) for yourself
+
+1. Telnet to your favorite Web server:
+
+
+opens TCP connection to port 80
+    (default HTTP server port) 
+     at eecs.psu.edu
+
+telnet gaia.cs.umass.edu 80
+
+2. type in a GET HTTP request:
+
+
+GET / HTTP/1.1
+Host: gaia.cs.umass.edu
+
+by typing this (& hit carriage return twice), you send this minimal (but complete) GET request to HTTP server
+
+3. look at response message sent by HTTP server!
+
+*learning goal: Understand (explain a given example), not memorize
+
+Application Layer
+
+2-31
+
+Web caches (proxy server)
+
+browser sends all HTTP requests to cache
+object in cache: cache returns object 
+else cache requests object from origin server, then returns object to client
+
+goal: satisfy client request without involving origin server
+
+client
+
+proxy
+server
+
+client
+
+origin 
+server
+
+origin 
+server
+
+Application Layer
+
+2-32
+
+Conditional GET 
+
+Goal: don’t send object if cache has up-to-date cached version
+no object transmission delay
+lower link utilization
+cache: specify date of cached copy in HTTP request
+If-modified-since: <date>
+server: response contains no object if cached copy is up-to-date: 
+HTTP/1.0 304 Not Modified
+
+HTTP request msg
+If-modified-since: <date>
+
+object 
+not 
+modified
+after
+<date>
+
+HTTP request msg
+If-modified-since: <date>
+
+HTTP response
+HTTP/1.0 200 OK
+<data>
+
+object 
+modified
+after 
+<date>
+
+client
+
+server
+
+HTTP request message
+HTTP response message
+Conditional GET message
+
+Application Layer
+
+2-33
+
+Review
+
+Application Layer
+
+2-34
+
+More about Web caching
+
+cache acts as both client and server
+server for original requesting client
+client to origin server
+typically cache is installed by ISP (university, company, residential ISP)
+
+why Web caching?
+reduce response time for client request
+reduce traffic on an institution’s access link
+
+Application Layer
+
+2-35
+
+Caching example* (get a single object): 
+
+origin servers
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+1.54 Mbps 
+access link
+
+Internet
+delay
+
+access
+delay
+
+LAN
+delay
+
+* Assume TCP connection has been established.
+
+Application Layer
+
+2-36
+
+origin servers
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+1.54 Mbps 
+access link
+
+Internet
+delay
+≈ const
+
+access
+delay*
+
+LAN
+delay
+= transfer time
+
+* access delay ≈ 1/(rateservice-ratearrival)
+   rate: objects/sec
+
+Caching example (get a single object): 
+
+Application Layer
+
+2-37
+
+Caching example: fatter access link 
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+154 Mbps
+
+Cost: increased access link speed (not cheap!)
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+institutional
+network
+
+1 Gbps LAN
+
+Application Layer
+
+2-38
+
+Caching example: install local cache 
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+Cost: web cache (cheap!)
+
+public
+ Internet
+
+Application Layer
+
+2-39
+
+Caching example: install local cache 
+
+Calculating access link utilization, delay with cache:
+suppose cache hit rate is 0.4
+40% requests satisfied at cache, 60% requests satisfied at origin 
+  
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+Application Layer
+
+2-40
+
+Caching example: install local cache 
+
+Calculating access link utilization, delay with cache:
+suppose cache hit rate is 0.4
+40% requests satisfied at cache, 60% requests satisfied at origin 
+  
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+access link utilization: 
+60% of requests use access link 
+data rate to browsers over access link 
+          = 0.6*1.50 Mbps = .9 Mbps 
+utilization = 0.9/1.54 = 58.4%
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+Application Layer
+
+2-41
+
+Caching example: install local cache 
+
+Calculating access link utilization, delay with cache:
+suppose cache hit rate is 0.4
+40% requests satisfied at cache, 60% requests satisfied at origin 
+  
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+total delay
+= 0.6 * (delay from origin servers) +0.4 * (delay when satisfied at cache)
+Delay from origin: Internet delay + access delay + LAN delay = 2 sec + 0.156 sec + 0.1 ms
+Arrival rate = 0.6*15 = 9 obj/sec 
+Delay from cache: 0.1 ms (LAN delay)
+
+ total delay = 0.6 * (2 sec + 0.156 sec + 0.1 ms) + 0.4 * 0.1 ms ≈ 1.29 sec
+  
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+Comparison: Less than with 154 Mbps access link (and cheaper!) 
+
+Calculation of an end-to-end object downloading delay: 
+Internet delay, access delay, LAN delay
+How cache reduces the delay
+
+Application Layer
+
+2-42
+
+Review
+
+Application Layer
+
+2-43
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks
+2.7 socket programming with UDP and TCP
+
+Application Layer
+
+2-44
+
+DNS: domain name system
+
+people: many identifiers:
+SSN, name, passport #
+Internet hosts, routers:
+IP address (32 bit) - used for addressing datagrams
+“name”, e.g., www.yahoo.com - used by humans
+Q: how to map between IP address and name, and vice versa ?
+
+Domain Name System:
+distributed database implemented in hierarchy of many name servers
+application-layer protocol: hosts, name servers communicate to resolve names (address/name translation)
+note: core Internet function, implemented as application-layer protocol
+
+DNS typically runs over UDP*
+
+*DNS uses TCP for Zone transfer and queries whose answers are larger than 512 bytes, and UDP for name queries up to 512 bytes. 
+
+Application Layer
+
+2-45
+
+DNS: services 
+
+DNS services
+hostname to IP address translation
+host aliasing
+canonical, alias names
+mail server aliasing
+load distribution
+replicated Web servers: many IP addresses correspond to one name
+
+
+www.someschool.edu ->121.7.106.83
+
+www.someschool.edu -> relay1.someschool.edu
+
+someschool.edu -> relay1.someschool.edu
+
+someschool.edu -> relay1.someschool.edu
+(mail) someschool.edu -> mail1.someschool.edu
+
+cnn.com -> 151.101.1.67
+	151.101.193.67
+	151.101.65.67
+	151.101.129.67
+
+Application Layer
+
+2-46
+
+DNS: a distributed, hierarchical database
+
+client wants IP for www.amazon.com; 1st approximation:
+client queries root server to find com DNS server
+client queries .com DNS server to get amazon.com DNS server
+client queries amazon.com DNS server to get  IP address for www.amazon.com 
+
+local DNS server: (outside the hierarchy) a proxy for querying host
+
+ 13 root name “servers” worldwide
+
+top-level domain (TLD) DNS servers
+
+authoritative DNS servers
+
+Application Layer
+
+2-47
+
+DNS: root name servers
+
+contacted by local name server that can not resolve name
+root name server:
+contacts authoritative name server if name mapping not known
+gets mapping
+returns mapping to local name server
+
+ 13 logical root name “servers” worldwide
+each “server” replicated many times
+
+a. Verisign, Los Angeles CA
+    (5 other sites)
+b. USC-ISI Marina del Rey, CA
+l. ICANN Los Angeles, CA
+   (41 other sites)
+
+e. NASA Mt View, CA
+f. Internet Software C.
+Palo Alto, CA (and 48 other   sites)
+
+i. Netnod, Stockholm (37 other sites)
+
+k. RIPE London (17 other sites)
+
+m. WIDE Tokyo
+(5 other sites)
+
+c. Cogent, Herndon, VA (5 other sites)
+d. U Maryland College Park, MD
+h. ARL Aberdeen, MD
+j. Verisign, Dulles VA (69 other sites )
+
+g. US DoD Columbus, OH (5 other sites)
+
+Application Layer
+
+2-48
+
+requesting host
+cis.poly.edu
+
+gaia.cs.umass.edu
+
+root DNS server
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+authoritative DNS server
+dns.cs.umass.edu
+
+7
+
+8
+
+TLD DNS server
+
+DNS name resolution example
+
+host at cis.poly.edu wants IP address for gaia.cs.umass.edu
+
+iterative query:
+contacted server replies with name of server to contact
+“I don’t know this name, but ask this server”
+
+Application Layer
+
+2-49
+
+4
+
+5
+
+6
+
+3
+
+recursive query:
+puts burden of name resolution on contacted name server
+heavy load at upper levels of hierarchy?
+
+requesting host
+cis.poly.edu
+
+gaia.cs.umass.edu
+
+root DNS server
+
+1
+
+2
+
+7
+
+authoritative DNS server
+dns.cs.umass.edu
+
+8
+
+DNS name resolution example
+
+TLD DNS 
+server
+
+Application Layer
+
+2-50
+
+DNS records
+
+DNS: distributed database storing resource records (RR)
+
+type=NS
+name is domain (e.g., foo.com)
+value is hostname of authoritative name server for this domain
+
+
+RR format: (name, value, type, ttl)
+
+type=A
+name is hostname
+value is IP(v4) address*
+
+
+type=CNAME
+name is alias name for some “canonical” (the real) name
+www.ibm.com is really
+  servereast.backup2.ibm.com
+value is canonical name
+
+
+type=MX
+value is name of mailserver associated with name
+
+
+* type=AAAA
+name is hostname
+value is IPv6 address
+
+
+Application Layer
+
+2-51
+
+DNS query examples
+
+nslookup
+Default Server:  mars.cse.psu.edu
+Address:  130.203.14.85
+
+> set type=a
+> www.eecs.psu.edu
+Non-authoritative answer:
+Name:    coe-a10-01.ncts.psu.edu
+Address:  130.203.232.12
+Aliases:  www.eecs.psu.edu
+
+> set type=ns
+> cse.psu.edu
+cse.psu.edu     nameserver = mars.cse.psu.edu
+cse.psu.edu     nameserver = ns3.ems.psu.edu
+cse.psu.edu     nameserver = eris.cse.psu.edu
+ns3.ems.PSU.EDU internet address = 128.118.64.72
+ns3.ems.PSU.EDU AAAA IPv6 address = 2610:8:6c00:2::72
+eris.cse.psu.edu        internet address = 130.203.254.147
+mars.cse.psu.edu        internet address = 130.203.14.85
+mars.cse.psu.edu        AAAA IPv6 address = 2610:8:7800:26::85
+
+> set type=mx
+> cse.psu.edu
+cse.psu.edu     MX preference = 5, mail exchanger = arlo.cse.psu.edu
+
+
+
+The lower the number, the higher the priority
+
+Application Layer
+
+2-52
+
+DNS protocol, messages
+
+query and reply messages, both with same message format
+
+message header
+identification: 16 bit # for query, reply to query uses same #
+flags:
+query or reply
+recursion desired (for query)
+recursion available (for reply)
+reply is authoritative (for reply)
+
+header
+
+Application Layer
+
+2-53
+
+DNS protocol, messages
+
+message body
+questions: each contains the name and type of the queried record
+e.g., name: www.google.com, type:  A
+answers: RRs answering the questions
+e.g., name: www.google.com, type: A, TTL: 5 min, value: 74.125.131.147
+authority: type-NS RRs if not authoritative (for iterative query)
+e.g., name: google.com, type: NS, TTL: 2 days, value: ns1.google.com
+additional info: type-A RRs for hostnames in the answers (for NS/MX/CNAME-query)
+e.g., name: ns1.google.com, type: A, TTL: 2 days, value: 216.239.34.10
+
+Application Layer
+
+2-54
+
+Inserting records into DNS
+
+example: new startup “Network Utopia”
+register name networkutopia.com at DNS registrar (e.g., Network Solutions)
+provide names, IP addresses of authoritative name server (primary and secondary)
+registrar inserts two RRs into .com TLD server:(networkutopia.com, dns1.networkutopia.com, NS)
+  (dns1.networkutopia.com, 212.212.212.1, A)
+create authoritative server type A record for www.networkuptopia.com; type MX record for networkutopia.com
+
+
+Review
+
+DNS services
+Structure of DNS (system)
+Root/TLD/authoritative DNS servers, local DNS server
+Ways to resolve name by DNS
+iterative/recursive, maximum number of DNS messages exchanged 
+Resource Records (RR)
+content, types 
+DNS protocol
+
+Application Layer
+
+2-55
+
+Application Layer
+
+2-56
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks
+2.7 socket programming with UDP and TCP
+
+Application Layer
+
+2-57
+
+Client-server architecture
+
+server: 
+always-on host
+permanent IP address
+data centers for scaling
+clients:
+communicate with server
+may be intermittently connected
+may have dynamic IP addresses
+examples:
+web, email
+
+
+client/server
+
+Application Layer
+
+2-58
+
+P2P architecture
+
+no always-on server
+arbitrary end systems directly communicate
+peers are intermittently connected and change IP addresses
+examples:
+file distribution (BitTorrent)
+Streaming (KanKan)
+VoIP (Skype before 2011) 
+
+
+
+Application Layer
+
+2-59
+
+File distribution: client-server vs P2P
+
+Question: how much time to distribute file (size F) from one server to N  peers?
+assume fluid approximation
+
+us
+
+uN
+
+dN
+
+server
+
+network (with abundant
+ bandwidth)
+
+file, size F
+
+us: server upload capacity
+
+ui: peer i upload capacity
+
+di: peer i download capacity
+
+di
+
+ui
+
+Application Layer
+
+2-60
+
+File distribution time: client-server: bound
+
+server transmission: must send (upload) N file copies:
+time to send one copy: F/us 
+time to send N copies: NF/us
+
+time to  distribute F 
+to N clients using 
+client-server approach 
+
+ Dc-s ≥ max{NF/us,,F/dmin} 
+
+client: each client must download file copy
+dmin = min client download rate
+min client download time: F/dmin 
+
+us
+
+network
+
+di
+
+ui
+
+F
+
+Application Layer
+
+2-61
+
+File distribution time: client-server: scheme
+
+Distribution scheme
+If us/N ≤ dmin: server sends the file to each client in parallel at rate us/N:
+each client receives at rate us/N
+total time: NF/us
+
+time to  distribute F 
+to N clients using 
+client-server approach 
+
+ Dc-s = max{NF/us,,F/dmin} 
+
+If us/N ≥ dmin : server sends the file to each client in parallel at rate dmin:
+total upload rate at server ≤ us
+total time: F/dmin 
+
+us
+
+network
+
+di
+
+ui
+
+F
+
+Application Layer
+
+2-62
+
+File distribution time: P2P: bound
+
+server transmission: must upload at least one copy
+time to send one copy: F/us 
+
+time to  distribute F 
+to N clients using 
+P2P approach 
+
+us
+
+network
+
+di
+
+ui
+
+F
+
+client: each client must download file copy
+min client download time: F/dmin 
+
+clients: as aggregate must download NF bits
+min upload time: NF/(us + Sui)
+
+Application Layer
+
+2-63
+
+File distribution time: P2P: scheme, case 1
+
+Distribution scheme (assume large dmin)
+
+Define u:=u1+u2+…+uN.
+
+If us ≤ (us+u)/N
+divide the file into N parts, part i having size (ui/u)F
+server sends part i to peer i at rate ri= (ui/u)us
+r1+r2+…+rN = us
+peer i forwards to each of the other N-1 peers at rate ri
+(N-1)ri = (N-1)us(ui/u) ≤ ui
+peer i receives data at rate ri+∑j≠irj = us
+total time: F/us
+
+max{F/us,,F/dmin,,NF/(us + Sui)}
+
+Application Layer
+
+2-64
+
+File distribution time: P2P: scheme, case 2
+
+Distribution scheme (assume large dmin)
+
+max{F/us,,F/dmin,,NF/(us + Sui)}
+
+Application Layer
+
+2-65
+
+Client-server vs. P2P: example
+
+client upload rate = u,  F/u = 1 hour,  us = 10u,  dmin ≥ us
+
+increases linearly in N
+
+ DCS = max{NF/us,,F/dmin} 
+
+ DP2P = max{F/us,,F/dmin,,NF/(us + Sui)} 
+
+increases linearly in N … but so does this
+
+vs.
+
+Computation of file distribution time
+Client-server formula
+P2P formula
+How does the time scale with #clients/peers?
+Case study: BitTorrent
+tit-for-tat
+
+
+Application Layer
+
+2-66
+
+Review
+
+Application Layer
+
+2-67
+
+P2P file distribution: BitTorrent 
+
+tracker: tracks peers 
+participating in torrent
+
+torrent: group of peers exchanging  chunks of a file
+
+Alice arrives  …
+
+file divided into 256Kb chunks
+peers in torrent send/receive file chunks
+
+… obtains list
+of peers from tracker
+
+… and begins exchanging 
+file chunks with peers in torrent
+
+Application Layer
+
+2-68
+
+BitTorrent: requesting, sending file chunks
+
+requesting chunks:
+at any given time, different peers have different subsets of file chunks
+periodically, Alice asks each peer for list of chunks that they have
+Alice requests missing chunks from peers, rarest first
+
+sending chunks: tit-for-tat
+Alice sends chunks to those four peers currently sending her chunks at highest rate 
+other peers are choked by Alice (do not receive chunks from her)
+re-evaluate top 4 every10 secs
+every 30 secs: randomly select another peer, starts sending chunks
+“optimistically unchoke” this peer
+newly chosen peer may join top 4
+
+
+Application Layer
+
+2-69
+
+BitTorrent: tit-for-tat
+
+(1) Alice “optimistically unchokes” Bob
+
+(2) Alice becomes one of Bob’s top-four providers; Bob reciprocates
+
+(3) Bob becomes one of Alice’s top-four providers
+
+higher upload rate: find better trading partners, get file faster !
+
+Application Layer
+
+2-70
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks
+2.7 socket programming with UDP and TCP
+
+Application Layer
+
+2-71
+
+Electronic mail
+
+A client-server application
+
+Three major components: 
+user agents 
+mail servers 
+simple mail transfer protocol: SMTP
+User Agent
+a.k.a. “mail reader”
+composing, editing, reading mail messages
+e.g., Outlook, Thunderbird, iPhone mail client
+
+Application Layer
+
+2-72
+
+Electronic mail: mail servers
+
+mail servers:
+mailbox contains incoming messages for user
+message queue of outgoing (to be sent) mail messages
+SMTP (simple mail transfer protocol) between mail servers to send email messages
+client: sending mail server
+“server”: receiving mail server
+
+Application Layer
+
+2-73
+
+Scenario: Alice sends message to Bob
+
+1) Alice uses UA to compose message “to” bob@someschool.edu
+2) Alice’s UA sends message to her mail server; message placed in message queue
+3) client side of SMTP opens TCP connection with Bob’s mail server
+
+4) SMTP client sends Alice’s message over the TCP connection
+5) Bob’s mail server places the message in Bob’s mailbox
+6) Bob invokes his user agent to read message
+
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+Alice’s mail server
+
+Bob’s mail server
+
+Application Layer
+
+2-74
+
+Sample SMTP interaction
+
+     S: 220 hamburger.edu 
+     C: HELO crepes.fr 
+     S: 250  Hello crepes.fr, pleased to meet you 
+     C: MAIL FROM: <alice@crepes.fr> 
+     S: 250 alice@crepes.fr... Sender ok 
+     C: RCPT TO: <bob@hamburger.edu> 
+     S: 250 bob@hamburger.edu ... Recipient ok 
+     C: DATA 
+     S: 354 Enter mail, end with "." on a line by itself 
+     C: Do you like ketchup? 
+     C: How about pickles? 
+     C: . 
+     S: 250 Message accepted for delivery 
+     C: QUIT 
+     S: 221 hamburger.edu closing connection
+
+Try it out: telnet servername 25
+Then use HELO, MAIL FROM, RCPT TO, DATA, QUIT to send an email without user agent!
+
+
+Application Layer
+
+2-75
+
+Mail access protocols
+
+SMTP: delivery/storage to receiver’s server
+Mail access protocol: retrieval from server
+POP: Post Office Protocol [RFC 1939]: authorization, download 
+IMAP: Internet Mail Access Protocol [RFC 1730]: more features, including manipulation of stored messages on server
+HTTP: gmail, Hotmail, Yahoo! Mail, etc.
+
+
+SMTP
+
+SMTP
+
+mail access
+protocol
+
+receiver’s mail 
+server
+
+(e.g., POP, 
+         IMAP)
+
+Application Layer
+
+2-76
+
+SMTP: comparison with HTTP (1.1)
+
+Similarities:
+Both use TCP
+Both have client/server
+both have ASCII command/response interaction, status codes
+
+
+Differences:
+HTTP: pull
+SMTP: push
+HTTP: either persistent or non-persistent
+SMTP: persistent connection
+HTTP: each object encapsulated in its own response message
+SMTP: multiple objects sent in multipart message
+
+Application Layer
+
+2-77
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks
+2.7 socket programming with UDP and TCP
+
+Socket programming 
+
+Two socket types for two transport services:
+UDP: unreliable datagram
+TCP: reliable, byte stream-oriented 
+
+
+Application Layer
+
+2-78
+
+Application Example:
+client reads a line of characters (data) from its keyboard and sends data to server
+server receives the data and converts characters to uppercase
+server sends modified data to client
+client receives modified data and displays line on its screen
+
+Socket programming with UDP
+
+UDP: no “connection” between client & server
+no handshaking before sending data
+sender explicitly attaches IP destination address and port # to each packet
+receiver extracts sender IP address and port# from received packet
+UDP: transmitted data may be lost or received out-of-order
+Application viewpoint:
+UDP provides unreliable transfer  of groups of bytes (“datagrams”)  between client and server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Application Layer
+
+2-79
+
+Client/server socket interaction: UDP
+
+create socket, port= x:
+
+serverSocket =
+socket(AF_INET,SOCK_DGRAM)
+
+Application  2-80
+
+server (running on serverIP)
+
+client
+
+Application Layer
+
+2-81
+
+Example app: UDP client
+
+from socket import *
+serverName = ‘hostname’
+serverPort = 12000
+clientSocket = socket(AF_INET, 
+                                   SOCK_DGRAM)
+message = raw_input(’Input lowercase sentence:’)
+clientSocket.sendto(message.encode(),
+                                      (serverName, serverPort))
+modifiedMessage, serverAddress = 
+                                   clientSocket.recvfrom(2048)
+print modifiedMessage.decode()
+clientSocket.close()
+
+Python UDPClient
+
+Application Layer
+
+2-82
+
+Example app: UDP server
+
+from socket import *
+serverPort = 12000
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket.bind(('', serverPort))
+print (“The server is ready to receive”)
+while True:
+    message, clientAddress = serverSocket.recvfrom(2048)
+    modifiedMessage = message.decode().upper()
+    serverSocket.sendto(modifiedMessage.encode(),
+                                      clientAddress)
+
+Python UDPServer
+
+Socket programming with TCP
+
+client must contact server
+server process must first be running
+server must have created socket (door) that welcomes client’s contact
+client contacts server by:
+Creating TCP socket
+when client connects the socket to server’s IP and port: client establishes TCP connection to server
+
+
+when contacted by client, server creates a new socket to communicate with that particular client
+allows server to talk with multiple clients
+source IP addresses & port numbers used to distinguish clients (more in Chap 3)
+
+Application Layer
+
+2-83
+
+TCP provides reliable, in-order
+byte-stream transfer (“pipe”) 
+between client and server
+
+Client/server socket interaction: TCP
+
+Application Layer
+
+2-84
+
+server (running on hostid)
+
+client
+
+Application Layer
+
+2-85
+
+Example app: TCP client
+
+from socket import *
+serverName = ’servername’
+serverPort = 12000
+clientSocket = socket(AF_INET, SOCK_STREAM)
+clientSocket.connect((serverName,serverPort))
+sentence = raw_input(‘Input lowercase sentence:’)
+clientSocket.send(sentence.encode())
+modifiedSentence = clientSocket.recv(1024)
+print (‘From Server:’, modifiedSentence.decode())
+clientSocket.close()
+
+Python TCPClient
+
+Application Layer
+
+2-86
+
+Example app: TCP server
+
+ from socket import *
+serverPort = 12000
+serverSocket = socket(AF_INET,SOCK_STREAM)
+serverSocket.bind((‘’,serverPort))
+serverSocket.listen(1)
+print ‘The server is ready to receive’
+while True:
+     connectionSocket, addr = serverSocket.accept()
+     
+     sentence = connectionSocket.recv(1024).decode()
+     capitalizedSentence = sentence.upper()
+     connectionSocket.send(capitalizedSentence.
+                                                            encode())
+     connectionSocket.close()
+
+Python TCPServer
+
+Chapter 2: summary
+
+application architectures
+client-server
+P2P
+application service requirements:
+reliability, bandwidth, delay
+Internet transport service model
+connection-oriented, reliable: TCP
+unreliable, datagrams: UDP
+
+our study of network apps now complete!
+
+Application Layer
+
+2-87
+
+specific protocols:
+HTTP
+SMTP, POP, IMAP
+DNS
+P2P: BitTorrent
+video streaming, CDNs
+socket programming: 
+    TCP, UDP sockets
+
+RETIRED SLIDES
+
+Application Layer
+
+2-88
+
+Application Layer
+
+2-89
+
+Transport service requirements: common apps
+
+data loss
+
+no loss
+no loss
+no loss
+loss-tolerant
+
+loss-tolerant
+loss-tolerant
+no loss
+
+throughput
+
+elastic
+elastic
+elastic
+audio: 5kbps-1Mbps
+video:10kbps-5Mbps
+same as above 
+few kbps up
+elastic
+
+time sensitive
+
+no
+no
+no
+yes, 100’s ms
+
+yes, few secs
+yes, 100’s ms
+yes and no
+
+application
+
+file transfer
+e-mail
+Web documents
+real-time audio/video
+
+stored audio/video
+interactive games
+text messaging
+
+Application Layer
+
+2-90
+
+DNS: a distributed, hierarchical database
+
+client wants IP for www.amazon.com; 1st approximation:
+client queries root server to find com DNS server
+client queries .com DNS server to get amazon.com DNS server
+client queries amazon.com DNS server to get  IP address for www.amazon.com
+
+…
+
+…
+
+why not centralize DNS?
+single point of failure
+traffic volume
+distant centralized database
+maintenance
+
+
+Application Layer
+
+2-91
+
+DNS: root name servers
+
+contacted by local name server that can not resolve name
+root name server:
+contacts authoritative name server if name mapping not known
+gets mapping
+returns mapping to local name server
+
+ 13 logical root name “servers” worldwide
+each “server” replicated many times
+
+a. Verisign, Los Angeles CA
+    (5 other sites)
+b. USC-ISI Marina del Rey, CA
+l. ICANN Los Angeles, CA
+   (41 other sites)
+
+e. NASA Mt View, CA
+f. Internet Software C.
+Palo Alto, CA (and 48 other   sites)
+
+i. Netnod, Stockholm (37 other sites)
+
+k. RIPE London (17 other sites)
+
+m. WIDE Tokyo
+(5 other sites)
+
+c. Cogent, Herndon, VA (5 other sites)
+d. U Maryland College Park, MD
+h. ARL Aberdeen, MD
+j. Verisign, Dulles VA (69 other sites )
+
+g. US DoD Columbus, OH (5 other sites)
+
+Application Layer
+
+2-92
+
+TLD, authoritative servers
+
+top-level domain (TLD) servers:
+responsible for com, org, net, edu, aero, jobs, museums, and all top-level country domains, e.g.: uk, fr, ca, jp
+Network Solutions maintains servers for .com TLD
+Educause for .edu TLD
+authoritative DNS servers: 
+organization’s own DNS server(s), providing authoritative hostname to IP mappings for organization’s named hosts 
+can be maintained by organization or service provider
+
+
+Application Layer
+
+2-93
+
+Local DNS name server
+
+does not strictly belong to hierarchy
+each ISP (residential ISP, company, university) has one
+also called “default name server”
+when host makes DNS query, query is sent to its local DNS server
+has local cache of recent name-to-address translation pairs (but may be out of date!)
+acts as proxy, forwards query into hierarchy
+
+
+Application Layer
+
+2-94
+
+DNS: caching, updating records
+
+once (any) name server learns mapping, it caches mapping
+cache entries timeout (disappear) after some time (TTL)
+TLD servers typically cached in local name servers
+thus root name servers not often visited
+cached entries may be out-of-date (best effort name-to-address translation!)
+if name host changes IP address, may not be known Internet-wide until all TTLs expire
+update/notify mechanisms proposed IETF standard
+RFC 2136
+
+Application Layer
+
+2-95
+
+Chapter 2: outline
+
+2.1 principles of network applications
+2.2 Web and HTTP
+2.3 electronic mail
+SMTP, POP3, IMAP
+2.4 DNS
+
+
+2.5 P2P applications
+2.6 video streaming and content distribution networks (CDNs)
+2.7 socket programming with UDP and TCP
+
+Application Layer
+
+2-96
+
+Video Streaming and CDNs: context
+
+Netflix, YouTube: 37%, 16% of downstream residential ISP traffic
+~1B YouTube users, ~75M Netflix users
+Challenge 1:  scale - how to reach ~1B users?
+single mega-video server won’t work (why?)
+Challenge 2: heterogeneity
+different users have different capabilities (e.g., wired versus mobile; bandwidth rich versus bandwidth poor)
+Solution: distributed, application-level infrastructure
+
+video traffic: major consumer of Internet bandwidth
+
+video: sequence of images displayed at constant rate
+e.g., 24 images/sec
+digital image: array of pixels
+each pixel represented by bits
+coding: use redundancy within and between images to decrease # bits used to encode image
+spatial (within image)
+temporal (from one image to next)
+
+Multimedia: video
+
+Application Layer
+
+2-97
+
+Multimedia: video
+
+CBR: (constant bit rate): video encoding rate fixed
+VBR:  (variable bit rate): video encoding rate changes as amount of spatial, temporal coding changes 
+examples:
+MPEG 1 (CD-ROM) 1.5 Mbps
+MPEG2 (DVD) 3-6 Mbps
+MPEG4 (often used in Internet, < 1 Mbps)
+
+Application Layer
+
+2-98
+
+Streaming stored video: 
+
+simple scenario:
+
+video server
+(stored video)
+
+client
+
+Internet
+
+Application Layer
+
+2-99
+
+Streaming stored video: 
+
+Cumulative data
+
+time
+
+9-100
+
+Multimedia Networking
+
+       constant bit 
+      rate video
+transmission
+
+Cumulative data
+
+time
+
+client-side buffering and playout delay: compensate for network-added delay, delay jitter
+
+Streaming stored video: revisited
+
+9-101
+
+Multimedia Networking
+
+Client-side buffering, playout
+
+variable fill 
+rate, x(t)
+
+client  application 
+buffer, size B
+
+buffer fill level, Q(t)
+
+video server
+
+client
+
+1. Initial fill of buffer until playout begins at tp
+
+2. playout begins at tp, 
+3. buffer fill level varies over time as fill rate x(t) varies and playout rate r is constant
+
+9-102
+
+Multimedia Networking
+
+playout buffering: average fill rate (x), playout rate (r):
+x < r: buffer eventually empties (causing freezing of video playout until buffer again fills)
+x > r: buffer will not empty, provided initial playout delay is large enough to absorb variability in x(t)
+initial playout delay tradeoff: buffer starvation less likely with larger delay, but larger delay until user begins watching
+
+
+
+variable fill 
+rate, x(t)
+
+client  application 
+buffer, size B
+
+playout rate,
+e.g., CBR r
+
+buffer fill level, Q(t)
+
+video server
+
+Client-side buffering, playout
+
+9-103
+
+Multimedia Networking
+
+Application Layer
+
+2-104
+
+Internet apps:  application, transport protocols
+
+application
+
+e-mail
+remote terminal access
+Web 
+file transfer
+streaming multimedia
+
+Internet telephony
+
+
+application
+layer protocol
+
+SMTP [RFC 2821]
+Telnet [RFC 854]
+HTTP [RFC 2616]
+FTP [RFC 959]
+HTTP (e.g., YouTube), RTP [RFC 1889]
+SIP, RTP, proprietary
+(e.g., Skype)
+
+underlying
+transport protocol
+
+TCP
+TCP
+TCP
+TCP
+TCP or UDP
+
+
+TCP or UDP
+
+Streaming multimedia: UDP
+
+server sends at rate appropriate for client 
+often: send rate = encoding rate = constant rate
+transmission rate can be oblivious to congestion levels
+short playout delay (2-5 seconds) to remove network jitter
+error recovery: application-level, time permitting
+RTP [RFC 2326]: multimedia payload types
+UDP may not go through firewalls
+
+9-105
+
+Multimedia Networking
+
+Streaming multimedia: HTTP
+
+multimedia file retrieved via HTTP GET
+send at maximum possible rate under TCP
+
+
+
+
+
+fill rate fluctuates due to TCP congestion control, retransmissions (in-order delivery)
+larger playout delay: smooth TCP delivery rate
+HTTP/TCP passes more easily through firewalls
+
+variable rate, x(t)
+
+TCP send buffer
+
+video
+file
+
+TCP receive buffer
+
+application playout buffer
+
+server
+
+client
+
+9-106
+
+Multimedia Networking
+
+Streaming multimedia: DASH
+
+DASH: Dynamic, Adaptive Streaming over HTTP
+server:
+divides video file into multiple chunks
+each chunk stored, encoded at different rates 
+manifest file: provides URLs for different chunks
+client:
+periodically measures server-to-client bandwidth
+consulting manifest, requests one chunk at a time 
+chooses maximum coding rate sustainable given current bandwidth
+can choose different coding rates at different points in time (depending on available bandwidth at time)
+
+Application Layer
+
+2-107
+
+How DASH works
+
+server:
+video encoding:			manifest file: 
+
+
+ 
+
+
+
+client:
+fetches manifest file
+decides which representation to request for 1st segment
+measures server-to-client bandwidth
+Decides which representation to request for 2nd segment…
+
+Application Layer
+
+2-108
+
+Media Presentation Description (MPD)
+
+Sample manifest file
+
+<Representation id="0" codecs="avc1" mimeType="video/mp4" width="480" height="360" startWithSAP="1" bandwidth="101492"> 
+<SegmentBase> 
+<Initialization sourceURL="bunny_2s_100kbit/bunny_480_100kbit_dash.mp4"/> 
+</SegmentBase> 
+<SegmentList duration="2"> 
+<SegmentURL media="bunny_2s_100kbit/bunny_2s1.m4s"/> <SegmentURL media="bunny_2s_100kbit/bunny_2s2.m4s"/> 
+…
+</SegmentList> 
+</Representation> 
+
+Decision policy
+
+Content distribution networks
+
+challenge: how to stream content (selected from millions of videos) to hundreds of thousands of simultaneous users?
+
+option 1: single, large “mega-server”
+single point of failure
+point of network congestion
+long path to distant clients
+multiple copies of video sent over outgoing link
+
+….quite simply: this solution doesn’t scale
+
+
+
+
+Application Layer
+
+2-109
+
+Content distribution networks
+
+challenge: how to stream content (selected from millions of videos) to hundreds of thousands of simultaneous users?
+
+option 2: store/serve multiple copies of videos at multiple geographically distributed sites (CDN)
+enter deep: push CDN servers deep into many access networks 
+close to users
+used by Akamai, 1700 locations
+bring home: smaller number (10’s) of larger clusters in POPs near (but not within) access networks
+used by Limelight
+
+
+
+
+Application Layer
+
+2-110
+
+Content Distribution Networks (CDNs)
+
+subscriber requests content from CDN
+
+CDN: stores copies of content at CDN nodes 
+e.g. Netflix stores copies of MadMen
+
+directed to nearby copy, retrieves content
+
+
+may choose different copy if network path congested
+
+
+Application Layer
+
+2-111
+
+CDN content access: a closer look
+
+Bob (client) requests video http://netcinema.com/6Y7B23V
+video stored in CDN at http://KingCDN.com/NetC6y&B23V
+
+netcinema.com
+
+KingCDN.com
+
+1. Bob gets URL for video http://netcinema.com/6Y7B23V
+from netcinema.com web page
+
+2. resolve http://netcinema.com/6Y7B23V
+via Bob’s local DNS
+
+netcinema’s
+authoratative DNS
+
+3. netcinema’s DNS returns URL 
+http://KingCDN.com/NetC6y&B23V
+
+4&5. Resolve 
+http://KingCDN.com/NetC6y&B23
+via KingCDN’s authoritative DNS, 
+which returns IP address of KingCDN 
+server  with video
+
+6. request video from
+KINGCDN server,
+streamed via HTTP
+
+KingCDN
+authoritative DNS
+
+Bob’s 
+local DNS
+server
+
+Application Layer
+
+2-112
+
+Case study: Netflix
+
+1. Bob manages      Netflix account
+
+Netflix registration,
+accounting servers
+
+Amazon cloud
+
+2. Bob browses
+Netflix video
+
+3. Manifest file
+returned for 
+requested video
+
+4. DASH streaming
+
+upload copies of multiple versions of video to CDN servers
+
+Application Layer
+
+2-113
+
+Socket programming 
+
+goal: learn how to build client/server applications that communicate using sockets
+socket: door between application process and end-end-transport protocol 
+
+Application Layer
+
+2-114
+
+Socket programming 
+
+Two socket types for two transport services:
+UDP: unreliable datagram
+TCP: reliable, byte stream-oriented 
+
+
+Application Layer
+
+2-115
+
+More on TCP/UDP next chapter
+
+Content Distribution Networks (CDNs)
+
+OTT challenges: coping with a congested Internet
+from which CDN node to retrieve content?
+viewer behavior in presence of congestion?
+what content to place in which CDN node?
+
+“over the top”
+
+more .. in chapter 7
+
+typical request/reply message exchange:
+client requests info or service
+server responds with data, status code
+message formats:
+headers: fields giving info about data
+data: info(payload)  being communicated
+
+Application Layer
+
+2-117
+
+important themes: 
+control vs. messages
+in-band, out-of-band
+centralized vs. decentralized 
+stateless vs. stateful
+reliable vs. unreliable message transfer 
+“complexity at network edge”
+
+Chapter 2:  summary
+
+most importantly: learned about protocols! 
+
+Application Layer
+
+2-118
+
+Caching example: 
+
+origin
+servers
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+1.54 Mbps 
+access link
+
+assumptions:
+avg object size: 100K bits
+avg request rate from browsers to origin servers:15/sec
+avg data rate to browsers: 1.50 Mbps
+RTT from institutional router to any origin server: 2 sec
+access link rate: 1.54 Mbps
+consequences:
+LAN utilization: 15%
+access link utilization = 99%
+total delay   = Internet delay + access delay + LAN delay
+     =  2 sec + minutes + usecs
+
+
+
+problem!
+
+Application Layer
+
+2-119
+
+assumptions:
+avg object size: 100K bits
+avg request rate from browsers to origin servers:15/sec
+avg data rate to browsers: 1.50 Mbps
+RTT from institutional router to any origin server: 2 sec
+access link rate: 1.54 Mbps
+consequences:
+LAN utilization: 15%
+access link utilization = 99%
+total delay   = Internet delay + access delay + LAN delay
+     =  2 sec + minutes + usecs
+
+
+
+Caching example: fatter access link 
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+154 Mbps
+
+154 Mbps
+
+msecs
+
+Cost: increased access link speed (not cheap!)
+
+9.9%
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+institutional
+network
+
+1 Gbps LAN
+
+Application Layer
+
+2-120
+
+Caching example: install local cache 
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+assumptions:
+avg object size: 100K bits
+avg request rate from browsers to origin servers:15/sec
+avg data rate to browsers: 1.50 Mbps
+RTT from institutional router to any origin server: 2 sec
+access link rate: 1.54 Mbps
+consequences:
+LAN utilization: 15%
+access link utilization = 100%
+total delay   = Internet delay + access delay + LAN delay
+     =  2 sec + minutes + usecs
+
+
+
+?
+
+?
+
+How to compute link 
+utilization, delay?
+
+Cost: web cache (cheap!)
+
+public
+ Internet
+
+Application Layer
+
+2-121
+
+Caching example: install local cache 
+
+Calculating access link utilization, delay with cache:
+suppose cache hit rate is 0.4
+40% requests satisfied at cache, 60% requests satisfied at origin 
+  
+
+origin
+servers
+
+1.54 Mbps 
+access link
+
+access link utilization: 
+60% of requests use access link 
+data rate to browsers over access link 
+    = 0.6*1.50 Mbps = .9 Mbps 
+utilization = 0.9/1.54 = .58
+
+total delay
+= 0.6 * (delay from origin servers) +0.4 * (delay when satisfied at cache)
+= 0.6 (2.01) + 0.4 (~msecs) = ~ 1.2 secs
+less than with 154 Mbps link (and cheaper too!)
+  
+
+public
+ Internet
+
+institutional
+network
+
+1 Gbps LAN
+
+Suppose origin servers receive requests for 180 obj/sec in addition to the requests from the institution
+Before caching: server access delay = 1/(200-195) = 0.2 sec
+After caching: server access delay = 1/(200-189) = 0.09 sec
+
+Application Layer
+
+2-122
+
+More caching example: server side 
+
+Total delay = server LAN delay + server access delay + Internet delay + client access delay + client LAN delay
+
+Socket programming 
+
+Two socket types for two transport services:
+UDP: unreliable datagram
+TCP: reliable, byte stream-oriented 
+
+
+Application Layer
+
+2-123
+
+Application Example:
+client reads a line of characters (data) from its keyboard and sends data to server
+server receives the data and converts characters to uppercase
+server sends modified data to client
+client receives modified data and displays line on its screen
+
+Socket programming with UDP
+
+UDP: no “connection” between client & server
+no handshaking before sending data
+sender explicitly attaches IP destination address and port # to each packet
+receiver extracts sender IP address and port# from received packet
+UDP: transmitted data may be lost or received out-of-order
+Application viewpoint:
+UDP provides unreliable transfer  of groups of bytes (“datagrams”)  between client and server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Application Layer
+
+2-124
+
+Client/server socket interaction: UDP
+
+create socket, port= x:
+
+serverSocket =
+socket(AF_INET,SOCK_DGRAM)
+
+Application  2-125
+
+server (running on serverIP)
+
+client
+
+Application Layer
+
+2-126
+
+Example app: UDP client
+
+from socket import *
+serverName = ‘hostname’
+serverPort = 12000
+clientSocket = socket(AF_INET, 
+                                   SOCK_DGRAM)
+message = raw_input(’Input lowercase sentence:’)
+clientSocket.sendto(message.encode(),
+                                      (serverName, serverPort))
+modifiedMessage, serverAddress = 
+                                   clientSocket.recvfrom(2048)
+print modifiedMessage.decode()
+clientSocket.close()
+
+Python UDPClient
+
+Application Layer
+
+2-127
+
+Example app: UDP server
+
+from socket import *
+serverPort = 12000
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket.bind(('', serverPort))
+print (“The server is ready to receive”)
+while True:
+    message, clientAddress = serverSocket.recvfrom(2048)
+    modifiedMessage = message.decode().upper()
+    serverSocket.sendto(modifiedMessage.encode(),
+                                      clientAddress)
+
+Python UDPServer
+
+Socket programming with TCP
+
+client must contact server
+server process must first be running
+server must have created socket (door) that welcomes client’s contact
+client contacts server by:
+Creating TCP socket, specifying IP address, port number of server process
+when client creates socket: client TCP establishes connection to server TCP
+
+
+when contacted by client, server TCP creates new socket for server process to communicate with that particular client
+allows server to talk with multiple clients
+source port numbers used to distinguish clients (more in Chap 3)
+
+Application Layer
+
+2-128
+
+TCP provides reliable, in-order
+byte-stream transfer (“pipe”) 
+between client and server
+
+Client/server socket interaction: TCP
+
+Application Layer
+
+2-129
+
+server (running on hostid)
+
+client
+
+Application Layer
+
+2-130
+
+Example app: TCP client
+
+from socket import *
+serverName = ’servername’
+serverPort = 12000
+clientSocket = socket(AF_INET, SOCK_STREAM)
+clientSocket.connect((serverName,serverPort))
+sentence = raw_input(‘Input lowercase sentence:’)
+clientSocket.send(sentence.encode())
+modifiedSentence = clientSocket.recv(1024)
+print (‘From Server:’, modifiedSentence.decode())
+clientSocket.close()
+
+Python TCPClient
+
+Application Layer
+
+2-131
+
+Example app: TCP server
+
+ from socket import *
+serverPort = 12000
+serverSocket = socket(AF_INET,SOCK_STREAM)
+serverSocket.bind((‘’,serverPort))
+serverSocket.listen(1)
+print ‘The server is ready to receive’
+while True:
+     connectionSocket, addr = serverSocket.accept()
+     
+     sentence = connectionSocket.recv(1024).decode()
+     capitalizedSentence = sentence.upper()
+     connectionSocket.send(capitalizedSentence.
+                                                            encode())
+     connectionSocket.close()
+
+Python TCPServer

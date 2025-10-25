@@ -1,0 +1,79 @@
+Functionality   Points  
+ Undo button  button 2.5%  5 
+ Clear button  button 2.5%  5 
+Selecting the shape to draw, a 
+line, oval, or rectangle. ( combo 
+box)  
+combo box  3% 6 
+Specifying if the shape should 
+be filled or unfilled. ( checkbox )  checkbox  2.5%  5 
+Specifying wh ether to paint 
+using a gradient. (checkbox )  checkbox  2.5%  5 
+Two JButtons that each show a 
+JColorChooser dialog to allow 
+the user to choose the first and 
+second color in the gradient.  Two Jbutton s, each show a JColorChooser 
+dialog  4% 8 
+JSpinner  for entering the Stroke 
+width.  
+JSpinner  for entering the Stroke 
+dash length.  
+Specifying whether to draw a 
+dashed or solid line. ( checkbox )  JSpinner  2.5%  
+JSpinner  2.5%  
+checkbox  2.5%  5 
+5 
+5 
+JPanel on which the shapes are 
+drawn correctly.  
+Correctly: means it is possible to 
+draw the shape by pressing the 
+mouse and then dragging the 
+mouse in any direction  to see 
+the shape is drawn while 
+dragging.  Functionality of the drawing panel:  
+-Undo the last shape drawn 6% 
+ 
+-Clear all shapes from the drawing 6% 
+ 
+-Uses the MyShapes hierarchy provided to 
+draw the lines, rectangles and ovals. Draws 
+in any direction.  20% 
+ If any Direction not working  -5% (10 
+points)  
+ 
+- Filled shapes 7.5%  
+ 
+- Gradient coloring 10% 
+ 
+- Dashed shapes with stroke width and dash 
+length 10%   
+12 
+ 
+12 
+ 
+40 
+ 
+ 
+ 
+15 
+ 
+20 
+ 
+20 
+ 
+Status bar JLabel at the bottom 
+of the frame that displays the 
+current location of the mouse on 
+the draw panel.  10%  
+(label  2.5%, 
+ Functionality: showing coordinates 7.5%)  20 
+Each drawn shape should have 
+its own attributes.  
+For instance, one shape can be filled, 
+not dashed, while another one can be 
+not filled and dashed and so on.  6% 12 
+ 
+ 
+
+ 

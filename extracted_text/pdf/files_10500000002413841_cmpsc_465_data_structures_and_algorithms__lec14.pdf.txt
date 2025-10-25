@@ -1,0 +1,1000 @@
+CMPSC 465: LECTURE XIV
+Breath First Search
+and
+Shortest Paths
+Ke Chen
+October 01, 2025
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:ssa
+c de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:sa
+c de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:sa
+c de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s
+aac de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s
+aa
+c
+cde
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s
+aa
+c
+cd
+de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s
+aa
+c
+cd
+de
+eb
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c
+cd
+de
+eb
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c
+cd
+de
+eb
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c d
+de
+eb
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+eb
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+Correctness? Almost the same as Explore for DFS (Exercise).
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+Time complexity?Each vertex is enqueued exactly once.
+Each edge is considered twice.
+Adjacency list: O(jVj+jEj) Adjacency matrix: O(jVj2)
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+Time complexity? Each vertex is enqueued exactly once.
+Each edge is considered twice.Adjacency list: O(jVj+jEj) Adjacency matrix: O(jVj2)
+1 / 8
+
+Breadth First Search (BFS)
+Input: Graph G= (V; E), a starting vertex s, an integer color
+Output: All vertices reachable from smarked with color
+// visited is an array of length jVj, filled with 0's
+BFS-Explore( G,s,color )
+Q.enqueue( s)//Qis a queue
+visited [s] =color
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifvisited [w] == 0 then
+Q.enqueue( w)
+visited [w] =colore s a
+d c b
+Q:s a
+c de
+b
+Time complexity? Each vertex is enqueued exactly once.
+Each edge is considered twice.
+Adjacency list: O(jVj+jEj) Adjacency matrix: O(jVj2)
+1 / 8
+
+BFS vs DFS
+A B C D E FDFS tree:
+A
+B
+C
+D
+E
+FBFS tree:
+A
+B F
+C E
+D
+2 / 8
+
+BFS vs DFS
+A B C D E F
+DFS tree:
+A
+B
+C
+D
+E
+FBFS tree:
+A
+B F
+C E
+D
+2 / 8
+
+BFS vs DFS
+A B C D E F
+DFS tree:
+A
+B
+C
+D
+E
+FBFS tree:
+A
+B F
+C E
+D
+2 / 8
+
+BFS vs DFS
+IJust like DFS, the same BFS algorithm works for both
+directed and undirected graphs.ISame complexity(how about MicroMouse?)
+IBoth can answer queries \Can I go from A to B?"
+IDFS nds some path, BFS nds the shortest path(sometimes).
+3 / 8
+
+BFS vs DFS
+IJust like DFS, the same BFS algorithm works for both
+directed and undirected graphs.
+ISame complexity(how about MicroMouse?)
+IBoth can answer queries \Can I go from A to B?"
+IDFS nds some path, BFS nds the shortest path(sometimes).
+3 / 8
+
+BFS vs DFS
+IJust like DFS, the same BFS algorithm works for both
+directed and undirected graphs.
+ISame complexity (how about MicroMouse?)IBoth can answer queries \Can I go from A to B?"
+IDFS nds some path, BFS nds the shortest path(sometimes).
+3 / 8
+
+BFS vs DFS
+IJust like DFS, the same BFS algorithm works for both
+directed and undirected graphs.
+ISame complexity (how about MicroMouse?)
+IBoth can answer queries \Can I go from A to B?"IDFS nds some path, BFS nds the shortest path(sometimes).
+3 / 8
+
+BFS vs DFS
+IJust like DFS, the same BFS algorithm works for both
+directed and undirected graphs.
+ISame complexity (how about MicroMouse?)
+IBoth can answer queries \Can I go from A to B?"
+IDFS nds some path, BFS nds the shortest path(sometimes).
+3 / 8
+
+BFS vs DFS
+IJust like DFS, the same BFS algorithm works for both
+directed and undirected graphs.
+ISame complexity (how about MicroMouse?)
+IBoth can answer queries \Can I go from A to B?"
+IDFS nds some path, BFS nds the shortest path (sometimes).
+3 / 8
+
+The shortest path problem
+Given a graph G, what is the shortest path between two vertices?
+First scenario Gisunweighted , i.e., all edges have distance one.Example
+E S A
+D C BF
+IShortest path between DandF?D!S!A!F, distance=3
+IShortest path between CandA?C!S(orB)!A, distance=2
+4 / 8
+
+The shortest path problem
+Given a graph G, what is the shortest path between two vertices?
+First scenario Gisunweighted , i.e., all edges have distance one.
+Example
+E S A
+D C BF
+IShortest path between DandF?D!S!A!F, distance=3
+IShortest path between CandA?C!S(orB)!A, distance=2
+4 / 8
+
+The shortest path problem
+Given a graph G, what is the shortest path between two vertices?
+First scenario Gisunweighted , i.e., all edges have distance one.
+Example
+E S A
+D C BF
+IShortest path between DandF?D!S!A!F, distance=3IShortest path between CandA?C!S(orB)!A, distance=2
+4 / 8
+
+The shortest path problem
+Given a graph G, what is the shortest path between two vertices?
+First scenario Gisunweighted , i.e., all edges have distance one.
+Example
+E S A
+D C BF
+IShortest path between DandF?D!S!A!F, distance=3
+IShortest path between CandA?C!S(orB)!A, distance=2
+4 / 8
+
+The shortest path problem
+Given a graph G, what is the shortest path between two vertices?
+First scenario Gisunweighted , i.e., all edges have distance one.
+Example
+E S A
+D C BF
+IShortest path between DandF?D!S!A!F, distance=3
+IShortest path between CandA?C!S(orB)!A, distance=2
+4 / 8
+
+Unweighted shortest path with BFS
+Idea We can modify BFS to keep track of distances.Input: Graph G= (V; E), a starting vertex s
+Output: Shortest distances to all vertices reachable from s
+// dist is an array of length jVj, filled with1's
+BFS-ShortestPath( G,s)
+Q.enqueue( s)//Qis a queue
+dist[s] = 0
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifdist[w] ==1then
+Q.enqueue( w)
+dist[w] =dist[v] + 1
+5 / 8
+
+Unweighted shortest path with BFS
+Idea We can modify BFS to keep track of distances.
+Input: Graph G= (V; E), a starting vertex s
+Output: Shortest distances to all vertices reachable from s
+// dist is an array of length jVj, filled with1's
+BFS-ShortestPath( G,s)
+Q.enqueue( s)//Qis a queue
+dist[s] = 0
+while Qis not empty do
+v=Q.dequeue()
+foreach edgefv; wg2Edo
+ifdist[w] ==1then
+Q.enqueue( w)
+dist[w] =dist[v] + 1
+5 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0B1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.Example
+E F A
+D C BS
+Q:1
+11111
+0B1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0
+SB1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0
+SB1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0
+SB1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0
+S
+AB1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0
+S
+A1B1
+F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+0
+S
+A1
+B1F2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+B1AF2
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+B1A
+F2C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+1
+F2
+BC2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+1
+F2
+B
+C2D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+12
+C2FD3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+12
+C2F
+D3E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+12
+C2
+D3
+E3
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+12
+2
+D3
+E3
+C
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+12
+2 3
+E3
+D
+6 / 8
+
+Unweighted shortest path with BFS
+Time complexity? Same as BFS.
+Correctness? Prove by induction that BFS explores \layer by
+layer": for d= 0;1;2; : : :, there is a moment at which
+IAll nodes with distance dfromshave the correct distances.
+IAll other nodes have distances 1.
+IThe queue contains exactly all nodes at distance d.
+Example
+E F A
+D C BS
+Q:1
+11111
+01
+12
+2 33
+E
+6 / 8
+
+Unweighted shortest path with BFS
+Remarks We nd all shortest distances from s, this is called the
+single-source shortest path problem.
+INo need to call Explore on unvisited vertices.
+IHave to make a fresh start if want shortest distances from a
+dierent node.
+7 / 8
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.Second scenario Find shortest paths on weighted graphs.
+Idea Suppose all the weights are positive integers, we can
+add dummy nodes to represent edge weights.
+Example
+AB
+CD
+E2
+12
+31
+42 AB
+CD
+E
+8 / 8
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.
+Second scenario Find shortest paths on weighted graphs.Idea Suppose all the weights are positive integers, we can
+add dummy nodes to represent edge weights.
+Example
+AB
+CD
+E2
+12
+31
+42 AB
+CD
+E
+8 / 8
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.
+Second scenario Find shortest paths on weighted graphs.
+Idea Suppose all the weights are positive integers, we can
+add dummy nodes to represent edge weights.Example
+AB
+CD
+E2
+12
+31
+42 AB
+CD
+E
+8 / 8
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.
+Second scenario Find shortest paths on weighted graphs.
+Idea Suppose all the weights are positive integers, we can
+add dummy nodes to represent edge weights.
+Example
+AB
+CD
+E2
+12
+31
+42AB
+CD
+E
+8 / 8
+
+Shortest path on weighted graphs
+In many applications, having weights on edges is useful.
+The edge weights could represent distances, cost, time, etc.
+Second scenario Find shortest paths on weighted graphs.
+Idea Suppose all the weights are positive integers, we can
+add dummy nodes to represent edge weights.
+Example
+AB
+CD
+E2
+12
+31
+42 AB
+CD
+E
+8 / 8

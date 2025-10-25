@@ -1,0 +1,107 @@
+CMPEN/EE 362 HW 2 Rubric
+
+Total number of points: 15
+
+Problem 1: (1.5 points)
+The document request was http://gaia.cs.umass.edu/cs453/index.html. (0.25 points)
+-0.0 points if correct URL is provided.
+-0.25 points if the URL is incorrect.
+The browser is running HTTP version 1.1. (0.25 points)
+-0.0 points if correct version is provided.
+-0.25 points if the version is incorrect or missing.
+The browser is requesting a persistent connection, as indicated by the Connection: keep-alive. (0.25 points)
+-0.0 points if the correct type of connection is provided.
+-0.25 points if the connection type is incorrect or missing.
+Trick question. There is no way to tell the IP address from looking at the exchange of HTTP messages alone. (0.25 points)
+-0.0 points if the impossibility of getting an IP address is mentioned.
+-0.25 points if the impossibility of getting an IP address is not mentioned.
+Mozilla/5.0. The browser type information is needed by the server to send different versions of the same object to different types of browsers. (0.5 points)
+-0.0 points if the name of the browser and the reason for the different browser type is mentioned.
+-0.25 points if only one of the answers is correctly mentioned.
+-0.5 points if none of the answers are correctly mentioned.
+
+Problem 2: (1.5 points)
+The status code of 200 and the phrase OK indicate that the server was able to locate the document successfully. The reply was provided on Tuesday, 07 Mar 2008 12:39:45 Greenwich Mean Time. (0.5 points)
+-0.0 points if correct.
+-0.25 points if incorrectly stated that server was not able to locate the document or no answer was provided.
+-0.25 points if incorrect time provided or time was omitted.
+The document index.html was last modified on Saturday 10 Dec 2005 18:27:46 GMT. (0.25 points)
+-0.0 points if correct modification time provided.
+-0.25 points if incorrect modification time or no answer was provided.
+There are 3874 bytes in the document being returned. (0.25 points)
+-0.0 points if correct number of bytes mentioned.
+-0.25 points if incorrect number of bytes or no answer was provided.
+The first five bytes of the returned document are: <!doc. The server agreed to a persistent connection, as indicated by the Connection: Keep-Alive field. (0.5 points)
+-0.0 points if correct.
+-0.25 points if the first 5 bytes are incorrect.
+-0.25 points if incorrectly stated server agreed to a non-persistent connection or did not mention connection type.
+
+Problem 3: (4.25 points)
+It takes 140ms to obtain the base HTML. (0.5 points)	
+-0.0 points if correct time and work shown.
+-0.25 points if partially correct and work shown (mentions two different kinds of RTTs), but incorrect result.
+-0.5 points if totally wrong or no attempt was made.
+It takes 2.54s to obtain the base HTML. (0.5 points)
+-0.0 points if correct time and work shown.
+-0.25 points if partially correct and work shown (correct approach), but incorrect result.
+-0.40 points if correct answer but no work shown.
+-0.5 points if totally wrong or no attempt was made.
+It takes 0.74s. (0.75 points)
+-0.0 points if correct time and work shown.
+-0.25 points if partially correct (mentions the correct number of rounds (3)) and work shown.
+-0.5 points if correct answer but no work shown.
+-0.75 points if totally wrong or no attempt was made.
+It takes 1.94s. (0.75 points)
+-0.0 points if correct time and work shown.
+-0.25 points if partially correct and work shown (correct approach), but incorrect result.
+-0.5 points if correct answer but no work shown.
+-0.75 points if totally wrong or no attempt was made.
+It takes 1.39s. (0.75 points)
+-0.0 points if correct time and work shown.
+-0.25 points if partially correct and work shown, but incorrect result.
+-0.5 points if correct answer but no work shown.
+-0.75 points if totally wrong or no attempt was made.
+The minimum number of parallel connections is 2. (1 points)	
+-0.0 points if correct time and work shown.
+-0.25 points if partially correct and work shown, but incorrect result.
+-0.5 points if correct answer but no work shown.
+-0.75 points if incorrect but an attempt was made.
+-1.0 points if totally wrong or no attempt was made.
+
+Problem 4: (3 points)
+Total delay for one object ≈ 2.81s (1 point)
+-0.0 points if correct total delay and work shown.
+-0.25 points if partially correct and work shown, but incorrect result.
+-0.5 points if correct answer but no work shown.
+-0.75 points if incorrect attempt made (missing some delays).
+-1.0 points if totally wrong or no attempt was made.
+Total delay for one object (with 0.2 cache hit rate) = 1.771s (1 point)
+Same as (a).
+We need at least 95% hit rate to make the delay ≤ 100ms (1 point)
+-0.0 points if correct delay equation and cache hit rate provided.
+-0.25 points if delay equation is partially correct.
+-0.5 points if delay equation is wrong or none provided.
+-0.25 points if calculated cache hit rate is wrong.
+-1.0 points if totally wrong or no attempt was made.
+
+Problem 5: (0.75 points)
+0.25 points
+-0.0 points if correct commands provided and answers are clearly marked. Note: IP address and name may vary.
+-0.10 points if partially correct (printout missing, answers not clearly marked).
+-0.25 points if no attempt was made.
+0.25 points - Same as (a).
+0.25 points - Same as (a).
+
+Problem 6: (4 points)
+According to the file distribution time:
+
+we can compute the following chart: (2 points)
+-0.0 points if all the values in the table/chart are correct.
+-0.25 points if mostly correct (made a small error).
+-0.5 points if partially correct (correct file distribution time eq. mentioned but used u in place of us).
+-1.0 points if incorrect attempt made but work shown (includes N, F, u and dmin).
+-2.0 points if totally wrong or no attempt made (does not include any of these variables: N, F, u or dmin).
+According to the file distribution time:
+
+we can compute the following chart: (2 points)
+Same as (a).

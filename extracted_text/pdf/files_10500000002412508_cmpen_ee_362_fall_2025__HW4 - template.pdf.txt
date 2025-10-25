@@ -1,0 +1,88 @@
+CMPEN/EE 362 - HW4 
+Student N ame: ____________ _____________ 
+Problem 1 
+Consider a datagram n etwork u sing 8 -bit h ost a ddresses. S uppose a r outer u sing l ongest p refix m atching 
+has t he fo llowing fo rwarding t able: 
+Prefix  Interface  
+0 0 
+001 1 
+010 2 
+11 2 
+otherwise  3 
+F
+or each of the four interfaces, give the associated range of destination host addresses and the number 
+of addresses in the range.  
+
+
+Problem 2  
+Consider an ISP that owns the block of addresses in 123.119.14.64/26. Suppose it wants to create three 
+subnets, where Subnet1 supports at least 30 interfaces, Subnet2 supports at least 12 interfaces, and 
+Subnet3 supports at least 9 interfaces. Provide the  network addresses (of the form a.b.c.d/x)  of the 
+three subnets  that satisfy these requirements.   
+  
+
+Problem 3  
+Consider the network shown in Figure 1.   
+ 
+Figure 1. Illustration for Problem 3.  
+a) Give the network addresses of Subnets A, B, and C in the form of a.b.c.d/x , such that: Subnet A 
+supports 6  interfaces, Subnet B supports 12  interfaces, Subnet C supports 30  interfaces.  
+b) Using answer to a), provide the forwarding tables  (each row containing “prefix match” and 
+“outgoing interface” fields)  for each of the three routers , so that the  shortest path  (in hop 
+count)  is used  for each packet. Suppose that no packet will have a router interface as the final 
+destination  (i.e., the destination IP address will always be for a host) . Denote the prefix in binary 
+format; denote the outgoing interface  by the  subnet the packet needs to be forwarded to  (e.g., 
+Router 1 can forward packets to Subnet A, Subnet D, Subnet F ). 
+  223.1.1.1
+223.1.1.3223.1.1.4
+223.1.2.2 223.1.2.1223.1.2.6
+223.1.3.2 223.1.3.1223.1.3.27223.1.1.2
+223.1.7.0
+223.1.7.1
+223.1.8.0 223.1.8.1223.1.9.1223.1.9.2
+Subnet A
+Subnet C Subnet BSubnet D
+Subnet ESubnet FRouter 1
+Router 2 Router 3
+
+Problem 4  
+Consider sending a 5000 -byte datagram  (including IP header)  to a link  that has an MTU of 102 0 bytes. 
+Suppose that the original datagram has an identification number of 301. Answer the following:  
+a) How many fragments are generated?  
+b) Which header fields are used to support fragmentation?  
+c) What are the values of these header fields for each of the fragment?  
+  
+
+Problem 5  
+Consider the SDN network shown in Figure 2. Specify the flow table entries in s2 (each row contains 
+“match” and “action” fields) to  achieve  the following behaviors  (simultaneously) : 
+• datagrams arriving on port 1 from hosts h5 or h6 that are destined to hosts h1 or h2 should be 
+forwarded to port 2;  
+•  datagrams arriving on port 2 from hosts h1 or h2 that are destined to hosts h5 or h6 should be 
+forwarded to port 1;  
+• datagrams arriving on ports 1 or 2 that are destined to hosts h3 or h4 should be delivered to the respective host;  
+• datagrams from host h3 to hosts h1, h2, h5, and h6 should be forwarded to port 1;  
+• datagrams from host h4 to hosts h1, h2, h5, and h6 should be forwarded to port 2;  
+• allow TCP traffic  but block UDP traffic  between hosts h3 and h4.  
+ 
+Figure 2. Illustration for Problem 5.  
+Host h1
+10.1.0.1
+Host h2
+10.1.0.2
+Host h4
+10.2.0.4
+Host h3
+10.2.0.3
+Host h5
+10.3.0.5
+s1 s2s31
+2
+34
+1
+2
+341
+2
+34Host h6
+10.3.0.6
+controller

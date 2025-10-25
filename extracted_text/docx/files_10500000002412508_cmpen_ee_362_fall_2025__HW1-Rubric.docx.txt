@@ -1,0 +1,106 @@
+CMPEN/EE 362 HW 1 Rubric
+
+Total number of points: 15
+
+Problem 1: (3 points)
+ seconds. (1 point)
+1 point if fully correct.
+0.5 points if partially correct (includes L, R, d and N).
+0.25 points if incorrect attempt made (does not include one of these: L, R, d or N).
+0 points if totally wrong or no attempt was made.
+ seconds. (1 point)
+Same as (a).
+ seconds. (0.5 points)
+0.5 points if fully correct.
+0.25 points if partially correct (includes summation and R1).
+0 points if totally wrong or no attempt was made.
+ seconds. (0.5 points)
+Same as (c) but replace R1 with RN.
+
+Problem 2: (3 points)
+The end-to-end delay is 36 minutes. (0.6 points)
+0.6 points if correct result is mentioned.
+0.3 points if work shown but incorrect result.
+0 points if totally wrong or no attempt was made.
+The end-to-end delay is 22 minutes. (0.6 points)
+Same as (a).
+The end-to-end delays are 144 and 130 minutes. (0.6 points)
+0.6 points if both results are correct.
+0.3 points if only one result is correct.
+0 points if totally wrong or no attempt was made.
+The first car is at the 1/6 point from B to C or 16.67 km from B or 83.33 km from C. (0.6 points)
+0.6 points if the correct value of distance is mentioned.
+0.3 points if work shown but incorrect result.
+0 points if totally wrong or no attempt was made.
+The maximum value is 15 km. (0.6 points)
+0.6 points if the correct result and explanation is mentioned.
+0.4 points if the correct result is mentioned but no explanation.
+0.25 points if the work is shown but incorrect results.
+0 points if totally wrong or no attempt was made.
+
+
+
+Problem 3: (3 points)
+6 users can be supported. (0.5 points)
+0.5 points if correct number of users mentioned.
+0.25 points if work shown but incorrect number of users.
+0 points if totally wrong or no attempt was made.
+. (0.5 points)
+0.5 points if probability is correct. If using only 4 decimal places, the answer should be rounded to 0.0008.
+0.25 points if work shown but incorrect probability. Must have used combination or individual user’s probability.
+0 points if totally wrong or no attempt was made.
+The maximum number of users is 13 with probability 0.007. (1 point)
+1 point if correct max number of users mentioned and work shown.
+0.75 points if partially correct but incorrect max number of users. Must have used summation, combination or individual user’s probability.
+0.5 points if correct answer but no work shown.
+0.25 points if incorrect attempt made.
+0 points if totally wrong or no attempt was made.
+Average link utilization is 0.43. (1 point)
+1 point if correct avg. link utilization and work shown.
+0.75 points if partially correct and work shown.
+0.5 points if correct, but no work shown.
+0.25 points if incorrect attempt made.
+0 points if totally wrong or no attempt was made.
+
+Problem 4: (3 points)
+The end to end delay 300.3 sec. (0.5 points)
+0.5 points if the correct result is mentioned.
+0.25 points if work shown but incorrect result.
+0 points if totally wrong or no attempt was made.
+The end to end delay 100.7 sec. (0.5 points)
+Same as (a).
+The end to end delays are 1001 and 102.8 sec. (0.5 points)
+0.5 points if both results are correct.
+0.25 points if only one result is correct.
+0 points if totally wrong or no attempt was made.
+The end to end delay after inclusion of header bit is 100.7502 sec. (0.5 points)
+Same as (a).
+ Benefits of message segmentation: (0.5 points)
+0.5 points if comprehensive and well-structured explanation of two or more benefits will ensure full points.
+0.25 points if only one benefit mentioned.
+Drawbacks of message segmentation: (0.5 points)
+Same as (e), except must mention drawbacks instead of benefits.
+
+
+
+Problem 5: (3 points)
+10 sensors supported when using only numerical and 1 sensor when using numerical and video. (1 point)
+1 point if correct number of sensors for numerical and numerical + video.
+0.5 points if correct for numerical but not numerical + video.
+0.5 points if correct for numerical + video but not numerical.
+0.25 points if incorrect attempt made.
+0 points if totally wrong or no attempt was made.
+46 max number of supported sensors for numerical measurements. (1 point)
+1 point if correct max number of sensors and work shown.
+0.75 points if partially correct and work shown. Must have used summation, combination and individual sensor probability.
+0.5 points if correct answer but no work shown.
+0.25 points if incorrect attempt made.
+0 points if totally wrong or no attempt was made.
+1 max number of supported sensors for numerical + video. (0.5 points)
+0.5 points if correct max number of sensors and work shown.
+0.25 if partially correct and work shown.
+0.25 if correct answer but no work shown.
+0 points if totally wrong or no attempt was made.
+At 0.1 Mbps, the system benefits more from packet switching. (0.5 points)
+0.5 points if correct.
+0 points if incorrect or no attempt was made.

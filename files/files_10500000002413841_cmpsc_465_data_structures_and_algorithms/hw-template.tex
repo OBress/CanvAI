@@ -1,0 +1,70 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[headheight=14pt, margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks]{hyperref}
+
+%%% TODO modify these variables %%%
+\def\homeworknum{1}
+% Your name and access ID
+\def\name{Alice}
+\def\accessid{xyz1234}
+% List of collaborators (name and access id)
+\def\collablist{
+  Bob (xyz2341),
+  Carl (xyz3412)
+}
+% List of books, online resources, etc.
+\def\references{
+  Book X,
+  \url{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}
+}
+%%%%
+
+\pagestyle{fancy}
+\lhead{{\bf CMPSC 465 Fall 2025}}
+\chead{{\bf Homework~\homeworknum}}
+\rhead{{\bf \today}}
+
+\newcounter{problemid}
+\stepcounter{problemid}
+\def\newproblem{\clearpage\newpage{\bf Problem~\arabic{problemid}\stepcounter{problemid}}\par}
+
+\setlength\parindent{0em}
+\setlength\parskip{8pt}
+\setlength{\fboxsep}{6pt}
+
+
+\begin{document}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|lp{.7\textwidth}|}
+    \hline
+    \textbf{Name:} & {\name}\\
+    \textbf{Access ID:} & {\accessid}\\
+    \textbf{Collaborators:} & {\collablist}\\
+    \textbf{References:} & {\references}\\
+    \hline
+  \end{tabular}
+\end{center}
+
+\newproblem
+%%% TODO: Your solution here %%%
+Your solution starts here ...
+
+\newproblem
+%%% TODO: Your solution here %%%
+
+\newproblem
+%%% TODO: Your solution here %%%
+
+\newproblem
+%%% TODO: Your solution here %%%
+
+\newproblem
+%%% TODO: Your solution here %%%
+
+\end{document}

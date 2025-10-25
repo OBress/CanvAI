@@ -1,0 +1,44 @@
+Simple guide to using Apache Netbeans  IDE 
+ 
+Part 1: Create a new project  
+1. Click on File ->New Project  
+ 
+ 
+2. Select Java with Ant in Categories and Java Application in Projects  
+ 
+ 
+3. Provide a name for the project, here it is SampleJavaProject  
+
+
+ 
+ 
+4. Now the project is created and ready to be worked on  
+ 
+ 
+ 
+Part 2: Exporting the project  
+ 
+1. Click on File -> Export Project -> To zip  
+ 
+ 
+
+
+2. Select the project and location where the zip will be saved. Copy the project name (along with 
+.zip) as you will need it in the brow se window. Click on Export once the path is selected  
+ 
+ 
+ 
+ 
+ 
+ 
+Part 3: Import a project  
+1. It is important to check if you can import the zip that you just created. This  is highly 
+recommended and will help cut down a lot of unwanted confusion  and problems  for the 
+students & TAs during gradings . 
+2. File -> Import project -> From zip...  
+
+
+ 
+3. Select the folder and then the zip file, click on import  
+ 
+4. Verify if your project is correctly imported and loaded  

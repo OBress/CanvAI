@@ -1,0 +1,272 @@
+Memory Management
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+
+Heaps
+CMPSC 461 –Programming Language Concepts
+
+
+Heaps
+CMPSC 461 –Programming Language Concepts
+
+
+Heaps
+CMPSC 461 –Programming Language Concepts
+
+
+Heaps
+CMPSC 461 –Programming Language Concepts
+
+
+Heaps
+CMPSC 461 –Programming Language Concepts
+
+
+Heap Management
+CMPSC 461 –Programming Language Concepts
+
+
+Heap-based Allocation
+CMPSC 461 –Programming Language Concepts
+
+
+Heap Management Algorithms
+(not covered in this course)
+CMPSC 461 –Programming Language Concepts
+
+
+Heap Management
+CMPSC 461 –Programming Language Concepts
+
+
+Heap Management
+CMPSC 461 –Programming Language Concepts
+
+
+Garbage Collection
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+GC I: Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+Problem of Reference Counting
+CMPSC 461 –Programming Language Concepts
+
+
+Taxonomy
+CMPSC 461 –Programming Language Concepts
+
+
+What is Garbage?
+CMPSC 461 –Programming Language Concepts
+
+
+GC II: Tracing Collection
+CMPSC 461 –Programming Language Concepts
+
+
+Abstraction of Tracing
+CMPSC 461 –Programming Language Concepts
+
+
+Overview
+CMPSC 461 –Programming Language Concepts
+
+
+Taxonomy
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-And-Sweep
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-And-Sweep
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-And-Sweep
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-And-Sweep
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-And-Sweep
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-the-World Collectors
+CMPSC 461 –Programming Language Concepts
+
+
+Taxonomy
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact
+CMPSC 461 –Programming Language Concepts
+
+
+Why Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Mark-and-Compact?
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-the-World Collectors
+CMPSC 461 –Programming Language Concepts
+
+
+Taxonomy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy (Copying Collector)
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-the-World-Collectors
+CMPSC 461 –Programming Language Concepts
+
+
+Stop-and-Copy
+CMPSC 461 –Programming Language Concepts
+
+
+Taxonomy
+CMPSC 461 –Programming Language Concepts
+
+
+Short-Pause Collection
+CMPSC 461 –Programming Language Concepts
+
+
+Short-Pause Collection
+CMPSC 461 –Programming Language Concepts
+
+
+Taxonomy
+CMPSC 461 –Programming Language Concepts
+
+
+The Object Life-Cycle
+CMPSC 461 –Programming Language Concepts
+
+
+Generational
+CMPSC 461 –Programming Language Concepts
+
+
+Generational
+CMPSC 461 –Programming Language Concepts
+
+
+Algorithm for Young Generation
+CMPSC 461 –Programming Language Concepts
+
+
+Algorithm for Old Generation
+CMPSC 461 –Programming Language Concepts
+
+
+Algorithm for Old Generation
+CMPSC 461 –Programming Language Concepts
+
+
+Generational
+CMPSC 461 –Programming Language Concepts

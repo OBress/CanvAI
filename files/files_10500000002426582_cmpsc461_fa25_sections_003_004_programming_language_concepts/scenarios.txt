@@ -1,0 +1,176 @@
+Here are five scenario-based learning activities designed to help learners understand and apply concepts related to lexical analysis in programming languages:
+
+### Activity 1: Token Stream Creation
+**Scenario:** You are part of a team developing a new programming language. Your task is to design the lexical analyzer for the language.
+
+**Decision Point:** You need to decide how to define tokens for keywords, punctuation, identifiers, operators, and constants. Choose the appropriate token classes for a given source code snippet.
+
+**Feedback:** 
+- Correct choices will show how they facilitate syntax analysis.
+- Incorrect choices will highlight potential parsing errors and inefficiencies.
+
+**Reflection:** Consider how different choices affect the parsing process and the importance of well-defined token classes.
+
+**Instructor Prompt:** Discuss how the choice of tokens might vary for different programming languages and the implications for compiler design.
+
+---
+
+### Activity 2: Pattern Definition
+**Scenario:** As a compiler developer, you're tasked with defining patterns for tokens using regular expressions.
+
+**Decision Point:** Choose the correct regular expression patterns to match a set of lexemes for identifiers, operators, and punctuation symbols.
+
+**Feedback:** 
+- Correct patterns will successfully match all intended lexemes.
+- Incorrect patterns will either miss valid lexemes or incorrectly match invalid ones.
+
+**Reflection:** Analyze why certain patterns failed and how regular expressions help in defining precise lexeme sets.
+
+**Instructor Prompt:** Explore how regular expressions can be optimized for efficiency and accuracy in lexical analysis.
+
+---
+
+### Activity 3: Handling Lexical Errors
+**Scenario:** During the development of a lexical analyzer, you encounter a situation where unexpected characters are present in the source code.
+
+**Decision Point:** Decide on the best error recovery strategy: Panic Mode, character deletion, insertion, or replacement.
+
+**Feedback:** 
+- Effective strategies will minimize disruption to the parsing process.
+- Ineffective strategies will lead to further errors or incorrect parsing.
+
+**Reflection:** Reflect on the impact of different error recovery strategies on the robustness of the lexical analyzer.
+
+**Instructor Prompt:** Discuss the trade-offs between different error recovery methods and how they affect the user experience.
+
+---
+
+### Activity 4: Lookahead Challenges
+**Scenario:** You are analyzing a FORTRAN program where whitespace is insignificant, and lookahead is necessary to distinguish between tokens.
+
+**Decision Point:** Determine the correct approach to handle lookahead in a given code snippet where ambiguity arises.
+
+**Feedback:** 
+- Correct handling will ensure accurate tokenization and subsequent parsing.
+- Incorrect handling will result in misinterpretation of the code.
+
+**Reflection:** Consider the complexity added by lookahead requirements and how they can be managed effectively.
+
+**Instructor Prompt:** Examine how lookahead is implemented in modern compilers and its impact on performance.
+
+---
+
+### Activity 5: Lexical Analysis in Practice
+**Scenario:** You are reviewing a source code that includes both valid and invalid tokens. Your task is to identify and categorize them.
+
+**Decision Point:** Classify each token as valid or invalid based on predefined token classes and handle any lexical errors appropriately.
+
+**Feedback:** 
+- Correct classification will demonstrate understanding of token definitions and error handling.
+- Incorrect classification will highlight gaps in understanding.
+
+**Reflection:** Reflect on the importance of precise token definitions and effective error handling in lexical analysis.
+
+**Instructor Prompt:** Discuss how the principles of lexical analysis apply to real-world programming languages and the challenges faced in practice.
+
+### Activity 6: Exploring Unix Shell Pattern Matching
+
+**Scenario:**  
+You are working on a Unix/Linux system and want to efficiently manage files using pattern matching with the `ls` command.
+
+**Task:**  
+1. The current directory contains files: `regfla.tex`, `regfla.aux`, `regfla.log`, `regfla.dvi`, and `regfla.aux`.
+2. Decide which command to use to list only `.aux` files.
+
+**Decision Points:**
+- Type `ls *` and observe the outcome.
+- Type `ls *.aux` and see what files are listed.
+
+**Feedback:**
+- If you choose `ls *`, you will see all files listed. Reflect on why this happens.
+- If you choose `ls *.aux`, only `.aux` files will be listed. Reflect on how pattern matching is applied here.
+
+**Instructor Prompt:**  
+Discuss the pattern matching mechanism of the shell and how it interprets the `*` wildcard.
+
+---
+
+### Activity 7: Understanding Alphabets and Strings
+
+**Scenario:**  
+You are designing a simple language system and need to define alphabets and strings.
+
+**Task:**  
+1. Define an alphabet Σ and create strings of varying lengths using this alphabet.
+2. Identify which of the following is a valid alphabet: Σ1 = {0,1,2,3,4,5,6,7,8,9} or ℕ = {0,1,2,3, …}.
+
+**Decision Points:**
+- Choose Σ1 or ℕ as a valid alphabet.
+- Create strings over Σ1 and determine their lengths.
+
+**Feedback:**
+- If you choose Σ1, you are correct because it is finite. Reflect on the properties of alphabets.
+- If you choose ℕ, reconsider the definition of an alphabet and its finiteness.
+
+**Instructor Prompt:**  
+Explain the significance of finiteness in defining an alphabet and how it impacts string formation.
+
+---
+
+### Activity 8: Constructing Regular Expressions
+
+**Scenario:**  
+You are tasked with creating a regular expression for a binary string language.
+
+**Task:**  
+1. Build a regular expression for the language L = {w | w is a binary string which does not contain two consecutive 0s or two consecutive 1s}.
+
+**Decision Points:**
+- Choose a regular expression from the following: `(01)* | (10)* | 0(10)* | 1(01)*` or `(ε | 1) (01)* (ε | 0)`.
+
+**Feedback:**
+- If you choose `(01)* | (10)* | 0(10)* | 1(01)*`, explore how each case represents a part of the language.
+- If you choose `(ε | 1) (01)* (ε | 0)`, reflect on how ε simplifies expression and covers all cases.
+
+**Instructor Prompt:**  
+Discuss how regular expressions are constructed and simplified using union and epsilon.
+
+---
+
+### Activity 9: Applying Regular Expressions to Validate Strings
+
+**Scenario:**  
+You are validating email addresses using regular expressions.
+
+**Task:**  
+1. Given Σ = {a, @, .}, create a regular expression to match valid email addresses.
+
+**Decision Points:**
+- Choose a regular expression: `a+ (.a+)* @ a+ (.a+)+`.
+
+**Feedback:**
+- If you correctly structure the expression, validate sample emails like `szk461@cse.psu.edu`.
+- Reflect on the role of each part of the regular expression in matching email formats.
+
+**Instructor Prompt:**  
+Guide the learners through the process of constructing regular expressions for real-world applications like email validation.
+
+---
+
+### Activity 10: Exploring Regular Expression Precedence
+
+**Scenario:**  
+You need to understand how precedence affects the interpretation of regular expressions.
+
+**Task:**  
+1. Analyze the expression `a | bc*d` and determine its meaning based on precedence rules.
+
+**Decision Points:**
+- Evaluate it as `(a | (b(c*)d))` or `(ab) | (cd)`.
+
+**Feedback:**
+- If you interpret it as `(a | (b(c*)d))`, you understand the precedence rules correctly.
+- Reflect on how closure, concatenation, and alternation are prioritized.
+
+**Instructor Prompt:**  
+Discuss how understanding precedence is crucial in correctly interpreting and constructing regular expressions.

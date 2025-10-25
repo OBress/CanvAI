@@ -1,0 +1,74 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 2
+1. Set Identities: Use set identities to show that the following statements are true:
+(i)(A−B) =A∪B
+(ii)(A∪B)∩C∪¯B=B∩C.
+Answer:
+(i)A−B=¯A∪B
+From the definition of sets operations, A−B={x|x∈A∧x/∈B}=A∩¯B. Therefore,
+A−B=A∩¯BDefinition of Set Difference
+=¯A∪¯B DeMorgan’s Law
+=¯A∪B Law of Double Complement
+(ii)(A∪B)∩C∪¯B=B∩C.
+(A∪B)∩C∪¯B
+=((A∪B)∩C)∩¯BDeMorgan’s Law
+= ((A∪B)∩C)∩BLaw of Double Complement
+= (A∪B)∩(C∩B)Associative Law
+= (A∪B)∩(B∩C)Commutative Law
+= [(A∪B)∩B]∩CAssociative Law
+=B∩C Absorption Law
+2. Propositions: Determine if the following sentences are propositions. If the sentence is a proposition,
+determine its truth value.
+(i) There are a finite number of even integers.
+(ii) If xis an integer number, x+1 is odd.
+(iii) x=x
+(iv) For all integer values of x, is 2x+1 always odd?
+Answer:
+(i) The sentence is a proposition. Truth value: False
+(ii) Sentence is not a proposition. Truth value changes depending on the value of x.
+(iii) This sentence (or expression) is not a proposition. xis not well-defined and may not even be a
+numerical value. Similarly, the equals operator may not be well-defined for such cases. Thus, it
+is not possible to determine if the statement is true or false.
+(iv) This is a question. Therefore, this is not a proposition.
+CMPSC 360, Fall 2024, Worksheet 2 1
+
+3. Truth Table: Given the logical expression ¬(p∧q)⊕[(q↔p)∧(¬q→(p∧q))], construct a truth
+table to determine whether the expression is a tautology, contradiction or contingency.
+Answer:
+pq¬(p∧q)q↔p¬qp∧q¬q→(p∧q)(q↔p)∧(¬q→(p∧q))Entire Expression
+TT F T F T T T T
+TF T F T F F F T
+FT T F F F T F T
+FF T T T F F F T
+4. Converse, Inverse and Contrapositive: Find the converse, inverse and contrapositive of the follow-
+ing statement.
+If a car is fuel-efficient, then it is both economical and environmentally friendly.
+Answer:
+Converse: If a car is economical and environmentally friendly, then it is fuel-efficient.
+Inverse: If a car is not fuel-efficient, then it is not economical or not environmentally friendly.
+Contrapositive: If a car is not economical or not environmentally friendly, then it is not fuel-efficient.
+5. Propositional Logic:
+Let p be the proposition ”Birds are reptiles.”,
+q be the proposition ”All rivers flow uphill.”,
+r be ”Squares have four sides,” and
+s be ”Not all reptiles lay eggs.”
+Express the sentence ”If all rivers flow uphill and not all reptiles lay eggs, then birds are reptiles or
+squares do not have four sides.” using compound logic.
+Answer:
+(q∧s)→(p∨¬r)
+6. Translation of Sentences: Translate the following English statements using propositional logic
+1. I will not pass this class unless I go to class every day and do all of the homework exercises.
+2. Eating a balanced diet and exercising regularly is necessary for maintaining good health.
+3. Reading books or attending seminars is sufficient for gaining knowledge.
+4. Being a member of the club and having attended at least three meetings is necessary and suffi-
+cient for obtaining voting rights.
+Answer:
+1.Answer: p: I pass this class. g: I go to class everyday. h: I do all the homework exercises. Then
+the statement translates as: (¬g∨¬h)→ ¬porp→(g∧h)
+2.Answer: b: eating a balanced diet. e: exercising regularly. h: maintaining good health. Then
+the statement translates as: h→(b∧e)
+3.Answer: r: reading books. s: attending seminars. k: gaining knowledge. The statement
+translates as: (r∨s)→k
+4.Answer: m: member of the club. a: attended at least three meetings. v: obtain voting rights.
+The statement translates as: (m∧a)↔v
+CMPSC 360, Fall 2024, Worksheet 2 2

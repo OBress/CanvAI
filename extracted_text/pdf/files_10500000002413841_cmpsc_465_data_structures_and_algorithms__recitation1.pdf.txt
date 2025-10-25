@@ -1,0 +1,54 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 1
+Monday, Sep 8, 2025
+1. Compare Growth Rates. Order the following functions by asymptotic growth:
+(i)f1(n) =3n
+(ii) f2(n) =n1
+3
+(iii) f3(n) =12
+(iv) f4(n) =2log2n
+(v)f5(n) =√n
+(vi) f6(n) =2n
+(vii) f7(n) =log2n
+(viii) f8(n) =2√n
+(ix) f9(n) =n3
+2. Running Time Analysis. For each pseudo-code below, give the asymptotic running time in Θnota-
+tion.
+(a)fori:=1tondo
+j:=i;
+while j<ndo
+j:=j+5;
+end
+end
+(b)fori:=1tondo
+forj:=4itondo
+s:=s+2;
+end
+end
+(c)fori:=1tondo
+j:=2;
+while j<ido
+j:=j4;
+end
+end
+3. Identities. Show that the following statements hold true.
+CMPSC 465, Fall 2025, Worksheet 1 1
+
+(a)∑n
+k=1kj=Θ(nj+1)for any constant j>0. Note that k≤nfor all terms and k≥n
+2for many
+terms.
+(b)n
+∑
+i=1n
+∑
+j=1,j̸=ii j=Θ(n4).
+4. Recurrence Relations. Solve the following recurrence relations and give the tightest correct upper
+bound for each of them in Onotation. Assume that T(1) =O(1). Show all work.
+(a)T(n) =16·T(n/2) +15n4+3n3
+(b)T(n) =49·T(n/25) +n3/2logn
+(c)T(n) =n1
+3T(n1
+3) +5n2
+3
+CMPSC 465, Fall 2025, Worksheet 1 2

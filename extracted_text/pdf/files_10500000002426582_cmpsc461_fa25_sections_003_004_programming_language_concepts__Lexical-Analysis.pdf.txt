@@ -1,0 +1,164 @@
+Lexical Analysis
+Professor: Suman Saha
+CMPSC 461 –Programming Language Concepts
+
+Compiler (front-end)
+token stream
+syntax tree
+syntax treeLexical Analysis
+Syntax Analysis
+Semantic Analysis  
+CMPSC 461 –Programming Language ConceptsSymbol 
+TableErrorSource Program 
+(character stream)
+
+Compiler (front-end)
+Source Program 
+(character stream)
+token stream
+syntax tree
+syntax treeLexical Analysis
+Syntax Analysis
+Semantic Analysis  
+CMPSC 461 –Programming Language Concepts
+Symbol 
+Table
+Error
+
+
+Lexical Analysis or Scanning
+•Goals of the Lexical Analysis
+•Divide the characters stream into meaningful sequences called lexemes.
+•Label each lexeme with a tokenthat is passed to the parser (syntax analysis) 
+•Remove non-significant blanks and comments
+•Optional: update the symbol tables with all identifiers (and numbers)
+CMPSC 461 –Programming Language Concepts
+
+Lexical Analysis or Scanning
+•Goals of the Lexical Analysis
+•Divide the characters stream into meaningful sequences called lexemes.
+•Label each lexeme with a tokenthat is passed to the parser (syntax analysis) 
+•Remove non-significant blanks and comments
+•Optional: update the symbol tables with all identifiers (and numbers)
+•Provide the interface between the source program and the parser
+CMPSC 461 –Programming Language ConceptsLexical
+AnalysisSyntax 
+Analysis
+Symbol
+TableError
+Source 
+ProgramSemantic
+Analysistoken
+getNextToken
+
+Example
+CMPSC 461 –Programming Language Concepts
+
+Tokens, Patterns, and Lexemes
+•A token is a <name, attribute> pair. Attribute might be multi-valued.
+•Example: < Ident, ip>, <Operator, < >, <“)”, NIL>
+•A patterndescribes the character strings for the lexemes of the token.
+•Example: a string of letters and digits starting with a letter, { <, >, ≤, ≥, == }, “)”.
+•A lexemefor a token is a sequence of characters that matched the 
+pattern for the token
+•Example: ip, “<”, “)” in the following program
+while (ip < z)
+++ip
+CMPSC 461 –Programming Language Concepts
+
+Defining a Lexical Analysis
+•Define the set of tokens
+•Define a pattern for each token (ie., the set of lexemes associated with each token) 
+•Define an algorithm for cutting the source program into lexemes and outputting the 
+token
+CMPSC 461 –Programming Language Concepts
+
+Choosing the tokens
+•Very much dependent on the source language
+•Typical token classes for programming languages:
+•One token for each keyword
+•One token for each “punctuation” symbol (left and right parentheses, comma, 
+semicolon…)
+•One token for identifiers
+•Several tokens for the operators
+•One or more tokens for the constants (numbers or literal strings)
+CMPSC 461 –Programming Language Concepts
+
+Choosing the tokens
+•Very much dependent on the source language
+•Typical token classes for programming languages:
+•One token for each keyword
+•One token for each “punctuation” symbol (left and right parentheses, comma, 
+semicolon…)
+•One token for identifiers
+•Several tokens for the operators
+•One or more tokens for the constants (numbers or literal strings)
+•Attributes
+•Allows to encode the lexeme corresponding to the token when necessary. 
+Example: pointer to the symbol table for identifiers, constant value for constants.
+•Not always necessary. Example: keywords, punctuation…
+CMPSC 461 –Programming Language Concepts
+
+Describing the Patterns
+•A pattern define the set of lexemes corresponding to a token
+•A lexeme being a string, a pattern is actually a language .
+•Patterns are typically defined through regular expressions (that define 
+regular languages)
+CMPSC 461 –Programming Language Concepts
+
+Describing the Patterns
+•A pattern define the set of lexemes corresponding to a token
+•A lexeme being a string, a pattern is actually a language .
+•Patterns are typically defined through regular expressions (that define 
+regular languages)
+CMPSC 461 –Programming Language Conceptscharacter Stream
+token streamLexical Analysis
+Symbol 
+TableErrorregular 
+expressions
+
+Top Hat
+CMPSC 461 –Programming Language Concepts
+
+Is It as Easy as It Sounds?
+•FORTRAN rule: Whitespace is insignificant
+•E.g.VAR1is the same as VA R1
+•Consider
+•DO 5 I = 1, 25 ! loop
+•DO 5 I = 1.25  ! Variable declaration
+•What is the difference here?
+•Reading left-to-right, the lexical analyzer cannot tell if DO5I is a variable or a DO 
+statement until after “,” is reached
+CMPSC 461 –Programming Language Concepts
+
+Lexical Analysis in FORTRAN
+•Two important points:
+•The goal is to partition the string. This is implemented by reading left-to-right, 
+recognizing one token at a time
+•“Lookahead” may be required to decide where one token ends and the next token 
+begins
+•Even our simple example has lookahead issues
+CMPSC 461 –Programming Language Concepts
+
+
+Lookahead
+CMPSC 461 –Programming Language Concepts
+
+
+Lexical Errors
+•A lexical error is any input that can be rejected by the lexer
+•When a token cannot be recognized by the rules defined token class
+•Example: ‘@’ is rejected  as a lexical error for identifiers in Java (it’s reserved).
+•Recovery
+•Panic Mode: delete successive characters until a valid token is found
+•Delete one character from remaining inputs
+•Insert one character in the remaining input
+•Replace / transpose
+CMPSC 461 –Programming Language Concepts
+
+Lexical Errors
+•Is filexical error?
+•It can be a function identifier
+•It is quite difficult for a lexical analyzer to decide whether fiis an error without further 
+information
+CMPSC 461 –Programming Language Concepts

@@ -1,0 +1,2539 @@
+Transport Layer
+
+3-1
+
+Chapter 3: Transport Layer
+
+our goals: 
+understand principles behind transport layer services:
+multiplexing, demultiplexing
+reliable data transfer
+flow control
+congestion control
+
+
+learn about Internet transport layer protocols:
+UDP: connectionless transport
+TCP: connection-oriented reliable transport
+TCP congestion control
+
+
+Transport Layer
+
+3-2
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-3
+
+Transport services and protocols
+
+provide logical end-to-end communication between app processes on different hosts
+transport protocols run in hosts
+sender side: breaks app messages into segments, passes to network layer
+rcver side: reassembles segments into messages, passes to app layer
+
+Transport Layer
+
+3-4
+
+Multiplexing/demultiplexing
+
+process
+
+socket
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P2
+
+P1
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P4
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P3
+
+Transport Layer
+
+3-5
+
+How demultiplexing works
+
+host receives IP datagrams
+each datagram has source IP address, destination IP address
+each datagram carries one transport-layer segment
+each segment has source, destination port number 
+host uses IP addresses & port numbers to direct segment to appropriate socket
+
+source port #
+
+dest port #
+
+32 bits
+
+application
+data 
+(payload)
+
+other header fields
+
+TCP/UDP segment format
+
+Transport Layer
+
+3-6
+
+Connectionless demultiplexing
+
+when host receives UDP segment:
+checks destination port # in segment
+directs UDP segment to socket with that port #
+
+
+UDP socket is uniquely identified by a pair: 
+(destination) IP address
+(destination) port #
+
+IP datagrams with same dest. port #, but different source IP addresses and/or source port numbers will be directed to same socket at dest
+
+Transport Layer
+
+3-7
+
+Connectionless demux: example
+
+DatagramSocket serverSocket = new DatagramSocket
+ (6428);
+
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P3
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P1
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P4
+
+DatagramSocket mySocket1 = new DatagramSocket (5775);
+
+
+DatagramSocket mySocket2 = new DatagramSocket
+ (9157);
+
+
+IP address: A
+
+IP address: C
+
+IP address: B
+
+Transport Layer
+
+3-8
+
+Connection-oriented demux
+
+TCP socket identified by 4-tuple: 
+source IP address
+source port number
+dest IP address
+dest port number
+demux: receiver uses all four values to direct segment to appropriate socket
+
+server host uses different TCP sockets for different clients:
+e.g., web server creates a new socket for each connecting client
+non-persistent HTTP will have a different socket for each request
+
+Transport Layer
+
+3-9
+
+Connection-oriented demux: example
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P1
+
+transport
+
+application
+
+physical
+
+link
+
+P4
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P2
+
+IP address: A
+
+IP address: C
+
+network
+
+P6
+
+P5
+
+P3
+
+three segments, all destined to IP address: B,
+ dest port: 80 are demultiplexed to different sockets
+
+IP address: B
+
+port# 9157
+
+port# 5775    port# 9157
+
+Transport Layer
+
+3-10
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-11
+
+UDP: User Datagram Protocol [RFC 768]
+
+“best effort” service: UDP segments may be
+lost
+delivered out-of-order 
+connectionless
+
+UDP use:
+streaming multimedia apps (loss tolerant, rate sensitive)
+DNS
+SNMP (more in chapter 5)
+application-layer reliable transfer protocol: e.g., Google’s QUIC protocol
+
+Transport Layer
+
+3-12
+
+UDP: segment header
+
+source port #
+
+dest port #
+
+32 bits
+
+application
+data 
+(payload)
+
+UDP segment format
+
+length
+
+checksum
+
+length, in bytes of UDP segment, including header
+
+why is there a checksum?
+
+Transport Layer
+
+3-13
+
+UDP checksum
+
+sender:
+treat segment contents, including header fields,  as sequence of 16-bit integers
+checksum: sum of the 16-bit integers with wraparound, then take complement 
+sender puts checksum value into UDP checksum field
+
+
+
+receiver:
+compute checksum of received segment
+check if computed checksum equals checksum field value:
+NO - error detected
+YES - no error detected. But there may be errors nonetheless!
+
+
+Goal: detect “errors” (e.g., flipped bits) in transmitted segment
+
+
+Transport Layer
+
+3-14
+
+Internet checksum: example
+
+example: add two 16-bit integers
+
+1  1  1  1  0  0  1  1  0  0  1  1  0  0  1  1  0
+1  1  1  0  1  0  1  0  1  0  1  0  1  0  1  0  1
+
+1  1  0  1  1  1  0  1  1  1  0  1  1  1  0  1  1
+
+1  1  0  1  1  1  0  1  1  1  0  1  1  1  1  0  0
+1  0  1  0  0  0  1  0  0  0  1  0  0  0  0  1  1
+
+wraparound
+
+sum
+
+checksum
+
+Note: when adding numbers, a carryout from the most significant bit needs to be added to the result
+
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+Data: 
+00111010 00111111, 11100001 11100111, 00111010 00111111, 11100001 11100111
+Checksum:
+11000111 10110001
+
+
+Transport Layer
+
+3-15
+
+Internet checksum: exercise
+
+00111010 00111111
++11100001 11100111
+1 00011100 00100110
+                           +1
+00011100 00100111
++00111010 00111111
+01010110 01100110
++11100001 11100111
+1 00111000 01001101
+                           +1
+¬00111000 01001110
+11000111 10110001
+
+Review
+
+Multiplexing/demultiplexing
+what information is used for TCP/UDP socket
+UDP
+advantages of UDP 
+applications using UDP
+checksum
+
+Transport Layer
+
+3-16
+
+Transport Layer
+
+3-17
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-18
+
+characteristics of unreliable channel will determine complexity of reliable data transfer protocol (rdt)
+
+important in application, transport, link layers
+top-10 list of important networking topics!
+
+
+Principles of reliable data transfer
+
+Transport Layer
+
+3-19
+
+we’ll:
+incrementally develop sender, receiver sides of reliable data transfer protocol (rdt)
+consider only unidirectional data transfer
+but control info will flow on both directions!
+use finite state machines (FSM)  to specify sender, receiver
+
+state
+1
+
+state
+2
+
+event causing state transition
+
+actions taken on state transition
+
+state: when in this “state” next state uniquely determined by next event
+
+event
+
+actions
+
+Reliable data transfer: getting started
+
+Transport Layer
+
+3-20
+
+rdt1.0: reliable transfer over a reliable channel
+
+underlying channel perfectly reliable
+no bit errors
+no loss of packets
+no reordering of packets
+separate FSMs for sender, receiver:
+sender sends data into underlying channel
+receiver reads data from underlying channel
+
+Transport Layer
+
+3-21
+
+underlying channel may flip bits in packet
+checksum to detect bit errors
+the question: how to recover from errors:
+acknowledgements (ACKs): receiver explicitly tells sender that pkt received OK
+negative acknowledgements (NAKs): receiver explicitly tells sender that pkt had errors
+sender retransmits pkt on receipt of NAK
+new mechanisms in rdt2.0 (beyond rdt1.0):
+error detection
+receiver feedback: control msgs (ACK,NAK) rcvr->sender
+
+rdt2.0: channel with bit errors
+
+How do humans recover from “errors”
+during conversation?
+
+Transport Layer
+
+3-22
+
+the question: how to recover from errors:
+acknowledgements (ACKs): receiver explicitly tells sender that pkt received OK
+negative acknowledgements (NAKs): receiver explicitly tells sender that pkt had errors
+sender retransmits pkt on receipt of NAK
+new mechanisms in rdt2.0 (beyond rdt1.0):
+error detection
+feedback: control msgs (ACK,NAK) from receiver to sender
+
+rdt2.0: channel with bit errors
+
+Transport Layer
+
+3-23
+
+rdt2.0: FSM specification
+
+Wait for call from above
+
+sndpkt = make_pkt(data, checksum)
+udt_send(sndpkt)
+
+extract(rcvpkt,data)
+deliver_data(data)
+udt_send(ACK)
+
+rdt_rcv(rcvpkt) && 
+   notcorrupt(rcvpkt)
+
+rdt_rcv(rcvpkt) && isACK(rcvpkt)
+
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) &&
+   isNAK(rcvpkt)
+
+sender
+
+receiver
+
+rdt_send(data)
+
+L
+
+Transport Layer
+
+3-24
+
+rdt2.0: operation with no errors
+
+Wait for call from above
+
+snkpkt = make_pkt(data, checksum)
+udt_send(sndpkt)
+
+extract(rcvpkt,data)
+deliver_data(data)
+udt_send(ACK)
+
+rdt_rcv(rcvpkt) && 
+   notcorrupt(rcvpkt)
+
+rdt_rcv(rcvpkt) && isACK(rcvpkt)
+
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) &&
+   isNAK(rcvpkt)
+
+Wait for call from below
+
+rdt_send(data)
+
+L
+
+Transport Layer
+
+3-25
+
+rdt2.0: error scenario
+
+Wait for call from above
+
+snkpkt = make_pkt(data, checksum)
+udt_send(sndpkt)
+
+extract(rcvpkt,data)
+deliver_data(data)
+udt_send(ACK)
+
+rdt_rcv(rcvpkt) && 
+   notcorrupt(rcvpkt)
+
+rdt_rcv(rcvpkt) && isACK(rcvpkt)
+
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) &&
+   isNAK(rcvpkt)
+
+Wait for call from below
+
+rdt_send(data)
+
+L
+
+Transport Layer
+
+3-26
+
+rdt2.0 has a fatal flaw!
+
+what happens if ACK/NAK corrupted?
+sender doesn’t know what happened at receiver!
+can’t just retransmit: possible duplicate
+
+
+
+
+handling duplicates: 
+sender retransmits current pkt if ACK/NAK corrupted
+sender adds sequence number to each pkt
+receiver discards (doesn’t deliver up) duplicate pkt
+
+Transport Layer
+
+3-27
+
+rdt2.1: sender, handles garbled ACK/NAKs
+
+Wait for call 0 from above
+
+sndpkt = make_pkt(0, data, checksum)
+udt_send(sndpkt)
+
+rdt_send(data)
+
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) &&  
+( corrupt(rcvpkt) ||
+isNAK(rcvpkt) )
+
+sndpkt = make_pkt(1, data, checksum)
+udt_send(sndpkt)
+
+rdt_send(data)
+
+rdt_rcv(rcvpkt)   
+&& notcorrupt(rcvpkt) 
+&& isACK(rcvpkt) 
+
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) &&  
+( corrupt(rcvpkt) ||
+isNAK(rcvpkt) )
+
+rdt_rcv(rcvpkt)   
+&& notcorrupt(rcvpkt) 
+&& isACK(rcvpkt) 
+
+L
+
+L
+
+Transport Layer
+
+3-28
+
+sndpkt = make_pkt(NAK, chksum)
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) && 
+   not corrupt(rcvpkt) &&
+   has_seq0(rcvpkt)
+
+
+rdt_rcv(rcvpkt) && notcorrupt(rcvpkt) 
+  && has_seq1(rcvpkt) 
+
+extract(rcvpkt,data)
+deliver_data(data)
+sndpkt = make_pkt(ACK, chksum)
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) && notcorrupt(rcvpkt) 
+  && has_seq0(rcvpkt) 
+
+extract(rcvpkt,data)
+deliver_data(data)
+sndpkt = make_pkt(ACK, chksum)
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) && (corrupt(rcvpkt)
+
+sndpkt = make_pkt(ACK, chksum)
+udt_send(sndpkt)
+
+rdt_rcv(rcvpkt) && 
+   notcorrupt(rcvpkt) &&
+   has_seq1(rcvpkt)
+
+
+rdt_rcv(rcvpkt) && corrupt(rcvpkt)
+
+sndpkt = make_pkt(ACK, chksum)
+udt_send(sndpkt)
+
+sndpkt = make_pkt(NAK, chksum)
+udt_send(sndpkt)
+
+rdt2.1: receiver, handles garbled ACK/NAKs
+
+Transport Layer
+
+3-29
+
+rdt2.1: discussion
+
+sender:
+must check if received ACK/NAK corrupted 
+twice as many states
+state indicates whether the inflight pkt has seq# 0 or 1 
+two seq. #’s (0,1) will suffice.  (Why?)
+
+
+
+receiver:
+must check if received packet is duplicate
+state indicates whether the expected seq# is 0 or 1
+
+Review
+
+rdt1.0: no error
+rdt2.0: error at receiver 
+ACK/NAK
+rdt2.1: error at sender & receiver
+ACK/NAK, sequence number (0/1)
+ 
+
+
+Transport Layer
+
+3-30
+
+Transport Layer
+
+3-31
+
+rdt2.2: a NAK-free protocol
+
+same functionality as rdt2.1, using ACKs only
+instead of NAK, receiver sends ACK for last correctly received pkt
+receiver must explicitly include seq # of pkt being ACKed 
+duplicate ACK at sender results in same action as NAK: retransmit current pkt
+
+Transport Layer
+
+3-32
+
+rdt2.2: sender, receiver fragments
+
+L
+
+Transport Layer
+
+3-33
+
+rdt3.0: channels with errors and loss
+
+new assumption: underlying channel can also lose packets (data, ACKs)
+checksum, seq. #, ACKs, retransmissions will be of help … but not enough
+
+approach: sender waits “reasonable” amount of time for ACK 
+retransmits if no ACK received in this time
+if pkt (or ACK) just delayed (not lost):
+retransmission will be  duplicate, but seq. #’s already handles this
+
+Transport Layer
+
+3-34
+
+rdt3.0 sender
+
+sndpkt = make_pkt(0, data, checksum)
+udt_send(sndpkt)
+start_timer
+
+rdt_send(data)
+
+rdt_rcv(rcvpkt) &&  
+( corrupt(rcvpkt) ||
+isACK(rcvpkt,1) )
+
+sndpkt = make_pkt(1, data, checksum)
+udt_send(sndpkt)
+start_timer
+
+rdt_send(data)
+
+rdt_rcv(rcvpkt)   
+&& notcorrupt(rcvpkt) 
+&& isACK(rcvpkt,0) 
+
+rdt_rcv(rcvpkt) &&  
+( corrupt(rcvpkt) ||
+isACK(rcvpkt,0) )
+
+rdt_rcv(rcvpkt)   
+&& notcorrupt(rcvpkt) 
+&& isACK(rcvpkt,1) 
+
+stop_timer
+
+stop_timer
+
+udt_send(sndpkt)
+start_timer
+
+timeout
+
+udt_send(sndpkt)
+start_timer
+
+timeout
+
+rdt_rcv(rcvpkt)
+
+L
+
+rdt_rcv(rcvpkt)
+
+L
+
+L
+
+L
+
+Q: rdt3.0 receiver?
+
+Transport Layer
+
+3-35
+
+sender
+
+receiver
+
+rcv pkt1
+
+rcv pkt0
+
+send ack0
+
+send ack1
+
+send ack0
+
+rcv ack0
+
+send pkt0
+
+send pkt1
+
+rcv ack1
+
+send pkt0
+
+rcv pkt0
+
+(a) no loss
+
+sender
+
+receiver
+
+rcv pkt1
+
+rcv pkt0
+
+send ack0
+
+send ack1
+
+send ack0
+
+rcv ack0
+
+send pkt0
+
+send pkt1
+
+rcv ack1
+
+send pkt0
+
+rcv pkt0
+
+(b) packet loss
+
+rdt3.0 in action
+
+Transport Layer
+
+3-36
+
+rdt3.0 in action
+
+rcv pkt1
+
+send ack1
+
+(detect duplicate)
+
+sender
+
+receiver
+
+rcv pkt1
+
+rcv pkt0
+
+send ack0
+
+send ack1
+
+send ack0
+
+rcv ack0
+
+send pkt0
+
+send pkt1
+
+rcv ack1
+
+send pkt0
+
+rcv pkt0
+
+(c) ACK loss
+
+rcv pkt1
+
+send ack1
+
+(detect duplicate)
+
+sender
+
+receiver
+
+rcv pkt1
+
+send ack0
+
+rcv ack0
+
+send pkt1
+
+send pkt0
+
+rcv pkt0
+
+(d) premature timeout/ delayed ACK
+
+Extension: multi-to-one rdt
+
+Q: How to ensure C receives alternatingly from A and B in the presence of errors/losses?
+
+ 
+
+
+Transport Layer
+
+3-37
+
+A: Sender A or B is the same as the sender in rdt3.0!
+
+
+Extension: multi-to-one rdt
+
+Receiver C
+
+ 
+
+
+Transport Layer
+
+3-38
+
+Extension: multi-to-one rdt
+
+Receiver C
+
+ 
+
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+Transport Layer
+
+3-39
+
+Extension: one-to-multi rdt
+
+Q: How to ensure A transmits the same data to both B and C in the presence of errors/losses? (broadcast channel, independent errors/losses)
+
+ 
+
+
+Transport Layer
+
+3-40
+
+A: Receiver B or C is the same as the receiver in rdt2.2!
+
+
+Extension: one-to-multi rdt
+
+Transport Layer
+
+3-41
+
+Extension: one-to-multi rdt
+
+Transport Layer
+
+3-42
+
+Sender A (cont’d)
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+(8)
+
+Review
+
+rdt1.0: no error
+rdt2.0: error at receiver 
+ACK/NAK
+rdt2.1: error at sender & receiver
+ACK/NAK, sequence number (0/1)
+rdt2.2: similar to rdt2.1, but only ACK
+including sequence number in ACK
+rdt3.0: error & loss
+sequence#, timer
+
+ 
+
+
+Transport Layer
+
+3-43
+
+Transport Layer
+
+3-44
+
+Performance of rdt3.0
+
+rdt3.0 is correct, but performance stinks
+e.g.: 1 Gbps link, 15 ms prop. delay, 8000 bit packet:
+
+
+sender utilization – fraction of time sender busy sending
+
+RTT=30 msec, 8K bits every 30 msec: 264 Kbps throughput over 1 Gbps link!
+
+Transport Layer
+
+3-45
+
+Pipelined protocols
+
+pipelining: sender allows multiple, “in-flight”, yet-to-be-acknowledged pkts
+range of sequence numbers must be increased
+buffering at sender and/or receiver
+
+Transport Layer
+
+3-46
+
+Pipelined protocols: overview
+
+Go-back-N:
+sender can have up to N unacked packets in pipeline
+receiver only sends cumulative ack
+doesn’t ack packet if there’s a gap
+sender has timer for oldest unacked packet
+when timer expires, retransmit all unacked packets
+
+Selective Repeat:
+sender can have up to N unacked packets in pipeline
+receiver sends individual ack for each packet
+
+
+sender maintains timer for each unacked packet
+when timer expires, retransmit only that unacked packet
+
+
+common
+
+different
+
+Transport Layer
+
+3-47
+
+Go-Back-N: sender
+
+“window” of up to N, consecutive unack’ed pkts allowed
+
+
+
+timer for oldest in-flight pkt
+timeout(n): retransmit packet n and all higher seq # pkts in window
+
+
+Transport Layer
+
+3-48
+
+Go-Back-N: receiver
+
+(a) Sender view of sequence numbers
+
+ACK(n):  ACKs all pkts up to, including seq # n - “cumulative ACK”
+
+Transport Layer
+
+3-49
+
+GBN: sender extended FSM
+
+start_timer
+udt_send(sndpkt[base])
+udt_send(sndpkt[base+1])
+…
+udt_send(sndpkt[nextseqnum-1])
+
+
+timeout
+
+
+rdt_send(data) 
+
+if (nextseqnum < base+N) {
+    sndpkt[nextseqnum] = make_pkt(nextseqnum,data,chksum)
+    udt_send(sndpkt[nextseqnum])
+    if (base == nextseqnum)
+       start_timer
+    nextseqnum++
+    }
+else
+    refuse_data(data)
+
+If base <= getacknum(rcvpkt) {
+    base = getacknum(rcvpkt)+1
+    If (base == nextseqnum)
+        stop_timer
+    else
+        start_timer
+}
+
+rdt_rcv(rcvpkt) && 
+   notcorrupt(rcvpkt) 
+
+
+base=0
+nextseqnum=0
+
+
+rdt_rcv(rcvpkt) 
+   && corrupt(rcvpkt) 
+
+
+L
+
+L
+
+Transport Layer
+
+3-50
+
+ACK-only: always send ACK for correctly-received pkt with highest in-order seq #
+may generate duplicate ACKs
+need only remember expectedseqnum
+out-of-order pkt: 
+discard (don’t buffer): no receiver buffering!
+re-ACK pkt with highest in-order seq #
+
+GBN: receiver extended FSM
+
+Transport Layer
+
+3-51
+
+GBN in action
+
+send  pkt0
+send  pkt1
+send  pkt2
+send  pkt3
+(wait)
+
+sender
+
+receiver
+
+receive pkt0, send ack0
+receive pkt1, send ack1
+ 
+receive pkt3, discard, 
+           (re)send ack1
+
+rcv ack0, send pkt4
+rcv ack1, send pkt5
+
+
+pkt 2 timeout
+
+send  pkt2
+send  pkt3
+send  pkt4
+send  pkt5
+
+X
+
+loss
+
+receive pkt4, discard, 
+           (re)send ack1
+
+receive pkt5, discard, 
+           (re)send ack1
+
+rcv pkt2, deliver, send ack2
+rcv pkt3, deliver, send ack3
+rcv pkt4, deliver, send ack4
+rcv pkt5, deliver, send ack5
+
+ignore duplicate ACK
+
+sender window (N=4)
+
+0 1 2 3 4 5 6 7 8 
+
+…
+
+Review
+
+Performance analysis:
+Utilization of stop-and-wait protocol
+Utilization of pipelined protocol
+Pipelined protocols: 
+Go-Back-N 
+Selective Repeat
+
+Transport Layer
+
+3-52
+
+Transport Layer
+
+3-53
+
+Selective repeat
+
+sender: individually tracks timeout of inflight pkts
+maintain timer for each unACKed pkt
+only resend the pkt causing timeout
+receiver: individually acknowledges each correctly received pkt
+buffers out-of-order pkts for eventual in-order delivery to application layer
+
+Transport Layer
+
+3-54
+
+Selective repeat: sender, receiver windows
+
+Transport Layer
+
+3-55
+
+Selective repeat
+
+data from above:
+if next seq# n is in window, send pkt(n), start timer(n)
+timeout(n):
+resend pkt(n), restart timer(n)
+ACK(n) in [sendbase, sendbase+N]:
+mark pkt(n) as received, stop timer(n)
+if n is the smallest unACKed seq#, advance window base to next unACKed seq # 
+
+
+pkt seq# n in [rcvbase, rcvbase+N-1]
+send ACK(n)
+if out-of-order: buffer
+if in-order: deliver (also deliver buffered, in-order pkts), advance window to next not-yet-received pkt
+pkt seq# n in [rcvbase-N, rcvbase-1]
+send ACK(n)
+otherwise: 
+ignore 
+
+
+Transport Layer
+
+3-56
+
+GBN in action (recall)
+
+send  pkt0
+send  pkt1
+send  pkt2
+send  pkt3
+(wait)
+
+sender
+
+receiver
+
+receive pkt0, send ack0
+receive pkt1, send ack1
+ 
+receive pkt3, discard, 
+           (re)send ack1
+
+rcv ack0, send pkt4
+rcv ack1, send pkt5
+
+
+pkt 2 timeout
+
+send  pkt2
+send  pkt3
+send  pkt4
+send  pkt5
+
+X
+
+loss
+
+receive pkt4, discard, 
+           (re)send ack1
+
+receive pkt5, discard, 
+           (re)send ack1
+
+rcv pkt2, deliver, send ack2
+rcv pkt3, deliver, send ack3
+rcv pkt4, deliver, send ack4
+rcv pkt5, deliver, send ack5
+
+ignore duplicate ACK
+
+sender window (N=4)
+
+0 1 2 3 4 5 6 7 8 
+
+…
+
+10 transmissions in total
+
+Transport Layer
+
+3-57
+
+Selective repeat in action
+
+send  pkt0
+send  pkt1
+send  pkt2
+send  pkt3
+(wait)
+
+sender
+
+receiver
+
+receive pkt0, send ack0
+receive pkt1, send ack1
+ 
+receive pkt3, buffer, 
+           send ack3
+
+rcv ack0, send pkt4
+rcv ack1, send pkt5
+
+
+pkt 2 timeout
+
+send  pkt2
+
+X
+
+loss
+
+receive pkt4, buffer, 
+           send ack4
+
+receive pkt5, buffer, 
+           send ack5
+
+rcv pkt2; deliver pkt2,
+pkt3, pkt4, pkt5; send ack2
+
+record ack3 arrived
+
+sender window (N=4)
+
+0 1 2 3 4 5 6 7 8 
+
+record ack4 arrived
+
+record ack5 arrived
+
+Q: what happens when ack2 arrives?
+
+7 transmissions in total
+
+Transport Layer
+
+3-58
+
+Selective repeat:dilemma
+
+example: 
+seq #’s: 0, 1, 2, 3
+window size=3
+
+receiver window
+(after receipt)
+
+sender window
+(after receipt)
+
+receiver can’t see sender side.
+receiver behavior identical in both cases!
+something’s (very) wrong!
+
+receiver sees no difference in two scenarios!
+duplicate data accepted as new in (b)
+
+
+Transport Layer
+
+3-59
+
+Selective repeat:dilemma
+
+receiver window
+(after receipt)
+
+sender window
+(after receipt)
+
+Q: what relationship between size of seq # space and window size to avoid problem in (b)?
+
+
+
+A: window size ≤ (#sequence numbers)/2
+
+Transport Layer
+
+3-60
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-61
+
+TCP segment structure
+
+source port #
+
+dest port #
+
+32 bits
+
+application
+data 
+(variable length)
+
+sequence number
+
+acknowledgement number
+
+receive window
+
+Urg data pointer
+
+checksum
+
+F
+
+S
+
+R
+
+P
+
+A
+
+U
+
+head
+len
+
+not
+used
+
+options (variable length)
+
+URG: urgent data 
+(generally not used)
+
+ACK: ACK #
+valid
+
+PSH: push data now
+(generally not used)
+
+RST, SYN, FIN:
+connection estab
+(setup, teardown
+commands)
+
+# bytes 
+rcvr willing
+to accept
+
+counting
+by bytes 
+of data
+(not segments!)
+
+Internet
+checksum
+(as in UDP)
+
+Transport Layer
+
+3-62
+
+TCP seq. numbers, ACKs
+
+sequence numbers:
+byte stream “number” of first byte in segment’s payload
+acknowledgements:
+seq # of next byte expected from other side
+cumulative ACK
+
+
+sent 
+ACKed
+
+sent, not ACKed
+
+usable,
+not sent
+
+not 
+usable
+
+window size
+ N
+
+A’s sequence number space 
+
+ACKed
+
+acceptable
+
+not acceptable
+
+B’s sequence number space 
+
+View of A
+
+Transport Layer
+
+3-63
+
+TCP seq. numbers, ACKs
+
+User
+types
+‘C’
+
+host ACKs
+receipt 
+of echoed
+‘C’
+
+host ACKs
+receipt of
+‘C’, echoes
+back ‘C’
+
+simple telnet scenario
+
+Host B
+
+Host A
+
+Seq=42, ACK=79, data = ‘C’
+
+Seq=79, ACK=43, data = ‘C’
+
+Seq=43, ACK=80
+
+At the beginning: For Host A, everything up to byte 41 has been acked, everything up to 78 has been corrected received. 
+
+
+Review
+
+Pipelined protocols: 
+Go-Back-N 
+Selective Repeat
+TCP basics:
+segment structure
+bidirectional communication
+byte stream-based sequence/acknowledgement #
+
+
+Transport Layer
+
+3-64
+
+Transport Layer
+
+3-65
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-66
+
+TCP reliable data transfer
+
+TCP creates rdt service on top of IP’s unreliable service
+pipelined segments
+cumulative acks
+single timer
+retransmit a single pkt upon timeout
+
+
+
+let’s initially consider simplified TCP sender:
+ignore duplicate acks
+ignore flow control, congestion control
+
+Transport Layer
+
+3-67
+
+TCP sender (simplified)
+
+wait
+for 
+event
+
+NextSeqNum = InitialSeqNum
+SendBase = InitialSeqNum
+
+L
+
+Transport Layer
+
+3-68
+
+TCP receiver (simplified)
+
+Could buffer out-of-order data
+
+Transport Layer
+
+3-69
+
+TCP: retransmission scenarios
+
+(a) lost ACK scenario
+
+Host B
+
+Host A
+
+Seq=92, 8 bytes of data
+
+ACK=100
+
+Seq=92, 8 bytes of data
+
+X
+
+timeout
+
+ACK=100
+
+X
+
+(b) cumulative ACK
+
+Host B
+
+Host A
+
+Seq=92, 8 bytes of data
+
+Seq=120,  15 bytes of data
+
+Transport Layer
+
+3-70
+
+Boost: TCP fast retransmit
+
+timeout is often long
+idea: detect lost pkt via duplicate ACKs
+sender often sends many segments back-to-back
+if segment is lost, there will likely be many duplicate ACKs.
+
+
+
+if sender receives 3 duplicate ACKs, resend the oldest unacked segment 
+
+TCP fast retransmit
+
+X
+
+fast retransmit after sender 
+receives triple duplicate ACK
+
+Host B
+
+Host A
+
+Seq=92, 8 bytes of data
+
+Seq=100, 20 bytes of data
+
+Seq=100, 20 bytes of data
+
+Parameter setting
+
+timeout
+how long is “too long”?
+
+N
+how fast to transmit?
+
+Transport Layer
+
+3-71
+
+Transport Layer
+
+3-72
+
+TCP round trip time, timeout
+
+Q: how to set TCP timeout value?
+just above a “normal” RTT
+
+Q: how to estimate RTT?
+SampleRTT: measured RTT
+ignore retransmissions
+SampleRTT will vary, want estimated RTT “smoother”
+
+Transport Layer
+
+3-73
+
+EstimatedRTT = (1- )*EstimatedRTT + *SampleRTT
+
+exponentially weighted moving average
+influence of past sample decreases exponentially fast
+typical value:  = 0.125
+
+TCP round trip time, timeout
+
+RTT (milliseconds)
+
+RTT: gaia.cs.umass.edu to fantasia.eurecom.fr
+
+sampleRTT
+
+EstimatedRTT
+
+Transport Layer
+
+3-74
+
+timeout interval: EstimatedRTT plus “safety margin”
+
+estimate SampleRTT deviation from EstimatedRTT: 
+
+DevRTT = (1-)*DevRTT +
+             *|SampleRTT-EstimatedRTT|
+
+TCP round trip time, timeout
+
+(typically,  = 0.25)
+
+TimeoutInterval = EstimatedRTT + 4*DevRTT
+
+estimated RTT
+
+“safety margin”
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+Review
+
+Determination of TCP timeout
+RTT, deviation of RTT
+TCP as a rdt protocol
+Sender: pipelined transmission, cumulative acknowledgement, single retransmission (timeout/3 duplicate ACKs)
+Receiver: delayed ACK for in-order packet, immediate ACK for gap/recovery 
+
+
+Transport Layer
+
+3-75
+
+Transport Layer
+
+3-76
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-77
+
+TCP flow control
+
+application
+process
+
+TCP
+code
+
+IP
+code
+
+receiver protocol stack
+
+application may 
+remove data from 
+TCP socket buffers …. 
+
+… slower than TCP 
+receiver is delivering
+(sender is sending)
+
+from sender
+
+Transport Layer
+
+3-78
+
+TCP flow control
+
+rwnd
+
+RcvBuffer
+
+TCP segment payloads
+
+to application process
+
+receiver advertises free buffer space by including rwnd value in TCP header (“receive window” field)
+sender limits amount of unacked (“in-flight”) data to receiver’s rwnd value 
+guarantees receive buffer will not overflow
+
+receiver-side buffer
+
+Transport Layer
+
+3-79
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+TCP congestion control:
+
+Transport Layer
+
+3-80
+
+approach: sender increases transmission rate (window size), probing for usable bandwidth, until loss occurs
+additive increase: increase  cwnd by 1 MSS every RTT until loss detected
+multiplicative decrease: cut cwnd in half after loss 
+
+
+cwnd: TCP sender 
+congestion window size
+
+AIMD saw tooth
+curve
+
+additively increase window size …
+…. until loss occurs (then cut window in half)
+
+time
+
+Transport Layer
+
+3-81
+
+TCP Congestion Control: details
+
+sender limits transmission:
+
+
+usually cwnd < rwnd 
+dynamic function of perceived network congestion
+
+
+Transport Layer
+
+3-82
+
+Update cwnd: TCP Slow Start 
+
+when connection begins, increase cwnd as follows until first loss event or cwnd ≥ ssthresh:
+initially cwnd = 1 MSS
+incrementing cwnd by 1 MSS for every ACK received 
+→ double cwnd every RTT
+
+
+Host A
+
+one segment
+
+RTT
+
+Host B
+
+two segments
+
+four segments
+
+Transport Layer
+
+3-83
+
+Update cwnd: TCP Congestion Avoidance 
+
+when cwnd ≥ ssthresh, increase rate additively until first loss event:
+incrementing cwnd by MSS2/cwnd for every ACK received
+→ Increase cwnd by 1 MSS every RTT
+
+
+Host A
+
+RTT
+
+Host B
+
+four segments
+
+five segments
+
+Transport Layer
+
+3-84
+
+TCP: detecting, reacting to loss
+
+loss indicated by timeout:
+cwnd set to 1 MSS 
+go back to slow start
+
+loss indicated by 3 duplicate ACKs: 
+TCP RENO: cwnd is cut in half
+TCP Tahoe: cwnd is set to 1 MSS
+
+
+Transport Layer
+
+3-85
+
+Q: when should the exponential increase switch to linear? 
+A: when cwnd gets to 1/2 of its value before the last loss
+
+ 
+
+Implementation:
+variable ssthresh 
+on loss event, ssthresh is set to 1/2 of cwnd just before loss event
+
+TCP: switching from slow start to CA
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+Transport Layer
+
+3-86
+
+Summary: TCP Congestion Control
+
+Transport Layer
+
+3-87
+
+TCP throughput
+
+avg. TCP thruput as function of window size, RTT?
+ignore slow start, assume always data to send
+W: window size (measured in bytes) where loss occurs
+avg. window size (# in-flight bytes) is ¾ W
+avg. throughput is ¾ W per RTT
+
+Transport Layer
+
+3-88
+
+Chapter 3: summary
+
+principles behind transport layer services:
+multiplexing, demultiplexing
+reliable data transfer
+flow control
+congestion control
+instantiation, implementation in the Internet
+UDP
+TCP
+
+next:
+leaving the network “edge” (application, transport layers)
+into the network “core”
+two network layer chapters:
+data plane
+control plane
+
+
+backup slides
+
+Transport Layer
+
+3-89
+
+Transport Layer
+
+3-90
+
+Internet transport-layer protocols
+
+reliable, in-order delivery: TCP
+congestion control 
+flow control
+connection setup
+unreliable, unordered delivery: UDP
+none of the above
+services not available: 
+delay guarantees
+throughput guarantees
+
+Transport Layer
+
+3-91
+
+Connection-oriented demux: example
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P3
+
+transport
+
+application
+
+physical
+
+link
+
+transport
+
+application
+
+physical
+
+link
+
+network
+
+P2
+
+host: IP address A
+
+host: IP address C
+
+server: IP address B
+
+network
+
+P3
+
+P4
+
+threaded server
+
+Transport Layer
+
+3-92
+
+Pipelining: increased utilization
+
+first packet bit transmitted, t = 0
+
+sender
+
+receiver
+
+RTT 
+
+last bit transmitted, t = L / R
+
+first packet bit arrives
+
+last packet bit arrives, send ACK
+
+ACK arrives, send next 
+packet, t = RTT + L / R
+
+last bit of 2nd packet arrives, send ACK
+
+last bit of 3rd packet arrives, send ACK
+
+3-packet pipelining increases
+ utilization by a factor of 3!
+
+Go-Back-N
+state variables: send_base, nextseqnum, expectedseqnum
+a single timer
+cumulative acknowledgement 
+cumulative retransmission (“go back N”)
+
+Selective Repeat
+state variables: send/rcv_base, nextseqnum, state (acked/unacked) per packet 
+N timers
+individual acknowledgement
+individual retransmission (“selective repeat”)
+
+Transport Layer
+
+3-93
+
+Selective repeat vs. Go-Back-N
+
+Transport Layer
+
+3-94
+
+TCP: Overview  RFCs: 793,1122,1323, 2018, 2581
+
+connection-oriented: 
+handshaking (exchange of control msgs) inits sender, receiver state
+flow-controlled:
+sender will not overwhelm receiver
+congestion-controlled:
+sender will not overwhelm network
+
+point-to-point:
+one sender, one receiver 
+reliable, in-order byte steam:
+no “message boundaries”
+pipelined:
+TCP congestion and flow control set window size
+full duplex data:
+bi-directional data flow in same connection
+
+Q: how to handle out-of-order segments?
+A: TCP spec doesn’t say, - up to implementor
+
+Transport Layer
+
+3-95
+
+TCP sender events:
+
+data rcvd from app:
+create segment with seq #
+seq # is byte-stream number of first data byte in segment
+start timer if not already running 
+think of timer as for oldest unacked segment
+expiration interval: TimeOutInterval 
+
+timeout:
+retransmit segment that caused timeout
+restart timer
+ ack rcvd:
+if ack acknowledges previously unacked segments
+update what is known to be ACKed
+start timer if there are  still unacked segments
+
+
+Transport Layer
+
+3-96
+
+TCP ACK generation [RFC 1122, RFC 2581]
+
+event at receiver
+
+arrival of in-order segment with
+expected seq #. All data up to
+expected seq # already ACKed
+
+arrival of in-order segment with
+expected seq #. One other 
+segment has ACK pending
+
+arrival of out-of-order segment
+higher-than-expect seq. # .
+Gap detected
+
+arrival of segment that 
+partially or completely fills gap
+
+
+
+TCP receiver action
+
+delayed ACK. Wait up to 500ms
+for next segment. If no next segment,
+send ACK
+
+immediately send single cumulative 
+ACK, ACKing both in-order segments 
+
+
+immediately send duplicate ACK, 
+indicating seq. # of next expected byte
+
+immediate send ACK, provided that
+segment starts at lower end of gap
+
+
+
+Aggregate ACKs
+
+Fast loss detection,
+Fast recovery
+
+Transport Layer
+
+3-97
+
+Summary: TCP Congestion Control
+
+Transport Layer
+
+3-98
+
+TCP is fair: if K TCP sessions share same bottleneck link of bandwidth R, each should have average rate of R/K
+
+TCP connection 1
+
+bottleneck
+router
+capacity R
+
+TCP Fairness
+
+TCP connection 2
+
+Transport Layer
+
+3-99
+
+Why is TCP fair?
+
+two competing sessions:
+additive increase gives slope of 1, as throughout increases
+multiplicative decrease decreases throughput proportionally 
+
+R
+
+R
+
+equal bandwidth share
+
+Connection 1 throughput
+
+Connection 2 throughput
+
+congestion avoidance: additive increase
+
+loss: decrease window by factor of 2
+
+congestion avoidance: additive increase
+
+loss: decrease window by factor of 2
+
+Transport Layer
+
+3-100
+
+Chapter 3 outline
+
+3.1 transport-layer services
+3.2 multiplexing and demultiplexing
+3.3 connectionless transport: UDP
+3.4 principles of reliable data transfer
+
+3.5 connection-oriented transport: TCP
+segment structure
+reliable data transfer
+flow control
+connection management
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+Transport Layer
+
+3-101
+
+Connection Management
+
+before exchanging data, sender/receiver “handshake”:
+agree to establish connection (each knowing the other willing to establish connection)
+agree on connection parameters
+
+connection state: ESTAB
+connection variables:
+seq # client-to-server
+         server-to-client
+rcvBuffer size
+   at server,client 
+           
+
+application
+
+network
+
+connection state: ESTAB
+connection Variables:
+seq # client-to-server
+          server-to-client
+rcvBuffer size
+   at server,client 
+           
+
+application
+
+network
+
+Socket clientSocket =   
+  newSocket("hostname","port number");
+
+Socket connectionSocket = welcomeSocket.accept();
+
+Transport Layer
+
+3-102
+
+Q: will 2-way handshake always work in network?
+variable delays
+retransmitted messages (e.g. req_conn(x)) due to message loss
+message reordering
+can’t “see” other side
+
+2-way handshake:
+
+Let’s talk
+
+OK
+
+ESTAB
+
+ESTAB
+
+choose x
+
+
+req_conn(x)
+
+ESTAB
+
+ESTAB
+
+acc_conn(x)
+
+Agreeing to establish a connection
+
+Transport Layer
+
+3-103
+
+Agreeing to establish a connection
+
+2-way handshake failure scenarios:
+
+Transport Layer
+
+3-104
+
+TCP 3-way handshake
+
+ESTAB
+
+Transport Layer
+
+3-105
+
+TCP: closing a connection
+
+client, server each close their side of connection
+send TCP segment with FIN bit = 1
+respond to received FIN with ACK
+on receiving FIN, ACK can be combined with own FIN
+simultaneous FIN exchanges can be handled
+
+Transport Layer
+
+3-106
+
+TCP: closing a connection
+
+client state
+
+
+server state
+
+
+ESTAB
+
+ESTAB

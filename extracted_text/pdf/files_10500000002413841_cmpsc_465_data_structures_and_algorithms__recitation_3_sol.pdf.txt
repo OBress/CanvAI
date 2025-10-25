@@ -1,0 +1,147 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 3
+Monday, Sep 22, 2025
+1. Delete Min Please consider the following array, which represents a min heap.
+A= [1,2,9,8,6,10,15,22,32].
+Suppose we remove the element at position 0 of the heap. How does the resulting heap look? Write
+both the array and tree representation of the heap.
+Solution:
+Our initial tree looks like this:
+1
+2
+8
+22 3269
+10 15
+1. Firstly, we remove the node 1, and replace it with the last node i.e. 32.
+32
+2
+8
+2269
+10 15
+2. Then we run Heapify-Down from the root. That is, we choose the smaller of the children, in
+this case between 2 and 9 is 2. This element is now swapped with 32.
+2
+32
+8
+2269
+10 15
+3. Similarly, we choose the smaller number between 8 and 6, then we swap 32 to give us the result.
+2
+6
+8
+22329
+10 15
+CMPSC 465, Fall 2025, Worksheet 3 1
+
+The array representation for this heap is [2,6,9,8,32,10,15,22].
+2. Heapify. How does the heap look like after we run the Build-heap function on the array A[1...9] =
+[12,5,20,15,7,30,8,2,18]?
+Solution: Our initial tree looks like this:
+12
+5
+15
+2 18720
+30 8
+We run Max-Heapify-Down on this tree, starting from node ⌊n
+2⌋down to 1 as follows:
+1. We swap node 15 and 18.
+12
+5
+18
+2 15720
+30 8
+2. Then we swap 20 and 30.
+12
+5
+18
+2 15730
+20 8
+3. Next, we swap 5 and 18 and later we swap 5 and 15 to obtain the following tree.
+12
+18
+15
+2 5730
+20 8
+4. Finally, for the root 12, we first swap it with its largest and child 30 followed by swapping 12
+with 20. The final tree: 30
+18
+15
+2 5720
+12 8
+CMPSC 465, Fall 2025, Worksheet 3 2
+
+We got the max-heap, so we do not need to do anything further.
+3. Node Count. Show that there are at most ⌈n
+2h+1⌉nodes of height hin any n-element heap.
+Proof : We prove this by induction on the height of the nodes. Let, nhbe the number of nodes at
+height h.
+Base Case: The leaves of a heap ( h=0) are the nodes indexed by
+n
+2
++1,n
+2
++2, ..., n,
+which corresponds to the second half of the heap array (plus the middle element if nis odd). Hence
+the number of leaves is
+n0=n
+2
+.
+So, the base case holds for h=0.
+Now assume the claim holds for height h−1. We show it holds for height h.
+Case 1. Ifnh−1is even, each node at height hhas exactly two children. Thus
+nh=nh−1
+2=nh−1
+2
+.
+Case 2. Ifnh−1is odd, one node at height hhas one child and the rest have two children. Thus
+nh=nh−1
+2
++1=nh−1
+2
+.
+In both cases,
+nh≤nh−1
+2
+.
+Applying the inductive hypothesis:
+nh≤nh−1
+2
+≤1
+2·n
+2h−1+1
+=n
+2h+1
+.
+Thus the statement holds for all h.2
+4. K-th Largest Element. Given an array Aofnelements, find the k-th largest element.
+Solution: We can solve this problem efficiently using a min-heap data structure. The main idea is to
+maintain a min-heap of size kthat stores the klargest elements encountered so far.
+Note that in the following algorithm, H.peek()returns the root of the min-heap (minimum element).
+Algorithm:
+1. Create a min-heap data structure, H.
+2. Iterate through the first k elements of the input array A and insert them into the min-heap.
+3. Iterate through the remaining elements of the array, from index k+1 to n.
+4. For each element A[i], compare it with the root of the min-heap (H.peek()).
+5. If A[i]>H.peek(), then remove the root of the heap ( H.extract min()) and insert A[i]into the
+heap ( H.insert (A[i])).
+CMPSC 465, Fall 2025, Worksheet 3 3
+
+6. After iterating through all the elements, the root of the min-heap will be the k-th largest element.
+Return H.peek().
+Pseudocode:
+function find_kth_largest(A, k):
+H = new MinHeap()
+for i from 1 to k:
+H.insert(A[i])
+for i from k+1 to n:
+if A[i] > H.peek():
+H.extract_min()
+H.insert(A[i])
+return H.peek()
+Complexity Analysis:
+•Time Complexity: Inserting the first kelements into the heap takes O(klogk)time. The
+loop for the remaining n−kelements performs a constant number of heap operations (peek,
+extract min, insert), each taking O(logk)time.The total time complexity is O(klogk+ (n−
+k)logk) =O(nlogk).
+•Space Complexity: The min-heap stores at most kelements, so the space complexity is O(k).
+CMPSC 465, Fall 2025, Worksheet 3 4

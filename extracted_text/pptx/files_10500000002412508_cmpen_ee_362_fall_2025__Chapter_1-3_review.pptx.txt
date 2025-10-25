@@ -1,0 +1,104 @@
+Midterm Review
+
+Chapters
+Chap 1 Introduction 
+Chap 2 Application layer
+Chap 3 Transport layer
+
+
+
+Topics
+Concepts
+Protocols
+Underlying mechanism & performance analysis
+
+
+1
+
+Chap 1: Introduction
+
+Concepts
+Internet, protocol
+Edge: access networks (DSL, Cable, Ethernet, wireless)
+Core: 2 networking paradigms (packet/circuit switching), 2 key network core functions (routing, forwarding), structure of Internet core
+
+
+Protocols
+Protocol stack
+Analysis
+#supported users using circuit switching vs. packet switching
+slide Chap1-28
+Delay calculation (N-hop path, w/ or w/o segmentation)
+slide Chap1-42
+Throughput (bottleneck link capacity)
+Loss (causes of loss)
+
+
+2
+
+pkt switching
+
+.
+
+Chap 2: Application Layer
+
+Concepts
+Application architectures (CS, P2P)
+Client/server process, sockets (TCP/UDP)
+Transport services (lossless? secure? delay? throughput?)
+Protocols
+HTTP: transport layer, persistent vs. non-persistent, conditional GET 
+
+DNS: transport layer, 4 types of DNS services, 3+1 types of DNS servers, 4 types of RR, two ways to query DNS (iterative, recursive)
+Analysis
+Webpage downloading time: type of HTTP
+slide Chap2-17, 20, 21
+Single object downloading time: Internet/access/LAN delay, caching
+slide Chap2-35 to 2-41
+File distribution time (CS, P2P)
+
+
+3
+
+Chap 3: Transport Layer
+
+Concepts
+TCP vs. UDP
+Identifier of UDP/TCP socket
+Protocols
+UDP: segment format, why using UDP
+TCP: segment format (meaning of seq#, ack#), differences from go-back-N/selective-repeat, flow control,  congestion control (3 phases, cwnd updates)
+
+
+
+
+Analysis
+Checksum
+rdt design: stop-and-wait 
+slide Chap3-34 to 3-42
+rdt: pipelined (go-back-N, selective repeat, TCP), min #distinct sequence numbers
+TCP timeout value: EstimatedRTT, DevRTT
+TCP throughput: per-window rate, long-term rate
+slide Chap3-87
+
+
+4
+
+Exam format
+
+Scope: Chap1-3
+Total 30 pt (30% of final grade)
+3 types of problems
+Short answer/true or false  concepts [10 pt]
+Calculation  analysis [10 pt]
+Design  application of concept [10 pt]
+In-class (50 min)
+closed-book (including book, slides, notes, cheat sheets, Internet, etc), calculators allowed, discussion not allowed
+
+
+Example:
+Type 1: what is Internet from xxx view, what are the layers in Internet protocol stack
+Type 2: how many users can be supported using packet/circuit switching by a link of x bps, if a user needs y bps and is active z% of time 
+Type 3: design a stop-and-wait rdt to transfer segments from sender(s) to receiver(s) in order xxx
+
+6-5

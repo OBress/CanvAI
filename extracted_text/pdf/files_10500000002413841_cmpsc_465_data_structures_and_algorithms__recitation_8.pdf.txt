@@ -1,0 +1,25 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 8
+Monday, Oct 27, 2025
+1. Minimum Spanning Trees. Run Prim’s Algorithm to find a minimum spanning tree for the following
+graph. Whenever there is a choice of nodes, always use alphabetic ordering (e.g. start from node A).
+Show the order edges are added and the weight of the partial MST at each step.
+2. Minimum Spanning Trees and Subgraphs. LetTbe an MST of graph G. Given a connected
+subgraph HofG, show that T∩His contained in some MST of H.
+3. Edge Weight Incrementing. Consider an undirected graph G= (V,E)with nonnegative edge weights
+we≥0. Suppose that you have computed a minimum spanning tree of G, and that you have also com-
+puted shortest paths to all nodes from a particular node s∈V.
+Now suppose each edge weight is increased by 1: the new weights are w′
+e=we+1.
+(a) Does the minimum spanning tree change? Give an example where it changes or prove it cannot
+change.
+(b) Do the shortest paths change? Give an example where they change or prove they cannot change.
+4. Minimum Spanning Trees
+(a) Given an undirected graph G= (V,E)and a set E′⊂E, briefly describe how to update Kruskal’s
+algorithm to find the minimum spanning tree that includes all edges from E′.
+(b) Assume you are given a graph G= (V,E)with positive and negative edge weights and an al-
+gorithm that can return a minimum spanning tree when given a graph with only positive edges.
+Describe a way to transform Ginto a new graph G′containing only positive edge weights so
+that the minimum spanning tree of Gcan be easily found from the minimum spanning tree of
+G′.
+CMPSC 465, Fall 2025, Worksheet 8 1

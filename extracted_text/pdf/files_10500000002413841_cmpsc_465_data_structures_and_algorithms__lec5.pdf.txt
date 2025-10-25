@@ -1,0 +1,886 @@
+CMPSC 465: LECTURE V
+Information Theory Lower Bound
+QuickSort
+Ke Chen
+September 08, 2025
+
+Recall from last week...
+The time complexity of MergeSort satises
+T(n) = 2T(n=2) + ( n).
+We can solve this recurrence relation by
+Isubstitution (guess and induction),
+Iunrolling,
+Irecursion tree,
+Imaster theorem,
+to get T(n) = ( nlogn).Can we do better?
+No. Any comparison-based sorting algorithm needs 
+(nlogn)
+comparisons in the worst case.
+1 / 10
+
+Recall from last week...
+The time complexity of MergeSort satises
+T(n) = 2T(n=2) + ( n).
+We can solve this recurrence relation by
+Isubstitution (guess and induction),
+Iunrolling,
+Irecursion tree,
+Imaster theorem,
+to get T(n) = ( nlogn).
+Can we do better?No. Any comparison-based sorting algorithm needs 
+(nlogn)
+comparisons in the worst case.
+1 / 10
+
+Recall from last week...
+The time complexity of MergeSort satises
+T(n) = 2T(n=2) + ( n).
+We can solve this recurrence relation by
+Isubstitution (guess and induction),
+Iunrolling,
+Irecursion tree,
+Imaster theorem,
+to get T(n) = ( nlogn).
+Can we do better?
+No. Any comparison-based sorting algorithm needs 
+(nlogn)
+comparisons in the worst case.
+1 / 10
+
+Decision-tree algorithms
+Consider sorting three distinct numbers a,b, and c:
+a < b ?
+2 / 10
+
+Decision-tree algorithms
+Consider sorting three distinct numbers a,b, and c:
+a < b ?
+b < c ?y
+2 / 10
+
+Decision-tree algorithms
+Consider sorting three distinct numbers a,b, and c:
+a < b ?
+b < c ?y
+a; b; cy
+2 / 10
+
+Decision-tree algorithms
+Consider sorting three distinct numbers a,b, and c:
+a < b ?
+b < c ?y
+a < c ?n
+2 / 10
+
+Decision-tree algorithms
+Consider sorting three distinct numbers a,b, and c:
+a < b ?
+b < c ?y
+a < c ?n
+c; a; bn
+2 / 10
+
+Decision-tree algorithms
+Consider sorting three distinct numbers a,b, and c:
+a < b ?
+b < c ?y
+a < c ?n
+a; b; cy
+a < c ?n
+b; a; cy
+b < c ?n
+a; c; by
+c; a; bn
+b; c; ay
+c; b; an
+2 / 10
+
+The information theory lower bound (ITLB)
+Observations:
+IComparison-based sorting algorithms can be modeled by
+decision trees.
+IEach leaf node corresponds to a possible output.
+IThe execution of the algorithm corresponds to a path from
+root down to a leaf.
+IA longest path (i.e., height of the tree ) gives the worst-case
+number of comparisons needed.Aleaf-counting argument:
+IEach possible output must appear in the tree. Sorting n
+distinct numbers, there are n!possible outputs.IA binary tree of height hcan have at most 2hleaves.
+ISo2hn!, orhlog(n!) = 
+( nlogn).
+3 / 10
+
+The information theory lower bound (ITLB)
+Observations:
+IComparison-based sorting algorithms can be modeled by
+decision trees.
+IEach leaf node corresponds to a possible output.
+IThe execution of the algorithm corresponds to a path from
+root down to a leaf.
+IA longest path (i.e., height of the tree ) gives the worst-case
+number of comparisons needed.
+Aleaf-counting argument:
+IEach possible output must appear in the tree. Sorting n
+distinct numbers, there are ?possible outputs.IA binary tree of height hcan have at most 2hleaves.
+ISo2hn!, orhlog(n!) = 
+( nlogn).
+3 / 10
+
+The information theory lower bound (ITLB)
+Observations:
+IComparison-based sorting algorithms can be modeled by
+decision trees.
+IEach leaf node corresponds to a possible output.
+IThe execution of the algorithm corresponds to a path from
+root down to a leaf.
+IA longest path (i.e., height of the tree ) gives the worst-case
+number of comparisons needed.
+Aleaf-counting argument:
+IEach possible output must appear in the tree. Sorting n
+distinct numbers, there are n!possible outputs.IA binary tree of height hcan have at most 2hleaves.
+ISo2hn!, orhlog(n!) = 
+( nlogn).
+3 / 10
+
+The information theory lower bound (ITLB)
+Observations:
+IComparison-based sorting algorithms can be modeled by
+decision trees.
+IEach leaf node corresponds to a possible output.
+IThe execution of the algorithm corresponds to a path from
+root down to a leaf.
+IA longest path (i.e., height of the tree ) gives the worst-case
+number of comparisons needed.
+Aleaf-counting argument:
+IEach possible output must appear in the tree. Sorting n
+distinct numbers, there are n!possible outputs.
+IA binary tree of height hcan have at most ?leaves.ISo2hn!, orhlog(n!) = 
+( nlogn).
+3 / 10
+
+The information theory lower bound (ITLB)
+Observations:
+IComparison-based sorting algorithms can be modeled by
+decision trees.
+IEach leaf node corresponds to a possible output.
+IThe execution of the algorithm corresponds to a path from
+root down to a leaf.
+IA longest path (i.e., height of the tree ) gives the worst-case
+number of comparisons needed.
+Aleaf-counting argument:
+IEach possible output must appear in the tree. Sorting n
+distinct numbers, there are n!possible outputs.
+IA binary tree of height hcan have at most 2hleaves.ISo2hn!, orhlog(n!) = 
+( nlogn).
+3 / 10
+
+The information theory lower bound (ITLB)
+Observations:
+IComparison-based sorting algorithms can be modeled by
+decision trees.
+IEach leaf node corresponds to a possible output.
+IThe execution of the algorithm corresponds to a path from
+root down to a leaf.
+IA longest path (i.e., height of the tree ) gives the worst-case
+number of comparisons needed.
+Aleaf-counting argument:
+IEach possible output must appear in the tree. Sorting n
+distinct numbers, there are n!possible outputs.
+IA binary tree of height hcan have at most 2hleaves.
+ISo2hn!, orhlog(n!) = 
+( nlogn).
+3 / 10
+
+Lower bounds on sorting
+Theorem: Any comparison-based sorting algorithm requires
+
+(nlogn)comparisons in the worst case.Corollary: MergeSort is an asymptotically optimal
+comparison-based sorting algorithm.
+Notes:
+INot all sorting algorithms are comparison-based: e.g.,
+CountingSort, RadixSort, and BucketSort run in O(n)time
+(with constraints on inputs) .
+IITLB can also be used to obtain lower bounds for other
+comparison-based problems.
+4 / 10
+
+Lower bounds on sorting
+Theorem: Any comparison-based sorting algorithm requires
+
+(nlogn)comparisons in the worst case.
+Corollary: MergeSort is an asymptotically optimal
+comparison-based sorting algorithm.Notes:
+INot all sorting algorithms are comparison-based: e.g.,
+CountingSort, RadixSort, and BucketSort run in O(n)time
+(with constraints on inputs) .
+IITLB can also be used to obtain lower bounds for other
+comparison-based problems.
+4 / 10
+
+Lower bounds on sorting
+Theorem: Any comparison-based sorting algorithm requires
+
+(nlogn)comparisons in the worst case.
+Corollary: MergeSort is an asymptotically optimal
+comparison-based sorting algorithm.
+Notes:
+INot all sorting algorithms are comparison-based: e.g.,
+CountingSort, RadixSort, and BucketSort run in O(n)time
+(with constraints on inputs) .IITLB can also be used to obtain lower bounds for other
+comparison-based problems.
+4 / 10
+
+Lower bounds on sorting
+Theorem: Any comparison-based sorting algorithm requires
+
+(nlogn)comparisons in the worst case.
+Corollary: MergeSort is an asymptotically optimal
+comparison-based sorting algorithm.
+Notes:
+INot all sorting algorithms are comparison-based: e.g.,
+CountingSort, RadixSort, and BucketSort run in O(n)time
+(with constraints on inputs) .
+IITLB can also be used to obtain lower bounds for other
+comparison-based problems.
+4 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.IThere are n+ 1 possible outputs, so ITLB requires any
+algorithm make at least log(n+ 1) comparisons.
+IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.
+INote that ITLB only considers comparisons .How many other operations are needed for insertion?
+Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.
+IThere are ?possible outputs, so ITLB requires any algorithm
+make at least ?comparisons.IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.
+INote that ITLB only considers comparisons .How many other operations are needed for insertion?
+Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.
+IThere are n+ 1 possible outputs, so ITLB requires any
+algorithm make at least log(n+ 1) comparisons.IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.
+INote that ITLB only considers comparisons .How many other operations are needed for insertion?
+Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.
+IThere are n+ 1 possible outputs, so ITLB requires any
+algorithm make at least log(n+ 1) comparisons.
+IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.INote that ITLB only considers comparisons .How many other operations are needed for insertion?
+Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.
+IThere are n+ 1 possible outputs, so ITLB requires any
+algorithm make at least log(n+ 1) comparisons.
+IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.
+INote that ITLB only considers comparisons .How many other operations are needed for insertion?
+Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.
+IThere are n+ 1 possible outputs, so ITLB requires any
+algorithm make at least log(n+ 1) comparisons.
+IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.
+INote that ITLB only considers comparisons .
+How many other operations are needed for insertion?Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for insertion
+Insertion problem: Given a sorted set of ndistinct numbers, insert
+a new number into the proper position.
+IThere are n+ 1 possible outputs, so ITLB requires any
+algorithm make at least log(n+ 1) comparisons.
+IIt turns out that this number suces: binary search can
+solve the problem with dlog(n+ 1)ecomparisons.
+INote that ITLB only considers comparisons .
+How many other operations are needed for insertion?
+Can insertion be done in O(logn)time?
+5 / 10
+
+ITLB for selection
+Selection problem: Given a list of nnumbers and a target k,
+select the k-th smallest number.IThere are npossible outputs, so ITLB requires any algorithm
+make at least logncomparisons.
+IThis is quite a poor lower bound ! Can you argue for 
+(n)
+comparisons?
+IThere is an algorithm using O(n)comparisons in the worst
+case. Thus the complexity of selection is (n).
+Morale: The ITLB does not always give a tight bound, it can be
+very far o.
+6 / 10
+
+ITLB for selection
+Selection problem: Given a list of nnumbers and a target k,
+select the k-th smallest number.
+IThere are ?possible outputs, so ITLB requires any algorithm
+make at least ?comparisons.IThis is quite a poor lower bound ! Can you argue for 
+(n)
+comparisons?
+IThere is an algorithm using O(n)comparisons in the worst
+case. Thus the complexity of selection is (n).
+Morale: The ITLB does not always give a tight bound, it can be
+very far o.
+6 / 10
+
+ITLB for selection
+Selection problem: Given a list of nnumbers and a target k,
+select the k-th smallest number.
+IThere are npossible outputs, so ITLB requires any algorithm
+make at least logncomparisons.IThis is quite a poor lower bound ! Can you argue for 
+(n)
+comparisons?
+IThere is an algorithm using O(n)comparisons in the worst
+case. Thus the complexity of selection is (n).
+Morale: The ITLB does not always give a tight bound, it can be
+very far o.
+6 / 10
+
+ITLB for selection
+Selection problem: Given a list of nnumbers and a target k,
+select the k-th smallest number.
+IThere are npossible outputs, so ITLB requires any algorithm
+make at least logncomparisons.
+IThis is quite a poor lower bound ! Can you argue for 
+(n)
+comparisons?IThere is an algorithm using O(n)comparisons in the worst
+case. Thus the complexity of selection is (n).
+Morale: The ITLB does not always give a tight bound, it can be
+very far o.
+6 / 10
+
+ITLB for selection
+Selection problem: Given a list of nnumbers and a target k,
+select the k-th smallest number.
+IThere are npossible outputs, so ITLB requires any algorithm
+make at least logncomparisons.
+IThis is quite a poor lower bound ! Can you argue for 
+(n)
+comparisons?
+IThere is an algorithm using O(n)comparisons in the worst
+case. Thus the complexity of selection is (n).Morale: The ITLB does not always give a tight bound, it can be
+very far o.
+6 / 10
+
+ITLB for selection
+Selection problem: Given a list of nnumbers and a target k,
+select the k-th smallest number.
+IThere are npossible outputs, so ITLB requires any algorithm
+make at least logncomparisons.
+IThis is quite a poor lower bound ! Can you argue for 
+(n)
+comparisons?
+IThere is an algorithm using O(n)comparisons in the worst
+case. Thus the complexity of selection is (n).
+Morale: The ITLB does not always give a tight bound, it can be
+very far o.
+6 / 10
+
+Back to MergeSort
+Time complexity?
+I(nlogn), asymptotic optimal.
+Space complexity?
+IO(n)extra space for merging.
+ICan be reduced to O(1), but is complicated and not practical.Can we do better?
+7 / 10
+
+Back to MergeSort
+Time complexity?
+I(nlogn), asymptotic optimal.
+Space complexity?
+IO(n)extra space for merging.
+ICan be reduced to O(1), but is complicated and not practical.
+Can we do better?
+7 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,82 Sort each part 1,2,4 5 6,8,8,9
+3 TADA! 1,2,4,5,6,8,8,9
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+8 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,8
+2 Sort each part 1,2,4 5 6,8,8,93 TADA! 1,2,4,5,6,8,8,9
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+8 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,8
+2 Sort each part 1,2,4 5 6,8,8,9
+3 TADA! 1,2,4,5,6,8,8,9QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+8 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,8
+2 Sort each part 1,2,4 5 6,8,8,9
+3 TADA! 1,2,4,5,6,8,8,9
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+8 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,8
+2 Sort each part 1,2,4 5 6,8,8,9
+3 TADA! 1,2,4,5,6,8,8,9
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+How to do Partition?Easy!
+8 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,8
+2 Sort each part 1,2,4 5 6,8,8,9
+3 TADA! 1,2,4,5,6,8,8,9
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+How to do Partition? Easy!
+8 / 10
+
+QuickSort
+Input: 8,1,9,2,8,4,6,5
+Idea: divide and conquer
+1 Split input by a pivot 1,2,4 5pivot< >
+8,9,6,8
+2 Sort each part 1,2,4 5 6,8,8,9
+3 TADA! 1,2,4,5,6,8,8,9
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+How to do Partition in place , namely, with O(1)extra space?
+8 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed#last element in the <pivot regionPartition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed#
+8Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed#
+8 1Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed8 1#Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed#
+1 8Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed#
+1 8 9Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed#
+1 8 9 2Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9 2#Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9#
+2 8Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9#
+2 8 8Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9#
+2 8 8 4Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9 2 8 8 4#Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9 2 8 8#
+4 9Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9 2 8 8#
+4 9 6Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6 5
+st ed1 8 9 2 8 8#
+4 9 6Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6
+st ed1 8 9 2 8 8#
+4 9 6 5 8Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6
+st ed1 8 9 2 8 8#
+4 9 6 5 8
+Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+Partition around pivot
+Idea: check elements one by one against the pivot and main-
+tain a <pivot region and apivot region
+8 1 9 2 8 4 6
+st ed1 8 9 2 8 8#
+4 9 6 5 8
+Partition( A,st,ed)
+pivot =A[ed]
+bd=st 1
+forcur=sttoed 1do
+ifA[cur]< pivot then
+bd=bd+ 1
+swap A[bd]withA[cur]
+swap A[bd+ 1] withA[ed]
+return bd+1Time complexity? (n)
+Space complexity? (1)
+9 / 10
+
+QuickSort
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+Time complexity?
+IWorst-case is when each partition results in sizes (0;1; n 1).
+T(n)T(n 1) +cn T(n) =O(n2).
+ICan you nd an input that achieves this worst-case
+performance?
+IWhy is it called QuickSort then?
+10 / 10
+
+QuickSort
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+Time complexity?
+IWorst-case is when each partition results in sizes (0;1; n 1).
+T(n)T(n 1) +cn T(n) =O(n2).ICan you nd an input that achieves this worst-case
+performance?
+IWhy is it called QuickSort then?
+10 / 10
+
+QuickSort
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+Time complexity?
+IWorst-case is when each partition results in sizes (0;1; n 1).
+T(n)T(n 1) +cn T(n) =O(n2).
+ICan you nd an input that achieves this worst-case
+performance?IWhy is it called QuickSort then?
+10 / 10
+
+QuickSort
+QuickSort( A,st,ed)
+ifst < ed then
+p=Partition( A,st,ed)
+QuickSort( A,st,p 1)
+QuickSort( A,p+ 1,ed)
+Time complexity?
+IWorst-case is when each partition results in sizes (0;1; n 1).
+T(n)T(n 1) +cn T(n) =O(n2).
+ICan you nd an input that achieves this worst-case
+performance?
+IWhy is it called QuickSort then?
+10 / 10

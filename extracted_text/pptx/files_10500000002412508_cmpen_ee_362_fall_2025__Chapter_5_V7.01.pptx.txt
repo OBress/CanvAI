@@ -1,0 +1,2160 @@
+Chapter 5: network layer control plane
+
+chapter goals:  understand principles behind network control plane
+traditional routing algorithms
+SDN controllers
+Internet Control Message Protocol
+network management
+
+and their instantiation, implementation in the Internet:
+OSPF, BGP, OpenFlow, ODL and ONOS controllers, ICMP, SNMP
+
+5-1
+
+Network Layer: Control Plane
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-2
+
+Network Layer: Control Plane
+
+Network-layer functions
+
+forwarding: move packets from router’s input to appropriate router output
+
+
+data plane
+
+
+
+control plane
+
+
+
+Two approaches to structuring network control plane:
+per-router control (traditional)
+logically centralized control (software defined networking)
+
+Recall: two network-layer functions:
+
+5-3
+
+Network Layer: Control Plane
+
+routing: determine route taken by packets from source to destination
+
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-4
+
+Network Layer: Control Plane
+
+Graph abstraction: costs
+
+c(x,x’) = cost of link (x,x’)
+      e.g., c(w,z) = 5
+
+cost could always be 1, or 
+inversely related to bandwidth,
+or positively related to 
+delay
+
+cost of path (x1, x2, x3,…, xp) = c(x1,x2) + c(x2,x3) + … + c(xp-1,xp)  
+
+key question: what is the least-cost path between u and z ?
+routing algorithm: algorithm that finds that least-cost path
+
+5-5
+
+Network Layer: Control Plane
+
+Routing algorithm classification
+
+Q: Centralized or decentralized information?
+centralized:
+all routers have complete topology, link cost info
+“link state” algorithms
+decentralized: 
+router knows physically-connected neighbors, link costs to neighbors
+iterative process of computation, exchange of info with neighbors
+“distance vector” algorithms
+
+5-6
+
+Network Layer: Control Plane
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-7
+
+Network Layer: Control Plane
+
+A link-state routing algorithm
+
+Dijkstra’s algorithm
+network topology, link costs known to all nodes
+accomplished via “link state broadcast” 
+each node computes least cost paths from itself (‘source”) to all other nodes
+gives forwarding table for that node
+
+
+notation:
+c(x,y): link cost from node x to y;  = ∞ if not direct neighbors
+
+D(v): current value of cost of path from source to dest. v
+p(v): predecessor of v along the least-cost path from source to v
+N': set of nodes whose least-cost paths have been found
+
+5-8
+
+Network Layer: Control Plane
+
+Dijkstra’s algorithm
+
+5-9
+
+Network Layer: Control Plane
+
+Dijkstra’s algorithm: example
+
+Step
+
+
+N'
+
+D(v)
+p(v)
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+D(w)
+p(w)
+
+D(x)
+p(x)
+
+D(y)
+p(y)
+
+D(z)
+p(z)
+
+u
+
+uw
+
+uwx
+
+uwxv
+
+uwxvy
+
+12,y 
+
+notes:
+construct routing tree by tracing back the predecessors
+ties can exist (can be broken arbitrarily)
+
+uwxvyz
+
+5-10
+
+Network Layer: Control Plane
+
+Dijkstra’s algorithm: another example
+
+Step
+0
+1
+2
+3
+4
+5
+
+N'
+u
+ux
+uxy
+uxyv
+uxyvw
+uxyvwz
+
+D(v),p(v)
+2,u
+2,u
+2,u
+
+D(w),p(w)
+5,u
+4,x
+3,y
+3,y
+
+D(x),p(x)
+1,u
+
+D(y),p(y)
+∞
+2,x
+
+D(z),p(z)
+∞ 
+∞ 
+4,y
+4,y
+4,y
+
+5-11
+
+Network Layer: Control Plane
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+Dijkstra’s algorithm: example (2) 
+
+resulting shortest-path tree from u:
+
+resulting forwarding table in u:
+
+5-12
+
+Network Layer: Control Plane
+
+Dijkstra’s algorithm, discussion
+
+algorithm complexity: n nodes
+each iteration: need to check all nodes not in N’
+n(n+1)/2 comparisons: O(n2)
+more efficient implementations possible: O(n∙log(n))
+More precisely, O(n∙log(n) + |E|)
+
+requires nonnegative link costs
+
+5-13
+
+Network Layer: Control Plane
+
+Review
+
+Overview
+Two key network-layer functions (routing, forwarding)
+Two control plane architectures (per-router, logically centralized)
+Dijkstra’s algorithm 
+a centralized, link-state routing algorithm
+
+
+Network Layer
+
+4-14
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-15
+
+Network Layer: Control Plane
+
+Distance vector algorithm 
+
+Bellman-Ford equation (dynamic programming)
+
+let
+   dx(y) := cost of least-cost path from x to y
+then
+   dx(y) = min {c(x,v) + dv(y) }
+   
+
+
+v
+
+cost to neighbor v
+
+min taken over all neighbors v of x
+
+cost from neighbor v to destination y
+
+5-16
+
+Network Layer: Control Plane
+
+Bellman-Ford example 
+
+clearly, dv(z) = 5, dx(z) = 3, dw(z) = 3
+
+du(z) = min { c(u,v) + dv(z),
+                    c(u,x) + dx(z),
+                    c(u,w) + dw(z) }
+         = min {2 + 5,
+                    1 + 3,
+                    5 + 3}  = 4
+
+node achieving minimum is next
+hop in shortest path, used in forwarding table
+
+B-F equation says:
+
+5-17
+
+Network Layer: Control Plane
+
+Distance vector algorithm 
+
+Dx(y) = estimate of least cost from x to y
+x maintains  distance vector Dx = [Dx(y): y є N ]
+node x:
+knows cost to each neighbor v: c(x,v)
+maintains its neighbors’ distance vectors. For each neighbor v, x maintains Dv = [Dv(y): y є N ]
+
+
+
+5-18
+
+Network Layer: Control Plane
+
+asynchronous version (in practice): each local iteration triggered by
+local link cost change 
+DV update message from neighbor
+synchronous version (in theory):
+all nodes perform update-notify synchronously
+
+Distance vector algorithm 
+
+5-19
+
+Network Layer: Control Plane
+
+Dx(y) ← minv{c(x,v) + Dv(y)}  for each node y ∊ N
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+from
+
+cost to
+
+from
+
+from
+
+x   y   z
+
+x
+
+y
+
+z
+
+0
+
+x   y   z
+
+x
+
+y
+
+z
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+∞
+
+∞
+
+∞
+
+7
+
+1
+
+0
+
+cost to
+
+∞
+2   0   1
+
+∞ ∞  ∞
+
+2   0   1
+
+7   1   0
+
+iteration t
+
+node x
+table
+
+Dx(y) = min{c(x,y) + Dy(y), c(x,z) + Dz(y)}              = min{2+0 , 7+1} = 2
+
+Dx(z) = min{c(x,y) +       Dy(z), c(x,z) + Dz(z)} 
+= min{2+1 , 7+0} = 3
+
+3
+
+2 
+
+node y
+table
+
+node z
+table
+
+cost to
+
+from
+
+5-20
+
+Network Layer: Control Plane
+
+t = 0
+
+t = 1
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+from
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+from
+
+cost to
+
+2  0   1
+
+7   1   0
+
+2  0   1
+
+3  1   0
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+from
+
+cost to
+
+from
+
+from
+
+x   y   z
+
+x
+
+y
+
+z
+
+0
+
+x   y   z
+
+x
+
+y
+
+z
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+∞
+
+∞
+
+∞
+
+7
+
+1
+
+0
+
+cost to
+
+∞
+2   0   1
+
+∞ ∞  ∞
+
+2   0   1
+
+7   1   0
+
+node x
+table
+
+Dx(y) = min{c(x,y) + Dy(y), c(x,z) + Dz(y)}              = min{2+0 , 7+1} = 2
+
+Dx(z) = min{c(x,y) +       Dy(z), c(x,z) + Dz(z)} 
+= min{2+1 , 7+0} = 3
+
+3
+
+2 
+
+node y
+table
+
+node z
+table
+
+cost to
+
+from
+
+5-21
+
+Network Layer: Control Plane
+
+iteration t
+
+t = 0
+
+t = 1
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   3
+
+from
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+from
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   3
+
+from
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   3
+
+from
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+from
+
+cost to
+
+2  0   1
+
+7   1   0
+
+2  0   1
+
+3  1   0
+
+2   0   1
+
+3  1   0
+
+2  0   1
+
+3  1   0
+
+2  0   1
+
+3  1   0
+
+x   y   z
+
+x
+
+y
+
+z
+
+0  2   7
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+from
+
+cost to
+
+from
+
+from
+
+x   y   z
+
+x
+
+y
+
+z
+
+0
+
+x   y   z
+
+x
+
+y
+
+z
+
+∞
+
+∞
+
+∞
+
+∞
+
+∞
+
+cost to
+
+x   y   z
+
+x
+
+y
+
+z
+
+∞
+
+∞
+
+∞
+
+7
+
+1
+
+0
+
+cost to
+
+∞
+2   0   1
+
+∞ ∞  ∞
+
+2   0   1
+
+7   1   0
+
+node x
+table
+
+Dx(y) = min{c(x,y) + Dy(y), c(x,z) + Dz(y)}              = min{2+0 , 7+1} = 2
+
+Dx(z) = min{c(x,y) +       Dy(z), c(x,z) + Dz(z)} 
+= min{2+1 , 7+0} = 3
+
+3
+
+2 
+
+node y
+table
+
+node z
+table
+
+cost to
+
+from
+
+5-22
+
+Network Layer: Control Plane
+
+iteration t
+
+t = 0
+
+t = 1
+
+t = 2
+
+DV converges in 2 iterations
+
+Distance vector: link cost changes
+
+link cost changes:
+node detects local link cost change 
+updates routing info, recalculates distance vector
+if DV changes, notify neighbors 
+
+“good
+news 
+travels
+fast”
+
+5-23
+
+Network Layer: Control Plane
+
+source
+
+Di(x), ni(x)
+
+Di(x): distance from i to x
+ni(x): next hop node from i to x
+
+destination
+
+Dy(x)=min{c(y,x)+0,c(y,z)+Dz(x)}
+        =min{1, 1+Dz(x)}
+
+Dz(x)=min{c(z,x)+0,c(z,y)+Dy(x)}
+        =min{50, 1+Dy(x)}
+
+1, x
+
+-
+
+t=2
+
+-
+
+2, y
+
+Distance vector: link cost changes
+
+link cost changes:
+node detects local link cost change 
+updates routing info, recalculates distance vector
+if DV changes, notify neighbors 
+
+“good
+news 
+travels
+fast”
+
+5-24
+
+Network Layer: Control Plane
+
+* Check out the online interactive exercises for more examples: http://gaia.cs.umass.edu/kurose_ross/interactive/
+
+source
+
+Di(x), ni(x)
+
+Di(x): distance from i to x
+ni(x): next hop node from i to x
+
+converge!
+
+destination
+
+Review
+
+Distance Vector (DV) algorithm:
+Bellman-Ford equation
+DV table and its iterative calculation
+DV under link cost change 
+Count-to-infinity problem, poisoned reverse
+
+
+Network Layer
+
+4-25
+
+Distance vector: link cost changes
+
+link cost changes:
+node detects local link cost change 
+bad news travels slowly - “count to infinity” problem!
+How many iterations to converge?
+
+5-26
+
+Network Layer: Control Plane
+
+destination
+
+Di(x): distance from i to x
+ni(x): next hop node from i to x
+
+Dy(x)=min{c(y,x)+0,c(y,z)+Dz(x)}
+        =min{60, 1+Dz(x)}
+
+Dz(x)=min{c(z,x)+0,c(z,y)+Dy(x)}
+        =min{50, 1+Dy(x)}
+
+t=1
+
+6, z
+
+-
+
+t=2
+
+-
+
+7, y
+
+t=3
+
+8, z
+
+-
+
+t=44
+
+48, z
+
+49, y
+
+...
+
+...
+
+...
+
+t=45
+
+50, z
+
+-
+
+t=46
+
+-
+
+50, x
+
+t=47
+
+51, z
+
+-
+
+Distance vector: link cost changes
+
+link cost changes:
+node detects local link cost change 
+bad news travels slowly - “count to infinity” problem!
+How many iterations to converge?
+
+5-27
+
+Network Layer: Control Plane
+
+destination
+
+Di(x): distance from i to x
+ni(x): next hop node from i to x
+
+converge!
+
+routing in cycle!
+
+Distance vector: link cost changes
+
+poisoned reverse: 
+If Z routes through Y to get to X :
+Z tells Y its (Z’s) distance to X is infinite (so Y won’t route to X via Z)
+How many iterations to converge with poisoned reverse?
+
+5-28
+
+Network Layer: Control Plane
+
+destination
+
+Dy(x)=min{c(y,x)+0,c(y,z)+Dz(x)}
+        =min{60, 1+Dz(x)}
+
+Dz(x)=min{c(z,x)+0,c(z,y)+Dy(x)}
+        =min{50, 1+Dy(x)}
+
+t=1
+
+60, x
+
+-
+
+t=2
+
+-
+
+50, x
+
+t=3
+
+51, z
+
+-
+
+Distance vector: link cost changes
+
+poisoned reverse: 
+If Z routes through Y to get to X :
+Z tells Y its (Z’s) distance to X is infinite (so Y won’t route to X via Z)
+How many iterations to converge with poisoned reverse?
+
+5-29
+
+Network Layer: Control Plane
+
+destination
+
+converge!
+
+Q: will poisoned reverse eliminate the “count to infinity” problem?
+
+Review 
+
+Distance vector algorithm
+#iterations till convergence
+“count to infinity” and poisoned reverse
+
+Network Layer
+
+4-30
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-31
+
+Network Layer: Control Plane
+
+aggregate routers into regions known as “autonomous systems” (AS) (a.k.a. “domains”)
+
+inter-AS routing
+all routers must run same inter-domain protocol
+
+Internet approach to scalable routing
+
+intra-AS routing
+all routers in an AS must run same intra-domain protocol
+routers in different ASes can run different intra-domain  protocols
+
+5-32
+
+Network Layer: Control Plane
+
+our routing study thus far assumes - 
+all routers are identical
+network is “flat” 
+
+not true in practice
+
+Configuration of Forwarding Table
+
+suppose router 1a in AS1 receives a datagram destined to host h:
+
+
+if h is in AS1:
+learn next hop on the shortest path to h (intra-AS routing)
+if h is outside AS1: 
+learn which gateway router to forward to (inter-AS routing)
+learn next hop to go to that gateway (intra-AS routing)
+
+
+AS3
+
+AS2
+
+other
+networks
+
+other
+networks
+
+5-33
+
+Network Layer: Control Plane
+
+Internet inter-AS routing: BGP
+
+BGP (Border Gateway Protocol): provides each AS a means to:
+eBGP: obtain subnet X reachability information from neighboring ASes
+iBGP: propagate reachability information to all internal routers
+
+5-34
+
+Network Layer: Control Plane
+
+AS 2
+
+AS 3
+
+AS 1
+
+Path attributes and BGP routes
+
+BGP advertisement includes: destination prefix & BGP attributes 
+prefix + attributes = “route”
+two important attributes:
+AS-PATH: list of ASes through which prefix advertisement has passed
+NEXT-HOP: IP address of the router interface that starts the AS-PATH
+
+
+5-35
+
+Network Layer: Control Plane
+
+See full list of BGP attributes at: http://www.networkers-online.com/blog/2012/05/bgp-attributes/
+
+BGP route advertisement
+
+Based on AS2 policy, AS2 router 2c accepts path AS3,X, propagates (via iBGP) to all AS2 routers
+
+
+AS2
+
+AS3
+
+AS1
+
+AS2 router 2c receives path advertisement AS3,X (via eBGP) from AS3 router 3a
+
+Based on AS2 policy,  AS2 router 2a advertises (via eBGP) path AS2, AS3, X to AS1 router 1c
+
+
+5-36
+
+Network Layer: Control Plane
+
+IP1
+
+IP2
+
+BGP + IGP
+
+1a, 1b, 1d learn about dest X via iBGP from 1c: “path to X goes through 1c”
+
+AS2
+
+AS3
+
+AS1
+
+1d: by intra-domain routing: to get to 1c (IP1), forward to outgoing interface 1
+
+Q: how does router set forwarding table entry to remote prefix?
+
+5-37
+
+Network Layer: Control Plane
+
+IP1
+
+receiving multiple BGP advertisements
+
+1c learns path AS2,AS3,X from 2a
+
+
+AS2
+
+AS3
+
+AS1
+
+A gateway router may learn multiple paths to a destination:
+
+1c learns path AS3,X from 3a
+
+
+1c will perform BGP route selection to choose a path and advertise this path within AS1
+
+
+5-38
+
+Network Layer: Control Plane
+
+BGP route selection
+
+router may learn about more than one route to destination AS, selects route based on:
+local preference value attribute: policy decision
+shortest AS-PATH 
+closest NEXT-HOP: hot potato routing
+additional criteria (e.g., advertisement received first) 
+
+5-39
+
+Network Layer: Control Plane
+
+An example of complete criteria: https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html
+
+Review
+
+BGP:
+iBGP, eBGP
+BGP “route”: prefix + attribute
+Policy-based routing: BGP route advertisement, BGP route selection 
+
+Network Layer
+
+4-40
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-41
+
+Network Layer: Control Plane
+
+SDN: Logically centralized control plane
+
+A distinct (typically remote) controller interacts with local control agents (CAs)
+
+5-42
+
+Network Layer: Control Plane
+
+values in arriving 
+packet header
+
+Traffic engineering is difficult for traditional routing
+
+Q: what if network operator wants u-to-z traffic to flow along uvwz, x-to-z traffic to flow xyz?
+A: need to define link weights so traffic routing algorithm computes routes accordingly (or need a new routing algorithm)!
+
+5-43
+
+Network Layer: Control Plane
+
+2
+
+2
+
+1
+
+3
+
+1
+
+1
+
+2
+
+5
+
+3
+
+5
+
+Traffic engineering: difficult
+
+Q: what if network operator wants to split  u-to-z traffic along uvwz and uxyz (load balancing)?
+A: can’t do it (or need a new routing algorithm)
+
+5-44
+
+Network Layer: Control Plane
+
+2
+
+2
+
+1
+
+3
+
+1
+
+1
+
+2
+
+5
+
+3
+
+5
+
+Traffic engineering: difficult
+
+Q: what if w wants to route blue and red traffic differently?
+
+A: can’t do it (with destination based forwarding)
+
+Networking 401
+
+5-45
+
+Network Layer: Control Plane
+
+Software defined networking (SDN)
+
+Why SDN? (instead of the traditional per-router control plane architecture)
+easier network management: avoid router misconfigurations
+greater flexibility: generalized forwarding allows “programming” routers
+open (non-proprietary) implementation of control plane
+
+
+5-46
+
+Network Layer: Control Plane
+
+Components of SDN
+
+2. controller control plane functions external to data-plane switches
+
+…
+
+routing
+
+access control
+
+load
+balance
+
+5-47
+
+Network Layer: Control Plane
+
+SDN perspective: data plane switches
+
+Data plane switches
+fast, simple, commodity switches implementing generalized forwarding (Section 4.4) 
+switch flow table computed, installed by controller
+protocol for communicating with controller (e.g., OpenFlow)
+
+
+5-48
+
+Network Layer: Control Plane
+
+SDN perspective: SDN controller
+
+SDN controller (network OS): 
+maintain network state information
+interacts with network control applications “above” via northbound API
+interacts with network switches “below” via southbound API
+
+Note: (often) implemented as distributed system for performance, scalability, fault-tolerance, robustness
+
+
+data
+plane
+
+control
+plane
+
+…
+
+southbound API
+
+northbound API
+
+SDN-controlled switches
+
+network-control applications
+
+5-49
+
+Network Layer: Control Plane
+
+SDN perspective: control applications
+
+network-control apps:
+“brains” of control:  implement control functions using APIs provided by SDN controller
+
+unbundled: can be provided by 3rd party: distinct from routing vendor, or SDN controller
+
+
+data
+plane
+
+control
+plane
+
+…
+
+southbound API
+
+northbound API
+
+SDN-controlled switches
+
+network-control applications
+
+5-50
+
+Network Layer: Control Plane
+
+…  
+
+…  
+
+…  
+
+…  
+
+Dijkstra’s link-state 
+Routing
+
+SDN: control/data plane interaction example
+
+5-51
+
+Network Layer: Control Plane
+
+…  
+
+…  
+
+…  
+
+…  
+
+Dijkstra’s link-state 
+Routing
+
+SDN: control/data plane interaction example
+
+5-52
+
+Network Layer: Control Plane
+
+Review
+
+SDN
+Why using SDN (vs. traditional routing)?
+What are the three components of an SDN?
+What are the three main functions of an SDN controller?
+
+
+
+
+
+5-53
+
+Network Layer: Control Plane
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-54
+
+Network Layer: Control Plane
+
+ICMP: internet control message protocol
+
+used by hosts & routers to communicate network-level information
+error reporting: unreachable host, network, port, protocol
+echo request/reply (used by ping)
+ICMP message: type, code, and header plus first 8 bytes payload of the IP datagram causing error
+
+Type  Code  description
+0        0         echo reply (ping)
+3        0         dest. network unreachable
+3        1         dest host unreachable
+3        2         dest protocol unreachable
+3        3         dest port unreachable
+3        6         dest network unknown
+3        7         dest host unknown
+4        0         source quench (congestion
+                     control - not used)
+8        0         echo request (ping)
+9        0         route advertisement
+10      0         router discovery
+11      0         TTL expired
+12      0         bad IP header
+
+
+5-55
+
+Network Layer: Control Plane
+
+ICMP runs over IP!
+
+Internet Control Message Protocol
+
+Traceroute and ICMP
+
+source sends series of UDP segments to destination
+first set has TTL =1
+second set has TTL=2, etc.
+unlikely port number
+when datagram in nth set arrives to nth router:
+router discards datagram and sends source ICMP message (type 11, code 0)
+ICMP message include name of router & IP address
+
+when ICMP message arrives, source records RTTs
+
+stopping criteria:
+UDP segment eventually arrives at destination host
+destination returns ICMP “port unreachable” message (type 3, code 3)
+source stops
+
+3 probes
+
+3 probes
+
+3 probes
+
+5-56
+
+Network Layer: Control Plane
+
+Q1: Does traceroute have to use UDP packets?
+A1: No. Can also use others (e.g., TCP SYN packets, ICMP Echo Request).
+
+Q2: Does traceroute always return correct information?
+A2: No. Multipath routing can cause errors. 
+
+Q3: Does traceroute monitor every link?
+A3: No. Need collaboration of multiple sources (beacons).
+Beason Placement Problem: Select a minimum set of beacons such that their routing trees cover all the links. 
+
+Traceroute beyond ICMP
+
+Load balancing
+
+NP-hard (set cover problem)!
+
+5-79
+
+Network Layer: Control Plane
+
+5.1 introduction
+5.2 routing protocols
+link state
+distance vector
+5.3 intra-AS routing in the Internet: OSPF
+5.4 routing among the ISPs: BGP
+
+5.5 The SDN control plane
+5.6 ICMP: The Internet Control Message Protocol 
+5.7 Network management and SNMP
+
+Chapter 5: outline
+
+5-58
+
+Network Layer: Control Plane
+
+Infrastructure for network management
+
+managed device
+
+managed device
+
+managed device
+
+managed device
+
+definitions:
+
+managed devices contain managed objects whose  data is gathered into a Management Information Base (MIB) 
+
+
+managed device
+
+5-59
+
+Network Layer: Control Plane
+
+Simple Network Management Protocol (SNMP)
+
+Two ways to convey MIB info, commands:
+
+managed device
+
+managed device
+
+request/response mode
+
+trap mode
+
+5-60
+
+Network Layer: Control Plane
+
+SNMP protocol: message types
+
+GetRequest
+GetNextRequest
+GetBulkRequest
+
+manager-to-agent: “get me data”
+(data instance, next data in list, block of data)
+
+Message type
+
+Function
+
+InformRequest
+
+manager-to-manager: here’s MIB value
+
+SetRequest
+
+manager-to-agent: set MIB value
+
+Response
+
+Agent-to-manager: value, response to 
+Request
+
+Trap
+
+Agent-to-manager: inform manager
+of exceptional event
+
+5-61
+
+Network Layer: Control Plane
+
+request/ response mode
+
+trap mode
+
+bootstrap manager
+
+initialize agent
+
+SNMP runs over UDP
+
+Chapter 5: summary
+
+we’ve learned a lot!
+approaches to network control plane
+per-router control (traditional)
+logically centralized control (software defined networking)
+traditional routing algorithms
+implementation in Internet: OSPF, BGP
+SDN controllers
+implementation in practice: ODL, ONOS
+Internet Control Message Protocol
+network management
+
+
+next stop:  link layer!
+
+5-62
+
+Network Layer: Control Plane
+
+retired slides
+
+Network Layer
+
+4-63
+
+Per-router control plane
+
+Individual routing algorithm components in each and every router interact with each other in control plane to compute forwarding tables
+
+5-64
+
+Network Layer: Control Plane
+
+Logically centralized control plane
+
+A distinct (typically remote) controller interacts with local control agents (CAs) in routers to compute forwarding tables
+
+5-65
+
+Network Layer: Control Plane
+
+Routing protocols
+
+Routing protocol goal: determine “good” paths (a.k.a. routes), from sending hosts to receiving host, through network of routers
+path: sequence of routers (or links) packets will traverse 
+“good”: least “cost”, “fastest”, “least congested”
+routing: a “top-10” networking challenge!
+
+5-66
+
+Network Layer: Control Plane
+
+Dijkstra’s algorithm, discussion
+
+algorithm complexity: n nodes
+each iteration: need to check all nodes not in N’
+n(n-1)/2 comparisons: O(n2)
+more efficient implementations possible: O(n∙logn)
+More precisely, O(n∙logn + |E|)
+requires nonnegative link costs
+oscillations possible:
+e.g., suppose link cost equals amount of carried traffic:
+
+5-67
+
+Network Layer: Control Plane
+
+key idea: 
+from time-to-time, each node sends its own distance vector estimate to neighbors
+when x receives new DV estimate from neighbor, it updates its own DV using B-F equation:
+
+Dx(y) ← minv{c(x,v) + Dv(y)}  for each node y ∊ N
+
+under minor, natural conditions, the estimate Dx(y) converge to the actual least cost dx(y) 
+
+Distance vector algorithm 
+
+5-68
+
+Network Layer: Control Plane
+
+Comparison of LS and DV algorithms
+
+message complexity
+LS: with n nodes, E links, O(nE) msgs sent  
+DV: exchange between neighbors only
+
+speed of convergence
+LS: converge in O(n) iterations (O(n2) time) 
+DV: convergence time varies
+count-to-infinity problem
+
+robustness: what happens if router malfunctions?
+LS: node can advertise incorrect link cost
+DV: node can advertise incorrect path cost
+
+5-69
+
+Network Layer: Control Plane
+
+Making routing scalable
+
+scale: with billions of destinations:
+can’t store all destinations in routing tables!
+routing table exchange would swamp links! 
+
+
+
+administrative autonomy
+internet = network of networks
+each network admin may want to control routing in its own network
+
+our routing study thus far - idealized 
+all routers identical
+network “flat”
+… not true in practice
+
+5-70
+
+Network Layer: Control Plane
+
+Interconnected ASes
+
+forwarding table  configured by both intra- and inter-AS routing 
+intra-AS routing determine entries for internal destinations
+inter-AS & intra-AS determine entries for external destinations
+
+5-71
+
+Network Layer: Control Plane
+
+Intra-AS Routing
+
+also known as interior gateway protocols (IGP)
+most common intra-AS routing protocols:
+RIP: Routing Information Protocol
+OSPF: Open Shortest Path First (IS-IS protocol essentially same as OSPF)
+IGRP: Interior Gateway Routing Protocol (Cisco proprietary for decades, until 2016)
+
+5-72
+
+Network Layer: Control Plane
+
+OSPF (Open Shortest Path First)
+
+“open”: publicly available
+uses link-state algorithm 
+topology map at each node
+route computation using Dijkstra’s algorithm
+router floods OSPF link-state advertisements to all other routers in entire AS
+When: when a link’s state changes, or every 30 minutes
+How: carried in OSPF messages directly over IP (rather than TCP or UDP)
+Which links: for each attached link
+
+5-73
+
+Network Layer: Control Plane
+
+OSPF “advanced” features
+
+security: all OSPF messages authenticated (to prevent malicious intrusion) 
+multiple same-cost paths allowed (only one path in RIP)
+for each link, multiple cost metrics for different TOS (e.g., satellite link cost set low for best effort ToS; high for real-time ToS)
+integrated uni- and multi-cast support: 
+Multicast OSPF (MOSPF) uses same topology data base as OSPF
+hierarchical OSPF in large domains.
+
+
+5-74
+
+Network Layer: Control Plane
+
+Hierarchical OSPF
+
+boundary router
+
+backbone router
+
+area 1
+
+area 2
+
+area 3
+
+backbone
+
+area
+border
+routers
+
+internal
+routers
+
+5-75
+
+Network Layer: Control Plane
+
+two-level hierarchy: local area, backbone.
+link-state advertisements only in area 
+each nodes has detailed area topology; only know direction (shortest path) to nets in other areas.
+area border routers: “summarize” distances  to nets in own area, advertise to other Area Border routers.
+backbone routers: run OSPF routing limited to backbone.
+boundary routers: connect to other AS’es.
+
+
+Hierarchical OSPF
+
+5-76
+
+Network Layer: Control Plane
+
+eBGP, iBGP connections
+
+AS 2
+
+AS 3
+
+AS 1
+
+5-77
+
+Network Layer: Control Plane
+
+BGP basics
+
+when AS3 gateway router 3a advertises path AS3,X to AS2 gateway router 2c:
+AS3 promises to AS2 it will forward datagrams towards X
+
+
+(e/i)BGP connection: two BGP routers exchange BGP messages over semi-permanent TCP connection:
+used to advertise routes to different destination prefixes
+
+AS 2
+
+AS 3
+
+AS 1
+
+5-78
+
+Network Layer: Control Plane
+
+Hot Potato Routing
+
+2d learns (via iBGP) it can route to X via 2a or 2c
+hot potato routing: choose local gateway that has least intra-domain cost (e.g., 2d chooses 2a, even though more AS hops to X): don’t worry about inter-domain cost!
+
+AS2
+
+AS3
+
+AS1
+
+OSPF link weights
+
+201
+
+152
+
+112
+
+263
+
+5-79
+
+Network Layer: Control Plane
+
+Software defined networking (SDN)
+
+Internet network layer: historically has been implemented via distributed, per-router approach
+monolithic router contains switching hardware, runs proprietary implementation of Internet standard protocols (IP, RIP, IS-IS, OSPF, BGP) in proprietary router OS (e.g., Cisco IOS)
+different “middleboxes” for different network layer functions: firewalls, load balancers, NAT boxes, ..
+
+~2005: renewed interest in rethinking network control plane
+
+5-80
+
+Network Layer: Control Plane
+
+Software defined networking (SDN)
+
+Why a logically centralized control plane?
+easier network management: avoid router misconfigurations, greater flexibility of routing flows
+generalized forwarding (recall OpenFlow API) allows “programming” routers
+open (non-proprietary) implementation of control plane
+
+
+5-81
+
+Network Layer: Control Plane
+
+Network-wide distributed, robust  state management
+
+Communication to/from controlled devices
+
+…  
+
+…  
+
+…  
+
+…  
+
+Interface, abstractions for network control apps
+
+SDN
+controller
+
+Components of SDN controller
+
+communication layer: communicate between SDN controller and controlled switches
+
+Network-wide state management layer: state of networks links, switches, services: a distributed database
+
+Interface layer to network control apps:  abstractions API
+
+5-82
+
+Network Layer: Control Plane
+
+SDN:  selected challenges
+
+hardening the control plane: dependable, reliable, performance-scalable, secure distributed system
+robustness to failures: leverage strong theory of reliable distributed system for control plane
+dependability, security: “baked in” from day one? 
+flow migration/reconfiguration
+transient congestion, policy violation, synchronization
+networks, protocols meeting mission-specific requirements
+e.g., real-time, ultra-reliable, ultra-secure
+Internet-scaling 
+
+
+
+
+5-83
+
+Network Layer: Control Plane
+
+What is network management?
+
+autonomous systems (aka “network”): 1000s of interacting hardware/software components
+
+
+5-84
+
+Network Layer: Control Plane
+
+SNMP protocol: message formats
+
+….
+
+PDU
+type
+(0-3)
+
+Request
+ID
+
+Error
+Status
+(0-5)
+
+Error
+Index
+
+Name
+
+Value
+
+Name
+
+Value
+
+….
+
+PDU
+type
+4
+
+Enterprise
+
+Agent
+Addr
+
+Trap
+Type
+(0-7)
+
+Specific
+code
+
+Time
+stamp
+
+Name
+
+Value
+
+Get/set header
+
+Variables to get/set
+
+Trap header
+
+Trap info
+
+SNMP PDU (protocol data unit)
+
+5-85
+
+Network Layer: Control Plane
+
+“UDP is the preferred transport mapping”. --- RFC 3417

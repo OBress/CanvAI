@@ -1,0 +1,59 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 3
+1.Simplify the logical expression q∨¬(¬(p∧r)→(p∨¬q))using logical equivalence rules.
+Answer:
+q∨¬(¬(p∧r)→(p∨¬q))≡q∨¬((p∧r)∨(p∨¬q)) (Implication Equivalence)
+≡q∨((¬p∨¬r)∧(¬p∧q)) (De Morgan’s Law)
+≡q∨[(¬p∧¬p∧q)∨(¬r∧¬p∧q)] (Distributive Law)
+≡q∨[(¬p∧q)∨(¬r∧¬p∧q)] (Idempotent Law)
+≡q∨(¬p∧q) (Absorption Law)
+≡q (Absorption Law)
+2.Use the logical equivalence properties below to verify the logical equivalence.
+(p→ ¬q)∧(p→ ¬r)≡ ¬(p∧(q∨r))
+Answer:
+(p→ ¬q)∧(p→ ¬r)≡(¬p∨¬q)∧(¬p∨¬r) (Implication Equivalence)
+≡ ¬p∨(¬q∧¬r) (Distributive Law)
+≡ ¬p∨¬(q∨r) (De Morgan’s Law)
+≡ ¬(p∧(q∨r)) (De Morgan’s Law)
+3.Using truth tables, determine whether (p∧q)→r≡(p→r)∧(q→r)
+Answer:
+pqr(p∧q)(p∧q)→r(p→r)(q→r)(p→r)∧(q→r)
+TTT T T T T T
+TTF T F F F F
+TFT F T T T T
+TFF F T F T F
+FTT F T T T T
+FTF F T T F F
+FFT F T T T T
+FFF F T T T T
+The two propositions are not logically equivalent.
+CMPSC 360, Fall 2024, Worksheet 3 1
+
+4.(A) Express the following using predicates, quantifiers, logical connectives, and mathematical op-
+erators if necessary.
+(a) Every positive integer is the sum of the squares of four integers. (The universe of discourse
+contains all integers)
+(b) Every user has access to exactly one mailbox. (Assume that the domain consists of all users
+and all mailboxes)
+(B) Let G(x, y) mean that child x has played video-game y, where the domain for x consists of all
+the children in your school and the domain for y consists of all video-games. Express these
+statements as an English sentence.
+(a)∃a∀b(a̸= (child 1)∧(G(child 1,b)→G(a,b)))
+(b)∃x∃y∀z((x̸=y)∧(G(x,z)↔G(y,z)))
+Answer:
+(A) (a) ∀x∃a∃b∃c∃d((x>0)→x=a2+b2+c2+d2)
+(b) Let A(x, y) mean that user x has access to mailbox y.
+∀x∃y(A(x,y)∧∀z(z̸=y→ ¬A(x,z))
+(B) (a) There is a child other than child 1who has played all the video-games that child 1has played.
+(This does not mean that this child has only played the video-games played by child 1. The
+child could have also played other games.)
+(b) There exist two different children who have played exactly the same video-games.
+5.Prove or disprove that the following compound proposition is a contingency.
+((p∨r)∨((q∧p)∨(q∧r)))∧r∧p
+Answer:
+((p∨r)∨((q∧p)∨(q∧r)))∧r∧p
+≡((p∨r)∨(q∧(p∨r)))∧r∧p(Distributive Law)
+≡(p∨r)∧r∧p(Absorption Law)
+≡(p∨r)∧(p∨r)(DeMorgan’s Law)
+≡F(Complement Law)
+CMPSC 360, Fall 2024, Worksheet 3 2

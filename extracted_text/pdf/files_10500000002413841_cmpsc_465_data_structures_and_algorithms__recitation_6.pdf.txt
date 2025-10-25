@@ -1,0 +1,38 @@
+CMPSC 465 Data Structures & Algorithms
+Fall 2025 Ke Chen and Yana Safonova Worksheet 6
+Monday, Oct 13, 2025
+1. Dijkstra’s. Suppose Dijkstra’s Algorithm is run on the following graph, starting at node A.
+(i) Draw a table showing the intermediate distance values of all the nodes at each iteration of the
+algorithm.
+(ii) Show the final shortest-path tree.
+2. Bellman-Ford. Suppose Bellman-Ford is used to find all the shortest paths from node S.
+(i) Draw a table showing the intermediate distance values of all the nodes at each iteration of the
+algorithm.
+(ii) Show the final shortest-path tree.
+3. Floyd-Warshall. Run Floyd-Warshall to find all pairs of shortest paths in the following graph. Show
+the distance matrix for each step of the algorithm, including the initial and final matrices.
+CMPSC 465, Fall 2025, Worksheet 6 1
+
+4. Dijkstra’s with Negative Edges. Professor F. Lake suggests the following algorithm for finding the
+shortest path from node sto node tin a directed graph with some negative edges: add a large constant
+to each edge weight so that all the weights become positive, then run Dijkstra’s algorithm starting at
+node s, and return the shortest path found to node t. Is this a valid method? Either prove that it works
+correctly or give a counterexample.
+5. Network Flow. Answer the following questions on the given flow network G= (V,E):
+(a) Consider a function f:E→Ndefined by f(s,a) =6,f(s,b) =5,f(a,c) =5,f(a,d) =2,
+f(b,c) =2,f(b,d) =3,f(c,t) =8, and f(d,t) =5. Is it a valid flow on G? If not, list all the
+violations and fix them.
+(b) It turns out the above (after your fixes) flow fis a maximum flow in this network. We call
+an edge in the network a bottleneck edge if increasing its capacity results in an increase in the
+maximum flow, namely, fcan improved to have a larger value. List all bottleneck edges in the
+network G.
+(c) Give an example of a network that has no bottleneck edges.
+sa
+bc
+dt G:7
+64
+2
+2
+39
+5
+CMPSC 465, Fall 2025, Worksheet 6 2

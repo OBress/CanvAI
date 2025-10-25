@@ -1,0 +1,97 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 4
+1. Simplify the following expressions.
+(a)¬∀x∃y(P(x,y)∧∃zR(x,y,z))
+(b)¬∀x(∃y∀zP(x,y,z)∧∃z∀yP(x,y,z))
+Answer:
+(a)
+¬∀x∃y(P(x,y)∧∃zR(x,y,z))≡ ∃x¬∃y(P(x,y)∧∃zR(x,y,z)) (De Morgan’s Law for Quantifiers)
+≡ ∃x∀y¬(P(x,y)∧∃zR(x,y,z)) (De Morgan’s Law for Quantifiers)
+≡ ∃x∀y(¬P(x,y)∨¬∃ zR(x,y,z))(De Morgan’s Law for Conjunctions)
+≡ ∃x∀y(¬P(x,y)∨∀z¬R(x,y,z)) (De Morgan’s Law for Quantifiers)
+(b)
+¬∀x(∃y∀zP(x,y,z)∧∃z∀yP(x,y,z))≡ ∃x¬(∃y∀zP(x,y,z)∧∃z∀yP(x,y,z)) (DML for Quantifiers)
+≡ ∃x(¬∃y∀zP(x,y,z)∨¬∃ z∀yP(x,y,z))(DML for Conjunctions)
+≡ ∃x(∀y∃z¬P(x,y,z)∨∀z∃y¬P(x,y,z)) (DML for Quantifiers)
+2. Use the rules of inference to show that the following arguments are valid:
+(a)q↔p,q∧r,p→s,s→t⊢t∨r
+(b)u→s,p∧(p∨q)→s,u⊢p
+Answer:
+(a)q↔p=⇒(q→p)∧(p→q)(Def of biconditional)
+(q→p)∧(p→q) =⇒(q→p),(p→q)(Simplification)
+q∧r=⇒q,r(Simplification)
+p→q,q=⇒p(Modus Tollens)
+p→s,s→t=⇒p→t(Hypothetical Syllogism)
+p,p→t=⇒t(Modus Ponens)
+t,r=⇒t∨r(Addition)
+(b)u→s,u=⇒s(Modus Ponens)
+p∧(p∨q)→s,s=⇒p∧(p∨q)(Modus Tollens)
+p∧(p∨q) =⇒p∨(p∧q)(DeMorgan’s Law and double negation)
+p∨(p∧q) =⇒p(Absorption Law)
+CMPSC 360, Fall 2024, Worksheet 4 1
+
+3.Inference rules for predicate logics:
+A plant is considered endangered if it has not been found in at least three different locations.
+The Blueleaf plant has been found in only one location this year. According to environmental
+regulations, an endangered plant cannot be commercially traded. We have a specific Blueleaf
+plant in question.
+This scenario can be formalized using the following predicates, assuming the universe of dis-
+course is the set of all plants:
+•E(x):xis endangered.
+•F(x,n):xis found in ndifferent locations.
+•T(x):xcan be traded.
+The term ”Blueleaf” refers to a particular instance of a plant.
+Given:
+(a)∀x(¬F(x,3)→E(x))- A plant not found in at least three locations is endangered.
+(b)∀x(E(x)→ ¬T(x))- An endangered plant cannot be traded.
+(c)F(Blueleaf ,1)- The Blueleaf plant has been found in only one location.
+To Prove:
+•E(Blueleaf )∧¬T(Blueleaf )- The Blueleaf plant is endangered and cannot be traded.
+Answer:
+Proof :
+(a) By Universal Instantiation of assumption (1), we have ¬F(Blueleaf ,3)→E(Blueleaf ).
+(b) From assumption (3), F(Blueleaf ,1), we infer ¬F(Blueleaf ,3).
+(c) By Modus Ponens of step (1) due to step (2), we conclude E(Blueleaf ), proving the
+Blueleaf plant is endangered.
+(d) By Universal Instantiation of assumption (2), we get E(Blueleaf )→ ¬T(Blueleaf ).
+(e) By Modus Ponens of step (4) due to step (3), we conclude ¬T(Blueleaf ), proving the
+Blueleaf plant cannot be traded.
+(f) Therefore, we have shown that E(Blueleaf )∧¬T(Blueleaf ), meaning the Blueleaf plant
+is both endangered and cannot be traded.
+2
+4. Let nbe a positive integer. Prove that if nis an even, then 4 n2+48n+144 is a perfect square.
+(a) What is the given statement and your assumptions?
+(b) What is your conclusion?
+(c) Construct the proof:
+Answer:
+CMPSC 360, Fall 2024, Worksheet 4 2
+
+(a) For positive n, we assume nis even.
+(b) We want to show 4 n2+48n+144 is a perfect square
+(c) Proof: By definition of being even, there exists some integer k such that n=2k. Plugging
+it back into the equation: 16 k2+96k+144. Factorizing and simplifying: 16 (k2+6k+
+9) =16(k+3)2. Since 16 (k+3)2is in perfect square form this proves our statement
+QED.
+5. Using the direct proof method, prove that if n is an odd perfect square, then n is of the form
+4k+1. Answer the questions as directed.
+(a) What are the assumptions?
+(b) What are you trying to conclude?
+(c) Show your work.
+Answer: Proof:
+(a)Existential instantiation of assumption (a) for term a:n=2a+1
+(b)Existential instantiation of assumption (b) for term b:n=b2
+(a),(b) =⇒b2=2a+1=⇒b2−1=2a=⇒(b+1)(b−1) =2a
+Therefore b+1 orb−1 should be even: ∃x(b+1=2x∨b−1=2x)Case 1: b+1=2x,x∈
+Z=⇒n=b2= (2x−1)2=4x2−4x+1=4(x2−x) +1=4k+1 Case 2: b−1=2x,x∈
+Z=⇒n=b2= (2x+1)2=4x2+4x+1=4(x2+x) +1=4k+1
+QED
+CMPSC 360, Fall 2024, Worksheet 4 3
+
+6. Consider the following theorem:
+”For an integer n, ifnis odd, then n3is odd.”
+Verify that the theorem is true using direct proof.
+Answer:
+Direct Proof: Assume arbitrary n∈Zis odd, then by definition, there exists some k∈Zsuch
+thatn=2k+1. Therefore, n3= (2k+1)3=8k3+12k2+6k+1=2(4k3+6k2+3k)+1. Since
+k∈Z, 4k3+6k2+3k∈Z, then by definition, n3is also odd. Q.E.D.
+CMPSC 360, Fall 2024, Worksheet 4 4

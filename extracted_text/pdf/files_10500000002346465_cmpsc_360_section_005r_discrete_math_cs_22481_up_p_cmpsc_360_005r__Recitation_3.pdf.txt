@@ -1,0 +1,20 @@
+CMPSC 360 Discrete Mathematics for Computer Science
+Fall 2024 Mahfuza Farooque Worksheet 3
+1.Simplify the logical expression q∨¬(¬(p∧r)→(p∨¬q))using logical equivalence rules.
+2.Use the logical equivalence properties below to verify the logical equivalence.
+(p→ ¬q)∧(p→ ¬r)≡ ¬(p∧(q∨r))
+3.Using truth tables, determine whether (p∧q)→r≡(p→r)∧(q→r)
+4.(A) Express the following using predicates, quantifiers, logical connectives, and mathematical op-
+erators if necessary.
+(a) Every positive integer is the sum of the squares of four integers. (The universe of discourse
+contains all integers)
+(b) Every user has access to exactly one mailbox. (Assume that the domain consists of all users
+and all mailboxes)
+(B) Let G(x, y) mean that child x has played video-game y, where the domain for x consists of all
+the children in your school and the domain for y consists of all video-games. Express these
+statements as an English sentence.
+(a)∃a∀b(a̸= (child 1)∧(G(child 1,b)→G(a,b)))
+(b)∃x∃y∀z((x̸=y)∧(G(x,z)↔G(y,z)))
+5.Prove or disprove that the following compound proposition is a contingency.
+((p∨r)∨((q∧p)∨(q∧r)))∧r∧p
+CMPSC 360, Fall 2024, Worksheet 3 1

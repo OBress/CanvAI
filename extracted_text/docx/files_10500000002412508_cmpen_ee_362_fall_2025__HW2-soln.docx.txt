@@ -1,0 +1,142 @@
+HW2 Solutions
+
+Problem 1
+
+The document request was http://gaia.cs.umass.edu/cs453/index.html. The Host  field indicates the server's name and /cs453/index.html indicates the file name.
+
+The browser is running HTTP version 1.1, as indicated just before the first <cr><lf> pair.
+
+The browser is requesting a persistent connection, as indicated by the Connection: keep-alive.
+
+This is a trick question. This information is not contained in an HTTP message anywhere. So there is no way to tell this from looking at the exchange of HTTP messages alone. One would need information from the IP datagrams (that carried the TCP segment that carried the HTTP GET request) to answer this question.
+
+Mozilla/5.0.  The browser type information is needed by the server to send different versions of the same object to different types of browsers.   
+
+Problem 2
+
+The status code of 200 and the phrase OK indicate that the server was able to locate the document successfully. The reply was provided on Tuesday, 07 Mar 2008 12:39:45 Greenwich Mean Time.
+
+The document index.html was last modified on Saturday 10 Dec 2005 18:27:46 GMT.
+
+There are 3874 bytes in the document being returned.
+
+The first five bytes of the returned document are : <!doc. The server agreed to a persistent connection, as indicated by the Connection: Keep-Alive field.
+
+Problem 3
+
+Use  to denote the RTT between your host and the web server. Use  to denote the RTT of each DNS server visit. 
+The total amount of time to get the IP address is 4RTT1, since we need to request from local DNS server and then the local DNS server requests Root DNS server, TLD DNS server, and Authoritative DNS server sequentially.
+Once the IP address is known, it takes to set up the TCP connection and another  to request and receive the small object. The total time to obtain the base HTML is 2RTT0 + 4RTT1 = 140 ms. 
+It takes +100K/1M to obtain each object. So the total time to obtain the entire Web page is:
+
+Using 5 parallel connections, we need 3 rounds. So the total time to obtain the entire Web page is:
+ 
+Using persistent HTTP without pipelining, the total time to obtain the entire Web page is:
+ 
+Using persistent HTTP with pipelining, the total time to obtain the entire Web page is:
+
+Suppose the minimum number of parallel connections is x.
+Then we need:
+
+Thus we have x = 2.
+
+
+Problem 4
+
+Use l1 and l2 to denote the link between router 1 and 2, and the link between router 3 and 4, respectively. 
+For l1, , 
+For l2, , 
+total delay = Internet delay + 2 access delay + 2 LAN delay 
+= 
+=  = 
+
+Total delay = 0.8* delay from server + 0.2* delay from cache. But now the delay from server has changed since the arriving rate has changed. Now  = 18 * 0.8 = 14.4 obj/s,  = 14.4 + 100 = 114.4 obj/s. So the delay from server = 2 + 1/(19.25-14.4) + 1/(250-114.4) + 0.08M/1G + 0.08M/1G = 2.2137s.  So the total delay = 0.8*2.2137 + 0.2*0.08M/1G = 1.771s
+
+Suppose the cache hit rate is r. Then the average delay for obtaining an object equals (1-r)*[2+1/(19.25-18*(1-r)) + 1/(250-100-18*(1-r))+2*8*10-5] + r*8*10-5 = 0.1. We can solve this equation and then get r ≈ 0.95. Namely, we need at least 95% hit rate to make the delay no greater than 100ms. 
+
+Problem 5
+
+
+>nslookup 
+>set type=a
+>www.cnn.com
+Server:  mars.cse.psu.edu
+Address:  130.203.14.85
+
+Non-authoritative answer:
+Name:    turner-tls.map.fastly.net
+Addresses:  151.101.185.67
+Aliases:  www.cnn.com
+
+So the IP address and the canonical name of CNN’s web server are: 151.101.185.67 and turner-tls.map.fastly.net. 
+
+
+>nslookup
+> set type=ns
+> cnn.com
+Server:  mars.cse.psu.edu
+Address:  130.203.14.85
+
+Non-authoritative answer:
+cnn.com nameserver = ns-576.awsdns-08.net
+cnn.com nameserver = ns-47.awsdns-05.com
+cnn.com nameserver = ns-1086.awsdns-07.org
+cnn.com nameserver = ns-1630.awsdns-11.co.uk
+
+ns-47.awsdns-05.com     internet address = 205.251.192.47
+ns-576.awsdns-08.net    internet address = 205.251.194.64
+ns-576.awsdns-08.net    AAAA IPv6 address = 2600:9000:5302:4000::1
+ns-1086.awsdns-07.org   internet address = 205.251.196.62
+ns-1086.awsdns-07.org   AAAA IPv6 address = 2600:9000:5304:3e00::1
+ns-1630.awsdns-11.co.uk internet address = 205.251.198.94
+ns-1630.awsdns-11.co.uk AAAA IPv6 address = 2600:9000:5306:5e00::1
+
+So CNN has 4 DNS servers. Their IP(v4) addresses and names are: 205.251.194.64 (ns-576.awsdns-08.net), 205.251.192.47 (ns-47.awsdns-05.com), 205.251.196.62 (ns-1086.awsdns-07.org), 205.251.198.94 (ns-1630.awsdns-11.co.uk). 
+
+>nslookup
+> set type=mx
+> cnn.com
+Server:  mars.cse.psu.edu
+Address:  130.203.14.85
+
+Non-authoritative answer:
+cnn.com MX preference = 10, mail exchanger = mxa-000c6b02.gslb.pphosted.com
+cnn.com MX preference = 10, mail exchanger = mxb-000c6b02.gslb.pphosted.com
+
+cnn.com nameserver = ns-576.awsdns-08.net
+cnn.com nameserver = ns-1086.awsdns-07.org
+cnn.com nameserver = ns-1630.awsdns-11.co.uk
+cnn.com nameserver = ns-47.awsdns-05.com
+ns-47.awsdns-05.com     internet address = 205.251.192.47
+ns-576.awsdns-08.net    internet address = 205.251.194.64
+ns-576.awsdns-08.net    AAAA IPv6 address = 2600:9000:5302:4000::1
+ns-1086.awsdns-07.org   internet address = 205.251.196.62
+ns-1086.awsdns-07.org   AAAA IPv6 address = 2600:9000:5304:3e00::1
+ns-1630.awsdns-11.co.uk internet address = 205.251.198.94
+ns-1630.awsdns-11.co.uk AAAA IPv6 address = 2600:9000:5306:5e00::1
+> set type=a
+> mxa-000c6b02.gslb.pphosted.com
+Server:  mars.cse.psu.edu
+Address:  130.203.14.85
+
+Non-authoritative answer:
+Name:    mxa-000c6b02.gslb.pphosted.com
+Address:  148.163.153.47
+
+> mxb-000c6b02.gslb.pphosted.com
+Server:  mars.cse.psu.edu
+Address:  130.203.14.85
+
+Non-authoritative answer:
+Name:    mxb-000c6b02.gslb.pphosted.com
+Address:  148.163.153.47
+
+So CNN has two mail servers: 148.163.153.47 (mxa-000c6b02.gslb.pphosted.com) and 148.163.153.47 (mxb-000c6b02.gslb.pphosted.com). Note that the two mail servers have identical IP addresses. It is likely that one mail server is the backup of the other, hosting identical content, and thus they are configured to have the same IP address for seamless shuffling of client requests (this is called IP anycast). 
+
+Problem 6
+
+According to the file distribution time:
+ 
+we can compute the following chart:
+
+

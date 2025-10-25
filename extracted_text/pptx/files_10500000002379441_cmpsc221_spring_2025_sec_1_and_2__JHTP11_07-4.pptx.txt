@@ -1,0 +1,713 @@
+Chapter 7Arrays and ArrayLists 
+
+Java How to Program, 11/e
+Questions? E-mail paul.deitel@deitel.com
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.1  	Introduction
+
+Data structures
+Collections of related data items. 
+Discussed in depth in Chapters 16–21.
+Array objects 
+Data structures consisting of related data items of the same type. 
+Make it convenient to process related groups of values. 
+Remain the same length once they are created.
+Enhanced for statement for iterating over an array or collection of data items. 
+Variable-length argument lists
+Can create methods with varying numbers of arguments.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.1  	Introduction (Cont.)
+
+Common array manipulations with static methods of class Arrays from the java.util package.
+ArrayList collection
+Similar to arrays
+Dynamic resizing
+resize as necessary to accommodate more or fewer elements
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.1  	Introduction (Cont.)
+
+Java SE 8
+After reading Chapter 17, Java SE 8 Lambdas and Streams, you’ll be able to reimplement many of Chapter 7’s examples in a more concise and elegant manner, and in a way that makes them easier to parallelize to improve performance on today’s multi-core systems.
+Recall from the Preface that Chapter 17 is keyed to many earlier sections of the book so that you can conveniently cover lambdas and streams if you’d like. If so, we recommend that after you complete Chapter 7, you read Sections 17.1–17.7, which introduce the lambdas and streams concepts and use them to rework examples from Chapters 4–7. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.2  	Arrays
+
+Array 
+Group of variables (called elements) containing values of the same type. 
+Arrays are objects so they are reference types. 
+Elements can be either primitive or reference types.
+Refer to a particular element in an array
+Use the element’s index.
+Array-access expression—the name of the array followed by the index of the particular element in square brackets, []. 
+The first element in every array has index zero.
+The highest index in an array is one less than the number of elements in the array. 
+Array names follow the same conventions as other variable names.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.2  	Arrays (Cont.)
+
+An index must be a nonnegative integer. 
+Can use an expression as an index. 
+An indexed array name is an array-access expression. 
+Can be used on the left side of an assignment to place a new value into an array element.
+Every array object knows its own length and stores it in a length instance variable. 
+length cannot be changed because it’s a final variable. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.3  	Declaring and Creating Arrays
+
+Array objects
+Created with keyword new. 
+You specify the element type and the number of elements in an array-creation expression, which returns a reference that can be stored in an array variable. 
+Declaration and array-creation expression for an array of 12 int elements
+	int[] c = new int[12];
+Can be performed in two steps as follows:
+	int[] c; // declare the array variablec = new int[12]; // creates the array
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.3  	Declaring and Creating Arrays (Cont.)
+
+In a declaration, square brackets following a type indicate that a variable will refer to an array (i.e., store an array reference). 
+When an array is created, each element of the array receives a default value
+Zero for the numeric primitive-type elements, false for boolean elements and null for references. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.3  	Declaring and Creating Arrays (Cont.)
+
+When the element type and the square brackets are combined at the beginning of the declaration, all the identifiers in the declaration are array variables. 
+For readability, declare only one variable per declaration. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.3  	Declaring and Creating Arrays (Cont.)
+
+Every element of a primitive-type array contains a value of the array’s declared element type. 
+Every element of an int array is an int value.
+Every element of a reference-type array is a reference to an object of the array’s declared element type. 
+Every element of a String array is a reference to a String object.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4  	Examples Using Arrays
+
+This section presents several examples that demonstrate declaring arrays, creating arrays, initializing arrays and manipulating array elements. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.1  Creating and Initializing an Array  
+
+Fig. 7.2 uses keyword new to create an array of 10 int elements, which are initially zero (the default initial value for int variables). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.2  Using an Array Initializer  
+
+Array initializer
+A comma-separated list of expressions (called an initializer list) enclosed in braces. 
+Used to create an array and initialize its elements.
+Array length is determined by the number of elements in the initializer list. 
+	int[] n = {10, 20, 30, 40, 50};
+Creates a five-element array with index values 0–4. 
+Compiler counts the number of initializers in the list to determine the size of the array
+Sets up the appropriate new operation “behind the scenes.”
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.3  Calculating the Values to Store in an Array
+
+The application in Fig. 7.4 creates a 10-element array and assigns to each element one of the even integers from 2 to 20 (2, 4, 6, …, 20). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4  	Examples Using Arrays (Cont.)
+
+final variables must be initialized before they are used and cannot be modified thereafter. 
+An attempt to modify a final variable after it’s initialized causes a compilation error
+cannot assign a value to final variable variableName
+An attempt to access the value of a final variable before it’s initialized causes a compilation error
+variable variableName might not have been initialized
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.4  Summing the Elements of an Array
+
+Figure 7.5 sums the values contained in a 10-element integer array. 
+Often, the elements of an array represent a series of values to be used in a calculation. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.5  Using Bar Charts to Display Array Data Graphically
+
+Many programs present data to users in a graphical manner. 
+Numeric values are often displayed as bars in a bar chart. 
+Longer bars represent proportionally larger numeric values. 
+A simple way to display numeric data is with a bar chart that shows each numeric value as a bar of asterisks (*). 
+Format specifier %02d indicates that an int value should be formatted as a field of two digits. 
+The 0 flag displays a leading 0 for values with fewer digits than the field width (2). 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.6  Using the Elements of an Array as Counters
+
+Sometimes, programs use counter variables to summarize data, such as the results of a survey. 
+Fig. 6.7 used separate counters in a die-rolling program to track the number of occurrences of each side of a six-sided die as the program rolled the die 60,000,000 times. 
+Fig. 7.7 shows an array version of this application. 
+Array frequency must be large enough to store six counters. 
+We use a seven-element array in which we ignore frequency[0]
+More logical to have the face value 1 increment frequency[1] than frequency[0]. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.7  Using Arrays to Analyze Survey Results
+
+Figure 7.8 uses arrays to summarize the results of data collected in a survey:
+Twenty students were asked to rate on a scale of 1 to 5 the quality of the food in the student cafeteria, with 1 being “awful” and 5 being “excellent.” Place the 20 responses in an integer array and determine the frequency of each rating.
+Array responses is a 20-element int array of the survey responses. 
+6-element array frequency counts the number of occurrences of each response (1 to 5). 
+Each element is initialized to zero by default. 
+We ignore frequency[0].
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.4.7  Using Arrays to Analyze Survey Results (Cont.)
+
+If a piece of data in the responses array is an invalid value, such as 14, the program attempts to add 1 to frequency[14], which is outside the bounds of the array. 
+Java doesn’t allow this. 
+JVM checks array indices to ensure that they are greater than or equal to 0 and less than the length of the array—this is called bounds checking. 
+If a program uses an invalid index, Java generates a so-called exception to indicate that an error occurred in the program at execution time. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.5  Exception Handling: Processing the Incorrect Response
+
+An exception indicates a problem that occurs while a program executes. 
+The name “exception” suggests that the problem occurs infrequently—if the “rule” is that a statement normally executes correctly, then the problem represents the “exception to the rule.” 
+Exception handling helps you create fault-tolerant programs that can resolve (or handle) exceptions. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.5  Exception Handling: Processing the Incorrect Response (Cont.)
+
+When the JVM or a method detects a problem, such as an invalid array index or an invalid method argument, it throws an exception—that is, an exception occurs. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.5.1  The try Statement
+
+To handle an exception, place any code that might throw an exception in a try statement. 
+The try block contains the code that might throw an exception.
+The catch block contains the code that handles the exception if one occurs. You can have many catch blocks to handle different types of exceptions that might be thrown in the corresponding try block.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.5.2  Executing the catch Block 
+
+When the program encounters the invalid value 14 in the responses array, it attempts to add 1 to frequency[14], which is outside the bounds of the array—the frequency array has only six elements (with indexes 0–5). 
+Because array bounds checking is performed at execution time, the JVM generates an exception—specifically an ArrayIndexOutOfBoundsException to notify the program of this problem. 
+At this point the try block terminates and the catch block begins executing—if you declared any local variables in the try block, they’re now out of scope. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.5.2  Executing the catch Block (Cont.)
+
+The catch block declares an exception parameter (e) of type (IndexOutOfRangeException). 
+Inside the catch block, you can use the parameter’s identifier to interact with a caught exception object. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.5.3  toString Method of the Exception Parameter
+
+The exception object’s toString method returns the error message that’s implicitly stored in the exception object.
+The exception is considered handled when program control reaches the closing right brace of the catch block.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.6  	Case Study: Card Shuffling and Dealing Simulation
+
+Examples thus far used arrays containing elements of primitive types. 
+Elements of an array can be either primitive types or reference types. 
+Next example uses an array of reference-type elements—objects representing playing cards—to develop a class that simulates card shuffling and dealing. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.6  	Case Study: Card Shuffling and Dealing Simulation (Cont.)
+
+Class Card (Fig. 7.9) contains two String instance variables—face and suit—that are used to store references to the face and suit names for a specific Card. 
+Method toString creates a String consisting of the face of the card, " of " and the suit of the card. 
+Can invoke explicitly to obtain a string representation of a Card.
+Called implicitly when the object is used where a String is expected.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.6  	Case Study: Card Shuffling and Dealing Simulation (Cont.)
+
+Class DeckOfCards (Fig. 7.10) declares as an instance variable a Card array named deck. 
+Deck’s elements are null by default
+Constructor fills the deck array with Card objects. 
+Method shuffle shuffles the Cards in the deck. 
+Loops through all 52 Cards (array indices 0 to 51). 
+Each Card swapped with a randomly chosen other card in the deck.
+Method dealCard deals one Card in the array. 
+currentCard indicates the index of the next Card to be dealt
+Returns null if there are no more cards to deal
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.6  	Case Study: Card Shuffling and Dealing Simulation (Cont.)
+
+Figure 7.11 demonstrates class DeckOfCards. 
+When a Card is output as a String, the Card’s toString method is implicitly invoked. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.6  	Case Study: Card Shuffling and Dealing Simulation (Cont.)
+
+Preventing NullPointerExceptions 
+In Fig. 7.10, we created a deck array of 52 Card references—each element of every reference-type array created with new is default initialized to null. 
+Reference-type variables which are fields of a class are also initialized to null by default. 
+A NullPointerException occurs when you try to call a method on a null reference. 
+In industrial-strength code, ensuring that references are not null before you use them to call methods prevents NullPointerExceptions. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.7  	Enhanced for Statement
+
+Enhanced for statement 
+Iterates through the elements of an array without using a counter.
+Avoids the possibility of “stepping outside” the array. 
+Also works with the Java API’s prebuilt collections (see Section 7.14). 
+Syntax:
+	for (parameter : arrayName) {   statement }
+	where parameter has a type and an identifier and arrayName is the array through which to iterate. 
+Parameter type must be consistent with the array’s element type. 
+The enhanced for statement simplifies the code for iterating through an array. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.7  	Enhanced for Statement (Cont.)
+
+The enhanced for statement can be used only to obtain array elements
+It cannot be used to modify elements. 
+To modify elements, use the traditional counter-controlled for statement.
+Can be used in place of the counter-controlled for statement if you don’t need to access the index of the element.
+
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.7  	Enhanced for Statement (Cont.)
+
+Java SE 8
+The for statement and the enhanced for statement each iterate sequentially from a starting value to an ending value. 
+In Chapter 17, Java SE 8 Lambdas and Streams, you’ll learn about class Stream and its forEach method. 
+Working together, these provide an elegant, more concise and less error prone means for iterating through collections so that some of the iterations may occur in parallel with others to achieve better multi-core system performance. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.8  	Passing Arrays to Methods
+
+To pass an array argument to a method, specify the name of the array without any brackets. 
+Since every array object “knows” its own length, we need not pass the array length as an additional argument.
+To receive an array, the method’s parameter list must specify an array parameter. 
+When an argument to a method is an entire array or an individual array element of a reference type, the called method receives a copy of the reference. 
+When an argument to a method is an individual array element of a primitive type, the called method receives a copy of the element’s value. 
+Such primitive values are called scalars or scalar quantities. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.9  	Pass-By-Value vs. Pass-By-Reference
+
+Pass-by-value (sometimes called call-by-value)
+A copy of the argument’s value is passed to the called method. 
+The called method works exclusively with the copy. 
+Changes to the called method’s copy do not affect the original variable’s value in the caller.
+Pass-by-reference (sometimes called call-by-reference)
+The called method can access the argument’s value in the caller directly and modify that data, if necessary. 
+Improves performance by eliminating the need to copy possibly large amounts of data. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.9  	Pass-By-Value vs. Pass-By-Reference (Cont.)
+
+All arguments in Java are passed by value. 
+A method call can pass two types of values to a method
+Copies of primitive values 
+Copies of references to objects
+Objects cannot be passed to methods. 
+If a method modifies a reference-type parameter so that it refers to another object, only the parameter refers to the new object
+The reference stored in the caller’s variable still refers to the original object.
+Although an object’s reference is passed by value, a method can still interact with the referenced object by calling its public methods using the copy of the object’s reference. 
+The parameter in the called method and the argument in the calling method refer to the same object in memory. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.10  Case Study: Class GradeBook Using an Array to Store Grades
+
+We now present the first part of our case study on developing a GradeBook class that instructors can use to maintain students’ grades on an exam and display a grade report that includes the grades, class average, lowest grade, highest grade and a grade distribution bar chart. 
+The version of class GradeBook presented in this section stores the grades for one exam in a one-dimensional array. 
+In Section 7.12, we present a version of class GradeBook that uses a two-dimensional array to store students’ grades for several exams.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.10  Case Study: Class GradeBook Using an Array to Store Grades (Cont.)
+
+The application of Fig. 7.15 creates an object of class GradeBook (Fig. 7.14) using the int array grades-Array.
+Lines 9-10 pass a course name and gradesArray to the GradeBook constructor. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.10  Case Study: Class GradeBook Using an Array to Store Grades (Cont.)
+
+Java SE 8
+In Chapter 17, Java SE 8 Lambdas and Streams, the example of Fig. 17.5 uses stream methods min, max, count and average to process the elements of an int array elegantly and concisely without having to write iteration statements. 
+In Chapter 23, Concurrency, the example of Fig. 23.29 uses stream method summaryStatistics to perform all of these operations in one method call. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.11  Multidimensional Arrays
+
+Two-dimensional arrays are often used to represent tables of values with data arranged in rows and columns. 
+Identify each table element with two indices. 
+By convention, the first identifies the element’s row and the second its column. 
+Multidimensional arrays can have more than two dimensions.
+Java does not support multidimensional arrays directly
+Allows you to specify one-dimensional arrays whose elements are also one-dimensional arrays, thus achieving the same effect. 
+In general, an array with m rows and n columns is called an m-by-n array. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.11  Multidimensional Arrays (Cont.)
+
+Multidimensional arrays can be initialized with array initializers in declarations. 
+A two-dimensional array b with two rows and two columns could be declared and initialized with nested array initializers as follows:
+	int[][] b = {{1, 2}, {3, 4}};
+The initial values are grouped by row in braces. 
+The number of nested array initializers (represented by sets of braces within the outer braces) determines the number of rows. 
+The number of initializer values in the nested array initializer for a row determines the number of columns in that row. 
+Rows can have different lengths.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.11  Multidimensional Arrays (Cont.)
+
+The lengths of the rows in a two-dimensional array are not required to be the same:
+	int[][] b = {{1, 2}, {3, 4, 5}};
+Each element of b is a reference to a one-dimensional array of int variables. 
+The int array for row 0 is a one-dimensional array with two elements (1 and 2).
+The int array for row 1 is a one-dimensional array with three elements (3, 4 and 5).
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.11  Multidimensional Arrays (Cont.)
+
+A multidimensional array with the same number of columns in every row can be created with an array-creation expression. 
+	int[][] b = new int[3][4];
+3 rows and 4 columns. 
+The elements of a multidimensional array are initialized when the array object is created. 
+A multidimensional array in which each row has a different number of columns can be created as follows:
+	int[][] b = new int[2][];   // create 2 rowsb[0] = new int[5]; // create 5 columns for row 0b[1] = new int[3]; // create 3 columns for row 1
+Creates a two-dimensional array with two rows. 
+Row 0 has five columns, and row 1 has three columns.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.11  Multidimensional Arrays (Cont.)
+
+Figure 7.17 demonstrates initializing two-dimensional arrays with array initializers and using nested for loops to traverse the arrays.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.12  Case Study: Class GradeBook Using a Two-Dimensional Array
+
+In most semesters, students take several exams. 
+Figure 7.18 contains a version of class GradeBook that uses a two-dimensional array grades to store the grades of several students on multiple exams. 
+Each row represents a student’s grades for the entire course.
+Each column represents the grades of all the students who took a particular exam. 
+In this example, we use a ten-by-three array containing ten students’ grades on three exams. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.13  Variable-Length Argument Lists
+
+Variable-length argument lists
+Can be used to create methods that receive an unspecified number of arguments. 
+Parameter type followed by an ellipsis (...) indicates that the method receives a variable number of arguments of that particular type. 
+The ellipsis can occur only once at the end of a parameter list.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.14  Using Command-Line Arguments
+
+It’s possible to pass arguments from the command line to an application via method main’s String[] parameter, which receives an array of Strings.
+Command-line arguments that appear after the class name in the java command are received by main in the String array args. 
+The number of command-line arguments is obtained by accessing the array’s length attribute. 
+Command-line arguments are separated by white space, not commas. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.15  Class Arrays 
+
+Arrays class
+Provides static methods for common array manipulations. 
+Methods include 
+sort for sorting an array (ascending order by default)
+binarySearch for searching a sorted array
+equals for comparing arrays 
+fill for placing values into an array.
+Methods are overloaded for primitive-type arrays and for arrays of objects. 
+System class static arraycopy method
+Copies contents of one array into another. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.15  Class Arrays 
+
+Java SE 8—Class Arrays Method parallelSort
+The Arrays class now has several new “parallel” methods that take advantage of multi-core hardware. 
+Arrays method parallelSort can sort large arrays more efficiently on multi-core systems. 
+In Section 23.12, we create a very large array and use features of the Java SE 8 Date/Time API to compare how long it takes to sort the array with methods sort and parallelSort. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.16  Introduction to Collections and Class ArrayList 
+
+Java API provides several predefined data structures, called collections, used to store groups of related objects in memory. 
+Each provides efficient methods that organize, store and retrieve your data without requiring knowledge of how the data is being stored. 
+Reduce application-development time. 
+Arrays do not automatically change their size at execution time to accommodate additional elements. 
+ArrayList<T> (package java.util) can dynamically change its size to accommodate more elements. 
+T is a placeholder for the type of element stored in the collection. 
+Classes with this kind of placeholder that can be used with any type are called generic classes. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.16  Introduction to Collections and Class ArrayList (Cont.)
+
+Figure 7.24 demonstrates some common ArrayList capabilities. 
+An ArrayList’s capacity indicates how many items it can hold without growing. 
+When the ArrayList grows, it must create a larger internal array and copy each element to the new array. 
+This is a time-consuming operation. It would be inefficient for the ArrayList to grow each time an element is added. 
+An ArrayList grows only when an element is added and the number of elements is equal to the capacity—i.e., there is no space for the new element.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.16  Introduction to Collections and Class ArrayList (Cont.)
+
+Method add adds elements to the ArrayList.
+One-argument version appends its argument to the end of the ArrayList. 
+Two-argument version inserts a new element at the specified position. 
+Collection indices start at zero. 
+Method size returns the number of elements in the ArrayList. 
+Method get obtains the element at a specified index. 
+Method remove deletes an element with a specific value. 
+An overloaded version of the method removes the element at the specified index. 
+Method contains determines if an item is in the ArrayList. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.16  Introduction to Collections and Class ArrayList (Cont.)
+
+Java SE 7—Diamond (<>) Notation for Creating an Object of a Generic Class
+Consider this statement from Fig. 7.24:
+ArrayList<String> items = new ArrayList<String>();
+Notice that ArrayList<String> appears in the variable declaration and in the class instance creation expression. Java SE 7 introduced the diamond (<>) notation to simplify statements like this. Using <> in a class instance creation expression for an object of a generic class tells the compiler to determine what belongs in the angle brackets. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
+
+7.16  Introduction to Collections and Class ArrayList (Cont.)
+
+In Java SE 7 and higher, the preceding statement can be written as:
+ArrayList<String> items = new ArrayList<>();
+
+When the compiler encounters the diamond (<>) in the class instance creation expression, it uses the declaration of variable items to determine the ArrayList’s element type (String)—this is known as inferring the element type. 
+
+© Copyright 1992-2018 by Pearson Education, Inc. All Rights Reserved.
