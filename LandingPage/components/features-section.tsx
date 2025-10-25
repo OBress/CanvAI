@@ -22,7 +22,7 @@ export function ServicesSection() {
             Features
           </h2>
           <p className="font-mono text-sm text-foreground/60 md:text-base">
-            / What we bring to the table
+            / Some of the features we offer. The use cases are endless.
           </p>
         </div>
 

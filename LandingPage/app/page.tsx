@@ -5,7 +5,7 @@ import { CustomCursor } from "@/components/custom-cursor";
 import { GrainOverlay } from "@/components/grain-overlay";
 import { WorkSection } from "@/components/privacy-section";
 import { ServicesSection } from "@/components/features-section";
-import { AboutSection } from "@/components/about-section";
+import { AboutSection } from "@/components/install-section";
 import { ContactSection } from "@/components/contact-section";
 import { MagneticButton } from "@/components/magnetic-button";
 import { useRef, useEffect, useState } from "react";
@@ -359,63 +359,6 @@ export default function Home() {
                     View Demo
                   </MagneticButton>
                 </div>
-              </div>
-
-              {/* Right side - Stats with creative layout */}
-              <div className="flex flex-col justify-center space-y-6 md:space-y-12">
-                {[
-                  {
-                    value: "+50%",
-                    label: "Efficiency",
-                    sublabel: "In Canvas Learning",
-                    direction: "right",
-                  },
-                  {
-                    value: "24/7",
-                    label: "Support",
-                    sublabel: "Always Available",
-                    direction: "left",
-                  },
-                  {
-                    value: "2hr",
-                    label: "A Week",
-                    sublabel: "Saved In Time",
-                    direction: "right",
-                  },
-                ].map((stat, i) => {
-                  const getRevealClass = () => {
-                    if (!isLoaded) {
-                      return stat.direction === "left"
-                        ? "-translate-x-16 opacity-0"
-                        : "translate-x-16 opacity-0";
-                    }
-                    return "translate-x-0 opacity-100";
-                  };
-
-                  return (
-                    <div
-                      key={i}
-                      className={`flex items-baseline gap-4 border-l border-foreground/30 pl-4 transition-all duration-700 md:gap-8 md:pl-8 ${getRevealClass()}`}
-                      style={{
-                        transitionDelay: `${300 + i * 150}ms`,
-                        marginLeft: i % 2 === 0 ? "0" : "auto",
-                        maxWidth: i % 2 === 0 ? "100%" : "85%",
-                      }}
-                    >
-                      <div className="text-3xl font-light text-foreground md:text-6xl lg:text-7xl">
-                        {stat.value}
-                      </div>
-                      <div>
-                        <div className="font-sans text-base font-light text-foreground md:text-xl">
-                          {stat.label}
-                        </div>
-                        <div className="font-mono text-xs text-foreground/60">
-                          {stat.sublabel}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
               </div>
             </div>
           </div>
