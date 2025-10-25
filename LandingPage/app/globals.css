@@ -1,0 +1,177 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark, .dark *));
+
+/* 
+  Color Palette - Domaski's Black Aesthetic:
+  --color-dark-primary: #0D0C11 (Domaski's black - absolute black)
+  --color-dark-secondary: #16151B (Slightly lighter)
+  --color-accent: #00ADB5 (Cyan/Turquoise)
+  --color-light: #EEEEEE (Light gray)
+  
+  Variations for aesthetics:
+  - Lighter: #28272D (for borders/subtle elements)
+  - Mid-tone: #1F1E24 (for cards/elevated surfaces)
+  - Accent light: #33BFCA (hover states)
+  - Accent dark: #008B93 (pressed states)
+*/
+
+:root {
+  /* Light Theme Colors */
+  --color-dark-primary: #0D0C11;
+  --color-dark-secondary: #16151B;
+  --color-accent: #00ADB5;
+  --color-light: #EEEEEE;
+  
+  /* Aesthetic Variations - Light Theme */
+  --color-lighter: #28272D;
+  --color-darker: #0D0C11;
+  --color-midtone: #1F1E24;
+  --color-accent-light: #33BFCA;
+  --color-accent-dark: #008B93;
+  --color-white: #FFFFFF;
+  
+  /* Semantic Color Mappings - Light Theme */
+  --background: var(--color-light);
+  --foreground: var(--color-dark-primary);
+  --card: #FFFFFF;
+  --card-foreground: var(--color-dark-primary);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--color-dark-primary);
+  --primary: var(--color-accent);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--color-dark-secondary);
+  --secondary-foreground: var(--color-light);
+  --muted: var(--color-lighter);
+  --muted-foreground: var(--color-dark-secondary);
+  --accent: var(--color-accent);
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: var(--color-lighter);
+  --input: var(--color-lighter);
+  --ring: var(--color-accent);
+  
+  /* Additional UI Elements */
+  --nav-background: rgba(238, 238, 238, 0.8);
+  --button-hover: var(--color-accent-light);
+  --button-active: var(--color-accent-dark);
+  --text-primary: var(--color-dark-primary);
+  --text-secondary: var(--color-dark-secondary);
+  --text-muted: var(--color-lighter);
+  --overlay: rgba(13, 12, 17, 0.25);
+  
+  /* Shader/Background Colors */
+  --shader-color-a: var(--color-accent);
+  --shader-color-b: var(--color-accent-light);
+  --shader-accent: var(--color-dark-secondary);
+  
+  /* Custom Cursor Colors */
+  --cursor-color: var(--color-dark-primary);
+  
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Dark Theme - Inverted */
+  --background: var(--color-dark-primary);
+  --foreground: var(--color-light);
+  --card: var(--color-dark-secondary);
+  --card-foreground: var(--color-light);
+  --popover: var(--color-dark-secondary);
+  --popover-foreground: var(--color-light);
+  --primary: var(--color-accent);
+  --primary-foreground: var(--color-dark-primary);
+  --secondary: var(--color-dark-secondary);
+  --secondary-foreground: var(--color-light);
+  --muted: var(--color-darker);
+  --muted-foreground: var(--color-lighter);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-dark-primary);
+  --destructive: #EF4444;
+  --destructive-foreground: var(--color-light);
+  --border: var(--color-darker);
+  --input: var(--color-dark-secondary);
+  --ring: var(--color-accent);
+  
+  /* Additional UI Elements - Dark Theme */
+  --nav-background: rgba(13, 12, 17, 0.8);
+  --button-hover: var(--color-accent-light);
+  --button-active: var(--color-accent-dark);
+  --text-primary: var(--color-light);
+  --text-secondary: var(--color-light);
+  --text-muted: var(--color-lighter);
+  --overlay: rgba(13, 12, 17, 0.6);
+  
+  /* Shader/Background Colors - Dark Theme */
+  --shader-color-a: var(--color-accent);
+  --shader-color-b: var(--color-dark-secondary);
+  --shader-accent: var(--color-accent-dark);
+  
+  /* Custom Cursor Colors - Dark Theme */
+  --cursor-color: var(--color-light);
+}
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  
+  /* Tailwind Color Mappings */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    cursor: none;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  [data-scroll-container] {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  section {
+    transform: translateZ(0);
+    will-change: transform;
+    contain: layout style paint;
+  }
+
+  button {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
