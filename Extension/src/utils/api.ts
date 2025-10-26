@@ -25,7 +25,14 @@ const API_BASE_URL =
       .CANVAI_API_BASE_URL) ||
   DEFAULT_BASE_URL;
 
-const buildUrl = (path: string) => `${API_BASE_URL}${CHAT_BASE_PATH}${path}`;
+const NORMALIZED_BASE_URL = API_BASE_URL.replace(/\/$/, "");
+
+const buildUrl = (path: string) =>
+  `${NORMALIZED_BASE_URL}${CHAT_BASE_PATH}${path}`;
+
+const buildRootUrl = (path: string) => `${NORMALIZED_BASE_URL}${path}`;
+
+export const buildBackendUrl = (path: string) => buildRootUrl(path);
 
 const toChatSession = (session: BackendSession): ChatSession => {
   const createdAt = session.created_at ?? new Date().toISOString();
@@ -68,6 +75,36 @@ const readJson = async <T>(response: Response): Promise<T> => {
 };
 
 export const backendApi = {
+  async devSearch(query: string): Promise<unknown> {
+    try {
+      const url = buildRootUrl(
+        `/search?query=${encodeURIComponent(query)}`
+      );
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { accept: "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Search request failed (${response.status})`);
+      }
+
+      const body = await response.text();
+      if (!body) {
+        return {};
+      }
+
+      try {
+        return JSON.parse(body) as unknown;
+      } catch {
+        return body;
+      }
+    } catch (error) {
+      console.error("[CanvAI] Dev search request failed", error);
+      throw error;
+    }
+  },
+
   async fetchSessions(): Promise<ChatSession[]> {
     try {
       const response = await fetch(buildUrl("/sessions"), {

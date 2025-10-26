@@ -1,33 +1,112 @@
 """FastAPI router for chat session and message endpoints."""
 
+import sys
+from pathlib import Path
 from typing import Dict
 
 from fastapi import APIRouter, HTTPException
+
+CURRENT_DIR = Path(__file__).resolve().parent
+BACKEND_DIR = CURRENT_DIR.parent
+PROJECT_ROOT = BACKEND_DIR.parent
+
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.append(str(BACKEND_DIR))
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
 
 if __package__ in (None, ""):
     from chat_store import (  # type: ignore  # noqa: F401
         create_chat_message,
         create_chat_session,
+        delete_chat_session,
         ensure_chat_storage,
         format_message,
         format_session,
         get_chat_session,
         list_chat_messages,
         list_chat_sessions,
+        update_chat_session_title,
     )
 else:
     from .chat_store import (
         create_chat_message,
         create_chat_session,
+        delete_chat_session,
         ensure_chat_storage,
         format_message,
         format_session,
         get_chat_session,
         list_chat_messages,
         list_chat_sessions,
+        update_chat_session_title,
     )
 
+from vector_db.vector import perform_search  # type: ignore  # noqa: F401
+from llm import (  # type: ignore  # noqa: F401
+    generate_user_response_from_file,
+    query_to_structured,
+)
+
 router = APIRouter(prefix="/chat", tags=["chat"])
+
+def _latest_user_message(session_id: int) -> str:
+    """Return the most recent user-authored message in a chat session."""
+    messages = list_chat_messages(session_id)
+    for row in reversed(messages):
+        if row.get("sender") == "user":
+            return row.get("message", "")
+    return ""
+
+
+def _collect_relevant_context(user_query: str) -> str:
+    """Run the vector search + LLM summarization pipeline."""
+    try:
+        structured = query_to_structured(user_query)
+    except Exception as exc:  # defensive: LLM call may fail
+        return f"I'm having trouble interpreting the question ({exc})."
+
+    if not isinstance(structured, dict) or "error" in structured:
+        detail = structured.get("error") if isinstance(structured, dict) else None
+        return (
+            "I couldn't understand that request just yet."
+            if detail is None
+            else f"I couldn't process the request: {detail}"
+        )
+
+    table = structured.get("table_to_query")
+    if not table:
+        return "Could you share a little more so I can look up the right information?"
+
+    csv_filename = f"{table}.csv"
+    try:
+        search_results = perform_search(
+            query=user_query,
+            csv_filename=csv_filename,
+            db_name=table,
+        )
+    except Exception as exc:
+        return f"I ran into an issue searching the knowledge base ({exc})."
+
+    if not search_results:
+        return (
+            "I couldn't find anything in your records that matches that just yet, "
+            "but I'll keep looking as you share more."
+        )
+
+    combined_context = "\n\n".join(
+        doc.page_content for doc, _score in search_results
+    )
+
+    try:
+        response = generate_user_response_from_file(
+            user_query=user_query,
+            file_path=combined_context,
+        )
+    except Exception as exc:
+        return f"I found some notes but couldn't craft a response ({exc})."
+
+    return response or "Let me know how else I can help!"
 
 
 @router.post("/sessions")
@@ -60,6 +139,29 @@ async def get_chat_session_endpoint(session_id: int) -> Dict:
     return {"session": format_session(session)}
 
 
+@router.patch("/sessions/{session_id}")
+async def update_chat_session_endpoint(session_id: int, payload: Dict) -> Dict:
+    """Update chat session metadata (currently just the title)."""
+    ensure_chat_storage()
+    title = (payload or {}).get("title")
+    if not title:
+        raise HTTPException(status_code=400, detail="title is required")
+    row = update_chat_session_title(session_id, title)
+    if row is None:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    return {"session": format_session(row)}
+
+
+@router.delete("/sessions/{session_id}")
+async def delete_chat_session_endpoint(session_id: int) -> Dict:
+    """Delete a chat session and associated messages."""
+    ensure_chat_storage()
+    deleted = delete_chat_session(session_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    return {"ok": True}
+
+
 @router.post("/sessions/{session_id}/messages")
 async def create_chat_message_endpoint(session_id: int, payload: Dict) -> Dict:
     """Create a message within the specified chat session."""
@@ -86,6 +188,23 @@ async def list_chat_messages_endpoint(session_id: int) -> Dict:
         raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
     messages = [format_message(row) for row in list_chat_messages(session_id)]
     return {"messages": messages}
+
+
+@router.post("/sessions/{session_id}/assistant")
+async def request_assistant_response_endpoint(session_id: int) -> Dict:
+    """Generate an assistant response using the latest user input and store it."""
+    ensure_chat_storage()
+    if get_chat_session(session_id) is None:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    user_query = _latest_user_message(session_id)
+    if not user_query:
+        reply_text = "I'm ready whenever you are—what can I help you with today?"
+    else:
+        reply_text = _collect_relevant_context(user_query)
+
+    message_row = create_chat_message(session_id, "assistant", reply_text)
+    return {"message": format_message(message_row)}
 
 
 @router.get("/messages")

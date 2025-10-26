@@ -50,6 +50,14 @@ def _append_row(path: Path, fieldnames: List[str], row: Dict[str, str]) -> None:
         writer.writerow(row)
 
 
+def _write_rows(path: Path, fieldnames: List[str], rows: List[Dict[str, str]]) -> None:
+    """Overwrite the CSV file with the supplied rows (including header)."""
+    with path.open("w", newline="", encoding="utf-8") as fp:
+        writer = csv.DictWriter(fp, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def _next_identifier(rows: List[Dict[str, str]]) -> int:
     """Return the next integer ID by scanning existing rows."""
     max_id = 0
@@ -84,6 +92,43 @@ def list_chat_sessions() -> List[Dict[str, str]]:
     with _LOCK:
         ensure_chat_storage()
         return _read_csv(CHAT_SESSIONS_FILE, SESSION_FIELDS)
+
+
+def update_chat_session_title(session_id: int, title: str) -> Optional[Dict[str, str]]:
+    """Update a session title and persist the change."""
+    with _LOCK:
+        ensure_chat_storage()
+        sessions = _read_csv(CHAT_SESSIONS_FILE, SESSION_FIELDS)
+        target_id = str(session_id)
+        updated_row: Optional[Dict[str, str]] = None
+        for row in sessions:
+            if row.get("ID") == target_id:
+                row["title"] = title
+                updated_row = row
+                break
+        if updated_row is None:
+            return None
+        _write_rows(CHAT_SESSIONS_FILE, SESSION_FIELDS, sessions)
+        return updated_row
+
+
+def delete_chat_session(session_id: int) -> bool:
+    """Remove a session and any associated messages."""
+    with _LOCK:
+        ensure_chat_storage()
+        sessions = _read_csv(CHAT_SESSIONS_FILE, SESSION_FIELDS)
+        target_id = str(session_id)
+        filtered_sessions = [row for row in sessions if row.get("ID") != target_id]
+        if len(filtered_sessions) == len(sessions):
+            return False
+        _write_rows(CHAT_SESSIONS_FILE, SESSION_FIELDS, filtered_sessions)
+
+        messages = _read_csv(CHAT_MESSAGES_FILE, MESSAGE_FIELDS)
+        filtered_messages = [
+            row for row in messages if row.get("session_id") != target_id
+        ]
+        _write_rows(CHAT_MESSAGES_FILE, MESSAGE_FIELDS, filtered_messages)
+        return True
 
 
 def get_chat_session(session_id: int) -> Optional[Dict[str, str]]:

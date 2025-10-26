@@ -261,30 +261,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   const handleRunDevSearch = useCallback(async () => {
     setDevSearchLoading(true);
     try {
-      const response = await fetch(
-        "https://helpful-ambient-consists-labs.trycloudflare.com/search?query=what%20are%20my%20classes.",
-        {
-          method: "GET",
-          headers: { accept: "application/json" },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Search request failed (${response.status})`);
-      }
-
-      const rawBody = await response.text();
-      let parsedBody: unknown = rawBody;
-
-      if (rawBody) {
-        try {
-          parsedBody = JSON.parse(rawBody);
-        } catch {
-          // Non-JSON payloads fall back to raw text for easier debugging.
-        }
-      }
-
-      console.info("[CanvAI] Dev search response:", parsedBody);
+      const result = await backendApi.devSearch("what are my classes.");
+      console.info("[CanvAI] Dev search response:", result);
     } catch (error) {
       console.error("[CanvAI] Dev search request failed", error);
     } finally {
@@ -303,29 +281,38 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
       }
 
       void (async () => {
-        const remoteMessages = await backendApi.fetchSessionMessages(sessionId);
+        if (!/^\d+$/.test(sessionId)) return;
+        try {
+          const remoteMessages =
+            await backendApi.fetchSessionMessages(sessionId);
 
-        setSessions((prev) => {
-          const target = prev[sessionId];
-          if (!target) return prev;
+          setSessions((prev) => {
+            const target = prev[sessionId];
+            if (!target) return prev;
 
-          const nextSession: ChatSession = {
-            ...target,
-            messages: remoteMessages,
-            updatedAt:
-              remoteMessages[remoteMessages.length - 1]?.createdAt ??
-              target.updatedAt ??
-              target.createdAt,
-          };
+            const nextSession: ChatSession = {
+              ...target,
+              messages: remoteMessages,
+              updatedAt:
+                remoteMessages[remoteMessages.length - 1]?.createdAt ??
+                target.updatedAt ??
+                target.createdAt,
+            };
 
-          const nextSessions = {
-            ...prev,
-            [sessionId]: nextSession,
-          };
+            const nextSessions = {
+              ...prev,
+              [sessionId]: nextSession,
+            };
 
-          void storage.set("chats", nextSessions);
-          return nextSessions;
-        });
+            void storage.set("chats", nextSessions);
+            return nextSessions;
+          });
+        } catch (error) {
+          console.error(
+            `[CanvAI] Unable to load messages for session ${sessionId}`,
+            error
+          );
+        }
       })();
     },
     [activeSessionId, sessions]
@@ -365,7 +352,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         void persistSessions(next, fallbackId);
         return next;
       });
-      void backendApi.deleteSession(sessionId);
+      if (/^\d+$/.test(sessionId)) {
+        void backendApi.deleteSession(sessionId);
+      }
     },
     [activeSessionId, persistSessions, sessions]
   );
@@ -385,7 +374,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         return next;
       });
       if (updatedSession) {
-        void backendApi.updateSessionTitle(sessionId, title);
+        if (/^\d+$/.test(sessionId)) {
+          void backendApi.updateSessionTitle(sessionId, title);
+        }
       }
     },
     []
@@ -419,122 +410,176 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     setInputValue("");
 
     const now = new Date().toISOString();
-    const userMessage: ChatMessage = {
+    const provisionalMessage: ChatMessage = {
       id: `msg-${generateId()}`,
       role: "user",
       content: trimmed,
       createdAt: now,
     };
 
-    let targetSessionId = "";
-    let snapshotTitle = "";
-    let titleChanged = false;
+    void (async () => {
+      let currentSessionId = activeSessionId;
+      let workingSession =
+        (currentSessionId && sessions[currentSessionId]) || null;
 
-    setSessions((prev) => {
-      const existingSession =
-        activeSessionId && prev[activeSessionId] ? prev[activeSessionId] : null;
+      if (!workingSession) {
+        workingSession = createLocalSession();
+        currentSessionId = workingSession.id;
+      }
 
-      const baseSession = existingSession ?? createLocalSession();
-      const sessionId = existingSession ? existingSession.id : baseSession.id;
+      const originalSessionId = workingSession.id;
+      const initialTitle = workingSession.title;
       const shouldDeriveTitle =
-        baseSession.messages.length === 0 &&
-        baseSession.title === "New Conversation";
+        workingSession.messages.length === 0 &&
+        initialTitle === "New Conversation";
+      const derivedTitle = shouldDeriveTitle
+        ? formatTitle(trimmed)
+        : initialTitle;
+      const titleChanged = derivedTitle !== initialTitle;
+
+      let remoteSessionId = originalSessionId;
+
+      if (!/^\d+$/.test(remoteSessionId)) {
+        try {
+          const createdSession = await backendApi.createSession({
+            userId: DEFAULT_USER_ID,
+            title: derivedTitle || "New Conversation",
+          });
+
+          if (createdSession) {
+            remoteSessionId = createdSession.id;
+            workingSession = {
+              ...createdSession,
+              messages: workingSession.messages,
+              updatedAt:
+                createdSession.updatedAt ?? createdSession.createdAt,
+            };
+          }
+        } catch (error) {
+          console.error("[CanvAI] Failed to create remote session", error);
+        }
+      }
 
       const nextSession: ChatSession = {
-        ...baseSession,
-        messages: [...baseSession.messages, userMessage],
+        ...workingSession,
+        id: remoteSessionId,
+        title: derivedTitle,
+        messages: [...(workingSession.messages ?? []), provisionalMessage],
         updatedAt: now,
-        title: shouldDeriveTitle ? formatTitle(trimmed) : baseSession.title,
       };
 
-      titleChanged =
-        shouldDeriveTitle && nextSession.title !== baseSession.title;
+      let snapshot: Record<string, ChatSession> | null = null;
+      setSessions((prev) => {
+        const updated = { ...prev };
+        if (originalSessionId !== remoteSessionId) {
+          delete updated[originalSessionId];
+        }
+        updated[remoteSessionId] = nextSession;
+        snapshot = updated;
+        return updated;
+      });
 
-      const updatedSessions = {
-        ...prev,
-        [sessionId]: nextSession,
-      };
+      setActiveSessionId(remoteSessionId);
+      activeSessionRef.current = remoteSessionId;
 
-      targetSessionId = sessionId;
-      snapshotTitle = nextSession.title;
+      if (snapshot) {
+        await persistSessions(snapshot, remoteSessionId);
+      }
 
-      setActiveSessionId(sessionId);
-      activeSessionRef.current = sessionId;
-      void persistSessions(updatedSessions, sessionId);
+      const canSync = /^\d+$/.test(remoteSessionId);
 
-      return updatedSessions;
-    });
-
-    if (!targetSessionId) {
-      return;
-    }
-
-    void (async () => {
-      const storedMessage = await backendApi.appendMessage(
-        targetSessionId,
-        userMessage
-      );
-
-      if (storedMessage) {
-        setSessions((prev) => {
-          const target = prev[targetSessionId];
-          if (!target) return prev;
-
-          const nextMessages = target.messages.map((message) =>
-            message.id === userMessage.id ? storedMessage : message
+      if (canSync) {
+        try {
+          const storedMessage = await backendApi.appendMessage(
+            remoteSessionId,
+            provisionalMessage
           );
 
-          const nextSession: ChatSession = {
-            ...target,
-            messages: nextMessages,
-            updatedAt: storedMessage.createdAt ?? target.updatedAt,
-          };
+          if (storedMessage) {
+            setSessions((prev) => {
+              const target = prev[remoteSessionId];
+              if (!target) return prev;
 
-          const nextSessions = {
-            ...prev,
-            [targetSessionId]: nextSession,
-          };
+              const replaceIndex = target.messages.findIndex(
+                (message) => message.id === provisionalMessage.id
+              );
 
-          void storage.set("chats", nextSessions);
-          return nextSessions;
-        });
-      }
+              const nextMessages =
+                replaceIndex >= 0
+                  ? [
+                      ...target.messages.slice(0, replaceIndex),
+                      storedMessage,
+                      ...target.messages.slice(replaceIndex + 1),
+                    ]
+                  : [...target.messages, storedMessage];
 
-      if (titleChanged) {
-        void backendApi.updateSessionTitle(targetSessionId, snapshotTitle);
+              const updatedSession: ChatSession = {
+                ...target,
+                messages: nextMessages,
+                updatedAt:
+                  storedMessage.createdAt ?? target.updatedAt,
+              };
+
+              const updatedSessions = {
+                ...prev,
+                [remoteSessionId]: updatedSession,
+              };
+
+              void storage.set("chats", updatedSessions);
+              return updatedSessions;
+            });
+          }
+
+          if (titleChanged) {
+            await backendApi.updateSessionTitle(
+              remoteSessionId,
+              derivedTitle
+            );
+          }
+        } catch (error) {
+          console.error(
+            `[CanvAI] Failed to sync message for session ${remoteSessionId}`,
+            error
+          );
+        }
+
+        void (async () => {
+          try {
+            const assistantMessage =
+              await backendApi.requestAssistantResponse(
+                remoteSessionId
+              );
+            if (!assistantMessage) return;
+
+            setSessions((prev) => {
+              const target = prev[remoteSessionId];
+              if (!target) return prev;
+
+              const updatedSession: ChatSession = {
+                ...target,
+                messages: [...target.messages, assistantMessage],
+                updatedAt:
+                  assistantMessage.createdAt ?? target.updatedAt,
+              };
+
+              const updatedSessions = {
+                ...prev,
+                [remoteSessionId]: updatedSession,
+              };
+
+              void storage.set("chats", updatedSessions);
+              return updatedSessions;
+            });
+          } catch (error) {
+            console.error(
+              `[CanvAI] Unable to fetch assistant response for session ${remoteSessionId}`,
+              error
+            );
+          }
+        })();
       }
     })();
-
-    void (async () => {
-      const assistantMessage = await backendApi.requestAssistantResponse(
-        targetSessionId
-      );
-      if (!assistantMessage) return;
-
-      let assistantSnapshot: ChatSession | null = null;
-
-      setSessions((prev) => {
-        const target = prev[targetSessionId];
-        if (!target) return prev;
-
-        const nextSession: ChatSession = {
-          ...target,
-          messages: [...target.messages, assistantMessage],
-          updatedAt: assistantMessage.createdAt ?? target.updatedAt,
-        };
-
-        assistantSnapshot = nextSession;
-
-        const nextSessions = {
-          ...prev,
-          [targetSessionId]: nextSession,
-        };
-
-        void storage.set("chats", nextSessions);
-        return nextSessions;
-      });
-    })();
-  }, [activeSessionId, inputValue, persistSessions]);
+  }, [activeSessionId, inputValue, persistSessions, sessions]);
 
   const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {

@@ -17,12 +17,13 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from vector_db.vector import perform_search, vectorize  # noqa: E402
 from llm import query_to_structured, generate_user_response_from_file  # noqa: E402
-# if __package__ in (None, ""):
-#     from chat_store import ensure_chat_storage  # type: ignore  # noqa: E402
-#     from chat_router import router as chat_router  # type: ignore  # noqa: E402
-# else:
-#     from .chat_store import ensure_chat_storage  # noqa: E402
-#     from .chat_router import router as chat_router  # noqa: E402
+
+if __package__ in (None, ""):
+    from chat_store import ensure_chat_storage  # type: ignore  # noqa: E402
+    from chat_router import router as chat_router  # type: ignore  # noqa: E402
+else:
+    from .chat_store import ensure_chat_storage  # noqa: E402
+    from .chat_router import router as chat_router  # noqa: E402
 
 
 @asynccontextmanager
@@ -50,13 +51,13 @@ async def lifespan(app: FastAPI):
         vectorize(csv_filename=csv_filename, db_name=db_name)
 
     #TODO: Initialize Canvas API and populate extract_text files (if time allows)
-    # ensure_chat_storage()
+    ensure_chat_storage()
 
     yield
 
 
 app = FastAPI(lifespan=lifespan)
-# app.include_router(chat_router)
+app.include_router(chat_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ApiKeys, Profile, storage } from "../utils/storage";
+import { buildBackendUrl } from "../utils/api";
 
 const EyeIcon = ({ className }: { className?: string }) => (
   <svg
@@ -172,7 +173,7 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
 
     setLoadingField(field);
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(buildBackendUrl(endpoint), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
