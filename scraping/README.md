@@ -39,6 +39,7 @@ python "scripts/download_from_files_csv.py"
 Extract text from downloaded files.
 ```bash
 python "scripts/extract_text_from_downloads.py"
+python "scripts/extract_text_from_videos.py"
 ```
 
 Generate summaries using Gemini API (slow).
