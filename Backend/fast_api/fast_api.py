@@ -1,6 +1,7 @@
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import List
 
 import uvicorn
 from fastapi import FastAPI
@@ -21,13 +22,36 @@ from llm import query_to_structured, generate_user_response_from_file  # noqa: E
 if __package__ in (None, ""):
     from chat_store import ensure_chat_storage  # type: ignore  # noqa: E402
     from chat_router import router as chat_router  # type: ignore  # noqa: E402
-    from user_store import ensure_user_storage  # type: ignore  # noqa: E402
+    from user_store import (  # type: ignore  # noqa: E402
+        ensure_user_storage,
+        format_user_payload,
+        get_user_settings,
+    )
     from user_router import router as user_router  # type: ignore  # noqa: E402
 else:
     from .chat_store import ensure_chat_storage  # noqa: E402
     from .chat_router import router as chat_router  # noqa: E402
-    from .user_store import ensure_user_storage  # noqa: E402
+    from .user_store import (  # noqa: E402
+        ensure_user_storage,
+        format_user_payload,
+        get_user_settings,
+    )
     from .user_router import router as user_router  # noqa: E402
+
+
+REQUIRED_API_KEY_FIELDS = [
+    "canvas_key",
+    "gemini_key",
+    "canvas_base_url",
+    "elevenlabs_api_key",
+    "openrouter_api_key",
+]
+
+
+def _missing_api_keys() -> List[str]:
+    """Return a list of required API keys that are still blank."""
+    values = format_user_payload(get_user_settings())
+    return [field for field in REQUIRED_API_KEY_FIELDS if not values.get(field)]
 
 
 @asynccontextmanager
@@ -54,10 +78,10 @@ async def lifespan(app: FastAPI):
         # Create the vector store
         vectorize(csv_filename=csv_filename, db_name=db_name)
 
-    #TODO: Initialize Canvas API and populate extract_text files (if time allows)
-
     ensure_chat_storage()
     ensure_user_storage()
+
+    #TODO: Initialize Canvas API and populate extract_text files (if time allows)
 
     yield
 
@@ -78,6 +102,14 @@ app.add_middleware(
 # Endpoint to handle search queries
 @app.get("/search")
 async def search(query: str):
+    missing = _missing_api_keys()
+    if missing:
+        message = (
+            "Required API keys are missing. Please add: "
+            + ", ".join(missing)
+        )
+        return {"response": message, "error": "missing_api_keys"}
+
     # Calls the llm with the query to get structured information on what to search for in the vector DB
     structured_query_to_DB = query_to_structured(query)
     
