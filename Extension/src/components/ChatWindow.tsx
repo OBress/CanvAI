@@ -143,6 +143,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const activeSessionRef = useRef<string>("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -240,7 +241,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     const container = scrollRef.current;
     if (!container) return;
     container.scrollTop = container.scrollHeight;
-  }, [activeSession?.messages.length]);
+  }, [activeSession?.messages.length, isLoading]);
 
   const orderedSessions = useMemo<ChatSession[]>(() => {
     const values = Object.values(sessions);
@@ -394,9 +395,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
   const handleSendMessage = useCallback(() => {
     const trimmed = inputValue.trim();
-    if (!trimmed) return;
+    if (!trimmed || isLoading) return;
 
     setInputValue("");
+    setIsLoading(true);
 
     // Reset textarea height
     if (textareaRef.current) {
@@ -537,7 +539,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
             const assistantMessage = await backendApi.requestAssistantResponse(
               remoteSessionId
             );
-            if (!assistantMessage) return;
+            if (!assistantMessage) {
+              setIsLoading(false);
+              return;
+            }
 
             setSessions((prev) => {
               const target = prev[remoteSessionId];
@@ -557,16 +562,25 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               void storage.set("chats", updatedSessions);
               return updatedSessions;
             });
+            setIsLoading(false);
           } catch (error) {
             console.error(
               `[CanvAI] Unable to fetch assistant response for session ${remoteSessionId}`,
               error
             );
+            setIsLoading(false);
           }
         })();
       }
     })();
-  }, [activeSessionId, inputValue, persistSessions, sessions, textareaRef]);
+  }, [
+    activeSessionId,
+    inputValue,
+    persistSessions,
+    sessions,
+    textareaRef,
+    isLoading,
+  ]);
 
   const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -785,6 +799,39 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                     </p>
                   </motion.div>
                 ))}
+                {isLoading && (
+                  <motion.div
+                    key="loading"
+                    initial={{ opacity: 0, y: 16, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -16, scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                    className="w-full rounded-2xl border backdrop-blur-md px-6 py-4 bg-white/5 border-white/10 text-slate-200 shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+                  >
+                    <span className="mb-2 block text-[10px] font-mono uppercase tracking-[0.35em] text-slate-400">
+                      assistant
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1">
+                        <div
+                          className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
+                      </div>
+                      <span className="text-sm text-slate-400">
+                        Thinking...
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
               </AnimatePresence>
               {!activeSession?.messages.length && (
                 <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-8 py-10 text-center shadow-lg">
@@ -823,8 +870,15 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                     }}
                     onKeyDown={handleInputKeyDown}
                     rows={1}
-                    placeholder="Ask anything..."
-                    className="canvai-input-textarea w-full resize-none rounded-full border-2 border-white/20 bg-[rgba(40,39,45,0.97)] backdrop-blur-2xl px-6 py-4 pr-14 text-base text-[#EEEEEE] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)_inset,0_0_60px_rgba(0,173,181,0.1)] placeholder:text-slate-400 transition-all duration-300 focus:border-[#00ADB5] focus:bg-[rgba(40,39,45,0.99)] focus:outline-none focus:shadow-[0_16px_64px_rgba(0,173,181,0.4),0_0_0_1px_rgba(0,173,181,0.3)_inset,0_0_80px_rgba(0,173,181,0.2)] hover:border-white/30 hover:shadow-[0_14px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.12)_inset]"
+                    placeholder={
+                      isLoading ? "Waiting for response..." : "Ask anything..."
+                    }
+                    disabled={isLoading}
+                    className={`canvai-input-textarea w-full resize-none rounded-full border-2 backdrop-blur-2xl px-6 py-4 pr-14 text-base text-[#EEEEEE] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)_inset,0_0_60px_rgba(0,173,181,0.1)] placeholder:text-slate-400 transition-all duration-300 ${
+                      isLoading
+                        ? "border-white/10 bg-[rgba(40,39,45,0.5)] cursor-not-allowed opacity-60"
+                        : "border-white/20 bg-[rgba(40,39,45,0.97)] focus:border-[#00ADB5] focus:bg-[rgba(40,39,45,0.99)] focus:outline-none focus:shadow-[0_16px_64px_rgba(0,173,181,0.4),0_0_0_1px_rgba(0,173,181,0.3)_inset,0_0_80px_rgba(0,173,181,0.2)] hover:border-white/30 hover:shadow-[0_14px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.12)_inset]"
+                    }`}
                     style={{
                       minHeight: "56px",
                       maxHeight: "112px",
