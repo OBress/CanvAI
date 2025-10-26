@@ -52,11 +52,59 @@ import json
 import re
 import ast
 import os
+import sys
+from pathlib import Path
+from typing import Optional
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # ======= CONFIGURATION =======
-API_KEY = os.getenv("OPENROUTER_API_KEY")  # replace with your Gemini/OpenRouter API key
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+
+try:
+    from Backend.fast_api.user_store import get_user_value  # type: ignore
+except Exception:  # pragma: no cover - defensive import guard
+    get_user_value = None  # type: ignore
+
+
+def _get_openrouter_api_key() -> str:
+    """Read the OpenRouter key from the user store, falling back to env."""
+
+    key_from_store: Optional[str] = None
+
+    if get_user_value is not None:
+        try:
+            key_from_store = (get_user_value("openrouter_api_key") or "").strip()
+        except Exception:
+            key_from_store = None
+
+    if key_from_store:
+        return key_from_store
+
+    key_from_env = (os.getenv("OPENROUTER_API_KEY") or "").strip()
+    if key_from_env:
+        return key_from_env
+
+    raise RuntimeError(
+        "OpenRouter API key is not configured. Update user settings or env."
+    )
+
+
+def _build_headers() -> dict:
+    """Construct the authorization headers using the latest API key."""
+
+    api_key = _get_openrouter_api_key()
+    return {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+
 MODEL = "google/gemini-2.5-pro"
 ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 
@@ -161,10 +209,10 @@ def _parse_to_dict(json_like: str):
 
 # ======= MAIN FUNCTION =======
 def query_to_structured(user_query: str):
-    headers = {
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json"
-    }
+    try:
+        headers = _build_headers()
+    except RuntimeError as exc:
+        return {"error": str(exc)}
 
     data = {
         "model": MODEL,
@@ -214,10 +262,10 @@ def generate_user_response_from_file(user_query: str, file_path: str):
     # Read the file content
     relevant_info_text = file_path
 
-    headers = {
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json"
-    }
+    try:
+        headers = _build_headers()
+    except RuntimeError as exc:
+        return f"Configuration error: {exc}"
 
     # System instructions for the model
     system_prompt = """

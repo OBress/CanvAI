@@ -1,8 +1,9 @@
 import sys
 import asyncio
-from contextlib import asynccontextmanager
+import subprocess
+from contextlib import asynccontextmanager, suppress
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import uvicorn
 from fastapi import FastAPI
@@ -48,6 +49,11 @@ REQUIRED_API_KEY_FIELDS = [
     "openrouter_api_key",
 ]
 
+API_KEYS_READY = asyncio.Event()
+API_KEY_WATCH_TASK: Optional[asyncio.Task] = None
+SCRAPING_TASK: Optional[asyncio.Task] = None
+SCRAPING_COMPLETED = False
+
 
 def _missing_api_keys() -> List[str]:
     """Return a list of required API keys that are still blank."""
@@ -55,21 +61,23 @@ def _missing_api_keys() -> List[str]:
     return [field for field in REQUIRED_API_KEY_FIELDS if not values.get(field)]
 
 
-async def _wait_for_api_keys() -> None:
-    """Block startup until every API key has been provided, logging progress."""
+async def wait_for_api_keys(poll_interval: float = 2.0) -> None:
+    """Poll until every API key has been provided, logging progress."""
     pending = _missing_api_keys()
     if not pending:
-        print("[CanvAI] All API keys detected. DONE!")
+        if not API_KEYS_READY.is_set():
+            API_KEYS_READY.set()
+        print("[CanvAI] API keys finished.")
         return
 
     print(
-        "[CanvAI] Waiting for required API keys before enabling backend: "
+        "[CanvAI] Waiting for required API keys: "
         + ", ".join(pending)
     )
 
     try:
         while pending:
-            await asyncio.sleep(2)
+            await asyncio.sleep(poll_interval)
             pending = _missing_api_keys()
             if pending:
                 print(
@@ -83,11 +91,106 @@ async def _wait_for_api_keys() -> None:
         )
         return
 
-    print("[CanvAI] All API keys detected. DONE!")
+    API_KEYS_READY.set()
+    print("[CanvAI] API keys finished.")
+    _ensure_canvas_scrape()
+
+
+async def _run_command(command: List[str], cwd: Path) -> None:
+    """Run a shell command in a thread, raising on failure."""
+    def _runner() -> None:
+        subprocess.run(command, check=True, cwd=str(cwd))
+
+    await asyncio.to_thread(_runner)
+
+
+async def run_canvas_pipeline() -> None:
+    """Execute the Canvas scraping workflow sequentially."""
+    global SCRAPING_COMPLETED
+    global SCRAPING_TASK
+    if SCRAPING_COMPLETED:
+        return
+
+    scraping_dir = PROJECT_ROOT / "scraping"
+    python_bin = sys.executable
+
+    commands: List[List[str]] = [
+        [
+            python_bin,
+            "scripts/export_canvas_users.py",
+            "--user-ids-file",
+            "users_self.txt",
+            "--out-csv",
+            "data/canvas_user_self.csv",
+            "--live",
+        ],
+        [
+            python_bin,
+            "scripts/get_user_grades.py",
+            "--user-id",
+            "self",
+            "--out-csv",
+            "data/user_grades_self.csv",
+            "--live",
+        ],
+        [python_bin, "scripts/get_courses.py"],
+        [python_bin, "scripts/json_to_csv.py"],
+        [python_bin, "scripts/export_via_http.py"],
+        [python_bin, "scripts/download_from_files_csv.py"],
+        [python_bin, "scripts/extract_text_from_downloads.py"],
+        [python_bin, "scripts/extract_text_from_videos.py"],
+        [
+            python_bin,
+            "scripts/generate_summaries_gemini.py",
+            "--input-root",
+            "extracted_text",
+            "--out-csv",
+            "extracted_text/summaries.csv",
+            "--sleep",
+            "0.5",
+            "--max-chars",
+            "300",
+        ],
+    ]
+
+    try:
+        for command in commands:
+            try:
+                print(f"[CanvAI] Running {' '.join(command)}")
+                await _run_command(command, scraping_dir)
+            except subprocess.CalledProcessError as exc:
+                print(f"[CanvAI] Command failed ({' '.join(command)}): {exc}")
+                return
+            except Exception as exc:
+                print(f"[CanvAI] Unexpected error running {' '.join(command)}: {exc}")
+                return
+
+        SCRAPING_COMPLETED = True
+        print("[CanvAI] Canvas scraping pipeline completed.")
+    finally:
+        SCRAPING_TASK = None
+
+
+def _ensure_api_key_watch() -> None:
+    """Start the background watcher if it is not already running."""
+    global API_KEY_WATCH_TASK
+    if API_KEY_WATCH_TASK is None or API_KEY_WATCH_TASK.done():
+        API_KEY_WATCH_TASK = asyncio.create_task(wait_for_api_keys())
+
+
+def _ensure_canvas_scrape() -> None:
+    """Kick off the Canvas scraping pipeline if not already running/completed."""
+    global SCRAPING_TASK
+    if SCRAPING_COMPLETED:
+        return
+    if SCRAPING_TASK is None or SCRAPING_TASK.done():
+        SCRAPING_TASK = asyncio.create_task(run_canvas_pipeline())
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    global API_KEY_WATCH_TASK
+    global SCRAPING_TASK
     # Initialize vector stores for all CSV files
     data_dir = PROJECT_ROOT / "sample_data"
     # All filetypes that are going made into vector stores
@@ -112,13 +215,22 @@ async def lifespan(app: FastAPI):
 
     ensure_chat_storage()
     ensure_user_storage()
-    await _wait_for_api_keys()
+    _ensure_api_key_watch()
 
     #TODO: Initialize Canvas API and populate extract_text files (if time allows)
-    
-
-
-    yield
+    try:
+        yield
+    finally:
+        if API_KEY_WATCH_TASK is not None:
+            API_KEY_WATCH_TASK.cancel()
+            with suppress(asyncio.CancelledError):
+                await API_KEY_WATCH_TASK
+            API_KEY_WATCH_TASK = None
+        if SCRAPING_TASK is not None:
+            SCRAPING_TASK.cancel()
+            with suppress(asyncio.CancelledError):
+                await SCRAPING_TASK
+            SCRAPING_TASK = None
 
 
 app = FastAPI(lifespan=lifespan)
@@ -139,6 +251,9 @@ app.add_middleware(
 async def search(query: str):
     missing = _missing_api_keys()
     if missing:
+        if API_KEYS_READY.is_set():
+            API_KEYS_READY.clear()
+        _ensure_api_key_watch()
         message = (
             "Required API keys are missing. Please add: "
             + ", ".join(missing)
