@@ -66,74 +66,34 @@ table(s) and which columns must be queried to answer the request.
 DATABASE SCHEMA DEFINITIONS:
 
 users
-- ID
-- NAME
-- SCHOOL
-- GPA
-- CREDITS
-- MAJOR
-- GOALS
-- GRAD_DATE
+columns in this table: id,name,short_name,primary_email,login_id,time_zone
 
 courses
-- ID
-- CANVAS_ID
-- NAME
-- SECTION
-- GRADE
-- PROFESSOR
-- TAs
+columns in this table: id,name,course_code,calendar_ics
 
 course_content_summary
-- ID
-- CANVAS_CONTENT_ID
-- CANVAS_COURSE_ID
-- TYPE (assignment, lecture, syllabus, email, announcement)
-- TITLE
-- DATE
-- LINK
-- IS_COMPLETED
-- GRADE
-- SUMMARY
+columns in this table: canvas_id,course_name,type,title,date,link,is_completed,grade,summary,text_id
 
-course_content
-- ID
-- CANVAS_CONTENT_ID
-- FULL_TEXT
-
-chat_sessions
-- ID
-- USER_ID
-- TITLE
-- CREATED_AT
-
-chat_messages
-- ID
-- SESSION_ID
-- SENDER
-- MESSAGE
-- TIMESTAMP
+grades 
+columns in this table: course_id,course_name,assignment_name,points_possible,submission_score,submission_grade
 
 
 TABLE SELECTION GUIDELINES:
 
-users
-Student details (GPA, major, name, goals, credits, graduation)
+Student-related details
+Examples: who the student is, their email, timezone, etc.
 
 courses
-Course details or course grade (class list, professor, section, final grade)
+Core course details
+Examples: course name, course code, calendar info
 
 course_content_summary
-Assignments, announcements, syllabus metadata, lecture listings,
-completion status, assignment grades
+Everything that looks like course materials or tasks in a list format
+Examples: assignments, announcements, completion status, linked resources, due dates
 
-course_content
-Requests to read/show/view full text content for assignments,
-announcements, syllabus, emails, lectures
-
-chat_sessions or chat_messages
-Messaging history, titles, timestamps, text queries
-
+grades
+Grade and scoring data
+Examples: assignment scores, points possible, final grade in a course
 
 OUTPUT RULE:
 Provide ONLY a valid JSON object in this format:
