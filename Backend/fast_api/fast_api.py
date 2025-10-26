@@ -217,7 +217,6 @@ async def lifespan(app: FastAPI):
     ensure_user_storage()
     _ensure_api_key_watch()
 
-    #TODO: Initialize Canvas API and populate extract_text files (if time allows)
     try:
         yield
     finally:
