@@ -199,7 +199,7 @@ def query_to_structured(user_query: str):
         }
 
 
-def generate_user_response_from_file(user_query: str, file_path: str):
+def generate_user_response_from_file(user_query: str, file_path: str, conversation_history=None):
     """
     Takes a user's query and a text file with relevant information,
     and generates a natural language response using the Gemini/OpenRouter API.
@@ -207,6 +207,7 @@ def generate_user_response_from_file(user_query: str, file_path: str):
     Parameters:
         user_query (str): The user's original query.
         file_path (str): Path to a .txt file containing the relevant info.
+        conversation_history (list): List of previous messages for context (optional).
 
     Returns:
         str: The response text for the user.
@@ -224,13 +225,26 @@ def generate_user_response_from_file(user_query: str, file_path: str):
 Use the provided information to generate helpful, concise, and natural responses.
 
 - You may infer or summarize key insights as long as they are grounded in the provided data.
-- If the data does not explicitly contain an answer, offer an educated summary or note patterns instead of saying you don’t know.
-- Keep your tone natural and clear."""
+- If the data does not explicitly contain an answer, offer an educated summary or note patterns instead of saying you don't know.
+- Keep your tone natural and clear.
+- Use the conversation history to provide contextually relevant answers and maintain conversation flow.
+- disregard any random information, like "i don't know", "i forget", etc. If the user asks for a study guide or somehting, just give it, and leave the rest. don't get confused with the user's additional useless info. 
+"""
+
+    # Build the conversation history context
+    history_context = ""
+    if conversation_history:
+        history_context = "\n\nConversation History:\n"
+        for msg in conversation_history:
+            sender = msg.get("sender", "unknown")
+            message = msg.get("message", "")
+            history_context += f"{sender.capitalize()}: {message}\n"
 
     user_content = f"""
 User Query: {user_query}
+{history_context}
 
-Relevant Information (from file):
+Relevant Information (from database):
 {relevant_info_text}
 """
 

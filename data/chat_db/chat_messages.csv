@@ -34,3 +34,20 @@ You've received 100/100 on all your homeworks and 20/20 on all your quizzes.
 It seems that Quiz 11 and Quiz 12 have not been graded yet. Keep up the excellent work",2025-10-26T16:59:35Z
 25,13,user,thanks for the information!,2025-10-26T16:59:45.431Z
 26,13,assistant,"I couldn't find anything in your records that matches that just yet, but I'll keep looking as you share more.",2025-10-26T16:59:58Z
+27,14,user,give me my grades for cmpsc 465,2025-10-26T17:05:02.823Z
+28,14,assistant,"Of course! Here are your grades for CMPSC 465, Data Structures and Algorithms.
+
+It looks like you're doing very well on your homeworks and quizzes, with perfect scores on most of the recent quizzes. Here is a full breakdown:
+
+*   **Midterm1:** 54 / 74
+*   **HW1:** 98.5 / 100
+*   **HW5:** 89 / 100
+*   **Quiz1:** 6 / 10
+*   **Quiz 3:** 10 / 10
+*   **Quiz4:** 10 / 10
+*   **Quiz5:** 10 / 10
+*   **Quiz6:** 10 / 10
+
+Your Final Exam has not been graded yet.",2025-10-26T17:05:24Z
+29,14,user,what is my lowest score out of these,2025-10-26T17:06:07.293Z
+30,14,assistant,"Looking at the percentages, your lowest score is from **Quiz 1**, where you received a 6 out of 10, or 60%. Your next lowest is your Midterm 1 score, which was about 73%.",2025-10-26T17:06:29Z

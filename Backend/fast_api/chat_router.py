@@ -2,7 +2,7 @@
 
 import sys
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException
 
@@ -59,8 +59,15 @@ def _latest_user_message(session_id: int) -> str:
     return ""
 
 
-def _collect_relevant_context(user_query: str) -> str:
-    """Run the vector search + LLM summarization pipeline."""
+def _get_last_n_messages(session_id: int, n: int = 10) -> List[Dict]:
+    """Return the last N messages from a chat session for conversation context."""
+    messages = list_chat_messages(session_id)
+    # Return the last N messages (or all if fewer than N exist)
+    return messages[-n:] if len(messages) > n else messages
+
+
+def _collect_relevant_context(user_query: str, conversation_history: Optional[List[Dict]] = None) -> str:
+    """Run the vector search + LLM summarization pipeline with conversation context."""
     try:
         structured = query_to_structured(user_query)
     except Exception as exc:  # defensive: LLM call may fail
@@ -102,6 +109,7 @@ def _collect_relevant_context(user_query: str) -> str:
         response = generate_user_response_from_file(
             user_query=user_query,
             file_path=combined_context,
+            conversation_history=conversation_history,
         )
     except Exception as exc:
         return f"I found some notes but couldn't craft a response ({exc})."
@@ -201,7 +209,9 @@ async def request_assistant_response_endpoint(session_id: int) -> Dict:
     if not user_query:
         reply_text = "I'm ready whenever you are—what can I help you with today?"
     else:
-        reply_text = _collect_relevant_context(user_query)
+        # Get the last 10 messages for conversation context
+        conversation_history = _get_last_n_messages(session_id, n=10)
+        reply_text = _collect_relevant_context(user_query, conversation_history)
 
     message_row = create_chat_message(session_id, "assistant", reply_text)
     return {"message": format_message(message_row)}
