@@ -1,4 +1,5 @@
 import sys
+import asyncio
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import List
@@ -54,6 +55,37 @@ def _missing_api_keys() -> List[str]:
     return [field for field in REQUIRED_API_KEY_FIELDS if not values.get(field)]
 
 
+async def _wait_for_api_keys() -> None:
+    """Block startup until every API key has been provided, logging progress."""
+    pending = _missing_api_keys()
+    if not pending:
+        print("[CanvAI] All API keys detected. DONE!")
+        return
+
+    print(
+        "[CanvAI] Waiting for required API keys before enabling backend: "
+        + ", ".join(pending)
+    )
+
+    try:
+        while pending:
+            await asyncio.sleep(2)
+            pending = _missing_api_keys()
+            if pending:
+                print(
+                    "[CanvAI] Still waiting for API keys: "
+                    + ", ".join(pending)
+                )
+    except asyncio.CancelledError:
+        print(
+            "[CanvAI] Shutdown requested while waiting for API keys. "
+            "Exiting startup loop."
+        )
+        return
+
+    print("[CanvAI] All API keys detected. DONE!")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Initialize vector stores for all CSV files
@@ -80,8 +112,11 @@ async def lifespan(app: FastAPI):
 
     ensure_chat_storage()
     ensure_user_storage()
+    await _wait_for_api_keys()
 
     #TODO: Initialize Canvas API and populate extract_text files (if time allows)
+    
+
 
     yield
 
