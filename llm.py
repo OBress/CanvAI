@@ -47,12 +47,11 @@
 #     result = query_to_structured(user_input)
 #     print("\nStructured Query Output:\n", result)
 
+import csv
 import requests
 import json
 import re
 import ast
-import os
-import sys
 from pathlib import Path
 from typing import Optional
 
@@ -63,35 +62,29 @@ load_dotenv()
 # ======= CONFIGURATION =======
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.append(str(PROJECT_ROOT))
-
-try:
-    from Backend.fast_api.user_store import get_user_value  # type: ignore
-except Exception:  # pragma: no cover - defensive import guard
-    get_user_value = None  # type: ignore
+USER_SETTINGS_PATH = PROJECT_ROOT / "data" / "user_db" / "user_settings.csv"
 
 
 def _get_openrouter_api_key() -> str:
-    """Read the OpenRouter key from the user store, falling back to env."""
+    """Read the OpenRouter API key from the CSV user store."""
 
     key_from_store: Optional[str] = None
 
-    if get_user_value is not None:
+    if USER_SETTINGS_PATH.exists():
         try:
-            key_from_store = (get_user_value("openrouter_api_key") or "").strip()
+            with USER_SETTINGS_PATH.open("r", newline="", encoding="utf-8") as fp:
+                reader = csv.DictReader(fp)
+                first_row = next(reader, None)
+                if first_row:
+                    key_from_store = (first_row.get("openrouter_api_key", "") or "").strip()
         except Exception:
             key_from_store = None
 
     if key_from_store:
         return key_from_store
 
-    key_from_env = (os.getenv("OPENROUTER_API_KEY") or "").strip()
-    if key_from_env:
-        return key_from_env
-
     raise RuntimeError(
-        "OpenRouter API key is not configured. Update user settings or env."
+        "OpenRouter API key is not configured in data/user_db/user_settings.csv."
     )
 
 
