@@ -51,9 +51,12 @@ import requests
 import json
 import re
 import ast
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # ======= CONFIGURATION =======
-API_KEY = "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"  # replace with your Gemini/OpenRouter API key
+API_KEY = os.getenv("OPENROUTER_API_KEY")  # replace with your Gemini/OpenRouter API key
 MODEL = "google/gemini-2.5-pro"
 ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 
