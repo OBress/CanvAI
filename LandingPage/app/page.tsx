@@ -338,15 +338,12 @@ export default function Home() {
                     Welcome to the future of using Canvas.
                   </span>
                 </p>
-                <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
+                <div className="relative z-50 flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
                   <MagneticButton
                     size="lg"
                     variant="primary"
                     onClick={() =>
-                      window.open(
-                        "https://v0.app/templates/R3n0gnvYFbO",
-                        "_blank"
-                      )
+                      window.open("https://github.com/OBress/CanvAI", "_blank")
                     }
                   >
                     Install Now
@@ -354,7 +351,12 @@ export default function Home() {
                   <MagneticButton
                     size="lg"
                     variant="secondary"
-                    onClick={() => scrollToSection(2)}
+                    onClick={() =>
+                      window.open(
+                        "https://devpost.com/software/canvai-oqu6j7",
+                        "_blank"
+                      )
+                    }
                   >
                     View Demo
                   </MagneticButton>

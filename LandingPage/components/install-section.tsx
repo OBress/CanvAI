@@ -53,61 +53,20 @@ export function AboutSection({
             </div>
           </div>
 
-          {/* Right side - Stats with creative layout */}
-          <div className="flex flex-col justify-center space-y-6 md:space-y-12">
-            {[
-              {
-                value: "150+",
-                label: "Projects",
-                sublabel: "Delivered worldwide",
-                direction: "right",
-              },
-              {
-                value: "8",
-                label: "Years",
-                sublabel: "Of innovation",
-                direction: "left",
-              },
-              {
-                value: "12",
-                label: "Awards",
-                sublabel: "Industry recognition",
-                direction: "right",
-              },
-            ].map((stat, i) => {
-              const getRevealClass = () => {
-                if (!isVisible) {
-                  return stat.direction === "left"
-                    ? "-translate-x-16 opacity-0"
-                    : "translate-x-16 opacity-0";
-                }
-                return "translate-x-0 opacity-100";
-              };
-
-              return (
-                <div
-                  key={i}
-                  className={`flex items-baseline gap-4 border-l border-foreground/30 pl-4 transition-all duration-700 md:gap-8 md:pl-8 ${getRevealClass()}`}
-                  style={{
-                    transitionDelay: `${300 + i * 150}ms`,
-                    marginLeft: i % 2 === 0 ? "0" : "auto",
-                    maxWidth: i % 2 === 0 ? "100%" : "85%",
-                  }}
-                >
-                  <div className="text-3xl font-light text-foreground md:text-6xl lg:text-7xl">
-                    {stat.value}
-                  </div>
-                  <div>
-                    <div className="font-sans text-base font-light text-foreground md:text-xl">
-                      {stat.label}
-                    </div>
-                    <div className="font-mono text-xs text-foreground/60">
-                      {stat.sublabel}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          {/* Right side - Installation instructions */}
+          <div className="flex flex-col justify-center">
+            <div
+              className={`transition-all duration-700 ${
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-12 opacity-0"
+              }`}
+              style={{ transitionDelay: "300ms" }}
+            >
+              <p className="text-center text-2xl font-light leading-relaxed text-foreground md:text-4xl lg:text-5xl">
+                Follow the GitHub directory's directions for installation.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -124,7 +83,9 @@ export function AboutSection({
             <MagneticButton
               size="lg"
               variant="primary"
-              onClick={() => scrollToSection?.(4)}
+              onClick={() =>
+                window.open("https://github.com/OBress/CanvAI", "_blank")
+              }
             >
               Open The Github
             </MagneticButton>

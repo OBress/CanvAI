@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CanvAI - Canvas Learning Assistant",
+  title: "CanvAI",
   description:
     "CanvAI is a learning assistant that helps you learn faster and smarter.",
   generator: "CanvAI",

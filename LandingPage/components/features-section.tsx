@@ -10,7 +10,7 @@ export function ServicesSection() {
       ref={ref}
       className="flex min-h-screen w-screen shrink-0 snap-start items-center px-6 py-20 md:px-12 lg:px-16"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-[1600px]">
         <div
           className={`mb-12 transition-all duration-700 md:mb-16 ${
             isVisible
@@ -26,25 +26,28 @@ export function ServicesSection() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3 md:gap-x-8 lg:gap-x-12">
+        <div className="grid gap-10 md:grid-cols-3 md:gap-x-10 lg:gap-x-16">
           {[
             {
               title: "Find Course Material",
               description:
                 "Automatically find course material between lectures and assignments and answer your questions.",
               direction: "top",
+              image: "/find_course_content.png",
             },
             {
-              title: "Automatic What If Reports",
+              title: "Summarize Lectures",
               description:
-                "Can calculate theoritical grade scores for assignments and give back the grade in a class.",
+                "Summarize lectures and assignments for you to review or quiz yourself on.",
               direction: "top",
+              image: "/summarize_lecture.png",
             },
             {
               title: "Content On Your Midterm",
               description:
                 "Scans your lectures and practice tests to create review material for your midterm exam.",
               direction: "top",
+              image: "/exam_study_material.png",
             },
           ].map((service, i) => (
             <ServiceCard
@@ -65,7 +68,12 @@ function ServiceCard({
   index,
   isVisible,
 }: {
-  service: { title: string; description: string; direction: string };
+  service: {
+    title: string;
+    description: string;
+    direction: string;
+    image: string;
+  };
   index: number;
   isVisible: boolean;
 }) {
@@ -110,17 +118,17 @@ function ServiceCard({
       {/* Floating Glass Panel Image Container */}
       <div className="relative mt-auto">
         <div
-          className="group/image relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md transition-all duration-500 hover:scale-[1.02] hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_-15px_rgba(255,255,255,0.3)]"
+          className="group/image relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md transition-all duration-500 hover:scale-[1.02] hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_-15px_rgba(255,255,255,0.3)]"
           style={{
             transform: "translateZ(50px)",
           }}
         >
-          {/* Placeholder for image - you can replace this div with an <img> tag */}
-          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-white/10 to-transparent">
-            <span className="font-mono text-xs text-foreground/40">
-              Image {index + 1}
-            </span>
-          </div>
+          {/* Feature image */}
+          <img
+            src={service.image}
+            alt={service.title}
+            className="h-full w-full object-contain"
+          />
 
           {/* Glass reflection effect */}
           <div className="pointer-events-none absolute inset-0 bg-linear-to-tr from-transparent via-white/5 to-white/20" />
