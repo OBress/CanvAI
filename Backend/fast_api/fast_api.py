@@ -21,9 +21,13 @@ from llm import query_to_structured, generate_user_response_from_file  # noqa: E
 if __package__ in (None, ""):
     from chat_store import ensure_chat_storage  # type: ignore  # noqa: E402
     from chat_router import router as chat_router  # type: ignore  # noqa: E402
+    from user_store import ensure_user_storage  # type: ignore  # noqa: E402
+    from user_router import router as user_router  # type: ignore  # noqa: E402
 else:
     from .chat_store import ensure_chat_storage  # noqa: E402
     from .chat_router import router as chat_router  # noqa: E402
+    from .user_store import ensure_user_storage  # noqa: E402
+    from .user_router import router as user_router  # noqa: E402
 
 
 @asynccontextmanager
@@ -53,12 +57,14 @@ async def lifespan(app: FastAPI):
     #TODO: Initialize Canvas API and populate extract_text files (if time allows)
 
     ensure_chat_storage()
+    ensure_user_storage()
 
     yield
 
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(chat_router)
+app.include_router(user_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
