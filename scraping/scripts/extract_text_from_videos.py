@@ -6,11 +6,11 @@ under `files/` create `extracted_text/<ext>/safe__path.txt` containing the trans
 from __future__ import annotations
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
 import traceback
 
-load_dotenv()
+# Load environment variables from csv
+import load_user_settings
 elevenlabs = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
 
 # Use same layout as extract_text_from_downloads: ROOT is the container directory for this script

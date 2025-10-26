@@ -22,7 +22,6 @@ import time
 import argparse
 from pathlib import Path
 from typing import Optional
-from dotenv import load_dotenv
 
 try:
     from google import genai
@@ -30,7 +29,8 @@ except Exception:  # ImportError or similar
     genai = None
 
 # Load .env early so GEMINI_KEY (if present) is available to set env vars used by the client
-load_dotenv()
+import load_user_settings
+
 GEMINI_KEY = os.getenv("GEMINI_KEY")
 if GEMINI_KEY:
     # Many GenAI clients accept GOOGLE_API_KEY or custom vars; set a couple of env vars

@@ -24,9 +24,9 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
+# Load environment variables from csv
+import load_user_settings
 
 
 def get_auth(headers: Dict[str, str], params: Dict[str, str]):
