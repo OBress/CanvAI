@@ -235,9 +235,71 @@ def query_to_structured(user_query: str):
             "cleaned_attempt": cleaned if 'cleaned' in locals() else None
         }
 
-# ======= CLI =======
+
+def generate_user_response_from_file(user_query: str, file_path: str):
+    """
+    Takes a user's query and a text file with relevant information,
+    and generates a natural language response using the Gemini/OpenRouter API.
+
+    Parameters:
+        user_query (str): The user's original query.
+        file_path (str): Path to a .txt file containing the relevant info.
+
+    Returns:
+        str: The response text for the user.
+    """
+    # Read the file content
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            relevant_info_text = f.read()
+    except Exception as e:
+        return f"Failed to read file: {e}"
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    # System instructions for the model
+    system_prompt = """
+You are a helpful academic assistant. You have access to information from a student + course
+management system. Use the relevant data provided to answer the user's question in natural, friendly,
+and concise language. Do not invent any information. If the data does not contain the answer, politely say so.
+"""
+
+    user_content = f"""
+User Query: {user_query}
+
+Relevant Information (from file):
+{relevant_info_text}
+"""
+
+    data = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content}
+        ],
+        "temperature": 0.7
+    }
+
+    resp = requests.post(ENDPOINT, headers=headers, json=data)
+
+    if resp.status_code != 200:
+        return f"API Error {resp.status_code}: {resp.text}"
+
+    try:
+        reply = resp.json()["choices"][0]["message"]["content"]
+    except Exception:
+        reply = resp.json().get("response") or str(resp.json())
+
+    return reply
+
+
 if __name__ == "__main__":
     user_input = input("Enter your query: ")
     result = query_to_structured(user_input)
     print("\nStructured Query Output:\n", json.dumps(result, indent=4))
-
+    
+    response = generate_user_response_from_file(user_input, "/Users/rohiinhavre/CanvAI/message (5).txt")
+    print("\nModel Response:\n", response)
