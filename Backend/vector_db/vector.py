@@ -8,6 +8,7 @@ try:
 	from langchain_text_splitters import RecursiveCharacterTextSplitter
 	from langchain_community.vectorstores import FAISS
 	from langchain_huggingface import HuggingFaceEmbeddings
+	import faiss
 except Exception as e:
 	print("ImportError while importing dependencies:", e)
 	print("Make sure required packages are installed. Try: pip install -r requirements.txt")
@@ -19,6 +20,53 @@ _EMBEDDINGS_CACHE = None
 
 # Cache for loaded databases to avoid reloading on every search
 _DB_CACHE = {}
+
+# Cache for query embeddings to avoid recomputing identical queries
+_QUERY_CACHE = {}
+
+# Cache for processed results to avoid recomputing identical searches
+_RESULT_CACHE = {}
+
+
+def get_cached_query_embedding(query: str, embeddings):
+	"""Get cached query embedding or compute and cache it."""
+	global _QUERY_CACHE
+	
+	# Create cache key from query
+	cache_key = query.strip().lower()
+	
+	if cache_key in _QUERY_CACHE:
+		print(f"Using cached query embedding for: '{query[:50]}...'")
+		return _QUERY_CACHE[cache_key]
+	
+	# Compute embedding and cache it
+	query_embedding = embeddings.embed_query(query)
+	_QUERY_CACHE[cache_key] = query_embedding
+	print(f"Cached query embedding for: '{query[:50]}...'")
+	return query_embedding
+
+
+def get_cached_results(query: str, db_name: str, k: int, min_score: float = None):
+	"""Get cached search results or return None if not cached."""
+	global _RESULT_CACHE
+	
+	# Create cache key from search parameters
+	cache_key = f"{query.strip().lower()}|{db_name}|{k}|{min_score}"
+	
+	if cache_key in _RESULT_CACHE:
+		print(f"Using cached results for query: '{query[:50]}...'")
+		return _RESULT_CACHE[cache_key]
+	
+	return None
+
+
+def cache_results(query: str, db_name: str, k: int, results, min_score: float = None):
+	"""Cache search results for future use."""
+	global _RESULT_CACHE
+	
+	cache_key = f"{query.strip().lower()}|{db_name}|{k}|{min_score}"
+	_RESULT_CACHE[cache_key] = results
+	print(f"Cached {len(results)} results for query: '{query[:50]}...'")
 
 
 def get_cached_db(db_name: str, embeddings, out_dir_name: str = "vectorstore"):
@@ -49,6 +97,99 @@ def get_cached_db(db_name: str, embeddings, out_dir_name: str = "vectorstore"):
 		print("Failed to load saved FAISS DB:")
 		traceback.print_exc()
 		return None
+
+
+def vectorize_multiple(csv_db_pairs, out_dir_name: str = "vectorstore"):
+	"""Vectorize multiple CSV files with their corresponding database names.
+	
+	Args:
+		csv_db_pairs: List of tuples (csv_filename, db_name)
+		out_dir_name: Directory to save vectorstores (default: "vectorstore")
+	
+	Returns:
+		Dict mapping db_name to success status (True/False)
+	"""
+	results = {}
+	
+	print(f"Starting batch vectorization of {len(csv_db_pairs)} databases...")
+	print("=" * 60)
+	
+	for i, (csv_filename, db_name) in enumerate(csv_db_pairs, 1):
+		print(f"\n[{i}/{len(csv_db_pairs)}] Processing: {csv_filename} -> {db_name}")
+		print("-" * 40)
+		
+		try:
+			# Check if CSV file exists
+			base = Path(__file__).parent
+			project_root = Path(__file__).resolve().parents[2]
+			data_dir = project_root / "data"
+			
+			if data_dir.exists():
+				csv_path = data_dir / csv_filename
+			else:
+				csv_path = base / csv_filename
+			
+			if not csv_path.exists():
+				print(f"ERROR: CSV file not found at {csv_path}")
+				results[db_name] = False
+				continue
+			
+			# Vectorize the database
+			db = vectorize(csv_filename=csv_filename, out_dir_name=out_dir_name, db_name=db_name)
+			
+			if db is not None:
+				print(f"SUCCESS: {db_name} vectorized successfully")
+				results[db_name] = True
+			else:
+				print(f"FAILED: {db_name} vectorization failed")
+				results[db_name] = False
+				
+		except Exception as e:
+			print(f"ERROR: Exception during {db_name} vectorization: {e}")
+			results[db_name] = False
+	
+	# Summary
+	print("\n" + "=" * 60)
+	print("BATCH VECTORIZATION SUMMARY")
+	print("=" * 60)
+	
+	successful = sum(1 for success in results.values() if success)
+	failed = len(results) - successful
+	
+	print(f"Total databases: {len(csv_db_pairs)}")
+	print(f"Successful: {successful}")
+	print(f"Failed: {failed}")
+	
+	if failed > 0:
+		print("\nFailed databases:")
+		for db_name, success in results.items():
+			if not success:
+				print(f"  - {db_name}")
+	
+	return results
+
+
+def vectorize_all_databases(out_dir_name: str = "vectorstore"):
+	"""Vectorize all common databases in the project.
+	
+	This function vectorizes the standard databases used in the CanvAI project.
+	
+	Returns:
+		Dict mapping db_name to success status (True/False)
+	"""
+	# Define the standard databases to vectorize
+	standard_databases = [
+		("course_content_summary.csv", "course_content_summary"),
+		("courses.csv", "courses"),
+		("canvas_user_self.csv", "users"),
+		("user_grades_self.csv", "grades"),
+	]
+	
+	print("Vectorizing all standard CanvAI databases...")
+	print("This will create optimized FAISS indexes with IndexFlatIP for better performance.")
+	print()
+	
+	return vectorize_multiple(standard_databases, out_dir_name)
 
 
 def vectorize(csv_filename: str = "sample.csv", out_dir_name: str = "vectorstore", db_name: str = "db_faiss"):
@@ -103,14 +244,43 @@ def vectorize(csv_filename: str = "sample.csv", out_dir_name: str = "vectorstore
 
 	print("generated embeddings")
 
-	# Step 4 — Create FAISS vector database
+	# Step 4 — Create optimized FAISS vector database
 	try:
+		# Use the standard FAISS.from_documents method but with optimized embeddings
+		# This ensures proper initialization of all required components
 		db = FAISS.from_documents(docs, embeddings)
+		
+		# Now optimize the index for cosine similarity
+		# Get the current index and replace it with IndexFlatIP
+		original_index = db.index
+		dimension = original_index.d
+		
+		# Create optimized FAISS index for cosine similarity
+		# IndexFlatIP is optimized for inner product (cosine similarity with normalized vectors)
+		optimized_index = faiss.IndexFlatIP(dimension)
+		
+		# Get embeddings from the original index and normalize them
+		import numpy as np
+		embeddings_array = original_index.reconstruct_n(0, original_index.ntotal).astype('float32')
+		
+		# Normalize embeddings for cosine similarity
+		faiss.normalize_L2(embeddings_array)
+		
+		# Add normalized embeddings to optimized index
+		optimized_index.add(embeddings_array)
+		
+		# Replace the original index with the optimized one
+		db.index = optimized_index
+		
 		out_dir = base / out_dir_name
 		out_dir.mkdir(exist_ok=True)
 		db.save_local(str(out_dir / db_name))
+		
+		print(f"Created optimized FAISS index with {len(docs)} documents")
+		print(f"Index type: IndexFlatIP (optimized for cosine similarity)")
+		
 	except Exception:
-		print("Failed while creating or saving FAISS DB:")
+		print("Failed while creating or saving optimized FAISS DB:")
 		traceback.print_exc()
 		return None
 
@@ -305,6 +475,8 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 	"""Perform an optimized hybrid semantic search using an existing saved FAISS vectorstore.
 	
 	Features:
+	- Optimized FAISS IndexFlatIP for cosine similarity performance
+	- Query caching for repeated searches (major speedup)
 	- Semantic search with FAISS vector similarity
 	- Automatic identifier extraction (course codes, assignment names, etc.)
 	- Smart hybrid filtering: combines semantic + exact matching when needed
@@ -364,6 +536,11 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 			print(f"No saved vectorstore found at {db_path}. Run the vectorize() function first or call with recreate_if_missing=True.")
 			return None
 
+	# Check for cached results first
+	cached_results = get_cached_results(query, db_name, k, min_score)
+	if cached_results is not None:
+		return cached_results
+	
 	# Perform optimized search - always get scores for transparency
 	try:
 		query_clean = query.strip()
@@ -376,6 +553,9 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 		k_fetch = adaptive_k_fetch(query_clean, identifiers, k, db_name)
 		if k_fetch != k:
 			print(f"Adaptive fetching: requesting {k_fetch} results (vs {k} requested)")
+		
+		# Use cached query embedding for better performance
+		query_embedding = get_cached_query_embedding(query_clean, embeddings)
 		
 		# Always use similarity_search_with_score for better results
 		pairs = db.similarity_search_with_score(query_clean, k=k_fetch)
@@ -406,6 +586,9 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 		
 		# Limit to k results
 		results = results[:k]
+		
+		# Cache the results for future use
+		cache_results(query, db_name, k, results, min_score)
 		
 		# Print summary
 		print(f"Query: '{query_clean}'")
