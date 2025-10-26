@@ -51,6 +51,7 @@ async def lifespan(app: FastAPI):
         vectorize(csv_filename=csv_filename, db_name=db_name)
 
     #TODO: Initialize Canvas API and populate extract_text files (if time allows)
+
     ensure_chat_storage()
 
     yield
@@ -65,6 +66,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 # Endpoint to handle search queries
