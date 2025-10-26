@@ -1,6 +1,7 @@
 import sys
 import traceback
 import re
+import csv
 from pathlib import Path
 
 try:
@@ -26,6 +27,97 @@ _QUERY_CACHE = {}
 
 # Cache for processed results to avoid recomputing identical searches
 _RESULT_CACHE = {}
+
+# Cache for course_content mapping to avoid reloading on every search
+_COURSE_CONTENT_CACHE = None
+
+# Cache for course_content_summary data to avoid reloading on every search
+_COURSE_CONTENT_SUMMARY_CACHE = None
+
+
+def get_cached_course_content_mapping():
+	"""Get cached course content mapping or load it if not in cache."""
+	global _COURSE_CONTENT_CACHE
+	
+	if _COURSE_CONTENT_CACHE is not None:
+		return _COURSE_CONTENT_CACHE
+	
+	# Load course_content.csv and create mapping
+	base = Path(__file__).parent
+	project_root = Path(__file__).resolve().parents[2]
+	data_dir = project_root / "data"
+	
+	if data_dir.exists():
+		csv_path = data_dir / "course_content.csv"
+	else:
+		csv_path = base / "course_content.csv"
+	
+	if not csv_path.exists():
+		print(f"Warning: course_content.csv not found at {csv_path}")
+		_COURSE_CONTENT_CACHE = {}
+		return _COURSE_CONTENT_CACHE
+	
+	try:
+		course_content_map = {}
+		with open(csv_path, 'r', encoding='utf-8') as file:
+			# Increase field size limit to handle large text fields
+			csv.field_size_limit(1000000)  # 1MB limit
+			reader = csv.DictReader(file)
+			for row in reader:
+				text_id = row.get('id')
+				full_text = row.get('full_text', '')
+				if text_id:
+					course_content_map[text_id] = full_text
+		
+		_COURSE_CONTENT_CACHE = course_content_map
+		print(f"Loaded course content mapping with {len(course_content_map)} entries")
+		return course_content_map
+		
+	except Exception as e:
+		print(f"Failed to load course_content.csv: {e}")
+		_COURSE_CONTENT_CACHE = {}
+		return _COURSE_CONTENT_CACHE
+
+
+def get_cached_course_content_summary_data():
+	"""Get cached course_content_summary data or load it if not in cache."""
+	global _COURSE_CONTENT_SUMMARY_CACHE
+	
+	if _COURSE_CONTENT_SUMMARY_CACHE is not None:
+		return _COURSE_CONTENT_SUMMARY_CACHE
+	
+	# Load course_content_summary.csv
+	base = Path(__file__).parent
+	project_root = Path(__file__).resolve().parents[2]
+	data_dir = project_root / "data"
+	
+	if data_dir.exists():
+		csv_path = data_dir / "course_content_summary.csv"
+	else:
+		csv_path = base / "course_content_summary.csv"
+	
+	if not csv_path.exists():
+		print(f"Warning: course_content_summary.csv not found at {csv_path}")
+		_COURSE_CONTENT_SUMMARY_CACHE = {}
+		return _COURSE_CONTENT_SUMMARY_CACHE
+	
+	try:
+		summary_data = {}
+		with open(csv_path, 'r', encoding='utf-8') as file:
+			reader = csv.DictReader(file)
+			for row_num, row in enumerate(reader, start=1):  # Start from 1 to match CSVLoader row numbers
+				text_id = row.get('text_id')
+				if text_id and text_id != 'N/A' and text_id.isdigit():
+					summary_data[row_num] = text_id
+		
+		_COURSE_CONTENT_SUMMARY_CACHE = summary_data
+		print(f"Loaded course_content_summary data with {len(summary_data)} entries with valid text_id")
+		return summary_data
+		
+	except Exception as e:
+		print(f"Failed to load course_content_summary.csv: {e}")
+		_COURSE_CONTENT_SUMMARY_CACHE = {}
+		return _COURSE_CONTENT_SUMMARY_CACHE
 
 
 def get_cached_query_embedding(query: str, embeddings):
@@ -214,8 +306,21 @@ def vectorize(csv_filename: str = "sample.csv", out_dir_name: str = "vectorstore
 
 	# Step 1 — Load CSV data
 	try:
-		loader = CSVLoader(file_path=str(csv_path), encoding="utf-8")
+		# Configure CSVLoader to include all columns in metadata
+		loader = CSVLoader(
+			file_path=str(csv_path), 
+			encoding="utf-8",
+			csv_args={'delimiter': ','}
+		)
 		data = loader.load()
+		
+		# For course_content_summary, ensure text_id is in metadata
+		if db_name == "course_content_summary":
+			for doc in data:
+				# The CSVLoader should include all columns, but let's verify text_id is there
+				if 'text_id' not in doc.metadata:
+					print("Warning: text_id not found in metadata for course_content_summary")
+					
 	except Exception:
 		print("Failed to load CSV data:")
 		traceback.print_exc()
@@ -342,9 +447,16 @@ def adaptive_k_fetch(query: str, identifiers: dict, k: int, db_name: str) -> int
 		identifier_count = sum(len(vals) for vals in identifiers.values())
 		return min(k * 3, k + identifier_count * 2)
 	elif db_name == "grades":
-		# Structured data - smaller multiplier
-		identifier_count = sum(len(vals) for vals in identifiers.values())
-		return min(k * 2, k + identifier_count)
+		# For grades database, when course codes are detected, fetch more results
+		# to ensure we find the specific course even if semantic similarity is low
+		if identifiers.get('course_codes'):
+			# Fetch significantly more results when course codes are present
+			# Use a higher multiplier to ensure we find the specific course
+			return min(k * 10, k + 50)  # Fetch up to 10x or k+50, whichever is smaller
+		else:
+			# Structured data - smaller multiplier for other identifiers
+			identifier_count = sum(len(vals) for vals in identifiers.values())
+			return min(k * 2, k + identifier_count)
 	elif db_name in ["courses", "users"]:
 		# Small databases - fetch all or minimal multiplier
 		return k
@@ -368,8 +480,13 @@ def filter_by_identifiers_optimized(results, identifiers: dict):
 			continue
 		
 		for id_val in id_list:
-			# Use case-insensitive search with word boundaries
-			pattern = re.compile(r'\b' + re.escape(str(id_val).lower()) + r'\b', re.IGNORECASE)
+			# For course codes, use more flexible matching to handle course names like "CMPSC461-FA25"
+			if id_type == 'course_codes':
+				# Use flexible matching that allows for hyphens, spaces, and other separators
+				pattern = re.compile(r'\b' + re.escape(str(id_val).lower()) + r'(?:[-_\s]|$)', re.IGNORECASE)
+			else:
+				# Use case-insensitive search with word boundaries for other identifiers
+				pattern = re.compile(r'\b' + re.escape(str(id_val).lower()) + r'\b', re.IGNORECASE)
 			patterns.append(pattern)
 	
 	if not patterns:
@@ -389,10 +506,12 @@ def filter_by_identifiers_optimized(results, identifiers: dict):
 	return filtered
 
 
-def process_scores_batch(pairs, min_score: float = None, batch_size: int = 100):
+def process_scores_batch(pairs, min_score: float = None, batch_size: int = 100, db_name: str = None):
 	"""
 	Process scores in batches to reduce memory allocation overhead.
 	More efficient for large result sets.
+	
+	For course_content_summary, preserve semantic relevance order rather than re-sorting by numerical similarity.
 	"""
 	results = []
 	
@@ -411,22 +530,74 @@ def process_scores_batch(pairs, min_score: float = None, batch_size: int = 100):
 		
 		results.extend(batch_results)
 	
-	# Sort by similarity (highest first)
+	# For course_content_summary, preserve the semantic relevance order from FAISS
+	# rather than re-sorting by numerical similarity score
+	if db_name == 'course_content_summary':
+		# Don't re-sort - preserve the semantic order from FAISS
+		return results
+	
+	# Sort by similarity (highest first) for other databases
 	return sorted(results, key=lambda x: x[1], reverse=True)
 
 
-def should_require_identifier(results, identifiers: dict, threshold: float = 0.5) -> bool:
+def get_database_priorities(db_name: str) -> dict:
 	"""
-	Decide if we should enforce identifier filtering based on how well
-	current results match the identifiers.
+	Get database-specific search priorities and configurations.
+	
+	Returns a dict with priority settings for different databases.
+	"""
+	priorities = {
+		'grades': {
+			'course_name_weight': 2.0,  # Heavily prioritize course names
+			'assignment_name_weight': 1.5,  # Also prioritize assignment names
+			'identifier_threshold': 0.3,  # Lower threshold for filtering
+			'check_top_results': 5,  # Check more top results for identifier matching
+			'boost_course_matches': True,  # Boost results that match course codes
+		},
+		'course_content_summary': {
+			'course_name_weight': 0.8,  # Very low course name priority - prioritize content over course
+			'title_weight': 1.0,  # No title priority
+			'summary_weight': 2.0,  # Maximum summary priority - content is king
+			'identifier_threshold': 0.7,  # Even higher threshold - be very selective with filtering
+			'check_top_results': 7,  # Check even more results before filtering
+			'boost_course_matches': False,  # No special boosting - let semantic similarity work
+		},
+		'courses': {
+			'course_name_weight': 1.5,  # Prioritize course names
+			'course_code_weight': 1.5,  # Also prioritize course codes
+			'identifier_threshold': 0.4,  # Moderate threshold
+			'check_top_results': 3,  # Standard check
+			'boost_course_matches': True,  # Boost course code matches
+		},
+		'users': {
+			'identifier_threshold': 0.5,  # Standard threshold
+			'check_top_results': 3,  # Standard check
+			'boost_course_matches': False,  # No special boosting
+		}
+	}
+	
+	return priorities.get(db_name, {
+		'identifier_threshold': 0.5,
+		'check_top_results': 3,
+		'boost_course_matches': False,
+	})
+
+
+def should_require_identifier(results, identifiers: dict, db_name: str, threshold: float = None) -> bool:
+	"""
+	Decide if we should enforce identifier filtering based on database-specific priorities.
 	
 	If top results don't contain the identifier, we should filter.
 	"""
-	if not any(identifiers.values()):
+	if not identifiers or not any(identifiers.values()):
 		return False
 	
+	priorities = get_database_priorities(db_name)
+	threshold = threshold or priorities.get('identifier_threshold', 0.5)
+	check_count = priorities.get('check_top_results', 3)
+	
 	# Check if top results contain any identifier
-	for doc, score in results[:3]:  # Check top 3 results
+	for doc, score in results[:check_count]:
 		text = doc.page_content.lower()
 		
 		# Check if any identifier appears
@@ -435,6 +606,45 @@ def should_require_identifier(results, identifiers: dict, threshold: float = 0.5
 				return False  # Found identifier in top results, no filtering needed
 	
 	return True  # Identifier not in top results, need to filter
+
+
+def boost_course_matches(results, identifiers: dict, db_name: str) -> list:
+	"""
+	Boost scores for results that match course codes, database-specific.
+	
+	Args:
+		results: List of (Document, score) tuples
+		identifiers: Dict of extracted identifiers
+		db_name: Name of the database
+	
+	Returns:
+		List of (Document, boosted_score) tuples, sorted by boosted score
+	"""
+	priorities = get_database_priorities(db_name)
+	if not priorities.get('boost_course_matches', False) or not identifiers.get('course_codes'):
+		return results
+	
+	boosted_results = []
+	for doc, score in results:
+		boosted_score = score
+		text = doc.page_content.lower()
+		
+		# Check for course code matches and boost score
+		for course_code in identifiers['course_codes']:
+			if re.search(r'\b' + re.escape(str(course_code).lower()) + r'(?:[-_\s]|$)', text, re.IGNORECASE):
+				# Boost score based on database type
+				if db_name == 'grades':
+					boosted_score = min(1.0, score + 0.1)  # Moderate boost for grades
+				elif db_name == 'courses':
+					boosted_score = min(1.0, score + 0.15)  # Higher boost for courses
+				else:
+					boosted_score = min(1.0, score + 0.05)  # Small boost for others
+				break
+		
+		boosted_results.append((doc, boosted_score))
+	
+	# Re-sort by boosted scores
+	return sorted(boosted_results, key=lambda x: x[1], reverse=True)
 
 
 def filter_by_identifiers(results, identifiers: dict):
@@ -459,9 +669,17 @@ def filter_by_identifiers(results, identifiers: dict):
 				continue
 			
 			for id_val in id_list:
-				if str(id_val).lower() in combined_text:
-					match = True
-					break
+				# For course codes, use more flexible matching to handle course names like "CMPSC461-FA25"
+				if id_type == 'course_codes':
+					# Check if the course code appears at the beginning of a word followed by separator or end
+					if re.search(r'\b' + re.escape(str(id_val).lower()) + r'(?:[-_\s]|$)', combined_text, re.IGNORECASE):
+						match = True
+						break
+				else:
+					# Use simple substring matching for other identifiers
+					if str(id_val).lower() in combined_text:
+						match = True
+						break
 			if match:
 				break
 		
@@ -565,10 +783,13 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 			return []
 		
 		# Process scores in batches for better memory efficiency
-		results = process_scores_batch(pairs, min_score)
+		results = process_scores_batch(pairs, min_score, db_name=db_name)
+		
+		# Apply database-specific course match boosting
+		results = boost_course_matches(results, identifiers, db_name)
 		
 		# Smart filtering: only filter if identifiers exist AND top results don't match
-		if has_identifiers and should_require_identifier(results, identifiers):
+		if has_identifiers and should_require_identifier(results, identifiers, db_name):
 			identifier_list = [v for vals in identifiers.values() for v in vals if v]
 			print(f"Detected identifiers: {identifier_list}")
 			print("Top results don't match identifiers - applying optimized filtering...")
@@ -586,6 +807,34 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 		
 		# Limit to k results
 		results = results[:k]
+		
+		# Add full text for top 3 results when searching course_content_summary
+		if db_name == "course_content_summary" and len(results) > 0:
+			course_content_map = get_cached_course_content_mapping()
+			summary_data = get_cached_course_content_summary_data()
+			
+			# Process top 3 results
+			for i, (doc, score) in enumerate(results[:3]):
+				# Get row number from metadata
+				row_num = doc.metadata.get('row')
+				
+				if row_num and row_num in summary_data:
+					text_id = summary_data[row_num]
+					if text_id in course_content_map:
+						full_text = course_content_map[text_id]
+						# Add full_text to the document metadata
+						doc.metadata['full_text'] = full_text
+						doc.metadata['text_id'] = text_id
+						print(f"Added full text for result {i+1} (row: {row_num}, text_id: {text_id})")
+					else:
+						# Mark as no full text available
+						doc.metadata['full_text'] = None
+						doc.metadata['text_id'] = text_id
+						print(f"No full text found for result {i+1} (row: {row_num}, text_id: {text_id})")
+				else:
+					# Mark as no text_id available
+					doc.metadata['full_text'] = None
+					doc.metadata['text_id'] = None
 		
 		# Cache the results for future use
 		cache_results(query, db_name, k, results, min_score)
