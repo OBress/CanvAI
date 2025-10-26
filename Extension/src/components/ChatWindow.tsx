@@ -143,6 +143,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState("");
+  const [devSearchLoading, setDevSearchLoading] = useState(false);
   const activeSessionRef = useRef<string>("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -256,6 +257,40 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     },
     []
   );
+
+  const handleRunDevSearch = useCallback(async () => {
+    setDevSearchLoading(true);
+    try {
+      const response = await fetch(
+        "https://helpful-ambient-consists-labs.trycloudflare.com/search?query=what%20are%20my%20classes.",
+        {
+          method: "GET",
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Search request failed (${response.status})`);
+      }
+
+      const rawBody = await response.text();
+      let parsedBody: unknown = rawBody;
+
+      if (rawBody) {
+        try {
+          parsedBody = JSON.parse(rawBody);
+        } catch {
+          // Non-JSON payloads fall back to raw text for easier debugging.
+        }
+      }
+
+      console.info("[CanvAI] Dev search response:", parsedBody);
+    } catch (error) {
+      console.error("[CanvAI] Dev search request failed", error);
+    } finally {
+      setDevSearchLoading(false);
+    }
+  }, []);
 
   const handleSelectSession = useCallback(
     (sessionId: string) => {
@@ -665,6 +700,15 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
 
           <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={handleRunDevSearch}
+              disabled={devSearchLoading}
+              aria-label="Run development search request"
+              className="flex h-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-200 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-green-400/40 hover:bg-green-400/10 hover:text-green-300 hover:shadow-[0_4px_16px_rgba(34,197,94,0.25)] hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-60"
+            >
+              {devSearchLoading ? "Running..." : "Dev Search"}
+            </button>
             <button
               type="button"
               onClick={onOpenSettings}

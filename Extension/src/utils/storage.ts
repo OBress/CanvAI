@@ -53,12 +53,12 @@ const defaultProfile: Profile = {
   school: "",
   major: "",
   gpa: "",
-  credits_taken: ""
+  credits_taken: "",
 };
 
 const defaultApiKeys: ApiKeys = {
   openrouter_api_key: "",
-  canvas_api_key: ""
+  canvas_api_key: "",
 };
 
 const defaultSession: ChatSession = {
@@ -66,14 +66,14 @@ const defaultSession: ChatSession = {
   title: "New Conversation",
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
-  messages: []
+  messages: [],
 };
 
 const defaultWindowState: WindowState = {
   isOpen: false,
   isMinimized: false,
   position: { x: 0, y: 96 },
-  size: { width: 420, height: 540 }
+  size: { width: 420, height: 540 },
 };
 
 const defaultStorage: StorageShape = {
@@ -81,7 +81,7 @@ const defaultStorage: StorageShape = {
   apiKeys: defaultApiKeys,
   chats: { [defaultSession.id]: defaultSession },
   lastSessionId: defaultSession.id,
-  windowState: defaultWindowState
+  windowState: defaultWindowState,
 };
 
 type StorageKey = keyof StorageShape;
@@ -98,7 +98,7 @@ const ensureDefault = async (): Promise<void> => {
     "apiKeys",
     "chats",
     "lastSessionId",
-    "windowState"
+    "windowState",
   ]);
 
   const updates: Partial<StorageShape> = {};
@@ -116,9 +116,7 @@ const ensureDefault = async (): Promise<void> => {
 type StorageChangeCallback = (changes: Partial<StorageShape>) => void;
 
 export const storage = {
-  async get<T extends StorageKey>(
-    key: T
-  ): Promise<StorageShape[T]> {
+  async get<T extends StorageKey>(key: T): Promise<StorageShape[T]> {
     if (hasChromeStorage) {
       const result = await chrome.storage.local.get([key]);
       return (result[key] ?? defaultStorage[key]) as StorageShape[T];
@@ -143,9 +141,10 @@ export const storage = {
     keys: T[]
   ): Promise<Pick<StorageShape, T>> {
     if (hasChromeStorage) {
-      const result = (await chrome.storage.local.get(
-        keys
-      )) as Pick<StorageShape, T>;
+      const result = (await chrome.storage.local.get(keys)) as Pick<
+        StorageShape,
+        T
+      >;
       const response = {} as Pick<StorageShape, T>;
       keys.forEach((key) => {
         response[key] = result[key] ?? defaultStorage[key];
@@ -168,10 +167,7 @@ export const storage = {
       await chrome.storage.local.set({ [key]: value });
     } else {
       memoryStore.set(key, value);
-      window.localStorage.setItem(
-        `canvai-${key}`,
-        JSON.stringify(value)
-      );
+      window.localStorage.setItem(`canvai-${key}`, JSON.stringify(value));
     }
   },
 
@@ -193,9 +189,7 @@ export const storage = {
 
   async update<T extends StorageKey>(
     key: T,
-    updater: (
-      previous: StorageShape[T]
-    ) => StorageShape[T]
+    updater: (previous: StorageShape[T]) => StorageShape[T]
   ): Promise<StorageShape[T]> {
     const previous = await this.get(key);
     const next = updater(previous);
@@ -209,7 +203,7 @@ export const storage = {
       "apiKeys",
       "chats",
       "lastSessionId",
-      "windowState"
+      "windowState",
     ]);
     return values as StorageShape;
   },
@@ -221,28 +215,31 @@ export const storage = {
   subscribe(callback: StorageChangeCallback): () => void {
     if (hasChromeStorage) {
       const listener = (
-        changes: Record<string, { oldValue: unknown; newValue: unknown }>,
+        changes: Record<string, { oldValue?: unknown; newValue?: unknown }>,
         areaName: string
       ) => {
         if (areaName !== "local") return;
         const updates: Partial<StorageShape> = {};
         (Object.keys(changes) as StorageKey[]).forEach((key) => {
-          updates[key] = changes[key].newValue;
+          const change = changes[key];
+          if (!change) return;
+          updates[key] = (change.newValue ?? undefined) as
+            | StorageShape[StorageKey]
+            | undefined;
         });
         callback(updates);
       };
       chrome.storage.onChanged.addListener(listener);
-      return () =>
-        chrome.storage.onChanged.removeListener(listener);
+      return () => chrome.storage.onChanged.removeListener(listener);
     }
 
     return () => undefined;
-  }
+  },
 };
 
 export const storageDefaults = {
   profile: defaultProfile,
   apiKeys: defaultApiKeys,
   session: defaultSession,
-  window: defaultWindowState
+  window: defaultWindowState,
 };

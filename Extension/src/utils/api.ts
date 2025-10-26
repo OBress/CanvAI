@@ -15,7 +15,8 @@ type BackendMessage = {
   timestamp: string;
 };
 
-const DEFAULT_BASE_URL = "http://localhost:8000";
+const DEFAULT_BASE_URL =
+  "https://helpful-ambient-consists-labs.trycloudflare.com";
 const CHAT_BASE_PATH = "/chat";
 
 const API_BASE_URL =
@@ -103,9 +104,7 @@ export const backendApi = {
       }
 
       const payload = await readJson<{ messages?: BackendMessage[] }>(response);
-      const messages = Array.isArray(payload.messages)
-        ? payload.messages
-        : [];
+      const messages = Array.isArray(payload.messages) ? payload.messages : [];
       return messages.map(toChatMessage);
     } catch (error) {
       console.error(
