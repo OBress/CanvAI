@@ -15,24 +15,15 @@ type BackendMessage = {
   timestamp: string;
 };
 
-const DEFAULT_BASE_URL =
-  "https://locks-impacts-transparent-realized.trycloudflare.com";
-const CHAT_BASE_PATH = "/chat";
+const BASE_URL = import.meta.env.CLOUDFLARE_URL;
 
-const API_BASE_URL =
-  (typeof window !== "undefined" &&
-    (window as unknown as { CANVAI_API_BASE_URL?: string })
-      .CANVAI_API_BASE_URL) ||
-  DEFAULT_BASE_URL;
+const NORMALIZED_BASE_URL = BASE_URL.replace(/\/$/, "");
 
-const NORMALIZED_BASE_URL = API_BASE_URL.replace(/\/$/, "");
+const buildUrl = (path: string) => `${NORMALIZED_BASE_URL}${path}`;
 
-const buildUrl = (path: string) =>
-  `${NORMALIZED_BASE_URL}${CHAT_BASE_PATH}${path}`;
+const buildChatUrl = (path: string) => `${NORMALIZED_BASE_URL}/chat${path}`;
 
-const buildRootUrl = (path: string) => `${NORMALIZED_BASE_URL}${path}`;
-
-export const buildBackendUrl = (path: string) => buildRootUrl(path);
+export const buildBackendUrl = (path: string) => buildUrl(path);
 
 type ApiKeyField = keyof ApiKeys;
 
@@ -99,7 +90,7 @@ const readJson = async <T>(response: Response): Promise<T> => {
 export const backendApi = {
   async devSearch(query: string): Promise<unknown> {
     try {
-      const url = buildRootUrl(`/search?query=${encodeURIComponent(query)}`);
+      const url = buildUrl(`/search?query=${encodeURIComponent(query)}`);
       const response = await fetch(url, {
         method: "GET",
         headers: { accept: "application/json" },
@@ -127,7 +118,7 @@ export const backendApi = {
 
   async fetchUserKeys(): Promise<ApiKeys> {
     try {
-      const response = await fetch(buildRootUrl("/user/keys"), {
+      const response = await fetch(buildUrl("/user/keys"), {
         method: "GET",
         headers: { accept: "application/json" },
       });
@@ -151,7 +142,7 @@ export const backendApi = {
   ): Promise<string | null> {
     try {
       const response = await fetch(
-        buildRootUrl(`/user/${encodeURIComponent(field)}`),
+        buildUrl(`/user/${encodeURIComponent(field)}`),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -179,7 +170,7 @@ export const backendApi = {
 
   async fetchSessions(): Promise<ChatSession[]> {
     try {
-      const response = await fetch(buildUrl("/sessions"), {
+      const response = await fetch(buildChatUrl("/sessions"), {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -199,7 +190,7 @@ export const backendApi = {
   async fetchSessionMessages(sessionId: string): Promise<ChatMessage[]> {
     try {
       const response = await fetch(
-        buildUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`),
+        buildChatUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`),
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -229,7 +220,7 @@ export const backendApi = {
     title: string;
   }): Promise<ChatSession | null> {
     try {
-      const response = await fetch(buildUrl("/sessions"), {
+      const response = await fetch(buildChatUrl("/sessions"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -257,7 +248,7 @@ export const backendApi = {
   async updateSessionTitle(sessionId: string, title: string): Promise<void> {
     try {
       const response = await fetch(
-        buildUrl(`/sessions/${encodeURIComponent(sessionId)}`),
+        buildChatUrl(`/sessions/${encodeURIComponent(sessionId)}`),
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -279,7 +270,7 @@ export const backendApi = {
   async deleteSession(sessionId: string): Promise<void> {
     try {
       const response = await fetch(
-        buildUrl(`/sessions/${encodeURIComponent(sessionId)}`),
+        buildChatUrl(`/sessions/${encodeURIComponent(sessionId)}`),
         {
           method: "DELETE",
         }
@@ -299,7 +290,7 @@ export const backendApi = {
   ): Promise<ChatMessage | null> {
     try {
       const response = await fetch(
-        buildUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`),
+        buildChatUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -335,7 +326,7 @@ export const backendApi = {
   ): Promise<ChatMessage | null> {
     try {
       const response = await fetch(
-        buildUrl(`/sessions/${encodeURIComponent(sessionId)}/assistant`),
+        buildChatUrl(`/sessions/${encodeURIComponent(sessionId)}/assistant`),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

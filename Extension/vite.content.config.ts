@@ -4,6 +4,8 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import { resolve } from "node:path";
 
 export default defineConfig({
+  envDir: resolve(__dirname, ".."),
+  envPrefix: ["VITE_", "CLOUDFLARE_"],
   plugins: [
     react(),
     viteStaticCopy({
