@@ -143,9 +143,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState("");
-  const [devSearchLoading, setDevSearchLoading] = useState(false);
   const activeSessionRef = useRef<string>("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const activeSession = useMemo(
     () => sessions[activeSessionId],
@@ -258,18 +258,6 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     []
   );
 
-  const handleRunDevSearch = useCallback(async () => {
-    setDevSearchLoading(true);
-    try {
-      const result = await backendApi.devSearch("what are my classes.");
-      console.info("[CanvAI] Dev search response:", result);
-    } catch (error) {
-      console.error("[CanvAI] Dev search request failed", error);
-    } finally {
-      setDevSearchLoading(false);
-    }
-  }, []);
-
   const handleSelectSession = useCallback(
     (sessionId: string) => {
       if (!sessions[sessionId]) return;
@@ -283,8 +271,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
       void (async () => {
         if (!/^\d+$/.test(sessionId)) return;
         try {
-          const remoteMessages =
-            await backendApi.fetchSessionMessages(sessionId);
+          const remoteMessages = await backendApi.fetchSessionMessages(
+            sessionId
+          );
 
           setSessions((prev) => {
             const target = prev[sessionId];
@@ -409,6 +398,11 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
     setInputValue("");
 
+    // Reset textarea height
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "56px";
+    }
+
     const now = new Date().toISOString();
     const provisionalMessage: ChatMessage = {
       id: `msg-${generateId()}`,
@@ -451,8 +445,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
             workingSession = {
               ...createdSession,
               messages: workingSession.messages,
-              updatedAt:
-                createdSession.updatedAt ?? createdSession.createdAt,
+              updatedAt: createdSession.updatedAt ?? createdSession.createdAt,
             };
           }
         } catch (error) {
@@ -516,8 +509,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               const updatedSession: ChatSession = {
                 ...target,
                 messages: nextMessages,
-                updatedAt:
-                  storedMessage.createdAt ?? target.updatedAt,
+                updatedAt: storedMessage.createdAt ?? target.updatedAt,
               };
 
               const updatedSessions = {
@@ -531,10 +523,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           }
 
           if (titleChanged) {
-            await backendApi.updateSessionTitle(
-              remoteSessionId,
-              derivedTitle
-            );
+            await backendApi.updateSessionTitle(remoteSessionId, derivedTitle);
           }
         } catch (error) {
           console.error(
@@ -545,10 +534,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
         void (async () => {
           try {
-            const assistantMessage =
-              await backendApi.requestAssistantResponse(
-                remoteSessionId
-              );
+            const assistantMessage = await backendApi.requestAssistantResponse(
+              remoteSessionId
+            );
             if (!assistantMessage) return;
 
             setSessions((prev) => {
@@ -558,8 +546,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               const updatedSession: ChatSession = {
                 ...target,
                 messages: [...target.messages, assistantMessage],
-                updatedAt:
-                  assistantMessage.createdAt ?? target.updatedAt,
+                updatedAt: assistantMessage.createdAt ?? target.updatedAt,
               };
 
               const updatedSessions = {
@@ -579,7 +566,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         })();
       }
     })();
-  }, [activeSessionId, inputValue, persistSessions, sessions]);
+  }, [activeSessionId, inputValue, persistSessions, sessions, textareaRef]);
 
   const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -747,15 +734,6 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           <div className="flex items-center gap-2.5">
             <button
               type="button"
-              onClick={handleRunDevSearch}
-              disabled={devSearchLoading}
-              aria-label="Run development search request"
-              className="flex h-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-200 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-green-400/40 hover:bg-green-400/10 hover:text-green-300 hover:shadow-[0_4px_16px_rgba(34,197,94,0.25)] hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-60"
-            >
-              {devSearchLoading ? "Running..." : "Dev Search"}
-            </button>
-            <button
-              type="button"
               onClick={onOpenSettings}
               aria-label="Open settings"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300 hover:shadow-[0_4px_16px_rgba(0,173,181,0.2)] hover:scale-105 active:scale-95"
@@ -833,22 +811,24 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               >
                 <div className="relative">
                   <textarea
+                    ref={textareaRef}
                     value={inputValue}
-                    onChange={(event) => setInputValue(event.target.value)}
+                    onChange={(event) => {
+                      setInputValue(event.target.value);
+                      // Auto-resize on change
+                      const target = event.target as HTMLTextAreaElement;
+                      target.style.height = "56px";
+                      const newHeight = Math.min(target.scrollHeight, 112);
+                      target.style.height = newHeight + "px";
+                    }}
                     onKeyDown={handleInputKeyDown}
                     rows={1}
                     placeholder="Ask anything..."
-                    className="canvai-scrollbar w-full resize-none rounded-full border-2 border-white/20 bg-[rgba(40,39,45,0.97)] backdrop-blur-2xl px-6 py-4 pr-14 text-base text-[#EEEEEE] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)_inset,0_0_60px_rgba(0,173,181,0.1)] placeholder:text-slate-400 transition-all duration-300 focus:border-[#00ADB5] focus:bg-[rgba(40,39,45,0.99)] focus:outline-none focus:shadow-[0_16px_64px_rgba(0,173,181,0.4),0_0_0_1px_rgba(0,173,181,0.3)_inset,0_0_80px_rgba(0,173,181,0.2)] hover:border-white/30 hover:shadow-[0_14px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.12)_inset]"
+                    className="canvai-input-textarea w-full resize-none rounded-full border-2 border-white/20 bg-[rgba(40,39,45,0.97)] backdrop-blur-2xl px-6 py-4 pr-14 text-base text-[#EEEEEE] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)_inset,0_0_60px_rgba(0,173,181,0.1)] placeholder:text-slate-400 transition-all duration-300 focus:border-[#00ADB5] focus:bg-[rgba(40,39,45,0.99)] focus:outline-none focus:shadow-[0_16px_64px_rgba(0,173,181,0.4),0_0_0_1px_rgba(0,173,181,0.3)_inset,0_0_80px_rgba(0,173,181,0.2)] hover:border-white/30 hover:shadow-[0_14px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.12)_inset]"
                     style={{
                       minHeight: "56px",
-                      maxHeight: "200px",
-                      overflowY: "auto",
-                    }}
-                    onInput={(e) => {
-                      const target = e.target as HTMLTextAreaElement;
-                      target.style.height = "56px";
-                      const newHeight = Math.min(target.scrollHeight, 200);
-                      target.style.height = newHeight + "px";
+                      maxHeight: "112px",
+                      overflowY: "scroll",
                     }}
                   />
                   <div className="absolute right-4 bottom-4 flex items-center gap-2">

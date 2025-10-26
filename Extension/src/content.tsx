@@ -92,8 +92,8 @@ const FloatingChatApp: React.FC = () => {
             ),
           },
           size: {
-            width: clamp(saved.size?.width ?? prev.size.width, 360, 640),
-            height: clamp(saved.size?.height ?? prev.size.height, 400, 720),
+            width: clamp(saved.size?.width ?? prev.size.width, 360, 1400),
+            height: clamp(saved.size?.height ?? prev.size.height, 400, 1000),
           },
         }));
       }
@@ -229,14 +229,14 @@ const FloatingChatApp: React.FC = () => {
       const newWidth = resizeContext.current.originWidth - deltaX;
       const newX = resizeContext.current.originX + deltaX;
       if (newWidth >= 360 && newX >= 16) {
-        nextWidth = Math.min(newWidth, 720);
+        nextWidth = Math.min(newWidth, 1400);
         nextX = newX;
       }
     } else if (direction.includes("right")) {
       nextWidth = clamp(
         resizeContext.current.originWidth + deltaX,
         360,
-        Math.min(viewportWidth - resizeContext.current.originX - 16, 720)
+        Math.min(viewportWidth - resizeContext.current.originX - 16, 1400)
       );
     }
 
@@ -245,14 +245,14 @@ const FloatingChatApp: React.FC = () => {
       const newHeight = resizeContext.current.originHeight - deltaY;
       const newY = resizeContext.current.originY + deltaY;
       if (newHeight >= 420 && newY >= 16) {
-        nextHeight = Math.min(newHeight, 820);
+        nextHeight = Math.min(newHeight, 1000);
         nextY = newY;
       }
     } else if (direction.includes("bottom")) {
       nextHeight = clamp(
         resizeContext.current.originHeight + deltaY,
         420,
-        Math.min(viewportHeight - resizeContext.current.originY - 16, 820)
+        Math.min(viewportHeight - resizeContext.current.originY - 16, 1000)
       );
     }
 

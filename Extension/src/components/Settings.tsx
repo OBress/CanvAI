@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ApiKeys, Profile, storage } from "../utils/storage";
+import { ApiKeys, storage } from "../utils/storage";
 import { backendApi, buildBackendUrl } from "../utils/api";
 
 const EyeIcon = ({ className }: { className?: string }) => (
@@ -46,18 +46,6 @@ interface ToastState {
   tone: "success" | "error";
 }
 
-const profileFields: Array<{
-  name: keyof Profile;
-  label: string;
-}> = [
-  { name: "first_name", label: "First Name" },
-  { name: "last_name", label: "Last Name" },
-  { name: "school", label: "School" },
-  { name: "major", label: "Major" },
-  { name: "gpa", label: "GPA" },
-  { name: "credits_taken", label: "Credits Taken" },
-];
-
 const apiFields: Array<{
   name: ApiField;
   label: string;
@@ -92,14 +80,6 @@ const apiFieldLabels = Object.fromEntries(
 ) as Record<ApiField, string>;
 
 const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
-  const [profile, setProfile] = useState<Profile>({
-    first_name: "",
-    last_name: "",
-    school: "",
-    major: "",
-    gpa: "",
-    credits_taken: "",
-  });
   const [apiKeys, setApiKeys] = useState<ApiKeys>({
     canvas_key: "",
     gemini_key: "",
@@ -107,13 +87,15 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
     elevenlabs_api_key: "",
     openrouter_api_key: "",
   });
-  const [visibleFields, setVisibleFields] = useState<Record<ApiField, boolean>>({
-    canvas_key: false,
-    gemini_key: false,
-    canvas_base_url: false,
-    elevenlabs_api_key: false,
-    openrouter_api_key: false,
-  });
+  const [visibleFields, setVisibleFields] = useState<Record<ApiField, boolean>>(
+    {
+      canvas_key: false,
+      gemini_key: false,
+      canvas_base_url: false,
+      elevenlabs_api_key: false,
+      openrouter_api_key: false,
+    }
+  );
   const [toast, setToast] = useState<ToastState | null>(null);
   const [loadingField, setLoadingField] = useState<ApiField | null>(null);
 
@@ -123,9 +105,8 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
 
     const hydrate = async () => {
       try {
-        const values = await storage.getMany(["profile", "apiKeys"]);
+        const values = await storage.getMany(["apiKeys"]);
         if (!active) return;
-        setProfile(values.profile);
         setApiKeys((prev) => ({
           ...prev,
           ...values.apiKeys,
@@ -165,19 +146,8 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
   }, [open]);
 
   const readyToSubmit = useMemo(() => {
-    return (
-      Object.values(profile).some((value) => value.trim().length > 0) ||
-      Object.values(apiKeys).some((value) => value.trim().length > 0)
-    );
-  }, [profile, apiKeys]);
-
-  const handleProfileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setProfile((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    return Object.values(apiKeys).some((value) => value.trim().length > 0);
+  }, [apiKeys]);
 
   const handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -221,7 +191,7 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
       });
 
       setApiKeys(nextKeys);
-      await storage.setMany({ profile, apiKeys: nextKeys });
+      await storage.set("apiKeys", nextKeys);
 
       if (failedFields.length > 0) {
         const labelList = failedFields
@@ -246,10 +216,7 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
     }
   };
 
-  const handleValidateKey = async (
-    field: ApiField,
-    endpoint?: string
-  ) => {
+  const handleValidateKey = async (field: ApiField, endpoint?: string) => {
     if (!endpoint) {
       setToast({
         message: "Validation not available for this key yet.",
@@ -352,10 +319,10 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
               <div className="flex flex-wrap items-start justify-between gap-6">
                 <div>
                   <p className="text-[15px] font-mono uppercase tracking-[0.4em] text-cyan-300/60 mb-3">
-                    Identity & Integrations
+                    API Integrations
                   </p>
                   <h2 className="text-3xl font-bold text-slate-50 tracking-tight">
-                    Canvas profile that powers your AI assistant
+                    Configure your AI assistant connections
                   </h2>
                 </div>
                 <button
@@ -374,36 +341,6 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
             >
               <div className="canvai-scrollbar flex-1 overflow-y-auto overflow-x-hidden pr-6">
                 <div className="flex flex-col gap-8 max-w-full">
-                  <section className="max-w-full">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.35em] text-slate-300 mb-1">
-                      Profile
-                    </h3>
-                    <p className="text-xs text-slate-400 mb-4">
-                      Your academic information for personalized assistance
-                    </p>
-                    <div className="mt-4 grid gap-8 sm:grid-cols-2 max-w-full">
-                      {profileFields.map(({ name, label }) => (
-                        <label key={name} className="flex flex-col gap-2.5">
-                          <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-slate-400">
-                            {label}
-                          </span>
-                          <input
-                            type="text"
-                            name={name}
-                            value={profile[name]}
-                            onChange={handleProfileChange}
-                            className="w-full rounded-2xl border-2 border-white/20 bg-[rgba(40,39,45,0.97)] backdrop-blur-2xl px-5 py-3.5 text-sm text-[#EEEEEE] shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)_inset,0_0_40px_rgba(0,173,181,0.08)] placeholder:text-slate-600 transition-all duration-300 focus:border-[#00ADB5] focus:bg-[rgba(40,39,45,0.99)] focus:outline-none focus:shadow-[0_12px_48px_rgba(0,173,181,0.4),0_0_0_1px_rgba(0,173,181,0.3)_inset,0_0_60px_rgba(0,173,181,0.2)] hover:border-white/30 hover:shadow-[0_10px_40px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.12)_inset] overflow-hidden text-ellipsis"
-                            placeholder={`Enter ${label.toLowerCase()}`}
-                            style={{
-                              colorScheme: "dark",
-                              WebkitTextFillColor: "#EEEEEE",
-                            }}
-                          />
-                        </label>
-                      ))}
-                    </div>
-                  </section>
-
                   <section className="max-w-full">
                     <h3 className="text-sm font-bold uppercase tracking-[0.35em] text-slate-300 mb-1">
                       API Bridges
@@ -457,10 +394,7 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
                                     type="button"
                                     disabled={loading || !validateEndpoint}
                                     onClick={() =>
-                                      handleValidateKey(
-                                        name,
-                                        validateEndpoint
-                                      )
+                                      handleValidateKey(name, validateEndpoint)
                                     }
                                     className="h-11 flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-5 text-[10px] font-mono uppercase tracking-[0.35em] text-slate-400 shadow-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-slate-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 active:scale-95"
                                   >
