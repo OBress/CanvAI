@@ -15,9 +15,13 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
 from vector_db.vector import perform_search, vectorize  # noqa: E402
-from llm import query_to_structured  # noqa: E402
-from .chat_store import ensure_chat_storage  # noqa: E402
-from .chat_router import router as chat_router  # noqa: E402
+from llm import query_to_structured, generate_user_response_from_file  # noqa: E402
+if __package__ in (None, ""):
+    from chat_store import ensure_chat_storage  # type: ignore  # noqa: E402
+    from chat_router import router as chat_router  # type: ignore  # noqa: E402
+else:
+    from .chat_store import ensure_chat_storage  # noqa: E402
+    from .chat_router import router as chat_router  # noqa: E402
 
 
 @asynccontextmanager
@@ -63,16 +67,20 @@ async def search(query: str):
     print(structured_query_to_DB)
     # Handle error cases returned from query_to_structured
     if "error" in structured_query_to_DB:
-        return {"response": "Failed to generate structured query to Vector DB", "error": structured_query_to_DB["error"]}
+        return {"response": "Failed to generate structured query to Vector DB.", "error": structured_query_to_DB["error"]}
 
     # Feed the information into the vector DB search function to output top relevant documents
     print(structured_query_to_DB["table_to_query"] + ".csv", " and ", structured_query_to_DB["table_to_query"])
     relevant_documents = perform_search(query=query, csv_filename=(structured_query_to_DB["table_to_query"] + ".csv"), db_name=structured_query_to_DB["table_to_query"])
-    # TODO: Integrate new llm function that takes in relevant documents and outputs final response
+    # Error handling for no relevant documents found
+    if not relevant_documents:
+        return {"response": "No relevant documents found in the database."}
 
-    # FOr now returns relevant documents to see if it works, will output response later
+    # Llm function that takes in relevant documents and outputs final response
+    print(relevant_documents)
+    response = generate_user_response_from_file(user_query=query, file_path = relevant_documents)
 
-    return {"relevant documents": relevant_documents}
+    return {"response": response}
 
 
 if __name__ == "__main__":

@@ -6,7 +6,10 @@ from threading import RLock
 from typing import Dict, List, Optional
 import csv
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if __package__ in (None, ""):
+    PROJECT_ROOT = Path(__file__).resolve().parents[1].parent
+else:
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CHAT_DB_DIR = PROJECT_ROOT / "data" / "chat_db"
 CHAT_SESSIONS_FILE = CHAT_DB_DIR / "chat_sessions.csv"
 CHAT_MESSAGES_FILE = CHAT_DB_DIR / "chat_messages.csv"
