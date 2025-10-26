@@ -219,6 +219,32 @@ def filter_by_identifiers_optimized(results, identifiers: dict):
 	return filtered
 
 
+def process_scores_batch(pairs, min_score: float = None, batch_size: int = 100):
+	"""
+	Process scores in batches to reduce memory allocation overhead.
+	More efficient for large result sets.
+	"""
+	results = []
+	
+	for i in range(0, len(pairs), batch_size):
+		batch = pairs[i:i + batch_size]
+		batch_results = []
+		
+		for doc, distance in batch:
+			# For normalized embeddings with FAISS, L2 distance relates to cosine similarity as:
+			# cosine_similarity = 1 - (distance^2 / 2)
+			similarity = max(0.0, 1.0 - (distance * distance / 2.0))
+			
+			# Apply min_score filter if specified
+			if min_score is None or similarity >= min_score:
+				batch_results.append((doc, similarity))
+		
+		results.extend(batch_results)
+	
+	# Sort by similarity (highest first)
+	return sorted(results, key=lambda x: x[1], reverse=True)
+
+
 def should_require_identifier(results, identifiers: dict, threshold: float = 0.5) -> bool:
 	"""
 	Decide if we should enforce identifier filtering based on how well
@@ -358,19 +384,8 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 			print("No results found")
 			return []
 		
-		# Process and normalize scores
-		results = []
-		for doc, distance in pairs:
-			# For normalized embeddings with FAISS, L2 distance relates to cosine similarity as:
-			# cosine_similarity = 1 - (distance^2 / 2)
-			similarity = max(0.0, 1.0 - (distance * distance / 2.0))
-			
-			# Apply min_score filter if specified
-			if min_score is None or similarity >= min_score:
-				results.append((doc, similarity))
-		
-		# Sort by similarity (highest first)
-		results.sort(key=lambda x: x[1], reverse=True)
+		# Process scores in batches for better memory efficiency
+		results = process_scores_batch(pairs, min_score)
 		
 		# Smart filtering: only filter if identifiers exist AND top results don't match
 		if has_identifiers and should_require_identifier(results, identifiers):
