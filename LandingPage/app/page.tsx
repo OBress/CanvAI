@@ -207,7 +207,7 @@ export default function Home() {
 
       <div
         ref={shaderContainerRef}
-        className={`fixed inset-0 z-0 transition-opacity duration-700 ${
+        className={`fixed inset-0 z-0 transition-opacity duration-700 pointer-events-none ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ contain: "strict" }}
@@ -240,7 +240,7 @@ export default function Home() {
           />
         </Shader>
         <div
-          className="absolute inset-0 transition-colors duration-300"
+          className="absolute inset-0 transition-colors duration-300 pointer-events-none"
           style={{
             backgroundColor: "rgba(13, 12, 17, 0.65)",
           }}
@@ -296,7 +296,7 @@ export default function Home() {
             variant="secondary"
             onClick={() => scrollToSection(4)}
           >
-            Install Today
+            Contact Us
           </MagneticButton>
         </div>
       </nav>

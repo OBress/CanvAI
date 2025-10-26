@@ -8,3 +8,17 @@ ID,session_id,sender,message,timestamp
 14,11,assistant,"Unfortunately, I don't have a summary of what was covered in the lecture for Cmpsc 465 lec1. I can only see that the file `lec1.pdf` is available for that course.",2025-10-26T16:28:28Z
 15,11,user,but can't you look in that text summary of the pdf and find relevant information,2025-10-26T16:29:07.633Z
 16,11,assistant,"I understand you're asking about the text summary. Unfortunately, the information I have access to does not contain a summary for the readings; the summary field is listed as ""N/A"" for those items.",2025-10-26T16:29:28Z
+17,12,user,"What was covered in Cmpsc 465 lec1?, a time in the past, i kinda forget",2025-10-26T16:44:45.997Z
+18,12,assistant,"Of course! It looks like `lec1.pdf` for your Cmpsc 465 course was posted on August 27, 2025.
+
+While I don't have a summary of the specific topics from that lecture, you can find the file here to review it: [lec1.pdf](https://canvas.instructure.com/files/1050~180857751/download?download_frd=1&verifier=dYojp6k1QG77JHV0QUCMRExkuVLar3h5U4xK09QU)",2025-10-26T16:45:07Z
+19,12,user,"give a summary of that file, because I don't want to read all of it",2025-10-26T16:45:46.215Z
+20,12,assistant,"Of course! Here’s a quick summary of those course materials.
+
+It looks like you have a list of files from two different computer science courses:
+
+*   For **Cmpsc221 (Spring 2025)**, the list includes several programming assignments, such as a ""Functional Programming Assignment,"" a ""Pizza Servings Calculator,"" and a ""Course Scheduler."" There is also a video showing an example of how the final project is graded. One file is a chapter from a Java textbook covering files and input/output streams.
+
+*   For **Cmpsc461 (Fall 2025)**, the materials are optional readings, including a link to an article on ""Short-Pause Garbage Collection.""
+
+Overall, it's a mix of programming projects for your Java course and some supplemental readings for your Programming Language Concepts course.",2025-10-26T16:46:06Z

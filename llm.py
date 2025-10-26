@@ -220,11 +220,12 @@ def generate_user_response_from_file(user_query: str, file_path: str):
     }
 
     # System instructions for the model
-    system_prompt = """
-You are a helpful academic assistant. You have access to information from a student + course
-management system. Use the relevant data provided to answer the user's question in natural, friendly,
-and concise language. Do not invent any information. If the data does not contain the answer, politely say so.
-"""
+    system_prompt = """You are an intelligent and friendly academic assistant that helps users explore their course and grade data.
+Use the provided information to generate helpful, concise, and natural responses.
+
+- You may infer or summarize key insights as long as they are grounded in the provided data.
+- If the data does not explicitly contain an answer, offer an educated summary or note patterns instead of saying you don’t know.
+- Keep your tone natural and clear."""
 
     user_content = f"""
 User Query: {user_query}

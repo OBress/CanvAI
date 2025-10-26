@@ -78,7 +78,7 @@ export function ContactSection() {
                   </span>
                 </div>
                 <p className="text-base text-foreground transition-colors group-hover:text-foreground/70 md:text-2xl">
-                  inbox@canvai.com
+                  inbox@cantfindshiusedis.tech
                 </p>
               </a>
 
