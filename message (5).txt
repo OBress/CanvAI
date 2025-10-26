@@ -1,0 +1,134 @@
+Query: 'get my grades for CMPS'
+Found 5 results
+  1. Score: 0.8926 | course_id: 10500000002379441 course_name: Cmpsc221 Spring 2025 Sec 1 and 2 assig...
+  2. Score: 0.8911 | course_id: 10500000002413841 course_name: CMPSC 465 Data Structures and Algorith...
+  3. Score: 0.8904 | course_id: 10500000002379441 course_name: Cmpsc221 Spring 2025 Sec 1 and 2 assig...
+
+================================================================================
+DETAILED RESULTS (5 found)
+================================================================================
+
+[Result 1] Similarity Score: 0.8926
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828256
+assignment_name: Test 1 - Chapters 1-10
+points_possible: 63.0
+submission_score: 63.0
+submiss...
+Metadata: {'source': 'C:\\Users\\ameya\\HackPSU_Fall2025\\CanvAI\\data\\user_grades_self.csv', 'row': 92}
+--------------------------------------------------------------------------------
+
+[Result 2] Similarity Score: 0.8911
+Content: course_id: 10500000002413841
+course_name: CMPSC 465 Data Structures and Algorithms
+assignment_id: 10500000017465237
+assignment_name: EECS Academic Integrity Quiz
+points_possible: 20.0
+submission_score...
+Metadata: {'source': 'C:\\Users\\ameya\\HackPSU_Fall2025\\CanvAI\\data\\user_grades_self.csv', 'row': 85}
+--------------------------------------------------------------------------------
+
+[Result 3] Similarity Score: 0.8904
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828257
+assignment_name: Test 3 - Chapters 11, 24
+points_possible: 40.0
+submission_score: 39.0
+submi...
+Metadata: {'source': 'C:\\Users\\ameya\\HackPSU_Fall2025\\CanvAI\\data\\user_grades_self.csv', 'row': 94}
+--------------------------------------------------------------------------------
+
+[Result 4] Similarity Score: 0.8894
+Content: course_id: 10500000002413841
+course_name: CMPSC 465 Data Structures and Algorithms
+assignment_id: 10500000017661414
+assignment_name: Midterm1
+points_possible: 74.0
+submission_score: 54.0
+submission_gr...
+Metadata: {'source': 'C:\\Users\\ameya\\HackPSU_Fall2025\\CanvAI\\data\\user_grades_self.csv', 'row': 83}
+--------------------------------------------------------------------------------
+
+
+
+
+[Result 5] Similarity Score: 0.8885
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+assignment_name: Test 2 - Chapters 12, 13, 16
+points_possible: 83.0
+submission_score: 83.0
+s...
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+assignment_name: Test 2 - Chapters 12, 13, 16
+points_possible: 83.0
+submission_score: 83.0
+s...
+Metadata: {'source': 'C:\\Users\\ameya\\HackPSU_Fall2025\\CanvAI\\data\\user_grades_self.csv', 'row': 93}
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+assignment_name: Test 2 - Chapters 12, 13, 16
+points_possible: 83.0
+submission_score: 83.0
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+assignment_name: Test 2 - Chapters 12, 13, 16
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+
+
+
+[Result 5] Similarity Score: 0.8885
+
+[Result 5] Similarity Score: 0.8885
+Content: course_id: 10500000002379441
+course_name: Cmpsc221 Spring 2025 Sec 1 and 2
+assignment_id: 10500000016828253
+assignment_name: Test 2 - Chapters 12, 13, 16
+points_possible: 83.0
+submission_score: 83.0
+s...
+Metadata: {'source': 'C:\\Users\\ameya\\HackPSU_Fall2025\\CanvAI\\data\\user_grades_self.csv', 'row': 93}
+--------------------------------------------------------------------------------
+PS C:\Users\ameya\HackPSU_Fall2025\CanvAI\Backend\vector_db>
