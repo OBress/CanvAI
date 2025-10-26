@@ -12,6 +12,7 @@ import {
   storage,
   storageDefaults,
 } from "../utils/storage";
+import { backendApi } from "../utils/api";
 
 const GearIcon = ({ className }: { className?: string }) => (
   <svg
@@ -115,6 +116,19 @@ const formatTitle = (content: string): string => {
     : "Untitled";
 };
 
+const selectActiveSessionId = (
+  sessionsMap: Record<string, ChatSession>,
+  preferredId?: string | null
+): string => {
+  if (preferredId && sessionsMap[preferredId]) {
+    return preferredId;
+  }
+  const [latest] = Object.values(sessionsMap).sort((a, b) =>
+    a.updatedAt < b.updatedAt ? 1 : -1
+  );
+  return latest?.id ?? storageDefaults.session.id;
+};
+
 export const ChatWindow: React.FC<ChatWindowProps> = ({
   onDragHandleDown,
   onMinimize,
@@ -127,6 +141,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState("");
+  const activeSessionRef = useRef<string>("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const activeSession = useMemo(
@@ -135,20 +150,68 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   );
 
   useEffect(() => {
-    void storage.ensureInitialized().then(async () => {
+    activeSessionRef.current = activeSessionId;
+  }, [activeSessionId]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const hydrateSessions = async () => {
+      await storage.ensureInitialized();
+
       const { chats, lastSessionId } = await storage.getMany([
         "chats",
         "lastSessionId",
       ]);
-      setSessions(chats);
-      if (lastSessionId && chats[lastSessionId]) {
-        setActiveSessionId(lastSessionId);
-      } else {
-        const firstSessionId =
-          Object.keys(chats)[0] ?? storageDefaults.session.id;
-        setActiveSessionId(firstSessionId);
+
+      const initialActiveId = selectActiveSessionId(chats, lastSessionId);
+
+      if (isMounted) {
+        setSessions(chats);
+        setActiveSessionId(initialActiveId);
       }
-    });
+      activeSessionRef.current = initialActiveId;
+
+      const remoteSessions = await backendApi.fetchSessions();
+      if (!isMounted || remoteSessions.length === 0) {
+        return;
+      }
+
+      const remoteMap = remoteSessions.reduce<Record<string, ChatSession>>(
+        (acc, session) => {
+          acc[session.id] = {
+            ...session,
+            messages: session.messages ?? [],
+          };
+          return acc;
+        },
+        {}
+      );
+
+      const resolvedActiveId = selectActiveSessionId(
+        remoteMap,
+        activeSessionRef.current
+      );
+
+      await storage.setMany({
+        chats: remoteMap,
+        lastSessionId: resolvedActiveId,
+      });
+
+      if (!isMounted) {
+        return;
+      }
+
+      setSessions(remoteMap);
+      setActiveSessionId(resolvedActiveId);
+      activeSessionRef.current = resolvedActiveId;
+    };
+
+    void hydrateSessions();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -189,23 +252,55 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
   const handleSelectSession = useCallback(
     (sessionId: string) => {
-      if (sessionId === activeSessionId) return;
       if (!sessions[sessionId]) return;
-      setActiveSessionId(sessionId);
-      void storage.set("lastSessionId", sessionId);
+
+      if (sessionId !== activeSessionId) {
+        setActiveSessionId(sessionId);
+        activeSessionRef.current = sessionId;
+        void storage.set("lastSessionId", sessionId);
+      }
+
+      void (async () => {
+        const remoteMessages = await backendApi.fetchSessionMessages(sessionId);
+        if (!remoteMessages.length) return;
+
+        setSessions((prev) => {
+          const target = prev[sessionId];
+          if (!target) return prev;
+
+          const nextSession: ChatSession = {
+            ...target,
+            messages: remoteMessages,
+            updatedAt:
+              remoteMessages[remoteMessages.length - 1]?.createdAt ??
+              target.updatedAt,
+          };
+
+          const nextSessions = {
+            ...prev,
+            [sessionId]: nextSession,
+          };
+
+          void storage.set("chats", nextSessions);
+          return nextSessions;
+        });
+      })();
     },
     [activeSessionId, sessions]
   );
 
   const handleCreateSession = useCallback(() => {
+    const newSession = createSession();
+
     setSessions((prev) => {
-      const next = { ...prev };
-      const newSession = createSession();
-      next[newSession.id] = newSession;
+      const next = { ...prev, [newSession.id]: newSession };
       setActiveSessionId(newSession.id);
+      activeSessionRef.current = newSession.id;
       void persistSessions(next, newSession.id);
       return next;
     });
+
+    void backendApi.upsertSession(newSession);
   }, [persistSessions]);
 
   const handleDeleteSession = useCallback(
@@ -216,20 +311,21 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         delete next[sessionId];
         const fallbackId =
           sessionId === activeSessionId
-            ? Object.values(next).sort((a, b) =>
-                a.updatedAt < b.updatedAt ? 1 : -1
-              )[0]?.id ?? storageDefaults.session.id
+            ? selectActiveSessionId(next, null)
             : activeSessionId;
         setActiveSessionId(fallbackId);
+        activeSessionRef.current = fallbackId;
         void persistSessions(next, fallbackId);
         return next;
       });
+      void backendApi.deleteSession(sessionId);
     },
     [activeSessionId, persistSessions, sessions]
   );
 
   const handleUpdateSessionTitle = useCallback(
     (sessionId: string, title: string) => {
+      let updatedSession: ChatSession | null = null;
       setSessions((prev) => {
         const target = prev[sessionId];
         if (!target) return prev;
@@ -237,9 +333,13 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           ...prev,
           [sessionId]: { ...target, title },
         };
+        updatedSession = next[sessionId];
         void storage.set("chats", next);
         return next;
       });
+      if (updatedSession) {
+        void backendApi.upsertSession(updatedSession);
+      }
     },
     []
   );
@@ -271,24 +371,25 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
     setInputValue("");
 
+    const now = new Date().toISOString();
+    const userMessage: ChatMessage = {
+      id: `msg-${generateId()}`,
+      role: "user",
+      content: trimmed,
+      createdAt: now,
+    };
+
+    let targetSessionId = "";
+    let sessionSnapshot: ChatSession | null = null;
+
     setSessions((prev) => {
-      const now = new Date().toISOString();
-      const sessionId =
+      const existingSession =
         activeSessionId && prev[activeSessionId]
-          ? activeSessionId
-          : createSession().id;
+          ? prev[activeSessionId]
+          : null;
 
-      const baseSession = prev[sessionId] ?? {
-        ...createSession(),
-        id: sessionId,
-      };
-
-      const userMessage: ChatMessage = {
-        id: `msg-${generateId()}`,
-        role: "user",
-        content: trimmed,
-        createdAt: now,
-      };
+      const baseSession = existingSession ?? createSession();
+      const sessionId = existingSession ? existingSession.id : baseSession.id;
 
       const nextSession: ChatSession = {
         ...baseSession,
@@ -306,11 +407,56 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         [sessionId]: nextSession,
       };
 
+      targetSessionId = sessionId;
+      sessionSnapshot = nextSession;
+
       setActiveSessionId(sessionId);
+      activeSessionRef.current = sessionId;
       void persistSessions(updatedSessions, sessionId);
 
       return updatedSessions;
     });
+
+    if (!targetSessionId || !sessionSnapshot) {
+      return;
+    }
+
+    void backendApi.appendMessage(targetSessionId, userMessage);
+    void backendApi.upsertSession(sessionSnapshot);
+
+    void (async () => {
+      const assistantMessage = await backendApi.requestAssistantResponse(
+        targetSessionId
+      );
+      if (!assistantMessage) return;
+
+      let assistantSnapshot: ChatSession | null = null;
+
+      setSessions((prev) => {
+        const target = prev[targetSessionId];
+        if (!target) return prev;
+
+        const nextSession: ChatSession = {
+          ...target,
+          messages: [...target.messages, assistantMessage],
+          updatedAt: assistantMessage.createdAt ?? target.updatedAt,
+        };
+
+        assistantSnapshot = nextSession;
+
+        const nextSessions = {
+          ...prev,
+          [targetSessionId]: nextSession,
+        };
+
+        void storage.set("chats", nextSessions);
+        return nextSessions;
+      });
+
+      if (assistantSnapshot) {
+        void backendApi.upsertSession(assistantSnapshot);
+      }
+    })();
   }, [activeSessionId, inputValue, persistSessions]);
 
   const handleInputKeyDown = useCallback(
