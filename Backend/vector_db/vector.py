@@ -17,7 +17,38 @@ except Exception as e:
 # Cache for embeddings model to avoid reloading on every search
 _EMBEDDINGS_CACHE = None
 
+# Cache for loaded databases to avoid reloading on every search
+_DB_CACHE = {}
 
+
+def get_cached_db(db_name: str, embeddings, out_dir_name: str = "vectorstore"):
+	"""Get a cached database or load it if not in cache."""
+	global _DB_CACHE
+	
+	cache_key = f"{out_dir_name}/{db_name}"
+	
+	if cache_key in _DB_CACHE:
+		print(f"Using cached vectorstore: {cache_key}")
+		return _DB_CACHE[cache_key]
+	
+	# Load database and cache it
+	base = Path(__file__).parent
+	out_dir = base / out_dir_name
+	db_path = out_dir / db_name
+	
+	if not db_path.exists():
+		print(f"No saved vectorstore found at {db_path}")
+		return None
+	
+	try:
+		print(f"Loading vectorstore from {db_path} (first time only)...")
+		db = FAISS.load_local(str(db_path), embeddings, allow_dangerous_deserialization=True)
+		_DB_CACHE[cache_key] = db
+		return db
+	except Exception:
+		print("Failed to load saved FAISS DB:")
+		traceback.print_exc()
+		return None
 
 
 def vectorize(csv_filename: str = "sample.csv", out_dir_name: str = "vectorstore", db_name: str = "db_faiss"):
@@ -127,6 +158,67 @@ def extract_identifiers(query: str) -> dict:
 	return identifiers
 
 
+def adaptive_k_fetch(query: str, identifiers: dict, k: int, db_name: str) -> int:
+	"""
+	Determine optimal number of results to fetch based on query characteristics.
+	Reduces over-fetching when identifiers are present.
+	"""
+	if not any(identifiers.values()):
+		return k
+	
+	# Database-specific optimization
+	if db_name == "course_content_summary":
+		# Rich content database - moderate multiplier
+		identifier_count = sum(len(vals) for vals in identifiers.values())
+		return min(k * 3, k + identifier_count * 2)
+	elif db_name == "grades":
+		# Structured data - smaller multiplier
+		identifier_count = sum(len(vals) for vals in identifiers.values())
+		return min(k * 2, k + identifier_count)
+	elif db_name in ["courses", "users"]:
+		# Small databases - fetch all or minimal multiplier
+		return k
+	
+	return k * 2  # Default conservative multiplier
+
+
+def filter_by_identifiers_optimized(results, identifiers: dict):
+	"""
+	Optimized filtering with pre-compiled patterns and early exit.
+	More efficient than the original nested loop approach.
+	"""
+	if not any(identifiers.values()):
+		return results
+	
+	# Pre-compile regex patterns for better performance
+	patterns = []
+	for id_type, id_list in identifiers.items():
+		if id_type == 'course_numbers':
+			# Skip standalone numbers to avoid false positives
+			continue
+		
+		for id_val in id_list:
+			# Use case-insensitive search with word boundaries
+			pattern = re.compile(r'\b' + re.escape(str(id_val).lower()) + r'\b', re.IGNORECASE)
+			patterns.append(pattern)
+	
+	if not patterns:
+		return results
+	
+	filtered = []
+	for doc, score in results:
+		# Combine content and metadata for search
+		text = doc.page_content.lower()
+		metadata_text = ' '.join(str(v).lower() for v in doc.metadata.values())
+		combined_text = f"{text} {metadata_text}"
+		
+		# Use any() with generator for early exit
+		if any(pattern.search(combined_text) for pattern in patterns):
+			filtered.append((doc, score))
+	
+	return filtered
+
+
 def should_require_identifier(results, identifiers: dict, threshold: float = 0.5) -> bool:
 	"""
 	Decide if we should enforce identifier filtering based on how well
@@ -232,19 +324,8 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 		traceback.print_exc()
 		return None
 
-	# Load existing DB if possible
-	db = None
-	if db_path.exists():
-		try:
-			# allow_dangerous_deserialization must be set True when loading a locally saved
-			# pickle-based vectorstore that we created ourselves. This is safe for local
-			# files you control, but don't enable it for untrusted sources.
-			db = FAISS.load_local(str(db_path), embeddings, allow_dangerous_deserialization=True)
-			print(f"Loaded vectorstore from {db_path}")
-		except Exception:
-			print("Failed to load saved FAISS DB:")
-			traceback.print_exc()
-			# fall through to optional recreate
+	# Load existing DB using cache
+	db = get_cached_db(db_name, embeddings, out_dir_name)
 
 	if db is None:
 		if recreate_if_missing:
@@ -265,8 +346,10 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 		identifiers = extract_identifiers(query_clean)
 		has_identifiers = any(identifiers.values())
 		
-		# Fetch more results if we might filter by identifiers
-		k_fetch = k * 5 if has_identifiers else k
+		# Use adaptive fetching to reduce over-fetching
+		k_fetch = adaptive_k_fetch(query_clean, identifiers, k, db_name)
+		if k_fetch != k:
+			print(f"Adaptive fetching: requesting {k_fetch} results (vs {k} requested)")
 		
 		# Always use similarity_search_with_score for better results
 		pairs = db.similarity_search_with_score(query_clean, k=k_fetch)
@@ -293,8 +376,8 @@ def perform_search(query: str, k: int = 10, csv_filename: str = "sample.csv", ou
 		if has_identifiers and should_require_identifier(results, identifiers):
 			identifier_list = [v for vals in identifiers.values() for v in vals if v]
 			print(f"Detected identifiers: {identifier_list}")
-			print("Top results don't match identifiers - applying strict filtering...")
-			results = filter_by_identifiers(results, identifiers)
+			print("Top results don't match identifiers - applying optimized filtering...")
+			results = filter_by_identifiers_optimized(results, identifiers)
 			
 			if not results:
 				print("Warning: No results found after identifier filtering. Try a broader search.")
