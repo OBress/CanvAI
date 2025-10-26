@@ -13,7 +13,9 @@ from urllib.parse import urlparse, unquote
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from dotenv import load_dotenv
+
+# Load environment variables from csv
+import load_user_settings
 
 
 def session_with_retries(token=None, use_query=False):
@@ -104,7 +106,6 @@ def download_one(session, url, dest_path, token=None, use_query=False, timeout=(
 
 
 def main():
-    load_dotenv()
     root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     csv_dir = os.path.join(root, 'data')
     if not os.path.isdir(csv_dir):

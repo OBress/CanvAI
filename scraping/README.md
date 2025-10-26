@@ -22,7 +22,7 @@ python "scripts/get_user_grades.py" --user-id self --out-csv data/user_grades_se
 
 Get basic course data for all your courses as csv.
 ```bash
-bash scripts/get_courses.sh
+python "scripts/get_courses.py"
 python "scripts/json_to_csv.py"
 ```
 

@@ -17,10 +17,10 @@ Usage:
 import os
 import json
 import csv
-from dotenv import load_dotenv
 import re
 import sys
-
+# Load environment variables from csv
+import load_user_settings
 
 def load_json(path):
     with open(path, "r", encoding="utf-8") as fh:
@@ -85,11 +85,6 @@ def main():
     out_dir = os.path.join(root, "data")
     ensure_dir(out_dir)
 
-    # load .env if present so CANVAS_KEY can be read from it
-    try:
-        load_dotenv()
-    except Exception:
-        pass
     if not os.path.exists(data_path):
         print("Could not find data/courses.json in project root.")
         sys.exit(1)

@@ -36,7 +36,9 @@ import sys
 from urllib.parse import urljoin
 
 import requests
-from dotenv import load_dotenv
+
+# Load environment variables from csv
+import load_user_settings
 
 
 CANVAS_BASE = "https://canvas.instructure.com/api/v1"
@@ -218,7 +220,6 @@ def export_for_course(api, course, out_dir):
 
 
 def main():
-    load_dotenv()
     token = os.getenv("CANVAS_KEY") or os.getenv("ACCESS_TOKEN")
     if not token:
         print("CANVAS_KEY or ACCESS_TOKEN not set in environment or .env. Set one and re-run.")
