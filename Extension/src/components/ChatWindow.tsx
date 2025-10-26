@@ -1,0 +1,592 @@
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ChatMessage,
+  ChatSession,
+  storage,
+  storageDefaults,
+} from "../utils/storage";
+
+const GearIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+    <path d="m19.4 15-.8 1.4a2 2 0 0 1-2.1.9l-.6-.2a5.3 5.3 0 0 0-1.8 1l-.1.6a2 2 0 0 1-2 1.6h-1.6a2 2 0 0 1-2-1.6l-.1-.6a5.3 5.3 0 0 0-1.8-1l-.6.2a2 2 0 0 1-2.1-.9L4.6 15a2 2 0 0 1 .5-2.5l.5-.4a5.3 5.3 0 0 0 0-2l-.5-.4a2 2 0 0 1-.5-2.5l.8-1.4a2 2 0 0 1 2.1-.9l.6.2a5.3 5.3 0 0 0 1.8-1l.1-.6a2 2 0 0 1 2-1.6h1.6a2 2 0 0 1 2 1.6l.1.6a5.3 5.3 0 0 0 1.8 1l.6-.2a2 2 0 0 1 2.1.9L19.4 9a2 2 0 0 1-.5 2.5l-.5.4a5.3 5.3 0 0 0 0 2l.5.4a2 2 0 0 1 .5 2.5Z" />
+  </svg>
+);
+
+const SidebarIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <path d="M9 3v18" />
+  </svg>
+);
+
+const PencilIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+    <path d="m15 5 4 4" />
+  </svg>
+);
+
+const TrashIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M3 6h18" />
+    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    <line x1="10" x2="10" y1="11" y2="17" />
+    <line x1="14" x2="14" y1="11" y2="17" />
+  </svg>
+);
+
+export interface ChatWindowProps {
+  onDragHandleDown: (event: React.PointerEvent<HTMLDivElement>) => void;
+  onMinimize: () => void;
+  onOpenSettings: () => void;
+  onClose: () => void;
+}
+
+const generateId = () => {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
+    return crypto.randomUUID();
+  }
+  return `id-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
+
+const createSession = (): ChatSession => {
+  const now = new Date().toISOString();
+  return {
+    id: `session-${generateId()}`,
+    title: "New Conversation",
+    createdAt: now,
+    updatedAt: now,
+    messages: [],
+  };
+};
+
+const formatTitle = (content: string): string => {
+  const base = content.split("\n")[0].slice(0, 28).trim();
+  return base.length
+    ? `${base}${content.length > 28 ? "..." : ""}`
+    : "Untitled";
+};
+
+export const ChatWindow: React.FC<ChatWindowProps> = ({
+  onDragHandleDown,
+  onMinimize,
+  onOpenSettings,
+  onClose,
+}) => {
+  const [sessions, setSessions] = useState<Record<string, ChatSession>>({});
+  const [activeSessionId, setActiveSessionId] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
+  const [editingTitle, setEditingTitle] = useState("");
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const activeSession = useMemo(
+    () => sessions[activeSessionId],
+    [sessions, activeSessionId]
+  );
+
+  useEffect(() => {
+    void storage.ensureInitialized().then(async () => {
+      const { chats, lastSessionId } = await storage.getMany([
+        "chats",
+        "lastSessionId",
+      ]);
+      setSessions(chats);
+      if (lastSessionId && chats[lastSessionId]) {
+        setActiveSessionId(lastSessionId);
+      } else {
+        const firstSessionId =
+          Object.keys(chats)[0] ?? storageDefaults.session.id;
+        setActiveSessionId(firstSessionId);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    return storage.subscribe((changes) => {
+      if (changes.chats) {
+        setSessions(changes.chats);
+      }
+      if (
+        typeof changes.lastSessionId === "string" &&
+        changes.lastSessionId !== activeSessionId
+      ) {
+        setActiveSessionId(changes.lastSessionId);
+      }
+    });
+  }, [activeSessionId]);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    container.scrollTop = container.scrollHeight;
+  }, [activeSession?.messages.length]);
+
+  const orderedSessions = useMemo(() => {
+    return Object.values(sessions).sort((a, b) =>
+      a.updatedAt < b.updatedAt ? 1 : -1
+    );
+  }, [sessions]);
+
+  const persistSessions = useCallback(
+    async (nextSessions: Record<string, ChatSession>, selectedId: string) => {
+      await storage.setMany({
+        chats: nextSessions,
+        lastSessionId: selectedId,
+      });
+    },
+    []
+  );
+
+  const handleSelectSession = useCallback(
+    (sessionId: string) => {
+      if (sessionId === activeSessionId) return;
+      if (!sessions[sessionId]) return;
+      setActiveSessionId(sessionId);
+      void storage.set("lastSessionId", sessionId);
+    },
+    [activeSessionId, sessions]
+  );
+
+  const handleCreateSession = useCallback(() => {
+    setSessions((prev) => {
+      const next = { ...prev };
+      const newSession = createSession();
+      next[newSession.id] = newSession;
+      setActiveSessionId(newSession.id);
+      void persistSessions(next, newSession.id);
+      return next;
+    });
+  }, [persistSessions]);
+
+  const handleDeleteSession = useCallback(
+    (sessionId: string) => {
+      if (Object.keys(sessions).length === 1) return;
+      setSessions((prev) => {
+        const next = { ...prev };
+        delete next[sessionId];
+        const fallbackId =
+          sessionId === activeSessionId
+            ? Object.values(next).sort((a, b) =>
+                a.updatedAt < b.updatedAt ? 1 : -1
+              )[0]?.id ?? storageDefaults.session.id
+            : activeSessionId;
+        setActiveSessionId(fallbackId);
+        void persistSessions(next, fallbackId);
+        return next;
+      });
+    },
+    [activeSessionId, persistSessions, sessions]
+  );
+
+  const handleUpdateSessionTitle = useCallback(
+    (sessionId: string, title: string) => {
+      setSessions((prev) => {
+        const target = prev[sessionId];
+        if (!target) return prev;
+        const next: Record<string, ChatSession> = {
+          ...prev,
+          [sessionId]: { ...target, title },
+        };
+        void storage.set("chats", next);
+        return next;
+      });
+    },
+    []
+  );
+
+  const handleStartEditingTitle = useCallback(
+    (sessionId: string, currentTitle: string) => {
+      setEditingSessionId(sessionId);
+      setEditingTitle(currentTitle);
+    },
+    []
+  );
+
+  const handleSaveEditingTitle = useCallback(() => {
+    if (editingSessionId && editingTitle.trim()) {
+      handleUpdateSessionTitle(editingSessionId, editingTitle.trim());
+    }
+    setEditingSessionId(null);
+    setEditingTitle("");
+  }, [editingSessionId, editingTitle, handleUpdateSessionTitle]);
+
+  const handleCancelEditingTitle = useCallback(() => {
+    setEditingSessionId(null);
+    setEditingTitle("");
+  }, []);
+
+  const handleSendMessage = useCallback(() => {
+    const trimmed = inputValue.trim();
+    if (!trimmed) return;
+
+    setInputValue("");
+
+    setSessions((prev) => {
+      const now = new Date().toISOString();
+      const sessionId =
+        activeSessionId && prev[activeSessionId]
+          ? activeSessionId
+          : createSession().id;
+
+      const baseSession = prev[sessionId] ?? {
+        ...createSession(),
+        id: sessionId,
+      };
+
+      const userMessage: ChatMessage = {
+        id: `msg-${generateId()}`,
+        role: "user",
+        content: trimmed,
+        createdAt: now,
+      };
+
+      const nextSession: ChatSession = {
+        ...baseSession,
+        messages: [...baseSession.messages, userMessage],
+        updatedAt: now,
+        title:
+          baseSession.messages.length === 0 &&
+          baseSession.title === "New Conversation"
+            ? formatTitle(trimmed)
+            : baseSession.title,
+      };
+
+      const updatedSessions = {
+        ...prev,
+        [sessionId]: nextSession,
+      };
+
+      setActiveSessionId(sessionId);
+      void persistSessions(updatedSessions, sessionId);
+
+      return updatedSessions;
+    });
+  }, [activeSessionId, inputValue, persistSessions]);
+
+  const handleInputKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        handleSendMessage();
+      }
+    },
+    [handleSendMessage]
+  );
+
+  return (
+    <div className="flex h-full min-h-0 w-full min-w-0">
+      <AnimatePresence initial={false}>
+        {sidebarOpen && (
+          <motion.aside
+            key="sidebar"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: 240, opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="flex h-full shrink-0 flex-col bg-gradient-to-b from-[rgba(40,39,45,0.98)] to-[rgba(31,30,36,0.95)] border-r border-white/10 backdrop-blur-xl shadow-[4px_0_24px_rgba(0,0,0,0.5),inset_-1px_0_0_rgba(255,255,255,0.05)]"
+          >
+            <div className="flex items-center justify-between px-4 py-4 border-b border-white/10 bg-black/20">
+              <span className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-100">
+                Sessions
+              </span>
+            </div>
+            <div className="canvai-scrollbar flex-1 overflow-y-auto px-2 pb-4">
+              {orderedSessions.map((session) => {
+                const isActive = session.id === activeSessionId;
+                const isEditing = editingSessionId === session.id;
+                return (
+                  <motion.div
+                    key={session.id}
+                    className={`group relative flex w-full flex-col rounded-2xl border px-4 py-3.5 text-left transition-all duration-300 ${
+                      isActive
+                        ? "bg-[#4A4A4E] border-[#5E5E62] shadow-[0_4px_16px_rgba(0,0,0,0.4)]"
+                        : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/15 hover:shadow-[0_4px_16px_rgba(255,255,255,0.05)]"
+                    }`}
+                    whileHover={!isEditing ? { x: 3, scale: 1.02 } : {}}
+                    whileTap={!isEditing ? { scale: 0.98 } : {}}
+                    onClick={() =>
+                      !isEditing && handleSelectSession(session.id)
+                    }
+                  >
+                    {isEditing ? (
+                      <div className="mb-1.5 flex items-center justify-center">
+                        <input
+                          type="text"
+                          value={editingTitle}
+                          onChange={(e) => setEditingTitle(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              handleSaveEditingTitle();
+                            } else if (e.key === "Escape") {
+                              e.preventDefault();
+                              handleCancelEditingTitle();
+                            }
+                          }}
+                          onBlur={handleSaveEditingTitle}
+                          autoFocus
+                          className="w-full text-sm font-semibold bg-[#28272D] border-2 border-[#00ADB5] rounded-xl px-3 py-2 text-[#EEEEEE] outline-none shadow-[0_0_20px_rgba(0,173,181,0.25)] placeholder:text-slate-500 transition-all duration-300 focus:border-[#33BFCA] focus:shadow-[0_0_30px_rgba(0,173,181,0.4)]"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </div>
+                    ) : (
+                      <span
+                        className={`text-sm font-semibold mb-1.5 ${
+                          isActive ? "text-slate-50" : "text-slate-300"
+                        }`}
+                      >
+                        {session.title}
+                      </span>
+                    )}
+                    <span
+                      className={`text-[10px] font-mono uppercase tracking-[0.25em] ${
+                        isActive ? "text-cyan-300/70" : "text-slate-500"
+                      }`}
+                    >
+                      {new Date(session.updatedAt).toLocaleString(undefined, {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        month: "short",
+                        day: "2-digit",
+                      })}
+                    </span>
+                    {!isEditing && (
+                      <div className="pointer-events-auto absolute right-3 top-3 flex gap-1 opacity-0 transition group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleStartEditingTitle(session.id, session.title);
+                          }}
+                          aria-label="Edit conversation title"
+                          className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-slate-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-200 transition-all duration-200"
+                        >
+                          <PencilIcon className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            if (
+                              confirm(
+                                "Delete this conversation? This action cannot be undone."
+                              )
+                            ) {
+                              handleDeleteSession(session.id);
+                            }
+                          }}
+                          aria-label="Delete conversation"
+                          className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-slate-300 hover:border-red-400/40 hover:bg-red-400/10 hover:text-red-300 transition-all duration-200"
+                        >
+                          <TrashIcon className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+            <div className="border-t border-white/10 p-3 bg-gradient-to-t from-black/30 to-transparent">
+              <button
+                type="button"
+                onClick={handleCreateSession}
+                className="flex w-full items-center justify-center gap-2.5 rounded-full bg-white/10 border border-white/20 px-4 py-2.5 text-sm font-semibold text-slate-200 shadow-[0_4px_16px_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-300 hover:bg-cyan-500/20 hover:border-cyan-400/40 hover:text-cyan-200 hover:shadow-[0_6px_24px_rgba(0,173,181,0.2)] hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span className="text-xl leading-none font-light">+</span>
+                <span className="font-mono text-xs uppercase tracking-[0.2em]">
+                  New chat
+                </span>
+              </button>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
+      <div className="relative flex min-w-0 flex-1 flex-col">
+        <div
+          className="canvai-window-header flex cursor-pointer items-center justify-between border-b border-white/10 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-xl px-5 py-3.5"
+          onPointerDown={onDragHandleDown}
+        >
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen((prev) => !prev)}
+              aria-label={sidebarOpen ? "Hide sidebar" : "Show sidebar"}
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300 hover:shadow-[0_4px_16px_rgba(0,173,181,0.2)] hover:scale-105 active:scale-95"
+            >
+              <SidebarIcon className="h-4 w-4" />
+            </button>
+            <div className="flex flex-col">
+              <span className="text-base font-bold uppercase tracking-[0.35em] text-slate-100">
+                CanvAI
+              </span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-cyan-300/60">
+                PSU Companion
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={onOpenSettings}
+              aria-label="Open settings"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-cyan-300 hover:shadow-[0_4px_16px_rgba(0,173,181,0.2)] hover:scale-105 active:scale-95"
+            >
+              <GearIcon className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close window"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-base font-bold text-slate-300 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-red-400/40 hover:bg-red-400/15 hover:text-red-300 hover:shadow-[0_4px_16px_rgba(239,68,68,0.2)] hover:scale-105 active:scale-95"
+            >
+              X
+            </button>
+          </div>
+        </div>
+
+        <div className="relative flex min-h-0 flex-1 flex-col">
+          <div
+            ref={scrollRef}
+            className="canvai-scrollbar flex-1 overflow-y-auto px-6 py-5 pb-32"
+          >
+            <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
+              <AnimatePresence initial={false}>
+                {(activeSession?.messages ?? []).map((message) => (
+                  <motion.div
+                    key={message.id}
+                    initial={{ opacity: 0, y: 16, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -16, scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                    className={`w-full rounded-2xl border backdrop-blur-md px-6 py-4 shadow-lg ${
+                      message.role === "user"
+                        ? "bg-gradient-to-br from-cyan-500/25 to-cyan-400/15 border-cyan-400/40 text-slate-50 shadow-[0_8px_32px_rgba(0,173,181,0.3),0_4px_16px_rgba(0,173,181,0.2),0_0_0_1px_rgba(0,173,181,0.2)_inset]"
+                        : "bg-white/5 border-white/10 text-slate-200 shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+                    }`}
+                  >
+                    <span
+                      className={`mb-2 block text-[10px] font-mono uppercase tracking-[0.35em] ${
+                        message.role === "user"
+                          ? "text-cyan-300/70"
+                          : "text-slate-400"
+                      }`}
+                    >
+                      {message.role}
+                    </span>
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed">
+                      {message.content}
+                    </p>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              {!activeSession?.messages.length && (
+                <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-8 py-10 text-center shadow-lg">
+                  <p className="text-base leading-relaxed text-slate-300 mb-2">
+                    Start the conversation by introducing yourself or pasting a
+                    Canvas task.
+                  </p>
+                  <p className="text-xs font-mono text-cyan-300/60 uppercase tracking-[0.2em]">
+                    I&apos;ll remember this chat for you
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Floating Input Box */}
+          <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-8 pointer-events-none bg-gradient-to-t from-[rgba(13,12,17,0.98)] via-[rgba(13,12,17,0.92)] to-transparent">
+            <div className="mx-auto w-full max-w-3xl pointer-events-auto">
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleSendMessage();
+                }}
+              >
+                <div className="relative">
+                  <textarea
+                    value={inputValue}
+                    onChange={(event) => setInputValue(event.target.value)}
+                    onKeyDown={handleInputKeyDown}
+                    rows={1}
+                    placeholder="Ask anything..."
+                    className="canvai-scrollbar w-full resize-none rounded-full border-2 border-white/20 bg-[rgba(40,39,45,0.97)] backdrop-blur-2xl px-6 py-4 pr-14 text-base text-[#EEEEEE] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)_inset,0_0_60px_rgba(0,173,181,0.1)] placeholder:text-slate-400 transition-all duration-300 focus:border-[#00ADB5] focus:bg-[rgba(40,39,45,0.99)] focus:outline-none focus:shadow-[0_16px_64px_rgba(0,173,181,0.4),0_0_0_1px_rgba(0,173,181,0.3)_inset,0_0_80px_rgba(0,173,181,0.2)] hover:border-white/30 hover:shadow-[0_14px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.12)_inset]"
+                    style={{
+                      minHeight: "56px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                    onInput={(e) => {
+                      const target = e.target as HTMLTextAreaElement;
+                      target.style.height = "56px";
+                      const newHeight = Math.min(target.scrollHeight, 200);
+                      target.style.height = newHeight + "px";
+                    }}
+                  />
+                  <div className="absolute right-4 bottom-4 flex items-center gap-2">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-slate-500">
+                      ↵ Send
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ChatWindow;

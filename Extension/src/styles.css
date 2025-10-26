@@ -1,0 +1,312 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+
+:root {
+  /* Core Color Palette - Domaski's Black Aesthetic */
+  --color-dark-primary: #0D0C11;
+  --color-dark-secondary: #16151B;
+  --color-accent: #00ADB5;
+  --color-light: #EEEEEE;
+  --color-lighter: #28272D;
+  --color-midtone: #1F1E24;
+  --color-accent-light: #33BFCA;
+  --color-accent-dark: #008B93;
+  --color-white: #FFFFFF;
+  
+  /* Radius */
+  --radius-base: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  
+  /* Shadows */
+  --shadow-glass: 0 8px 32px 0 rgba(13, 12, 17, 0.37);
+  --shadow-elevated: 0 20px 60px -15px rgba(13, 12, 17, 0.5);
+  --shadow-glow: 0 0 40px rgba(0, 173, 181, 0.15);
+}
+
+body {
+  font-family: "Geist", "Geist Fallback", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.canvai-root *,
+.canvai-root *::before,
+.canvai-root *::after {
+  box-sizing: border-box;
+}
+
+.canvai-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2147483647;
+}
+
+.canvai-floating-button {
+  pointer-events: auto;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(13, 12, 17, 0.95) 0%, rgba(22, 21, 27, 0.92) 100%);
+  color: rgba(203, 213, 225, 0.85);
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.canvai-floating-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.canvai-floating-button:hover::before {
+  left: 100%;
+}
+
+.canvai-floating-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 0 60px rgba(255, 255, 255, 0.08);
+}
+
+.canvai-floating-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.canvai-window {
+  pointer-events: auto;
+  background: linear-gradient(
+    135deg, 
+    rgba(13, 12, 17, 0.92) 0%, 
+    rgba(22, 21, 27, 0.95) 50%,
+    rgba(16, 15, 21, 0.93) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  color: var(--color-light);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 
+    var(--shadow-elevated),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    var(--shadow-glow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.canvai-window::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+}
+
+.canvai-window-header {
+  cursor: grab;
+  user-select: none;
+}
+
+.canvai-window-header:active {
+  cursor: grabbing;
+}
+
+.canvai-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.canvai-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 9999px;
+}
+
+.canvai-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, 
+    rgba(0, 173, 181, 0.6), 
+    rgba(0, 173, 181, 0.8)
+  );
+  border-radius: 9999px;
+  border: 2px solid rgba(13, 12, 17, 0.4);
+  transition: background 0.3s ease;
+}
+
+.canvai-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, 
+    rgba(0, 173, 181, 0.8), 
+    rgba(51, 191, 202, 0.9)
+  );
+}
+
+/* Edge resize handles */
+.canvai-resize-handle-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  z-index: 10;
+}
+
+.canvai-resize-handle-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+.canvai-resize-handle-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  z-index: 10;
+}
+
+.canvai-resize-handle-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+/* Corner resize handles */
+.canvai-resize-handle-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 11;
+}
+
+.canvai-resize-handle-top-left {
+  top: 0;
+  left: 0;
+  cursor: nwse-resize;
+}
+
+.canvai-resize-handle-top-right {
+  top: 0;
+  right: 0;
+  cursor: nesw-resize;
+}
+
+.canvai-resize-handle-bottom-left {
+  bottom: 0;
+  left: 0;
+  cursor: nesw-resize;
+}
+
+.canvai-resize-handle-bottom-right {
+  bottom: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  cursor: nwse-resize;
+  background: linear-gradient(135deg, 
+    rgba(0, 173, 181, 0.3), 
+    rgba(51, 191, 202, 0.15)
+  );
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 2px 8px rgba(0, 173, 181, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  transition: all 0.3s ease;
+}
+
+.canvai-resize-handle-bottom-right:hover {
+  background: linear-gradient(135deg, 
+    rgba(0, 173, 181, 0.4), 
+    rgba(51, 191, 202, 0.25)
+  );
+  box-shadow: 
+    0 4px 16px rgba(0, 173, 181, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.canvai-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 12, 17, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 2147483647;
+  pointer-events: auto;
+}
+
+/* Prevent white backgrounds on inputs */
+.canvai-overlay input,
+.canvai-overlay input:-webkit-autofill,
+.canvai-overlay input:-webkit-autofill:hover,
+.canvai-overlay input:-webkit-autofill:focus,
+.canvai-overlay input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(40, 39, 45, 0.97) inset !important;
+  -webkit-text-fill-color: #EEEEEE !important;
+  box-shadow: 0 0 0 1000px rgba(40, 39, 45, 0.97) inset !important;
+  background-color: rgba(40, 39, 45, 0.97) !important;
+  color: #EEEEEE !important;
+}
+
+/* Placeholder text color override */
+.canvai-overlay input::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+.canvai-overlay input::-webkit-input-placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+.canvai-overlay input::-moz-placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+.canvai-overlay input:-ms-input-placeholder {
+  color: #64748b !important;
+}

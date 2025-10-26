@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "CanvAI Companion",
+  "description": "Canvas-integrated AI assistant for PSU students with chat, settings, and personalization.",
+  "version": "0.1.0",
+  "permissions": ["storage", "scripting", "activeTab"],
+  "host_permissions": ["https://psu.instructure.com/*"],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://psu.instructure.com/*"],
+      "js": ["scripts/content.js"],
+      "css": ["assets/content.css"]
+    }
+  ]
+}
