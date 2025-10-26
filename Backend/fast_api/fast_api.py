@@ -1,18 +1,26 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
-from fastapi import FastAPI
+import sys
+
 import uvicorn
+from fastapi import FastAPI
+
+CURRENT_DIR = Path(__file__).resolve().parent
+BACKEND_DIR = CURRENT_DIR.parent
+PROJECT_ROOT = BACKEND_DIR.parent
+
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.append(str(BACKEND_DIR))
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+
+from vector_db.vector import perform_search, vectorize
 from llm import query_to_structured
-from Backend.vector_db.vector import perform_search
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Imports for functions used during startup
-    from Backend.vector_db.vector import vectorize
-
     # Initialize vector stores for all CSV files
-    project_root = Path(__file__).resolve().parents[2]
-    data_dir = project_root / "data"
+    data_dir = PROJECT_ROOT / "sample_data"
     # All filetypes that are going made into vector stores
     csv_filetypes = [
         "users.csv",
@@ -33,8 +41,7 @@ async def lifespan(app: FastAPI):
         # Create the vector store
         vectorize(csv_filename=csv_filename, db_name=db_name)
 
-    # Initialize Canvas API and populate extract_text files 
-
+    #TODO: Initialize Canvas API and populate extract_text files (if time allows)
 
     yield
 
@@ -46,8 +53,12 @@ app = FastAPI(lifespan=lifespan)
 async def search(query: str):
     # Calls the llm with the query to get structured information on what to search for in the vector DB
     structured_query_to_DB = query_to_structured(query)
+    print(structured_query_to_DB)
+    # TODO: Handle error cases
+
     # Feed the information into the vector DB search function to output top relevant documents
-    relevant_documents = perform_search(structured_query_to_DB)
+    print(structured_query_to_DB["table_to_query"] + ".csv", " and ", structured_query_to_DB["table_to_query"])
+    relevant_documents = perform_search(query=query, csv_filename = (structured_query_to_DB["table_to_query"] + ".csv"), db_name=structured_query_to_DB["table_to_query"])
     # TODO: Integrate new llm function that takes in relevant documents and outputs final response
 
     # FOr now returns relevant documents to see if it works, will output response later
