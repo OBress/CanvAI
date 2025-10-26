@@ -28,8 +28,11 @@ export interface Profile {
 }
 
 export interface ApiKeys {
+  canvas_key: string;
+  gemini_key: string;
+  canvas_base_url: string;
+  elevenlabs_api_key: string;
   openrouter_api_key: string;
-  canvas_api_key: string;
 }
 
 export interface WindowState {
@@ -57,8 +60,11 @@ const defaultProfile: Profile = {
 };
 
 const defaultApiKeys: ApiKeys = {
+  canvas_key: "",
+  gemini_key: "",
+  canvas_base_url: "",
+  elevenlabs_api_key: "",
   openrouter_api_key: "",
-  canvas_api_key: "",
 };
 
 const defaultSession: ChatSession = {

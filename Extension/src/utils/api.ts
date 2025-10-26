@@ -1,4 +1,4 @@
-import { ChatMessage, ChatSession } from "./storage";
+import { ApiKeys, ChatMessage, ChatSession } from "./storage";
 
 type BackendSession = {
   id: number;
@@ -16,7 +16,7 @@ type BackendMessage = {
 };
 
 const DEFAULT_BASE_URL =
-  "https://helpful-ambient-consists-labs.trycloudflare.com";
+  "https://locks-impacts-transparent-realized.trycloudflare.com";
 const CHAT_BASE_PATH = "/chat";
 
 const API_BASE_URL =
@@ -33,6 +33,28 @@ const buildUrl = (path: string) =>
 const buildRootUrl = (path: string) => `${NORMALIZED_BASE_URL}${path}`;
 
 export const buildBackendUrl = (path: string) => buildRootUrl(path);
+
+type ApiKeyField = keyof ApiKeys;
+
+const API_KEY_FIELDS: ApiKeyField[] = [
+  "canvas_key",
+  "gemini_key",
+  "canvas_base_url",
+  "elevenlabs_api_key",
+  "openrouter_api_key",
+];
+
+const normalizeApiKeys = (
+  payload: Partial<Record<ApiKeyField, unknown>> | null | undefined
+): ApiKeys => {
+  const record: Partial<Record<ApiKeyField, string>> = {};
+  API_KEY_FIELDS.forEach((field) => {
+    const raw = payload?.[field];
+    record[field] =
+      typeof raw === "string" ? raw : raw == null ? "" : String(raw);
+  });
+  return record as ApiKeys;
+};
 
 const toChatSession = (session: BackendSession): ChatSession => {
   const createdAt = session.created_at ?? new Date().toISOString();
@@ -77,9 +99,7 @@ const readJson = async <T>(response: Response): Promise<T> => {
 export const backendApi = {
   async devSearch(query: string): Promise<unknown> {
     try {
-      const url = buildRootUrl(
-        `/search?query=${encodeURIComponent(query)}`
-      );
+      const url = buildRootUrl(`/search?query=${encodeURIComponent(query)}`);
       const response = await fetch(url, {
         method: "GET",
         headers: { accept: "application/json" },
@@ -102,6 +122,58 @@ export const backendApi = {
     } catch (error) {
       console.error("[CanvAI] Dev search request failed", error);
       throw error;
+    }
+  },
+
+  async fetchUserKeys(): Promise<ApiKeys> {
+    try {
+      const response = await fetch(buildRootUrl("/user/keys"), {
+        method: "GET",
+        headers: { accept: "application/json" },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch user keys (${response.status})`);
+      }
+
+      const payload = await readJson<{
+        keys?: Partial<Record<ApiKeyField, unknown>>;
+      }>(response);
+      return normalizeApiKeys(payload.keys);
+    } catch (error) {
+      console.error("[CanvAI] Unable to fetch user keys", error);
+      return normalizeApiKeys(null);
+    }
+  },
+
+  async updateUserKey(
+    field: ApiKeyField,
+    value: string
+  ): Promise<string | null> {
+    try {
+      const response = await fetch(
+        buildRootUrl(`/user/${encodeURIComponent(field)}`),
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ value }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to update ${field} (${response.status})`);
+      }
+
+      const payload = await readJson<Partial<Record<ApiKeyField, unknown>>>(
+        response
+      );
+      const nextValue = payload[field];
+      if (typeof nextValue === "string") {
+        return nextValue;
+      }
+      return value;
+    } catch (error) {
+      console.error(`[CanvAI] Unable to update ${field}`, error);
+      return null;
     }
   },
 

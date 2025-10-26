@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ApiKeys, Profile, storage } from "../utils/storage";
-import { buildBackendUrl } from "../utils/api";
+import { backendApi, buildBackendUrl } from "../utils/api";
 
 const EyeIcon = ({ className }: { className?: string }) => (
   <svg
@@ -61,19 +61,35 @@ const profileFields: Array<{
 const apiFields: Array<{
   name: ApiField;
   label: string;
-  endpoint: string;
+  validateEndpoint?: string;
 }> = [
   {
     name: "openrouter_api_key",
     label: "OpenRouter API Key",
-    endpoint: "/api/validate/openrouter",
+    validateEndpoint: "/api/validate/openrouter",
   },
   {
-    name: "canvas_api_key",
+    name: "canvas_key",
     label: "Canvas API Key",
-    endpoint: "/api/validate/canvas",
+    validateEndpoint: "/api/validate/canvas",
+  },
+  {
+    name: "gemini_key",
+    label: "Gemini API Key",
+  },
+  {
+    name: "canvas_base_url",
+    label: "Canvas Base URL",
+  },
+  {
+    name: "elevenlabs_api_key",
+    label: "ElevenLabs API Key",
   },
 ];
+
+const apiFieldLabels = Object.fromEntries(
+  apiFields.map(({ name, label }) => [name, label])
+) as Record<ApiField, string>;
 
 const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
   const [profile, setProfile] = useState<Profile>({
@@ -85,24 +101,50 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
     credits_taken: "",
   });
   const [apiKeys, setApiKeys] = useState<ApiKeys>({
+    canvas_key: "",
+    gemini_key: "",
+    canvas_base_url: "",
+    elevenlabs_api_key: "",
     openrouter_api_key: "",
-    canvas_api_key: "",
   });
-  const [visibleFields, setVisibleFields] = useState<Record<ApiField, boolean>>(
-    {
-      openrouter_api_key: false,
-      canvas_api_key: false,
-    }
-  );
+  const [visibleFields, setVisibleFields] = useState<Record<ApiField, boolean>>({
+    canvas_key: false,
+    gemini_key: false,
+    canvas_base_url: false,
+    elevenlabs_api_key: false,
+    openrouter_api_key: false,
+  });
   const [toast, setToast] = useState<ToastState | null>(null);
   const [loadingField, setLoadingField] = useState<ApiField | null>(null);
 
   useEffect(() => {
     if (!open) return;
-    void storage.getMany(["profile", "apiKeys"]).then((values) => {
-      setProfile(values.profile);
-      setApiKeys(values.apiKeys);
-    });
+    let active = true;
+
+    const hydrate = async () => {
+      try {
+        const values = await storage.getMany(["profile", "apiKeys"]);
+        if (!active) return;
+        setProfile(values.profile);
+        setApiKeys((prev) => ({
+          ...prev,
+          ...values.apiKeys,
+        }));
+
+        const remoteKeys = await backendApi.fetchUserKeys();
+        if (!active) return;
+        setApiKeys(remoteKeys);
+        await storage.set("apiKeys", remoteKeys);
+      } catch (error) {
+        console.error("[CanvAI] Unable to hydrate settings", error);
+      }
+    };
+
+    void hydrate();
+
+    return () => {
+      active = false;
+    };
   }, [open]);
 
   useEffect(() => {
@@ -154,14 +196,68 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
 
   const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await storage.setMany({ profile, apiKeys });
-    setToast({
-      message: "Settings saved securely.",
-      tone: "success",
-    });
+    try {
+      const updates = await Promise.all(
+        (Object.entries(apiKeys) as Array<[ApiField, string]>).map(
+          async ([field, value]) => {
+            const saved = await backendApi.updateUserKey(field, value);
+            return {
+              field,
+              value: saved ?? value,
+              ok: saved !== null,
+            };
+          }
+        )
+      );
+
+      const nextKeys: ApiKeys = { ...apiKeys };
+      const failedFields: ApiField[] = [];
+
+      updates.forEach(({ field, value, ok }) => {
+        nextKeys[field] = value;
+        if (!ok) {
+          failedFields.push(field);
+        }
+      });
+
+      setApiKeys(nextKeys);
+      await storage.setMany({ profile, apiKeys: nextKeys });
+
+      if (failedFields.length > 0) {
+        const labelList = failedFields
+          .map((field) => apiFieldLabels[field] ?? field)
+          .join(", ");
+        setToast({
+          message: `Saved with issues for: ${labelList}.`,
+          tone: "error",
+        });
+      } else {
+        setToast({
+          message: "Settings synced securely.",
+          tone: "success",
+        });
+      }
+    } catch (error) {
+      console.error("[CanvAI] Unable to save settings", error);
+      setToast({
+        message: "Unable to save right now. Try again later.",
+        tone: "error",
+      });
+    }
   };
 
-  const handleValidateKey = async (field: ApiField, endpoint: string) => {
+  const handleValidateKey = async (
+    field: ApiField,
+    endpoint?: string
+  ) => {
+    if (!endpoint) {
+      setToast({
+        message: "Validation not available for this key yet.",
+        tone: "error",
+      });
+      return;
+    }
+
     const value = apiKeys[field];
     if (!value) {
       setToast({
@@ -313,11 +409,11 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
                       API Bridges
                     </h3>
                     <p className="text-xs text-slate-400 mb-4">
-                      Keys stay in your browser via chrome.storage.local. Add
-                      them once and validate to unlock full assistance.
+                      Keys sync to your backend vault and stay cached locally.
+                      Add them once and validate to unlock full assistance.
                     </p>
                     <div className="mt-4 flex flex-col gap-6 max-w-full">
-                      {apiFields.map(({ name, label, endpoint }) => {
+                      {apiFields.map(({ name, label, validateEndpoint }) => {
                         const visible = visibleFields[name];
                         const loading = loadingField === name;
                         return (
@@ -359,9 +455,12 @@ const Settings: React.FC<SettingsProps> = ({ open, onClose }) => {
                                   </button>
                                   <button
                                     type="button"
-                                    disabled={loading}
+                                    disabled={loading || !validateEndpoint}
                                     onClick={() =>
-                                      handleValidateKey(name, endpoint)
+                                      handleValidateKey(
+                                        name,
+                                        validateEndpoint
+                                      )
                                     }
                                     className="h-11 flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-5 text-[10px] font-mono uppercase tracking-[0.35em] text-slate-400 shadow-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-slate-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 active:scale-95"
                                   >
