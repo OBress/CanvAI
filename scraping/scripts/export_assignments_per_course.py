@@ -3,11 +3,11 @@
 Export assignments per course into CSV files.
 
 Behavior:
- - Reads `data.json` for course list.
+ - Reads `data/courses.json` for course list.
  - If `data_assignments.json` exists in project root, it will use that to get assignments per course.
    Expected format: {"<course_id>": [<assignment dicts>], ...}
  - Otherwise, if environment variable `CANVAS_KEY` is set, it will use the Canvas API
-   (https://canvas.instructure.com) to fetch assignments for each course id in `data.json`.
+   (https://canvas.instructure.com) to fetch assignments for each course id in `data/courses.json`.
  - Writes CSV files to `data/assignments_<course_id>_<slugified_name>.csv`.
 
 Usage:
@@ -80,7 +80,7 @@ def write_csv(path, fieldnames, rows):
 
 def main():
     root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    data_path = os.path.join(root, "data.json")
+    data_path = os.path.join(root, "data/courses.json")
     assignments_json_path = os.path.join(root, "data_assignments.json")
     out_dir = os.path.join(root, "data")
     ensure_dir(out_dir)
@@ -91,7 +91,7 @@ def main():
     except Exception:
         pass
     if not os.path.exists(data_path):
-        print("Could not find data.json in project root.")
+        print("Could not find data/courses.json in project root.")
         sys.exit(1)
 
     courses = load_json(data_path)

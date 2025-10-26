@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract text from files under downloads/ into extracted_text/<ext>/
+"""Extract text from files under files/ into extracted_text/<ext>/
 
 Supported types: .txt, .md, .csv, .json, .html, .pdf, .docx, .pptx, .zip
 Skips likely-binary or key files (e.g., .key, .pem, images).
@@ -34,7 +34,7 @@ SKIP_EXT = {'.key', '.pem', '.der', '.p12', '.crt', '.exe', '.dll'}
 IMAGE_EXT = {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.ico'}
 
 ROOT = Path(__file__).resolve().parents[1]
-DOWNLOADS = ROOT / 'downloads'
+FILES = ROOT / 'files'
 OUTDIR = ROOT / 'extracted_text'
 
 def ensure_out(path: Path) -> Path:
@@ -98,7 +98,7 @@ def extract_text_from_textfile(path: Path) -> str:
 def process_file(path: Path, out_root: Path) -> tuple[bool, str]:
     """Process a single file. Returns (ok, message)."""
     ext = path.suffix.lower()
-    rel = path.relative_to(DOWNLOADS)
+    rel = path.relative_to(FILES)
     safe_name = str(rel).replace(os.sep, '__')
     out_dir = out_root / (ext.lstrip('.') or 'other')
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -148,8 +148,8 @@ def process_file(path: Path, out_root: Path) -> tuple[bool, str]:
         return False, f'error:{e}'
 
 def main() -> None:
-    if not DOWNLOADS.exists():
-        print('No downloads/ directory found; nothing to do')
+    if not FILES.exists():
+        print('No files/ directory found; nothing to do')
         return
     out_root = OUTDIR
     out_root.mkdir(parents=True, exist_ok=True)
@@ -159,7 +159,7 @@ def main() -> None:
     failed = 0
     skipped = 0
 
-    for root, _, files in os.walk(DOWNLOADS):
+    for root, _, files in os.walk(FILES):
         for f in files:
             total += 1
             p = Path(root) / f

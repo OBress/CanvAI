@@ -10,7 +10,7 @@ Resources exported per course:
  - quizzes (/courses/{id}/quizzes)
  - discussion_topics (/courses/{id}/discussion_topics)
 
-The script reads `data.json` for a list of courses. It requires an API key in env var
+The script reads `data/courses.json` for a list of courses. It requires an API key in env var
 `CANVAS_KEY` or in a `.env` file in the project root.
 
 Usage:
@@ -233,9 +233,9 @@ def main():
         use_query = True
 
     root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    data_path = os.path.join(root, "data.json")
+    data_path = os.path.join(root, "data/courses.json")
     if not os.path.exists(data_path):
-        print("data.json not found in project root.")
+        print("data/courses.json not found in project root.")
         sys.exit(1)
 
     out_dir = os.path.join(root, "data")

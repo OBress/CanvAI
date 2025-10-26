@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert courses in data.json into CSV files:
+Convert courses in data/courses.json into CSV files:
  - data/courses.csv : one row per course, nested objects JSON-encoded or flattened (calendar.ics -> calendar_ics)
  - data/enrollments.csv : one row per enrollment with course_id FK
 
@@ -77,7 +77,7 @@ def write_csv(path, fieldnames, rows):
 
 def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_path = os.path.join(root, "data.json")
+    data_path = os.path.join(root, "data", "courses.json")
     out_dir = os.path.join(root, "data")
     ensure_dir(out_dir)
 

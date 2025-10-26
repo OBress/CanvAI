@@ -2,7 +2,7 @@
 """
 Download files listed in data/files_*.csv by reading the 'url' column.
 
-Saves into downloads/<csv_basename>/ using 'filename' or 'display_name' columns when available.
+Saves into files/<csv_basename>/ using 'filename' or 'display_name' columns when available.
 Supports CANVAS_KEY or ACCESS_TOKEN in env/.env. Set CANVAS_USE_QUERY_TOKEN=1 to force access_token query param.
 """
 import os
@@ -125,7 +125,7 @@ def main():
         print('No files_*.csv files found in data/')
         return
 
-    out_root = os.path.join(root, 'downloads')
+    out_root = os.path.join(root, 'files')
     os.makedirs(out_root, exist_ok=True)
 
     total = 0
