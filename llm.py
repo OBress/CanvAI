@@ -249,11 +249,7 @@ def generate_user_response_from_file(user_query: str, file_path: str):
         str: The response text for the user.
     """
     # Read the file content
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            relevant_info_text = f.read()
-    except Exception as e:
-        return f"Failed to read file: {e}"
+    relevant_info_text = file_path
 
     headers = {
         "Authorization": f"Bearer {API_KEY}",

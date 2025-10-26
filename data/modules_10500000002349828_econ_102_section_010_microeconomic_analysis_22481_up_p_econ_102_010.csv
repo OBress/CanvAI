@@ -1,2 +1,0 @@
-id,name,completed_at,items_count,items_url,position,prerequisite_module_ids,publish_final_grade,require_sequential_progress,requirement_type,state,unlock_at
-10500000005381143,Fun and Relaxation Corner,2024-09-29T02:20:23Z,10,https://canvas.instructure.com/api/v1/courses/1050~2349828/modules/1050~5381143/items,1,[],False,False,all,completed,2024-09-12T04:00:00Z
