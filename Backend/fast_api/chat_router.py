@@ -1,18 +1,31 @@
 """FastAPI router for chat session and message endpoints."""
 
-from fastapi import APIRouter, HTTPException
 from typing import Dict
 
-from .chat_store import (
-    create_chat_message,
-    create_chat_session,
-    ensure_chat_storage,
-    format_message,
-    format_session,
-    get_chat_session,
-    list_chat_messages,
-    list_chat_sessions,
-)
+from fastapi import APIRouter, HTTPException
+
+if __package__ in (None, ""):
+    from chat_store import (  # type: ignore  # noqa: F401
+        create_chat_message,
+        create_chat_session,
+        ensure_chat_storage,
+        format_message,
+        format_session,
+        get_chat_session,
+        list_chat_messages,
+        list_chat_sessions,
+    )
+else:
+    from .chat_store import (
+        create_chat_message,
+        create_chat_session,
+        ensure_chat_storage,
+        format_message,
+        format_session,
+        get_chat_session,
+        list_chat_messages,
+        list_chat_sessions,
+    )
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 

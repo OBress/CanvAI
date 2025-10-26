@@ -1,24 +1,69 @@
 import { ChatMessage, ChatSession } from "./storage";
 
-// Placeholder base URL for the local backend; update when wiring real endpoints.
+type BackendSession = {
+  id: number;
+  user_id: string;
+  title: string;
+  created_at: string;
+};
+
+type BackendMessage = {
+  id: number;
+  session_id: number;
+  sender: string;
+  message: string;
+  timestamp: string;
+};
+
+const DEFAULT_BASE_URL = "http://localhost:8000";
+const CHAT_BASE_PATH = "/chat";
+
 const API_BASE_URL =
   (typeof window !== "undefined" &&
     (window as unknown as { CANVAI_API_BASE_URL?: string })
       .CANVAI_API_BASE_URL) ||
-  "http://localhost:8000/api";
+  DEFAULT_BASE_URL;
 
-const buildUrl = (path: string) => `${API_BASE_URL}${path}`;
+const buildUrl = (path: string) => `${API_BASE_URL}${CHAT_BASE_PATH}${path}`;
 
-const parseSessions = (payload: unknown): ChatSession[] => {
-  if (!payload) return [];
-  if (Array.isArray(payload)) {
-    return payload as ChatSession[];
+const toChatSession = (session: BackendSession): ChatSession => {
+  const createdAt = session.created_at ?? new Date().toISOString();
+  return {
+    id: String(session.id),
+    title: session.title ?? "New Conversation",
+    createdAt,
+    updatedAt: createdAt,
+    messages: [],
+  };
+};
+
+const toChatMessage = (message: BackendMessage): ChatMessage => {
+  const role =
+    message.sender === "assistant" ||
+    message.sender === "system" ||
+    message.sender === "user"
+      ? (message.sender as ChatMessage["role"])
+      : "system";
+
+  return {
+    id: String(message.id),
+    role,
+    content: message.message ?? "",
+    createdAt: message.timestamp ?? new Date().toISOString(),
+  };
+};
+
+const readJson = async <T>(response: Response): Promise<T> => {
+  const text = await response.text();
+  if (!text) {
+    return {} as T;
   }
-  if (typeof payload === "object" && "sessions" in (payload as Record<string, unknown>)) {
-    const { sessions } = payload as { sessions?: ChatSession[] };
-    return Array.isArray(sessions) ? sessions : [];
+
+  try {
+    return JSON.parse(text) as T;
+  } catch (error) {
+    throw new Error(`Invalid JSON payload: ${(error as Error).message}`);
   }
-  return [];
 };
 
 export const backendApi = {
@@ -28,47 +73,20 @@ export const backendApi = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
-
       if (!response.ok) {
         throw new Error(`Failed to fetch sessions (${response.status})`);
       }
 
-      const payload = (await response.json()) as unknown;
-      return parseSessions(payload);
+      const payload = await readJson<{ sessions?: BackendSession[] }>(response);
+      const sessions = Array.isArray(payload.sessions) ? payload.sessions : [];
+      return sessions.map(toChatSession);
     } catch (error) {
       console.error("[CanvAI] Unable to fetch sessions from backend", error);
       return [];
     }
   },
 
-  async upsertSession(session: ChatSession): Promise<void> {
-    try {
-      await fetch(buildUrl(`/sessions/${encodeURIComponent(session.id)}`), {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ session }),
-      });
-    } catch (error) {
-      console.error(
-        `[CanvAI] Unable to upsert session ${session.id} in backend`,
-        error
-      );
-    }
-  },
-
-  async deleteSession(sessionId: string): Promise<void> {
-    try {
-      await fetch(buildUrl(`/sessions/${encodeURIComponent(sessionId)}`), {
-        method: "DELETE",
-      });
-    } catch (error) {
-      console.error(`[CanvAI] Unable to delete session ${sessionId}`, error);
-    }
-  },
-
-  async fetchSessionMessages(
-    sessionId: string
-  ): Promise<ChatMessage[]> {
+  async fetchSessionMessages(sessionId: string): Promise<ChatMessage[]> {
     try {
       const response = await fetch(
         buildUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`),
@@ -84,19 +102,11 @@ export const backendApi = {
         );
       }
 
-      const payload = (await response.json()) as unknown;
-      if (Array.isArray(payload)) {
-        return payload as ChatMessage[];
-      }
-      if (
-        payload &&
-        typeof payload === "object" &&
-        "messages" in (payload as Record<string, unknown>)
-      ) {
-        const { messages } = payload as { messages?: ChatMessage[] };
-        return Array.isArray(messages) ? messages : [];
-      }
-      return [];
+      const payload = await readJson<{ messages?: BackendMessage[] }>(response);
+      const messages = Array.isArray(payload.messages)
+        ? payload.messages
+        : [];
+      return messages.map(toChatMessage);
     } catch (error) {
       console.error(
         `[CanvAI] Unable to load messages for session ${sessionId}`,
@@ -106,21 +116,109 @@ export const backendApi = {
     }
   },
 
+  async createSession(options: {
+    userId: string;
+    title: string;
+  }): Promise<ChatSession | null> {
+    try {
+      const response = await fetch(buildUrl("/sessions"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: options.userId,
+          title: options.title,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to create session (${response.status})`);
+      }
+
+      const payload = await readJson<{ session?: BackendSession }>(response);
+      if (!payload.session) {
+        throw new Error("Backend did not return a session payload");
+      }
+
+      return toChatSession(payload.session);
+    } catch (error) {
+      console.error("[CanvAI] Unable to create chat session", error);
+      return null;
+    }
+  },
+
+  async updateSessionTitle(sessionId: string, title: string): Promise<void> {
+    try {
+      const response = await fetch(
+        buildUrl(`/sessions/${encodeURIComponent(sessionId)}`),
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to update session (${response.status})`);
+      }
+    } catch (error) {
+      console.error(
+        `[CanvAI] Unable to update session ${sessionId} title`,
+        error
+      );
+    }
+  },
+
+  async deleteSession(sessionId: string): Promise<void> {
+    try {
+      const response = await fetch(
+        buildUrl(`/sessions/${encodeURIComponent(sessionId)}`),
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok && response.status !== 404) {
+        throw new Error(`Failed to delete session (${response.status})`);
+      }
+    } catch (error) {
+      console.error(`[CanvAI] Unable to delete session ${sessionId}`, error);
+    }
+  },
+
   async appendMessage(
     sessionId: string,
     message: ChatMessage
-  ): Promise<void> {
+  ): Promise<ChatMessage | null> {
     try {
-      await fetch(buildUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-      });
+      const response = await fetch(
+        buildUrl(`/sessions/${encodeURIComponent(sessionId)}/messages`),
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sender: message.role,
+            message: message.content,
+            timestamp: message.createdAt,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to append message (${response.status})`);
+      }
+
+      const payload = await readJson<{ message?: BackendMessage }>(response);
+      if (!payload.message) {
+        throw new Error("Backend did not return a message payload");
+      }
+
+      return toChatMessage(payload.message);
     } catch (error) {
       console.error(
         `[CanvAI] Unable to append message ${message.id} for session ${sessionId}`,
         error
       );
+      return null;
     }
   },
 
@@ -129,26 +227,29 @@ export const backendApi = {
   ): Promise<ChatMessage | null> {
     try {
       const response = await fetch(
-        buildUrl(`/sessions/${encodeURIComponent(sessionId)}/response`),
+        buildUrl(`/sessions/${encodeURIComponent(sessionId)}/assistant`),
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Failed to request assistant response (${response.status})`);
+      if (response.status === 404) {
+        return null;
       }
 
-      const payload = (await response.json()) as unknown;
-      if (
-        payload &&
-        typeof payload === "object" &&
-        "message" in (payload as Record<string, unknown>)
-      ) {
-        return (payload as { message: ChatMessage | null }).message ?? null;
+      if (!response.ok) {
+        throw new Error(
+          `Failed to request assistant response (${response.status})`
+        );
       }
-      return null;
+
+      const payload = await readJson<{ message?: BackendMessage }>(response);
+      if (!payload.message) {
+        return null;
+      }
+
+      return toChatMessage(payload.message);
     } catch (error) {
       console.error(
         `[CanvAI] Unable to fetch assistant response for session ${sessionId}`,
